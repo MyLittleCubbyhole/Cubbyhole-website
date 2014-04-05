@@ -8,7 +8,7 @@ var path    = require('path')
 global.paths = { app: __dirname, views: __dirname + '/application/client/views' };
 
 module.exports = { app: app, server: server };
-
+//test
 app.configure(function(){
     app.engine('ejs', require('ejs-locals'));
     app.set('views', global.paths.views);
