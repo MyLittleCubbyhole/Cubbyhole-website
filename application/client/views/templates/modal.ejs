@@ -1,0 +1,37 @@
+<section class="md-modal md-effect-1" ng-class="{'md-show': _modal.isVisible(), 'md-no-content': _modal.file.category != 'image' && _modal.file.category != 'video' && _modal.file.category != 'audio' && _modal.file.category != 'pdf'}">
+    <article class="md-content">
+        <section class="content">
+            <img class="modal-image" ng-src="{{_modal.resourceUrl}}" ng-if="_modal.file.category == 'image'"/>
+            <article class="modal-video" ng-class="{hidden: _modal.file.category != 'video'}">
+                <video id="video" class="video-js vjs-default-skin vjs-big-play-centered" ng-src="{{_modal.resourceUrl}}" controls>
+                    Video
+                </video>
+            </article>
+            <article class="modal-audio" ng-class="{hidden: _modal.file.category != 'audio'}">
+                <audio id="audio" preload="metadata" controls>
+                    <source ng-src="{{_modal.resourceUrl}}">
+                </audio>
+            </article>
+            <article class="modal-pdf" ng-if="_modal.file.category == 'pdf'">
+                <pdfviewer src="{{_modal.resourceUrl}}" on-page-load='_modal.pdf.pageLoaded(page,total)' id="pdfViewer"></pdfviewer>
+                <article>
+                    <div>
+                        <span class="label" ng-show="_modal.pdf.totalPages">{{_modal.pdf.currentPage}}/{{_modal.pdf.totalPages}}</span>
+                    </div>
+                    <div class="inline">
+                        <div class="buttons-modal">
+                            <button class="inline button action left" ng-click="_modal.pdf.gotoPage(1)">|&lt;</button>
+                            <button class="inline button action left right" ng-click="_modal.pdf.prevPage()">&lt;</button>
+                            <button class="inline button action left right" ng-click="_modal.pdf.nextPage()">&gt;</button>
+                            <button class="inline button action right" ng-click="_modal.pdf.gotoPage(_modal.pdf.totalPages)">&gt;|</button>
+                        </div>
+                    </div>
+                </article>
+            </article>
+        </section>
+        <section class="clearfix buttons-modal">
+            <article ng-mouseup="_filemanager.clickFile(_modal.file)" class="inline button action left"><i class="icon-box-add margin-icon-small"></i>Download</article>
+            <article ng-mouseup="_modal.close()" class="inline button action right"><i class="icon-cancel-circle margin-icon-small"></i>Close</article>
+        </section>
+    </article>
+</section>

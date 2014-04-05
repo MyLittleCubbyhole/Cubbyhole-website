@@ -1,0 +1,54 @@
+<% layout('./layout/core') %>
+<section id="body" ng-app="CubbyHole">
+    <header id="header">
+        <div id="logo-group">
+            <span id="logo">
+                <img src="../images/logo.png">
+            </span>
+        </div>
+
+        <div class="header-link">
+            <a href="/home">Home</a>
+        </div>
+        <div class="header-link">
+            <a href="/browse">Filemanager</a>
+        </div>
+        <div class="header-link">
+            <a href="/samples">Samples</a>
+        </div>
+
+        <div class="pull-right">
+            <div class="login-info pull-right">
+                <span data-toggle="dropdown" class="login-name">
+                    <img src="/images/unknown-person.png" alt="" class="img-circle">
+                    <a href="javascript:void(0);">Julien Torrielli <i class="caret"></i></a>
+                </span>
+                <section id="account-card" class="dropdown-menu">
+                    <section class="account-container">
+                        <section class="header"></section>
+                        <section class="body">
+                            <section class="profile">
+                                <article class="photo">
+                                    <img class="frame" src="/images/unknown-person.png"/>
+                                </article>
+                                <article class="information">
+                                    <article class="lastname">Torrielli</article>
+                                    <article class="firstname">Julien</article>
+                                </article>
+                            </section>
+                            <section class="options">
+                                <article class="option"><i class="margin-icon icon-user"></i><span>profile</span></article>
+                                <article class="option"><i class="margin-icon icon-envelope"></i><span>messages</span></article>
+                                <article class="option"><i class="margin-icon icon-cog"></i><span>settings</span></article>
+                            </section>
+                        </section>
+                        <section class="footer">
+                            <i class="margin-icon icon-switch"></i><span>Logout</span>
+                        </section>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </header>
+    <div class="view" ng-view></div>
+</section>

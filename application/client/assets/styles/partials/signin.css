@@ -1,0 +1,61 @@
+#signin {
+    display: inline-block;
+    background-color: #2b2937;
+    color: #8b8fa4;
+    min-width: 270px;
+    max-width: 180px;
+    box-shadow: 1px 1px 4px black, inset 0px 1px 10px rgba(0, 0, 0, 0.53);
+    text-align: center;
+}
+#signin .header {
+    height: 100px;  
+    line-height: 70px;
+    text-align: center;
+    font-size: 18px;  color: #d5d5d6;
+}
+#signin .input {
+    background-color: #394264;
+    width: 246px;
+    margin: auto;
+    height: 50px;
+    margin-bottom: 10px;
+    line-height: 50px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 12px 5px 0px 5px;
+    border: 1px solid #13151D;
+    border-radius: 5px;
+}
+#signin .input i {
+    font-size: 25px;
+    float: left;
+}
+#signin .input input {
+    float: left;
+    border: none;
+    width: 204px;
+    height: 25px;
+    margin-left: 4px;
+    line-height: 25px;
+    outline: none;
+    font-size: 16px;
+    color: #d5d5d6;
+    background-color: transparent;
+}
+#signin .caption {
+    cursor: pointer;
+}
+#signin .caption:hover {
+    color: #d5d5d6;
+}
+#signin .footer {
+    background-color: #014b96;
+    height: 45px;
+    line-height: 45px;
+    color: #d5d5d6;
+    font-size: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: inset 0px -1px 5px rgba(0, 0, 0, 0.35);
+}

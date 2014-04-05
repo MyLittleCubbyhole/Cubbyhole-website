@@ -1,0 +1,65 @@
+<section class="filemanager">
+      <modal></modal>
+      <article ng-mouseup="_filemanager.unselectAll()">
+            <section class="menu">
+                  <article>
+                        <section class="menu-item menu-go-back" ng-class="{hidden: !_filemanager.isChildFolder()}" ng-mouseup="_filemanager.goBack()">
+                              <article class="button action left"><i class="icon-undo margin-icon-small"></i></article>
+                        </section>
+                  </article>
+                  <article ng-class="{hidden: _filemanager.isSomethingSelected()}">
+                        <section class="menu-item menu-upload">
+                              <article class="button action left" ng-class="{right: _filemanager.isChildFolder()}"><i class="icon-box-remove margin-icon-small"></i>Upload</article>
+                        </section>
+                        <section class="menu-item menu-new-folder" ng-mouseup="_filemanager.newFolder()">
+                              <article class="button action right"><i class="icon-folder margin-icon-small"></i>New folder</article>
+                        </section>
+                  </article>
+                  <article ng-class="{hidden: !_filemanager.isSomethingSelected()}">
+                        <section class="menu-item menu-download" ng-class="{hidden: _filemanager.isFolderSelected()}" ng-mouseup="_filemanager.download()">
+                              <article class="button action left" ng-class="{right: _filemanager.isChildFolder()}"><i class="icon-box-add margin-icon-small"></i>Download</article>
+                        </section>
+                        <section class="menu-item menu-rename" ng-mouseup="_filemanager.rename()">
+                              <article class="button action left" ng-class="{right: !_filemanager.isFolderSelected() || (_filemanager.isFolderSelected() && _filemanager.isChildFolder())}"><i class="icon-pencil margin-icon-small"></i>Rename</article>
+                        </section>
+                        <section class="menu-item menu-delete" ng-mouseup="_filemanager.remove()">
+                              <article class="button action right"><i class="icon-cancel-circle margin-icon-small"></i>Remove</article>
+                        </section>
+                  </article>
+                  <article>
+                        <section class="menu-item menu-refresh" ng-mouseup="_filemanager.refresh()">
+                              <article class="button action"><i class="icon-loop margin-icon-small"></i></article>
+                        </section>
+                  </article>
+            </section>
+      </article>
+      <article ng-mouseup="_filemanager.unselectAll()">
+            <section class="container-fluid labels">
+                  <article class="labels-filename-column col-xs-8 col-sm-6 col-md-6 col-lg-8" ng-click="_filemanager.orderBy('name')">
+                        <div class="labels-filename">
+                              <span class="labels-filename-label">Name</span>
+                              <div class="order" ng-class="{orderAsc: _filemanager.orderExpr[1] == 'name', orderDesc: _filemanager.orderExpr[1] == '-name'}"></div>
+                        </div>
+                  </article>
+                  <article class="labels-kind-column hidden-xs col-sm-3 col-md-3 col-lg-2" ng-click="_filemanager.orderBy('category')">
+                        <div class="labels-kind">
+                              <span class="labels-kind-label">Type</span>
+                              <div class="order" ng-class="{orderAsc: _filemanager.orderExpr[1] == 'category', orderDesc: _filemanager.orderExpr[1] == '-category'}"></div>
+                        </div>
+                  </article>
+                  <article class="labels-modified-column col-xs-4 col-sm-3 col-md-3 col-lg-2" ng-click="_filemanager.orderBy('modified')">
+                        <div class="labels-modified">
+                              <span class="labels-modified-label">Modified</span>
+                              <div class="order" ng-class="{orderAsc: _filemanager.orderExpr[1] == 'modified', orderDesc: _filemanager.orderExpr[1] == '-modified'}"></div>
+                        </div>
+                  </article>
+            </section>
+      </article>
+      <article class="list-files-container" ng-mouseup="_filemanager.unselectAll()">
+            <section class="list-files container-fluid">
+                  <article class="file-repeat" ng-repeat="file in _filemanager.files | orderBy: _filemanager.orderExpr">
+                        <file file="{{file}}" ng-click="_filemanager.selectItem(file)" ng-dblclick="_filemanager.openItem(file)" ng-class="{fileSelected: _filemanager.isSelected(file)}"></file>
+                  </article>
+            </section>
+      </article>
+</section>
