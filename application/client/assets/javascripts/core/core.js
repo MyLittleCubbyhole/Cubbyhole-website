@@ -13,6 +13,9 @@ cubbyHole.config(['baseUrl', 'RestangularProvider', '$routeProvider', '$location
         templateUrl: '/partials/filemanager',
         controller: 'fileController'
     })
+    .when('/plans', {
+        templateUrl: '/partials/plans'
+    })
     .when('/samples', {
         templateUrl: '/partials/sample'
     })
