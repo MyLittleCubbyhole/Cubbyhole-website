@@ -1,0 +1,182 @@
+#header {
+    display: block;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    height: 65px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: #2B2937;
+}
+
+#header > div {
+    display: inline-block;
+    vertical-align: middle;
+    height: 65px;
+    float: left;
+}
+
+#logo-group {
+    background: #211F29 !important;
+    overflow: hidden !important;
+    width: 64px !important;
+}
+
+#logo-group > span {
+    display: inline-block;
+    height: 57px;
+    float: left;
+}
+
+#logo {
+    display: inline-block;
+    padding-top: 3px;
+}
+
+#logo img {
+    width: 57px;
+    height: 57px;
+    padding-left: 3px;
+}
+
+.header-link > a {
+    display: block;
+    color: #8b8fa4 !important;
+    text-shadow: 0 0 1px #222;
+    font-size: 20px;
+    text-align: left;
+    text-decoration: none;
+    padding: 19px 19px 0;
+}
+
+.header-link > a:hover {
+    color: #d5d5d6 !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.login-info {
+    background-color: #211F29;
+    padding: 16px 23px 0;
+    position: relative;
+}
+
+.login-info img {
+    width: 54px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -10px;
+    margin-right: 7px;
+    margin-left: 0px;
+}
+
+.login-info > span {
+    height: 49px;
+    min-width: 158px;
+    text-align: center;
+    display: block;
+    padding: 0 10px;
+}
+
+.login-info strong,
+.login-info a {
+    text-transform: capitalize;
+    font-size: 14px;
+    display: inline-block;
+    color: #A8A8A8;
+    text-decoration: none;
+}
+
+.login-name > a{
+    font-size: 20px;
+}
+
+.login-info strong,
+.login-info a:hover {
+    color: #fff;
+}
+
+.login-info a:hover .caret {
+    opacity: 1;
+}
+
+.caret {
+    margin-top: 11px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #fff;
+    display: inline-block;
+    height: 0;
+    opacity: 0.3;
+    vertical-align: top;
+    width: 0;
+}
+
+.dropdown-menu {
+    z-index: 1005;
+    border-radius: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 2px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    background-clip: padding-box;
+}
+
+.open > .dropdown-menu {
+    -webkit-animation-name: flipInX;
+    -moz-animation-name: flipInX;
+    -o-animation-name: flipInX;
+    animation-name: flipInX;
+}
+
+.open > .dropdown-menu {
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.login-info .dropdown-menu {
+    min-width: 180px;
+}
+
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.open > .dropdown-menu {
+    display: block;
+}
+
+#account-card .frame {
+    margin: 0;
+}
+
+/* .dropdown-menu#account-card {
+    min-width: 177px;
+    margin-right: 2px;
+} */
+
+/* .dropdown-menu#account-card .body {
+    padding-top: 0;
+} */

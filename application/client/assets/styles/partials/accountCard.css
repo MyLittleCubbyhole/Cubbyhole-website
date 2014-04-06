@@ -1,0 +1,75 @@
+#account-card {
+    background-color: #2b2937;
+    color: #8b8fa4;
+    min-width: 270px;
+    max-width: 180px;
+    box-shadow: 1px 1px 4px black;
+}
+#account-card .header {
+    height: 70px;
+    background-image: url(http://www.iammusic.tv/wp-content/uploads/2012/11/Black-background-set-wood-on-chanconsultants-jpg.jpg);
+}
+#account-card .body {
+    padding-top: 70px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+#account-card .photo {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: -45px;
+    left: 20px;
+    background-color: black;
+    /* background-image: url(http://static1.purepeople.com/articles/8/25/68/@/5993-clara-morgane-637x0-1.jpg); */
+    background-size: 90px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+#account-card .information {
+    position: absolute;
+    top: 0px;
+    left: 130px;
+}
+#account-card .profile .lastname {
+    font-size: 25px;
+    color: #d5d5d6;
+}
+#account-card .frame {
+    border: 3px solid white;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#account-card .profile .firstname {
+    font-size: 18px;
+}
+#account-card .options .option {
+    height: 35px;
+    line-height: 35px;
+    padding-left: 30px;
+    font-size: 17px;
+    cursor: pointer;
+}
+#account-card .options .option:nth-child(2n+1) {
+    background-color: #32364e;
+}
+#account-card .options .option:hover, #account-card .footer:hover {
+    color: #d5d5d6;
+}
+#account-card .footer {
+    font-size: 17px;
+	background-color: #13151D;
+	height: 40px;
+	cursor: pointer;
+	line-height: 35px;
+	padding: 0px 0px 0px 30px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
