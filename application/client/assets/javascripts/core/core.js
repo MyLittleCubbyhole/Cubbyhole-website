@@ -1,6 +1,6 @@
 var cubbyHole = angular.module('CubbyHole', ['WaiterUpAndDown', 'Filemanager', 'restangular', 'ngRoute']);
 
-cubbyHole.constant('baseUrl', 'http://localhost:800/api/');
+cubbyHole.constant('baseUrl', 'http://localhost:5150/api/');
 
 cubbyHole.config(['baseUrl', 'RestangularProvider', '$routeProvider', '$locationProvider', function(baseUrl, RestangularProvider, $routeProvider, $locationProvider) {
 

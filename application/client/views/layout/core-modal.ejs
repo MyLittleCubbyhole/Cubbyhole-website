@@ -18,15 +18,11 @@
 	<!-- design -->
 		<!-- styles -->
 		<link rel="stylesheet" href="/styles/core.css">
+		<link rel="stylesheet" href="/styles/components/modal.css">
 		<!-- styles -->
 		<!-- fonts -->
 		<!-- fonts -->
 	<!-- design -->
-
-	<!-- //BUUUUUURRRK BAAAHHH DEGEULASSE BAAHHHHHH -->
-	<script type="text/javascript">
-  		document.createElement('video');document.createElement('audio');document.createElement('track');
-	</script>
 
 	</head>
 	<body ng-controller="<%- angular %>">
@@ -35,17 +31,35 @@
         <%- include ../partials/ejs/header.ejs %>
 		<!-- header -->
 
+		<section class="modal">
+			<div class="modal-content">
+				<h3>Modal Dialog</h3>
+				<div>
+					<p>This is a modal window. You can do the following things with it:</p>
+					<ul>
+						<li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+						<li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+						<li><strong>Close:</strong> click on the button below to close the modal.</li>
+					</ul>
+					<button class="md-close">Close me!</button>
+				</div>
+			</div>
+		</section>
+
 		<!-- content -->
         <%- body %>
 		<!-- content -->
+	
+		<section id="overlay"></section>
 
 		<!-- scripts -->
 			<!-- libraries -->
     		<%- include [[javascripts.libraries]] %>
 			<!-- libraries -->
 			<!-- features -->
-    		<%- include [[javascripts.features]] %>
-			<!-- features -->
+			<!-- un script casse les couilles je sais pas le quel... -->
+    		<!-- <%- include [[javascripts.features]] %> -->
+			<!-- features
 		<!-- scripts -->
 
 	</body>

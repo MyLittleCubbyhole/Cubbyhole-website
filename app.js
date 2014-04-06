@@ -7,7 +7,7 @@ var path    = require('path')
 ,   link = {'prod':'config-prod.json', 'dev':'config-dev.json'};
 
 global.configFile = typeof link[environment] != 'undefined' ? link[environment] : link['dev'];
-global.paths = { app: __dirname, server: __dirname + '/application/server' };
+global.paths = { app: __dirname, server: __dirname + '/application/server', views: __dirname + '/application/client/views/' };
 
 module.exports = { app: app, server: server };
 
@@ -19,7 +19,7 @@ app.configure(function(){
     app.use(express.urlencoded());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
-    app.use(express.static(path.join(__dirname, global.paths.server + '/application/client/assets')));
+    app.use(express.static(path.join(__dirname, '/application/client/assets')));
 });
 
 app.configure('production', function () {

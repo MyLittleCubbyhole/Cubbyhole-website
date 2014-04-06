@@ -10,7 +10,6 @@
 @import url(/styles/partials/plans.css);
 @import url(/styles/modules/filemanager/core.css);
 @import url(/styles/components/buttons.css);
-@import url(/styles/components/modal.css);
 
 html, body, #body {
     height: 100%;
