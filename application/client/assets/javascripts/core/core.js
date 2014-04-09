@@ -1,6 +1,6 @@
 var cubbyHole = angular.module('CubbyHole', ['WaiterUpAndDown', 'Filemanager', 'restangular', 'ngRoute']);
 
-cubbyHole.constant('baseUrl', 'http://localhost:5150/api/');
+cubbyHole.constant('baseUrl', 'http://localhost:5152/api/');
 
 cubbyHole.config(['baseUrl', 'RestangularProvider', '$routeProvider', '$locationProvider', function(baseUrl, RestangularProvider, $routeProvider, $locationProvider) {
 
@@ -31,7 +31,7 @@ cubbyHole.factory('UserService', function() {
         id : '0'
     };
 });
-//
+
 cubbyHole.controller('fileController', ['$scope', '$routeParams', 'UserService', 'Restangular', function($scope, $routeParams, UserService, Restangular) {
 
     var $local = $scope.fileController = {};

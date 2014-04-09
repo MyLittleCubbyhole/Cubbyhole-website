@@ -16,7 +16,7 @@ angular.module('WaiterUpAndDown').
 	return {
 		scope: {},
 		restrict: 'E',
-		templateUrl: 'templates/waiter',
+		templateUrl: '/templates/waiter',
 		replace: true,
 		require: 'waiter',
 		controller: function($scope) {

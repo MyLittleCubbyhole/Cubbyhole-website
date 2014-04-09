@@ -3,7 +3,7 @@ var filemanager = angular.module('Filemanager').
         return {
             scope: true,
             restrict: 'E',
-            templateUrl: 'templates/filemanager',
+            templateUrl: '/templates/filemanager',
             replace: true,
             require: 'filemanager',
             controller: function($scope) {
