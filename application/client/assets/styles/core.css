@@ -11,7 +11,7 @@
 @import url(/styles/modules/filemanager/core.css);
 @import url(/styles/components/buttons.css);
 
-html, body, #body {
+html, body {
     height: 100%;
 }
 

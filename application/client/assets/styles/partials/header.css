@@ -1,7 +1,7 @@
 #header {
     display: block;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-    height: 65px;
+    height: 85px;
     position: relative;
     margin: 0;
     padding: 0;
@@ -11,19 +11,22 @@
 #header > div {
     display: inline-block;
     vertical-align: middle;
-    height: 65px;
+    height: 85px;
     float: left;
+    padding: 3px;
+    margin-right: -3px;
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 #logo-group {
     background: #211F29 !important;
     overflow: hidden !important;
-    width: 64px !important;
+    width: 85px !important;
 }
 
 #logo-group > span {
     display: inline-block;
-    height: 57px;
+    /* height: 85px; */
     float: left;
 }
 
@@ -33,9 +36,8 @@
 }
 
 #logo img {
-    width: 57px;
-    height: 57px;
-    padding-left: 3px;
+    width: 77px;
+    /* height: 110px; */
 }
 
 .header-link > a {
@@ -45,7 +47,7 @@
     font-size: 20px;
     text-align: left;
     text-decoration: none;
-    padding: 19px 19px 0;
+    padding: 26px 19px 0;
 }
 
 .header-link > a:hover {
@@ -60,6 +62,7 @@
     background-color: #211F29;
     padding: 16px 23px 0;
     position: relative;
+    height: 100%;
 }
 
 .login-info img {
@@ -160,8 +163,8 @@
 }
 
 .pull-right > .dropdown-menu {
-    right: 0;
-    left: auto;
+    left: -1px;
+    margin-top: 4px;
 }
 
 .open > .dropdown-menu {
