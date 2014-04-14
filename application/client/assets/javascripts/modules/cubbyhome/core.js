@@ -1,0 +1,1 @@
+angular.module('CubbyHome', ['Config', 'Authentication', 'Navigation']);

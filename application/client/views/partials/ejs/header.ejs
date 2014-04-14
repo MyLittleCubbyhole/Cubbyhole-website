@@ -1,0 +1,37 @@
+<header>
+	<section id="global-nav" ng-controller="NavigationController">
+		<nav class="navigation pull-left">
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
+				<i class="icon icon-home"></i>
+				<span class="label hidden-xs hidden-sm">Accueil</span>
+			</article>
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover')">
+				<i class="icon icon-newspaper"></i>
+				<span class="label hidden-xs hidden-sm">Decouvrir</span>
+			</article>
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan')">
+				<i class="icon icon-gift"></i>
+				<span class="label hidden-xs hidden-sm">Offre</span>
+			</article>
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact')">
+				<i class="icon icon-address-book"></i>
+				<span class="label hidden-xs hidden-sm">Contact</span>
+			</article>
+		</nav>
+		<section class="redirect-zone pull-left">			
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
+				<i class="icon icon-folder"></i>
+				<span class="label hidden-xs">Gestionnaire de fichier</span>
+			</article>
+		</section>
+		<section class="menu pull-right">
+			<article class="option notification">
+				<span class="menu-opt"><i class="icon icon-bell"></i></span>
+			</article>
+			<article class="option authentication" ng-controller="AuthenticationController">
+				<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
+				<span class="label">{{Authentication.user.username}}</span>
+			</article>
+		</section>
+	</section>
+</header>

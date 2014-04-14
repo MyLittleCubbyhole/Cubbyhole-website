@@ -1,1 +1,1 @@
-angular.module('Filemanager', ['restangular', 'ngPDFViewer']);
+angular.module('FileManager', ['Tools', 'Websocket', 'Authentication']);

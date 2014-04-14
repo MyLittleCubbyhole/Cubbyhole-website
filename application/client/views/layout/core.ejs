@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="<%- angular.module %>">
 	<head>
 
 	<!-- meta -->
@@ -23,13 +23,8 @@
 		<!-- fonts -->
 	<!-- design -->
 
-	<!-- //BUUUUUURRRK BAAAHHH DEGEULASSE BAAHHHHHH -->
-	<script type="text/javascript">
-  		document.createElement('video');document.createElement('audio');document.createElement('track');
-	</script>
-
 	</head>
-	<body ng-controller="<%- angular %>">
+	<body ng-controller="<%- angular.controller %>">
 
 		<!-- header -->
         <%- include ../partials/ejs/header.ejs %>
@@ -45,6 +40,7 @@
 			<!-- libraries -->
 			<!-- features -->
     		<%- include [[javascripts.features]] %>
+    		<%- include [[javascripts.core]] %>
 			<!-- features -->
 		<!-- scripts -->
 

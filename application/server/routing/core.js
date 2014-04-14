@@ -5,8 +5,16 @@ var routing
 
 routing.init = function(app) {
 
+
+    app.get('/', navigation.redirect.home);
+    app.get('/home', navigation.get.index);
+    app.get('/manager', navigation.get.filemanager)
     app.get(/partials\/(.+)/, navigation.get.partial);
     app.get(/templates\/(.+)/, navigation.get.template);
+
+
+    /********************************[  REDIRECT  ]********************************/
+
     app.get(/^\/api\/browse\/([0-9]+)$/, webservice.get.redirect);
     app.get(/^\/api\/browse\/([0-9]+)\/(\/?.+)*/, webservice.get.redirect);
     app.get(/^\/api\/download\/([0-9]+)\/(\/?.+)+/, webservice.get.redirect);

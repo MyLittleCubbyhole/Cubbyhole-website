@@ -1,0 +1,112 @@
+header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 20;
+	background: #fff;  
+	width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.15);  height: 46px;  
+}
+
+section#global-nav section.redirect-zone.pull-left {
+	margin-left: 22px;
+	border-left: 1px solid rgba(0,0,0,0.15);
+	border-right: 1px solid rgba(0,0,0,0.15);
+	overflow: hidden;
+}
+
+section#global-nav {
+	position: relative;
+	max-width: 1190px;
+	text-align: center;
+	width: auto;
+	margin: auto;
+}
+
+section#global-nav nav.navigation {
+	margin-right: 12px;
+	text-align: left;
+}
+
+section#global-nav article.option {
+	color: rgb(102, 117, 127);
+}
+
+section#global-nav article.option.nav {
+	height: 46px;
+	overflow: hidden;
+	color: #66757f;
+	border-bottom: 4px solid transparent;
+	padding-left: 10px;
+	line-height: 46px;
+	padding-right: 10px;
+}
+
+section#global-nav .menu.pull-right .option {
+	height: 46px;
+	margin-right: 10px;
+	line-height: 46px;
+}
+
+section#global-nav article.option {
+	float: left;
+	position: relative;
+	cursor: pointer;
+	-webkit-transition: all .25s linear;
+	   -moz-transition: all .25s linear;
+	    -ms-transition: all .25s linear;
+	     -o-transition: all .25s linear;
+	        transition: all .25s linear;
+}
+
+section#global-nav article.option.selected {
+	border-bottom-color: #990000;
+	color: #990000;
+}
+
+section#global-nav article.option:hover {
+	border-bottom-color: #990000;
+	color: #990000;
+}
+
+section#global-nav span.label {
+	margin-left: 7px;
+}
+
+section#global-nav i.icon {
+    font-size: 18px;
+    position: relative;
+    top: 3px;
+}
+
+section#global-nav i.icon.icon-gift {
+    font-size: 22px;
+}
+
+section#global-nav i.icon.icon-address-book {
+    font-size: 20px;
+}
+
+section#global-nav i.icon.icon-folder {
+    font-size: 23px;
+}
+
+section#global-nav .menu article.option.authentication {
+	padding-left: 10px;
+	line-height: 46px;
+	padding-right: 10px;
+	margin-left: 22px;
+	border-left: 1px solid rgba(0,0,0,0.15);
+	border-right: 1px solid rgba(0,0,0,0.15);
+	overflow: hidden;
+}
+
+section#global-nav .menu.pull-right article.option {
+	margin-right: 0;
+}
+
+section#global-nav .img-circle {
+	width: 25px;
+	height: auto;
+}

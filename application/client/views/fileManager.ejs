@@ -1,0 +1,22 @@
+<% layout('./layout/core') %>
+
+<section id="container">
+	<section class="content" file-uploader>		
+		<img src="/images/logo.png" alt="logo" class="logo">
+		<span class="progress">{{_fileUploader.progress}}</span>
+	</section>
+	<section id="file-manager" ng-controller="FileManagerController">
+		<article item item-id={{index}} class="item-file-manager" ng-repeat="(index, item) in FileManager.items">
+			<article class="filename col-xs-8 col-sm-6 col-md-6 col-lg-8">
+				<span class="icon-filemanager margin-icon" ng-class="_item.item.icon"></span>
+				<a href="#" class="filename-link">{{_item.item.name}}</a>
+			</article>
+			<article class="kind hidden-xs col-sm-3 col-md-3 col-lg-2">
+				<span class="category">{{_item.item.category}}</span>
+			</article>
+			<article class="modified col-xs-4 col-sm-3 col-md-3 col-lg-2">
+				<span class="modified-time">14/03/1992</span>
+			</article>
+		</article>
+	</section>
+</section>

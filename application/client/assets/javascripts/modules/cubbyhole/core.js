@@ -1,0 +1,1 @@
+angular.module('CubbyHole', ['Config', 'FileManager', 'restangular', 'Navigation']);
