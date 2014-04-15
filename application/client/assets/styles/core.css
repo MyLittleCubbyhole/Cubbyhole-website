@@ -1,5 +1,6 @@
 @import url(/styles/libraries/font.css);
 @import url(/styles/libraries/bootstrap/bootstrap.min.css);
+@import url(/styles/libraries/animate/animate.css);
 @import url(/styles/components/header.css);
 
 html, body {
@@ -13,6 +14,15 @@ html, body {
 	box-sizing: border-box;
 }
 
+section#body {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	padding-top: 60px;
+}
+
 .pull-left {
 	float: left;
 	text-align: left;
@@ -23,10 +33,29 @@ html, body {
 	text-align: right;
 }
 
+#overlay {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 10;
+}
+
+#overlay.activated {
+	display: block;
+}
+
 #bloc-container {
 	height: 100%;
 	width: 100%;
 	overflow-y: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 #bloc-container .bloc {
@@ -45,7 +74,7 @@ html, body {
 
 
 section#container {
-    margin: 60px auto;
+    margin: auto;
     position: relative;
 }
 
@@ -91,4 +120,127 @@ span.progress {
 
 
 
+section#user-card {
+	margin-top: 2px;
+	display: none;
+	position: absolute;
+	right: 2px;
+	width: 180px;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid rgba(0,0,0,0.15);
+	border-radius: 5px;
+	color: #990000;
+	text-align: center;
+	pointer-events: auto;
+}
+section#user-card.open {
+	display: block;
+}
 
+#user-card section#user-profile {
+    width: 100%;
+}
+#user-card .user-picture img.img-circle {
+	width: 120px;
+	margin: 20px auto;
+	display: block;
+	border: 1px solid rgba(0,0,0,0.15);
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.11);
+}
+#user-card article.user-firstname {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+}
+#user-card article.user-lastname {
+    text-align: center;
+    font-size: 16px;
+}
+
+#user-card section#user-disconnect {
+	text-decoration: none;
+	color: #fff;
+	background-color: #990000;
+	height: 26px;
+	line-height: 26px;
+	-webkit-transition: .1s all linear;
+	-moz-transition: .1s all linear;
+	-ms-transition: .1s all linear;
+	-o-transition: .1s all linear;
+	transition: .1s all linear;
+	cursor: pointer;
+}
+#user-card hr.tiny {
+    margin-bottom: 2px;
+    margin-top: 4px;
+}
+#user-card article.user-nav-options {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;  
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+	-webkit-transition: .1s all linear;
+	-moz-transition: .1s all linear;
+	-ms-transition: .1s all linear;
+	-o-transition: .1s all linear;
+	transition: .1s all linear;
+}
+#user-card section#user-disconnect:hover {
+	background-color: black;
+}
+
+#user-card article.user-nav-options:hover {
+	background-color: #990000;
+	color: white!important;
+}
+
+#user-card span.user-icon {
+	position: relative;
+	top: 1px;
+	margin-right: 10px;
+}
+
+#user-card #user-navigation .user-nav-options {
+	text-align: left;
+	padding-left: 20px;
+}
+
+
+
+
+
+
+article.item-file-manager:nth-child(2n+1) {
+	background-color: whitesmoke;
+}
+article.item-file-manager {
+	height: 65px;
+	font-size: 20px;
+	line-height: 65px;
+	border-bottom: 1px solid rgba(0,0,0,0.10);
+	position: relative;
+	-webkit-transition: .08s all linear;
+	-moz-transition: .08s all linear;
+	-ms-transition: .08s all linear;
+	-o-transition: .08s all linear;
+	transition: .08s all linear;
+}
+section#file-manager {
+	border-radius: 3px;
+	max-width: 1190px;
+	margin: auto;
+	background-color: white;
+	overflow: hidden;
+}
+article.item-file-manager:hover {
+	background-color: #990000;
+	border-bottom-color: #990000;
+	color: white;
+	/* color: #990000; */
+}

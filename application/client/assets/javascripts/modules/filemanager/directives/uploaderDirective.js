@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	directive('fileUploader', ['WebsocketFactory', 'UserFactory', function(websocketFactory, UserFactory){
+	directive('fileUploader', ['WebsocketFactory', 'UserFactory', 'UploaderFactory', function(WebsocketFactory, UserFactory, UploaderFactory){
 		return {
 			scope: true,
 			require: 'fileUploader',
@@ -8,11 +8,11 @@ angular.module('FileManager').
 				var $local = $scope._fileUploader = {}
 				,	self = this;
 
-				$local.progress = '0%';
+				$local.progress = '';
 
 				self.file;
 				self.path;
-				self.fileReader = new FileReader(); 
+				self.fileReader = new FileReader();
 
 				self.noop = function(event) {
 					event.preventDefault();
@@ -25,8 +25,9 @@ angular.module('FileManager').
 			},
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._fileUploader
-				,	socket = websocketFactory();
+				,	socket = WebsocketFactory();
 
+				self.id = attributes.fileId || '_' + Math.random() * 100 + '_';
 				self.path = attributes.filePath || '/';
 
 				$node.on('dragenter', self.noop);
@@ -37,33 +38,19 @@ angular.module('FileManager').
 					event.originalEvent.preventDefault();
 					self.file = event.originalEvent.dataTransfer.files[0];
 
+					UploaderFactory($scope, {local: $local, controller: self}).add(self.id, self.file);
+
 					self.fileReader.onload = function(event){
 
 						var data = event.target.result
 						socket.emit('upload', { data: data, name: self.file.name });
 					}
 
-					socket.emit('upload_init', { owner: UserFactory.get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
+					socket.emit('upload_init', { id: self.id, owner: UserFactory.get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
 					
 					$local.progress = '0%';
 					$scope.$apply();
 				}); 
-
-				socket.on('upload_next', function(data){
-					$local.progress = Math.floor(data['percent']) + '%';
-					$scope.$apply();
-
-					var chunk = data['chunk'] * 524288
-					,	part = self.file.slice(chunk, chunk + Math.min(524288, (self.file.size - chunk)));
-
-					self.fileReader.readAsBinaryString(part);
-				});
-
-
-				socket.on('upload_done', function(){
-					$local.progress = '100%';
-					$scope.$apply();
-				});
 			}
 		};
 	}]);

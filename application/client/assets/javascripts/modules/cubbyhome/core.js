@@ -1,1 +1,1 @@
-angular.module('CubbyHome', ['Config', 'Authentication', 'Navigation']);
+angular.module('CubbyHome', ['Config', 'Authentication', 'Navigation', 'Overlay']);

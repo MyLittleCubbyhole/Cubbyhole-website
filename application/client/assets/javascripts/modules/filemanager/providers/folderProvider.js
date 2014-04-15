@@ -13,6 +13,8 @@ angular.module('FileManager').
 		this.$get = ['ClassService', 'ItemProvider', function(Class, Item) {
 
 			var Folder = function(options) {
+
+				options.path += options.name + '/';
 					
 				options = angular.extend(_default, options);
 				Item.call(this, options);

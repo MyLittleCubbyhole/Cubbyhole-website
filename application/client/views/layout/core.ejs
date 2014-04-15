@@ -24,15 +24,20 @@
 	<!-- design -->
 
 	</head>
-	<body ng-controller="<%- angular.controller %>">
+	<body ng-controller="OverlayController">
+		<section id="body" ng-controller="<%- angular.controller %>">
 
-		<!-- header -->
-        <%- include ../partials/ejs/header.ejs %>
-		<!-- header -->
+			<!-- header -->
+	        <%- include ../partials/ejs/header.ejs %>
+			<!-- header -->
 
-		<!-- content -->
-        <%- body %>
-		<!-- content -->
+			<!-- content -->
+	        <%- body %>
+			<!-- content -->
+		
+		</section>
+
+		<section id="overlay" ng-class="{ activated: Overlay.activated }" ng-click="Overlay.clickout();"></section>
 
 		<!-- scripts -->
 			<!-- libraries -->

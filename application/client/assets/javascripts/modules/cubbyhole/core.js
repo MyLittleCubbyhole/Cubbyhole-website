@@ -1,1 +1,1 @@
-angular.module('CubbyHole', ['Config', 'FileManager', 'restangular', 'Navigation']);
+angular.module('CubbyHole', ['Config', 'FileManager', 'restangular', 'Navigation', 'Overlay']);

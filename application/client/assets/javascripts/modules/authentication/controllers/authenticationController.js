@@ -8,9 +8,19 @@ angular.module('Authentication').
 		//user = UserFactory.get();
 
 
-
 		$local.user = user;
 		$local.authenticated = false;
+
+		$local.opened = false;
+
+		$scope.$on('hide', function() {
+			$local.opened = false;
+		})
+
+		$local.open = function() {
+			$local.opened = !$local.opened;
+			$scope.$emit('unable_overlay');
+		};
 
 		$scope.toString = function() {
 			return 'Authentication';

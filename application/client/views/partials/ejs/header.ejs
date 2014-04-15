@@ -1,4 +1,4 @@
-<header>
+<header ng-class="{ preventClick: Overlay.activated }">
 	<section id="global-nav" ng-controller="NavigationController">
 		<nav class="navigation pull-left">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
@@ -29,8 +29,32 @@
 				<span class="menu-opt"><i class="icon icon-bell"></i></span>
 			</article>
 			<article class="option authentication" ng-controller="AuthenticationController">
-				<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
-				<span class="label">{{Authentication.user.username}}</span>
+				<section class="button-profile" ng-click="Authentication.open();">
+					<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
+					<span class="label hidden-xs">{{Authentication.user.username}}</span>
+				</section>
+
+				<section id="user-card" class="flipInX animated" ng-class="{ open: Authentication.opened }">
+					<section id="user-profile">
+						<article class="user-picture"><img class="img-circle" src="/images/unknown-person.png" alt="profile picture"></article>
+						<article class="user-info">
+							<article class="user-firstname">Nicolas</article>
+							<article class="user-lastname">Gaignoux</article>
+						</article>
+					</section>
+					<hr class="tiny"></hr>
+					<section id="user-navigation">
+						<article class="user-nav-options"><span class="user-icon icon-user"></span><span class="title-option">Compte</span></article>
+						<article class="user-nav-options"><span class="user-icon icon-newspaper"></span><span class="title-option">Offre</span></article>
+						<article class="user-nav-options"><span class="user-icon icon-gift"></span><span class="title-option">Facturation</span></article>
+					</section>
+					<hr class="tiny"></hr>
+					<hr class="tiny"></hr>
+					<section id="user-disconnect">
+						<span class="user-icon icon-switch"></span><span>deconnexion</span>
+					</section>
+				</section>
+
 			</article>
 		</section>
 	</section>

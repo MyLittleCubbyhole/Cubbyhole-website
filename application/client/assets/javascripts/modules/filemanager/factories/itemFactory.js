@@ -33,8 +33,6 @@ angular.module('FileManager').
 					,	options = {};
 					
 					for(var i = 0; i<items.length; i++) {
-						if($local)
-							$local.items.push(items[i]);
 
 						options = {
 							name: items[i].name,
@@ -59,6 +57,9 @@ angular.module('FileManager').
 						}
 
 						_items.push(item);
+						
+						items[i].path = item.path;
+						$local && $local.items.push(items[i]);
 					}
 
 				}, 
