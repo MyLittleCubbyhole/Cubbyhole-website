@@ -5,7 +5,11 @@ angular.module('FileManager').
 		$local.items = [];
 
 		ItemFactory($scope, {local: $local}).load();
-		
+
+        $local.refresh = function() {
+            ItemFactory($scope, {local: $local}).load();
+        };
+
 		$scope.toString = function() {
 			return 'FileManager';
 		}
