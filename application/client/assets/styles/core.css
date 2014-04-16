@@ -568,10 +568,10 @@ input[type="checkbox"]:checked+label:hover:after {
     }
 
 
-    #manager section.manager-bloc:first-child {
-        width: 100%;
-    }
-    #manager section.manager-bloc:nth-child(2) {
-        display: none;
-    }
+	#manager section.manager-bloc:first-child {
+		width: 100%;
+	}
+	#manager section.manager-bloc:nth-child(2) {
+		display: none;
+	}
 }
