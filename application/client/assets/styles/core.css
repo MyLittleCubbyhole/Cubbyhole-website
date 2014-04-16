@@ -503,7 +503,7 @@ input[type="radio"]+label:before {
     border-radius: .8rem;
 }
 
-input+label:after {
+input[type="radio"]+label:after {
     -webkit-transition: -webkit-transform 0.1s ease-in-out;
     -moz-transition: -moz-transform 0.1s ease-in-out;
     -o-transition: -o-transform 0.1s ease-in-out;
