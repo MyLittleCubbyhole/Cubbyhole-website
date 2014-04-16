@@ -435,3 +435,9 @@ section#list-file-container {
 		display: none;
 	}
 }
+
+@media screen and (max-width: 300px) {
+	.hidden-xxs {
+		display: none;
+	}
+}
