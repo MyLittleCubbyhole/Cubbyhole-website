@@ -1,6 +1,6 @@
 angular.module('FileManager').
 	provider('ItemProvider', function(){
-		
+
 		var _default = {
 			name: 'unknow',
 			path: '/',
@@ -11,7 +11,7 @@ angular.module('FileManager').
 		};
 
 		this.$get = function() {
-	
+
 			var Item = function(options) {
 
 				this.options = angular.extend(_default, options);
