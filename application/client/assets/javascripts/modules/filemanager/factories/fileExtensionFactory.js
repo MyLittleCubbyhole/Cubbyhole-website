@@ -26,7 +26,7 @@ angular.module('FileManager').
             	return (/(?:\.([^.]+))?$/).exec(filename)[1].toLowerCase();
 			}
 
-			prototype.detection = function (file){
+			prototype.detection = function(file) {
 
 				file.icon = "icon-file-css";
 
