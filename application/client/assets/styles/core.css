@@ -68,6 +68,10 @@ section#body {
     background-color: white;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 
 
 
@@ -405,6 +409,12 @@ section#list-file-container {
     margin-top: 16px;
 }
 
+#manager td.item-folder {
+    padding-right: 8px;
+    padding-left: 5px;
+    font-size: 1.6em;
+}
+
 
 #manager td.item-label.blue:before,
 #manager td.item-label.video:before {
@@ -457,7 +467,6 @@ input[type="radio"]:not(:checked) {
 input[type="checkbox"]+label,
 input[type="radio"]+label {
     float: left;
-    padding-left: 26px;
     padding-left: 2.6rem;
     position: relative;
     cursor: pointer;
@@ -469,11 +478,8 @@ input[type="radio"]+label:before {
     position: absolute;
     left: 0;
     top: 50%;
-    margin-top: -7px;
-    margin-top: -.7rem;
-    width: 20px;
+    margin-top: -.9rem;
     width: 2.0rem;
-    height: 20px;
     height: 2.0rem;
     background-color: rgba(255,255,255,.7);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.4)), to(rgba(255,255,255,.9)));
@@ -483,23 +489,17 @@ input[type="radio"]+label:before {
     background: linear-gradient(top, rgba(255,255,255,.4), rgba(255,255,255,.9));
     -webkit-box-shadow: inset .1rem .1rem .2rem rgba(0,0,0,.3), inset 0 0 0 .1rem rgba(0,0,0,.1);
     -moz-box-shadow: inset .1rem .1rem .2rem rgba(0,0,0,.3), inset 0 0 0 .1rem rgba(0,0,0,.1);
-    -o-box-shadow: inset 1px 1px 2px rgba(0,0,0,.3), inset 0 0 0 1px rgba(0,0,0,.1);
     -o-box-shadow: inset .1rem .1rem .2rem rgba(0,0,0,.3), inset 0 0 0 .1rem rgba(0,0,0,.1);
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
     box-shadow: inset .1rem .1rem .2rem rgba(0,0,0,.3), inset 0 0 0 .1rem rgba(0,0,0,.1);
     -webkit-border-radius: .3rem;
     -moz-border-radius: .3rem;
-    -o-border-radius: 3px;
     -o-border-radius: .3rem;
-    border-radius: 3px;
     border-radius: .3rem;
 }
 input[type="radio"]+label:before {
     -webkit-border-radius: .8rem;
     -moz-border-radius: .8rem;
-    -o-border-radius: 8px;
     -o-border-radius: .8rem;
-    border-radius: 8px;
     border-radius: .8rem;
 }
 
@@ -513,24 +513,17 @@ input[type="radio"]+label:after {
 input[type="checkbox"]+label:after {
     content: '';
     position: absolute;
-    left: 9px;
     left: .9rem;
     top: 50%;
-    margin-top: -2px;
     margin-top: -.2rem;
-    width: 18px;
     width: 1.8rem;
-    height: 10px;
     height: 1.0rem;
     border-style: solid;
     border-color: #01C30C;
-    border-width: 0 0 2px 3px;
     border-width: 0 0 .2rem .3rem;
     -webkit-box-shadow: -.1rem .1rem .1rem 0 rgba(0,0,0,.4);
     -moz-box-shadow: -.1rem .1rem .1rem 0 rgba(0,0,0,.4);
-    -o-box-shadow: -1px 1px 1px 0 rgba(0,0,0,.4);
     -o-box-shadow: -.1rem .1rem .1rem 0 rgba(0,0,0,.4);
-    box-shadow: -1px 1px 1px 0 rgba(0,0,0,.4);
     box-shadow: -.1rem .1rem .1rem 0 rgba(0,0,0,.4);
     -webkit-transform: rotateZ(-40deg) skewX(-30deg) scale(0);
     -moz-transform: rotate(-40deg) skewX(-30deg) scale(0);
