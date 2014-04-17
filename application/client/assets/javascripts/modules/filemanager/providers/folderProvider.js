@@ -23,7 +23,7 @@ angular.module('FileManager').
 			Class.extend(Item, Folder);
 
 			Folder.prototype.init = function() {};
-			Folder.prototype.open = function() {
+			Folder.prototype.download = function() {
 				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.name + '/';
 			};
 

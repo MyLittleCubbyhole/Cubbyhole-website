@@ -21,7 +21,7 @@ angular.module('FileManager').
 			Class.extend(Item, File);
 
 			File.prototype.init = function() {};
-			File.prototype.open = function() {
+			File.prototype.download = function() {
 				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.path + this.name;
 			};
 			
