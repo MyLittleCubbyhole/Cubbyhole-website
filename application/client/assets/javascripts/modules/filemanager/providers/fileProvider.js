@@ -10,7 +10,7 @@ angular.module('FileManager').
 			node: null
 		};
 
-		this.$get = ['ClassService', 'ItemProvider', function(Class, Item) {
+		this.$get = ['ClassService', 'ItemProvider', '$window', 'webserviceUrl', 'UserFactory',  function(Class, Item, $window, webserviceUrl, userFactory) {
 
 			var File = function(options) {
 					
@@ -21,6 +21,9 @@ angular.module('FileManager').
 			Class.extend(Item, File);
 
 			File.prototype.init = function() {};
+			File.prototype.open = function() {
+				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.path + this.name;
+			};
 			
 			return File
 		}]	

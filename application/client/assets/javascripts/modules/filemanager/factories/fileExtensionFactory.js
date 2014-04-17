@@ -23,7 +23,9 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.getExtension = function(filename) {
-            	return (/(?:\.([^.]+))?$/).exec(filename)[1].toLowerCase();
+            	var extension = (/(?:\.([^.]+))?$/).exec(filename)[1];
+            	extension = extension || '';
+            	return extension.toLowerCase();
 			}
 
 			prototype.detection = function(file) {

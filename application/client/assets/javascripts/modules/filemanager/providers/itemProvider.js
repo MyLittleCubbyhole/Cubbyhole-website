@@ -26,15 +26,12 @@ angular.module('FileManager').
 				options && this.init();
 			};
 
-			Item.prototype.init = function() {
-				throw 'init method must be overrided';
-			};
-
-			Item.prototype.rename = function() {};
-			Item.prototype.remove = function() {};
-			Item.prototype.preview = function() {};
-			Item.prototype.move = function() {};
-			Item.prototype.download = function() {};
+			Item.prototype.init = function() { throw 'init method must be overrided'; };
+			Item.prototype.move = function() { throw 'move method must be overrided'; };
+			Item.prototype.open = function() { throw 'open method must be overrided'; };
+			Item.prototype.rename = function() { throw 'rename method must be overrided'; };
+			Item.prototype.remove = function() { throw 'remove method must be overrided'; };
+			Item.prototype.preview = function() { throw 'preview method must be overrided'; };
 
 			Object.defineProperties(Item.prototype, {
 				'node' : {

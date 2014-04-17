@@ -62,8 +62,7 @@ angular.module('FileManager').
 						$local && $local.items.push(items[i]);
 					}
 
-				}, 
-					function(error) { console.error(error); });
+				}, function(error) { console.error(error); });
 			}
 
 			prototype.get = function(id) {

@@ -10,11 +10,11 @@ angular.module('FileManager').
 				$local.item = {};
 				$local.selected = false;
 
-				$local.move = function() { self.item.move(); };
-				$local.rename = function() { self.item.rename(); };
-				$local.remove = function() { self.item.remove(); };
-				$local.preview = function() { self.item.preview(); };
-				$local.download = function() { self.item.download(); };
+				$local.open = function() { $local.item.open(); };
+				$local.move = function() { $local.item.move(); };
+				$local.rename = function() { $local.item.rename(); };
+				$local.remove = function() { $local.item.remove(); };
+				$local.preview = function() { $local.item.preview(); };
 
 				$scope.toString = function() {
 					return '_item';
