@@ -47,7 +47,7 @@
                                             <td ng-show="_item.item.category != 'folder'" class="item-label" ng-class="_item.item.category"></td>
                                             <td ng-show="_item.item.category == 'folder'" class="item-folder"><i class="icon-folder"></i></td>
                                             <td class="checkbox"><input type="checkbox" name="check-{{$index+1}}" id="check-{{$index+1}}" class="checkbox-design"><label for="check-{{$index+1}}"></label></td>
-                                            <td ng-class="{bold: _item.item.category == 'folder'}">{{_item.item.name}}{{_fileUploader.progress}}</td>
+                                            <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text">{{_item.item.name}}{{_fileUploader.progress}}</td>
                                             <td>{{_item.item.category}}</td>
                                             <td>Ju13nt</td>
                                             <td>14/03/12 6h:30</td>
