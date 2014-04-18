@@ -29,13 +29,13 @@
 		<section id="body" ng-controller="<%- angular.controller %>">
 
 			<!-- header -->
-	        <%- include ../partials/ejs/header.ejs %>
+	        <%- include ../partials/ejs/component/header.ejs %>
 			<!-- header -->
 
 			<!-- content -->
 	        <%- body %>
 			<!-- content -->
-		
+
 		</section>
 
 		<section id="overlay" ng-class="{ activated: Overlay.activated }" ng-click="Overlay.clickout();"></section>

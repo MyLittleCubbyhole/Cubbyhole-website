@@ -6,7 +6,8 @@ routing.init = function(app) {
 
     app.get('/', navigation.redirect.home);
     app.get('/home', navigation.get.index);
-    app.get('/manager', navigation.get.filemanager)
+    app.get('/authentication', navigation.get.authentication);
+    app.get('/manager', navigation.get.filemanager);
     app.get(/partials\/(.+)/, navigation.get.partial);
     app.get(/templates\/(.+)/, navigation.get.template);
 

@@ -18,10 +18,20 @@
 				<span class="label hidden-xs hidden-sm">Contact</span>
 			</article>
 		</nav>
-		<section class="redirect-zone pull-left">			
+		<section class="redirect-zone pull-left">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
 				<i class="icon icon-folder"></i>
 				<span class="label hidden-xs">Gestionnaire de fichier</span>
+			</article>
+		</section>
+		<section class="redirect-zone pull-left">
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/register') }" ng-click="Navigation.goto('/authentication#register')">
+				<span class="label hidden-xs">Register</span>
+			</article>
+		</section>
+		<section class="redirect-zone pull-left">
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
+				<span class="label hidden-xs">Login</span>
 			</article>
 		</section>
 		<section class="menu pull-right">

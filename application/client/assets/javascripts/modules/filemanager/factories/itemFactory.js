@@ -16,7 +16,7 @@ angular.module('FileManager').
 
 			prototype.load = function(path) {
 
-				var browse = restangular.one('browse').one(userFactory.get().id + '/');
+				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				path = path || '';
 

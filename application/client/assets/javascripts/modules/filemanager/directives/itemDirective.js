@@ -10,7 +10,7 @@ angular.module('FileManager').
 				$local.item = {};
 				$local.selected = false;
 
-				$local.open = function(path) { ItemFactory($scope).load(path) };
+				$local.open = function(path) { ItemFactory($scope, {local: $scope.FileManager}).load(path) };
 				$local.move = function() { $local.item.move(); };
 				$local.rename = function() { $local.item.rename(); };
 				$local.remove = function() { $local.item.remove(); };
