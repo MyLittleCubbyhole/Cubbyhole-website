@@ -23,7 +23,7 @@ section#global-nav section.redirect-zone.pull-left {
 
 section#global-nav {
 	position: relative;
-	max-width: 1190px;
+	/*max-width: 1190px;*/
 	text-align: center;
 	width: auto;
 	margin: auto;

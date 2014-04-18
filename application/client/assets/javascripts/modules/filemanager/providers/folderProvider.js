@@ -10,7 +10,7 @@ angular.module('FileManager').
 			node: null
 		};
 
-		this.$get = ['ClassService', 'ItemProvider', function(Class, Item) {
+		this.$get = ['ClassService', 'ItemProvider', '$window', 'webserviceUrl', 'UserFactory', function(Class, Item, $window, webserviceUrl, userFactory) {
 
 			var Folder = function(options) {
 
@@ -23,6 +23,9 @@ angular.module('FileManager').
 			Class.extend(Item, Folder);
 
 			Folder.prototype.init = function() {};
+			Folder.prototype.download = function() {
+				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.name + '/';
+			};
 
 			return Folder
 		}];
