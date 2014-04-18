@@ -24,7 +24,7 @@ angular.module('FileManager').
 
 			Folder.prototype.init = function() {};
 			Folder.prototype.download = function() {
-				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.name + '/';
+				$window.location = webserviceUrl + 'api/download/' + userFactory.get().id + '/' + this.path + '/';
 			};
 
 			return Folder
