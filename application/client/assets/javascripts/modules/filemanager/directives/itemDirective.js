@@ -1,6 +1,6 @@
 angular.module('FileManager').
 	directive('item', ['ItemFactory', function(ItemFactory){
-		return { 
+		return {
 			scope: true,
 			controller: function($scope) {
 				var $local = $scope._item = {}

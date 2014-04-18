@@ -31,7 +31,7 @@ angular.module('FileManager').
 
 					var item = null
 					,	options = {};
-					
+
 					for(var i = 0; i<items.length; i++) {
 
 						options = {
@@ -47,17 +47,17 @@ angular.module('FileManager').
 						switch(items[i].type) {
 							case 'file':
 								item = new File(options);
-							break; 
+							break;
 							case 'folder':
 								item = new Folder(options);
 							break;
 							default:
-								throw 'unknow item type'; 
-							break; 
+								throw 'unknow item type';
+							break;
 						}
 
 						_items.push(item);
-						
+
 						items[i].path = item.path;
 						$local && $local.items.push(items[i]);
 					}
