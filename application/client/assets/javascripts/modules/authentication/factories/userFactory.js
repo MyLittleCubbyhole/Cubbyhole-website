@@ -31,8 +31,9 @@ angular.module('Authentication').
             prototype.login = function(user) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
-                    if(data && data.token) {
-                        localStorage.setItem('token', data.token);
+                    if(data && data.user && data.user.TOKEN) {
+                        prototype.set(data.user);
+                        localStorage.setItem('user', JSON.stringify(data.user));
                     }
                 }).
                 error(function(data, status, headers, config) {

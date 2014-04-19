@@ -3,13 +3,15 @@ angular.module('Authentication').
         return {
             request: function(config) {
                 config.url += "?token=";
-                config.url += localStorage.getItem('token') || "";
+                var user = localStorage.getItem('user');
+                if(user)
+                    config.url += JSON.parse(user).TOKEN || "";
 
                 return config || $q.when(config);
             },
             responseError: function(response) {
                 if (response.status === 401) {
-                    $window.location = $window.location.protocol + "//" + $window.location.host + "/authentication#/login";
+                    //$window.location = $window.location.protocol + "//" + $window.location.host + "/authentication#/login";
                 }
                 return response || $q.when(response);
             }
