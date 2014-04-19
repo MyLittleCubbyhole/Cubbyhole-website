@@ -424,7 +424,7 @@ section#list-file-container {
     content: "";
     background-color: #2ECC71;
     position: absolute;
-    height: 100%;
+    height: 40px;
     width: 10px;
 }
 
