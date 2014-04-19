@@ -1,5 +1,5 @@
 angular.module('Authentication').
-    factory('AuthenticationFactory', function($window, $q) {
+    factory('AuthenticationFactory', ['$window', '$q', function($window, $q) {
         return {
             request: function(config) {
                 config.url += "?token=";
@@ -16,4 +16,4 @@ angular.module('Authentication').
                 return response || $q.when(response);
             }
         };
-    });
+    }]);

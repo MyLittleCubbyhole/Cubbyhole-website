@@ -22,7 +22,7 @@ angular.module('FileManager').
 
 			File.prototype.init = function() {};
 			File.prototype.download = function() {
-				var url = apiUrl + 'download/' + UserFactory(this.scope).get().id + this.path + this.name;
+				var url = apiUrl + 'download/' + UserFactory(this.scope).get().ID + this.path + this.name;
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
