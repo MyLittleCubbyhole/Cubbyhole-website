@@ -81,21 +81,17 @@ section#global-nav span.label {
 }
 
 section#global-nav i.icon {
-    font-size: 18px;
+    font-size: 15px;
     position: relative;
     top: 3px;
 }
 
 section#global-nav i.icon.icon-gift {
-    font-size: 22px;
+    font-size: 16px;
 }
 
 section#global-nav i.icon.icon-address-book {
-    font-size: 20px;
-}
-
-section#global-nav i.icon.icon-folder {
-    font-size: 23px;
+    font-size: 14px;
 }
 
 section#global-nav .menu article.option.authentication {

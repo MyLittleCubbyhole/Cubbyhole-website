@@ -24,7 +24,7 @@ html, body {
 }
 
 section#body {
-    overflow-x: hidden;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: relative;
@@ -148,6 +148,7 @@ section#user-card {
     color: #990000;
     text-align: center;
     pointer-events: auto;
+    z-index: 10;
 }
 section#user-card.open {
     display: block;
@@ -367,14 +368,17 @@ section.manager-bloc:last-child {
     width: 0%;
 }
 #manager article.manager-bloc-container {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     width: 100%;
     height: 100%;
     padding-left: 30px;
+    /* overflow: auto; */
+    padding-bottom: 86px;
 }
 section#list-file-container {
     height: 100%;
     width: 100%;
+    overflow-x: auto;
 }
 #manager table.listing {
     width: 100%;
@@ -415,7 +419,7 @@ section#list-file-container {
     height: 40px;
 }
 #manager section.manager-bloc:first-child {
-    height: auto;
+    height: 100%;
 }
 #manager section.manager-bloc:first-child article.manager-bloc-container {
     padding-left: 0px;
@@ -476,6 +480,10 @@ section#manager-container.preview .manager-bloc:last-child {
 }
 section#manager-container.preview .manager-bloc:first-child {
     width: 65%;
+    height: 100%;
+}
+section#manager-container.preview .information {
+    display: none;
 }
 
 
@@ -492,10 +500,10 @@ section#manager-container.preview .manager-bloc:first-child {
     }
 
 
-	#manager section.manager-bloc:first-child {
-		width: 100%;
-	}
-	#manager section.manager-bloc:nth-child(2) {
-		display: none;
-	}
+    #manager section.manager-bloc:first-child {
+        width: 100%;
+    }
+    #manager section.manager-bloc:nth-child(2) {
+        display: none;
+    }
 }

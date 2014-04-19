@@ -39,20 +39,20 @@
                                         <tr class="list-header big-font google-font">
                                             <th class="item-label"></th>
                                             <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Owner</th>
-                                            <th>size</th>
-                                            <th>Last Update</th>
+                                            <th class="information">Type</th>
+                                            <th class="information">Owner</th>
+                                            <th class="information hidden-xs">size</th>
+                                            <th class="information hidden-xs">Last Update</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="item item-file-manager big-font google-font" item item-id={{index}} ng-dblclick="_item.open(_item)" file-uploader file-path={{item.path}} file-id=_{{index}}_ ng-repeat="(index, item) in FileManager.items">
                                             <td class="item-label" ng-class="_item.item.category"></td>
                                             <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text">{{_item.item.name}}</td>
-                                            <td>{{_item.item.category}}</td>
-                                            <td>Ju13nt</td>
-                                            <td>200mo</td>
-                                            <td>14/03/12 6h30</td>
+                                            <td class="information">{{_item.item.category}}</td>
+                                            <td class="information">Ju13nt</td>
+                                            <td class="information hidden-xs">200mo</td>
+                                            <td class="information hidden-xs">14/03/12 6h30</td>
                                         </tr>
                                     </tbody>
                                 </table>

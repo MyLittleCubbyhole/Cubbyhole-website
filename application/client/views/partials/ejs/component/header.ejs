@@ -4,14 +4,14 @@
 			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
-		<section class="redirect-zone pull-left">
+		<section class="redirect-zone pull-left hidden-xs hidden-sm">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/register') }" ng-click="Navigation.goto('/authentication#register')">
-				<span class="label hidden-xs">Register</span>
+				<span class="label">Register</span>
 			</article>
 		</section>
 		<section class="redirect-zone pull-left">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
-				<span class="label hidden-xs">Login</span>
+				<span class="label">Login</span>
 			</article>
 		</section>
 		<section class="menu pull-right">
@@ -47,7 +47,7 @@
 
 		<section class="redirect-zone pull-right">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
-				<i class="icon icon-folder"></i>
+				<i class="icon icon-dropbox"></i>
 				<span class="label hidden-xs">Gestionnaire de fichier</span>
 			</article>
 		</section>
