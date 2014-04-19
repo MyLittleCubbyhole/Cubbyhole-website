@@ -1,6 +1,6 @@
 angular.module('FileManager').
 	directive('item', ['ItemFactory', function(ItemFactory){
-		return { 
+		return {
 			scope: true,
 			controller: function($scope) {
 				var $local = $scope._item = {}
@@ -10,7 +10,12 @@ angular.module('FileManager').
 				$local.item = {};
 				$local.selected = false;
 
-				$local.open = function(path) { ItemFactory($scope, {local: $scope.FileManager}).load(path) };
+				$local.open = function(item) {
+					if($local.item.category != 'folder')
+						$local.download()
+					else
+						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.path);
+				};
 				$local.move = function() { $local.item.move(); };
 				$local.rename = function() { $local.item.rename(); };
 				$local.remove = function() { $local.item.remove(); };

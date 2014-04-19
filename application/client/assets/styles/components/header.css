@@ -1,13 +1,14 @@
 header {
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
+	/*position: fixed;*/
+	/*top: 0;*/
+	/*right: 0;*/
+	/*left: 0;*/
 	background: #fff;  
 	width: 100%;
 	border-bottom: 1px solid rgba(0,0,0,0.15);
 	height: 46px;
-	z-index: 15; 
+	z-index: 15;
+	background-image: url(/images/design/header-background.png);
 }
 
 header.preventClick {
@@ -41,7 +42,7 @@ section#global-nav article.option {
 section#global-nav article.option.nav {
 	height: 46px;
 	overflow: hidden;
-	color: #66757f;
+	color: rgba(218, 218, 218, 1);
 	border-bottom: 4px solid transparent;
 	padding-left: 10px;
 	line-height: 46px;
@@ -66,13 +67,13 @@ section#global-nav article.option {
 }
 
 section#global-nav article.option.selected {
-	border-bottom-color: #990000;
-	color: #990000;
+	border-bottom-color: #bdc3c7;
+	color: #bdc3c7;
 }
 
 section#global-nav article.option:hover {
-	border-bottom-color: #990000;
-	color: #990000;
+	border-bottom-color: #bdc3c7;
+	color: #bdc3c7;
 }
 
 section#global-nav span.label {
@@ -99,13 +100,18 @@ section#global-nav i.icon.icon-folder {
 
 section#global-nav .menu article.option.authentication {
 	position: relative;
-	padding-left: 10px;
 	line-height: 46px;
-	padding-right: 10px;
-	margin-left: 22px;
+	margin-left: 10px;
 	border-left: 1px solid rgba(0,0,0,0.15);
 	border-right: 1px solid rgba(0,0,0,0.15);
 	overflow: visible;
+	background-color: black;
+	color: rgba(242, 242, 242, 1);
+}
+
+section#global-nav .menu article.option.authentication .button-profile {
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 section#global-nav .menu.pull-right article.option {
@@ -115,4 +121,22 @@ section#global-nav .menu.pull-right article.option {
 section#global-nav .img-circle {
 	width: 25px;
 	height: auto;
+}
+
+section#global-nav  #logo-container {
+	cursor: pointer;
+}
+
+section#global-nav  #logo-container article#logo {
+    display: block;
+    margin: 7px 10px 5px 10px;
+    float: left;
+}
+
+section#global-nav  #logo-container article#logo-title {
+    float: left;
+    color: rgba(242, 242, 242, 1);
+    line-height: 47px;
+    font-size: 20px;
+    text-transform: uppercase;
 }
