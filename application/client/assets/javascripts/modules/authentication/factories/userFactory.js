@@ -34,7 +34,7 @@ angular.module('Authentication').
                     if(data && data.user && data.user.TOKEN) {
                         prototype.set(data.user);
                         localStorage.setItem('user', JSON.stringify(data.user));
-                        $window.location = $window.location.protocol + "//" + $window.location.host + "/manager";
+                        $window.location = $window.location.protocol + "//" + $window.location.host + "/manager?token=" + data.user.TOKEN;
                     }
                 }).
                 error(function(data, status, headers, config) {
@@ -45,7 +45,8 @@ angular.module('Authentication').
             prototype.logout = function() {
                 var user = prototype.get();
                 if(user.TOKEN) {
-                    $http.get(apiUrl + 'logout?token=' + user.TOKEN).
+                    console.log(user.TOKEN);
+                    $http.get(apiUrl + 'logout').
                     success(function(data, status, headers, config) {
                         localStorage.removeItem('user');
                         $window.location.reload();
