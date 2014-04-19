@@ -27,7 +27,7 @@ angular.module('FileManager').
 				var $local = $scope._fileUploader
 				,	socket = WebsocketFactory();
 
-				self.id = attributes.fileId || '_' + Math.random() * 100 + '_';
+				self.id = attributes.fileId || (Math.random() + '').replace('0.', '');
 				self.path = attributes.filePath || '/';
 
 				$node.on('dragenter', self.noop);

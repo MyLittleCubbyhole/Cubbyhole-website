@@ -18,6 +18,8 @@ angular.module('FileManager').
 		socket.on('upload_done', function(data){
 			files[data.id].context.$local.progress = '100%';
 			files[data.id].context.$scope.$apply();
+			files[data.id].context.$scope.FileManager.reload();
+
 			delete files[data.id];
 		});
 
