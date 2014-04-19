@@ -48,8 +48,8 @@ angular.module('FileManager').
 
 					socket.emit('upload_init', { id: self.id, owner: UserFactory.get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
 					
-					$local.progress = '0%';
-					$scope.$apply();
+					// $local.progress = '0%';
+					// $scope.$apply();
 				}); 
 			}
 		};

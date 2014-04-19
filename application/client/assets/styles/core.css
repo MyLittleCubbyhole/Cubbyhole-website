@@ -329,7 +329,7 @@ section#toolbar {
     font-size: 14px;
 }
 #toolbar article.tb-option:hover {
-    color: #7FA5BE;
+    color: #C94A4A;
 }
 #toolbar article.tb-option:hover .tb-icon {
     text-shadow: 0px 0px 10px rgba(3, 116, 3, 0.4); *;
@@ -488,6 +488,11 @@ section#manager-container.preview .information {
     display: none;
 }
 
+
+.input-file {
+    display: none;
+    pointer-events: none;
+}
 
 @media screen and (max-width: 775px) {
 
