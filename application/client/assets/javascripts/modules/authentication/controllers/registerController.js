@@ -1,5 +1,5 @@
 angular.module('Authentication').
-    controller('RegisterController', ['$scope', 'CountryFactory', 'UserFactory', function($scope, CountryFactory, UserFactory) {
+    controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', function($scope, $location, CountryFactory, UserFactory) {
         var $local = $scope.Register = {};
 
         $local.isFormSubmited = false;
@@ -21,6 +21,11 @@ angular.module('Authentication').
                 }
             }
         };
+
+        $local.goLogin = function() {
+            $location.path("/login");
+        };
+
 
         $scope.toString = function() {
             return 'Registration';
