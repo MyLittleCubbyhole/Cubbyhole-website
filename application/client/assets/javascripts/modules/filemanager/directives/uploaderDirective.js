@@ -46,11 +46,11 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.file.name });
 					}
 
-					socket.emit('upload_init', { id: self.id, owner: UserFactory.get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
-					
+					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().ID, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
+
 					// $local.progress = '0%';
 					// $scope.$apply();
-				}); 
+				});
 			}
 		};
 	}]);

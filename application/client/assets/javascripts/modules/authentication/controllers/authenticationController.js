@@ -2,10 +2,9 @@ angular.module('Authentication').
 	controller('AuthenticationController', ['$scope', 'UserFactory', function($scope, UserFactory) {
 		var $local = $scope.Authentication = {};
 
-		//pour l'instant le temps d'avoir une authentification
-		var user = { id: 0, username: 'Polochon'};
+		var user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+
 		UserFactory($scope).set(user);
-		//user = UserFactory.get();
 
 
 		$local.user = user;
@@ -15,14 +14,18 @@ angular.module('Authentication').
 
 		$scope.$on('hide', function() {
 			$local.opened = false;
-		})
+		});
 
 		$local.open = function() {
 			$local.opened = !$local.opened;
 			$scope.$emit('unable_overlay');
 		};
 
+		$local.logout = function() {
+			UserFactory($scope).logout();
+		};
+
 		$scope.toString = function() {
 			return 'Authentication';
-		}
+		};
 	}])

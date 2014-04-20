@@ -4,29 +4,22 @@
 			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
-		<section class="redirect-zone pull-left hidden-xs hidden-sm">
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/register') }" ng-click="Navigation.goto('/authentication#register')">
-				<span class="label">Register</span>
+		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
+			<article class="option nav" ng-if="!Authentication.user.USERNAME" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
+				<span class="label">Connexion</span>
 			</article>
-		</section>
-		<section class="redirect-zone pull-left">
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
-				<span class="label">Login</span>
-			</article>
-		</section>
-		<section class="menu pull-right">
-			<article class="option authentication" ng-controller="AuthenticationController">
+			<article class="option authentication" ng-if="Authentication.user.USERNAME">
 				<section class="button-profile" ng-click="Authentication.open();">
 					<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
-					<span class="label hidden-xs">{{Authentication.user.username}}</span>
+					<span class="label hidden-xs">{{Authentication.user.USERNAME}}</span>
 				</section>
 
 				<section id="user-card" class="flipInX animated" ng-class="{ open: Authentication.opened }">
 					<section id="user-profile">
 						<article class="user-picture"><img class="img-circle" src="/images/unknown-person.png" alt="profile picture"></article>
 						<article class="user-info">
-							<article class="user-firstname">Nicolas</article>
-							<article class="user-lastname">Gaignoux</article>
+							<article class="user-firstname">{{Authentication.user.FIRSTNAME}}</article>
+							<article class="user-lastname">{{Authentication.user.LASTNAME}}</article>
 						</article>
 					</section>
 					<hr class="tiny"></hr>
@@ -37,11 +30,10 @@
 					</section>
 					<hr class="tiny"></hr>
 					<hr class="tiny"></hr>
-					<section id="user-disconnect">
+					<section id="user-disconnect" ng-click="Authentication.logout()">
 						<span class="user-icon icon-switch"></span><span>deconnexion</span>
 					</section>
 				</section>
-
 			</article>
 		</section>
 
