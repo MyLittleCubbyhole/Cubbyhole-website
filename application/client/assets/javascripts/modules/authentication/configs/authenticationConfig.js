@@ -8,6 +8,9 @@ angular.module('Authentication').
         .when('/login', {
             templateUrl: '/partials/authentication'
         })
+        .when('/confirmation', {
+            templateUrl: '/partials/confirmation'
+        })
         .otherwise({ redirectTo: '/login' });
 
 		$location.html5Mode(false);

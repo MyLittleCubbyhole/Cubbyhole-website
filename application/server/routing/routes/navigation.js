@@ -1,6 +1,7 @@
 var fs = require('fs')
 ,	_ = require('lodash')
 ,	navigation 	= { get: {}, post: {}, put: {}, delete: {}, redirect: {} }
+,   http = require(global.paths.server + '/features/tools/http/core')
 ,	options	= {
 		angular: {}, headers: {}, fonts: {}, content: {}, footer: {},
 		javascripts: {
@@ -17,6 +18,24 @@ navigation.get.index = function(request, response) {
 	options.headers = { title: 'Accueil', description: 'Cubbyhole' };
 	options.javascripts.core = '../partials/ejs/javascripts/core/home.ejs';
 	response.render('home', options);
+}
+
+navigation.get.activation = function(request, response) {
+	var query = request.query;
+
+    var token = query.token || 0;
+    token = encodeURIComponent(token);
+
+    if(token) {
+        http.activation(token, function(result) {
+            if(result == 200) {
+                response.redirect('/authentication#/confirmation');
+            }
+            else
+                response.redirect('/');
+        });
+    } else
+        response.redirect('/');
 }
 
 navigation.get.authentication = function(request, response) {
