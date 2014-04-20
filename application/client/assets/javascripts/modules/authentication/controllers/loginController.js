@@ -6,6 +6,8 @@ angular.module('Authentication').
 
         $local.user = {};
 
+        localStorage.removeItem("user");
+
         $local.authenticate = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {
