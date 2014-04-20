@@ -494,14 +494,37 @@ section#manager-container.preview .information {
     display: none;
 }
 
-
-.input-file {
-    display: none;
-    pointer-events: none;
-}
-
 .preview-infos {
     color: rgba(218, 218, 218, 1);
+}
+
+.preview-icon {
+    height: 80px;
+    width: 80px;
+    float: left;
+}
+
+.preview-icon .file-icon {
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.preview-icon .icon-image {
+    background-image: url('/images/fileIcons/jpg.png');
+}
+
+.preview-name {
+    font-size: 18px;
+    margin-top: 0px;
+    line-height: 92px;
+}
+
+.preview-content {
+    max-height: 300px;
+    padding-top: 10px;
 }
 
 .preview-element {
@@ -513,21 +536,16 @@ section#manager-container.preview .information {
     max-height: 100%;
 }
 
+
+.input-file {
+    display: none;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 775px) {
 
-    section#toolbar {
-        height: 50px;
-    }
-    #toolbar article.tb-option {
-        width: 60px;
-    }
-    #toolbar article.tb-option-title {
-        display: none;
-    }
-
-
     #manager section.manager-bloc:first-child {
-        width: 100%;
+        width: 100% !important;
     }
     #manager section.manager-bloc:nth-child(2) {
         display: none;

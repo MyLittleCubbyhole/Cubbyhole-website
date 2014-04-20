@@ -4,15 +4,14 @@ angular.module('FileManager').
 
         $local.getRessourceUrl = function() {
 
-            if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0]) {
-                var url = apiUrl + 'download/' + UserFactory($scope).get().ID + $scope.FileManager.currentPath + $scope.FileManager.selectedItems[0].name;
-                url = AuthenticationFactory.request({ url: url }).url;
-                url += "&run";
+            var url = "";
 
-                return url;
+            if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0]) {
+                url = apiUrl + 'download/' + UserFactory($scope).get().ID + $scope.FileManager.currentPath + $scope.FileManager.selectedItems[0].name;
+                url = AuthenticationFactory.request({ url: url }).url + "&run";
             }
 
-            return "";
+            return url;
         }
 
         $scope.toString = function() {

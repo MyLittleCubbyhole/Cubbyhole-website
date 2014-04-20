@@ -16,18 +16,18 @@
                         <section class="tb-container pull-right">
                             <article class="tb-option" ng-click="FileManager.refresh()">
                                 <article class="tb-option-container">
-                                    <article class="tb-icon"><i class="icon-loop"></i></article>
+                                    <article class="tb-icon"><i class="icon-refresh"></i></article>
                                 </article>
                             </article>
                             <article class="tb-option">
                                 <input type="file" class="input-file" />
                                 <article class="tb-option-container" button-uploader ng-click="_buttonUploader.selectFile()">
-                                    <article class="tb-icon"><i class="icon-box-remove"></i></article>
+                                    <article class="tb-icon"><i class="icon-cloud-upload"></i></article>
                                 </article>
                             </article>
                             <article class="tb-option">
                                 <article class="tb-option-container">
-                                    <article class="tb-icon"><i class="icon-box-add"></i></article>
+                                    <article class="tb-icon"><i class="icon-cloud-download"></i></article>
                                 </article>
                             </article>
                         </section>
@@ -62,15 +62,20 @@
                     </article>
                 </section>
                 <section class="manager-bloc" ng-controller="PreviewController">
-                    <article class="manager-bloc-container" ng-if="FileManager.selectedItems.length == 1">
+                    <article class="manager-bloc-container google-font" ng-if="FileManager.selectedItems.length == 1">
                         <section class="preview-infos">
-                            <article class="preview-icon"></article>
-                            <article class="prview-name">{{FileManager.selectedItems[0].name}}</article>
+                            <article class="share-icon"><i class="icon-link"></i></article>
+                            <article class="file-size">250 Mo</article>
+                            <article class="preview-name">{{FileManager.selectedItems[0].name}}</article>
+                            <article class="edit-icon"><i class="icon-pencil"></i></article>
                         </section>
                         <section class="preview-content">
                             <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='image'">
                                 <img ng-src="{{Preview.getRessourceUrl()}}"/>
                             </article>
+                        </section>
+                        <section class="preview-share">
+                            <article class="share-button">Partage wesh</article>
                         </section>
                     </article>
                 </section>
