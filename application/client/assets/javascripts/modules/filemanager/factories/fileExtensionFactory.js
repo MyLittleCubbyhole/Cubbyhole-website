@@ -1,13 +1,13 @@
 angular.module('FileManager').
 	factory('FileExtensionFactory', function() {
-		
+
 		/**
 		 * mutualisation de service
 		 * les parametres de context sont placés dans le premier appel
 		 * on peut ainsi attaquer un scope annexe a partir d'un appel local
-		 * 
+		 *
 		 * ex: fileExtension($scope, {local: $local, controller: self}).maMethode('parameters', {une config})
-		 * 
+		 *
 		 * @param  {$scope} scope   angular scope
 		 * @param  {object} context [OPTIONAL] specification du context - peut contenir refs vers $local, $node et controller
 		 */
@@ -37,7 +37,7 @@ angular.module('FileManager').
 					file.category = "folder";
 				}
 				else {
-					
+
 					var extension = prototype.getExtension(file.name);
 
 					switch(extension) {
@@ -50,9 +50,17 @@ angular.module('FileManager').
 						break;
 						// IMAGES
 						case "jpg": case "jpeg": case "tif": case "bmp": case "gif":
-						case "png": case "svg": case "psd": case "ai": case "ico":
+						case "png": case "svg": case "ico":
 							file.icon = "icon-image";
 							file.category = "image";
+						break;
+						case "psd":
+							file.icon = "icon-psd";
+							file.category = "psd";
+						break;
+						case "ai":
+							file.icon = "icon-ai";
+							file.category = "ai";
 						break;
 						// AUDIO
 						case "mp3":  case "wav": case "m3u": case "m4a": case "mid": case "mpa":
@@ -74,7 +82,7 @@ angular.module('FileManager').
 						case "c": case "cpp": case "h": case "hpp": case "cs":
 						case "xaml": case "py": case "asm": case "asp": case "aspx":
 						case "lua": case "pl": case "ps1": case "rb": case "vbs":
-						case "lisp": case "vb": case "txt":
+						case "lisp": case "vb":
 							file.icon = "icon-file-xml";
 							file.category = "text";
 						break;
@@ -96,7 +104,7 @@ angular.module('FileManager').
 						case "doc": case "docx": case "docm": case "dot": case "dotx":
 						case "odt": case "ott":
 							file.icon = "icon-file-word";
-							file.category = "text";
+							file.category = "word";
 						break;
 						case "pps": case "ppt": case "pptx": case "odp": case "otp":
 							file.icon = "icon-file-powerpoint";
@@ -105,6 +113,10 @@ angular.module('FileManager').
 						case "xls": case "xlsx": case "csv": case "ods": case "ots":
 							file.icon = "icon-file-excel";
 							file.category = "calculation";
+						break;
+						case "txt":
+							file.icon = "icon-file-text";
+							file.category = "text";
 						break;
 						default:
 							file.icon = "icon-file";
@@ -117,6 +129,6 @@ angular.module('FileManager').
 			};
 
 			return prototype;
-			
+
 		};
 	});

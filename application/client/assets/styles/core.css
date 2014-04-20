@@ -379,6 +379,9 @@ section.manager-bloc:last-child {
     /* overflow: auto; */
     padding-bottom: 86px;
 }
+.preview-container {
+    background-image: url(/images/design/preview-background.png);
+}
 section#list-file-container {
     height: 100%;
     width: 100%;
@@ -494,14 +497,41 @@ section#manager-container.preview .information {
     display: none;
 }
 
-
-.input-file {
-    display: none;
-    pointer-events: none;
-}
-
 .preview-infos {
     color: rgba(218, 218, 218, 1);
+}
+
+.share-icon {
+    float: left;
+}
+
+.share-icon .icon-link {
+    color: #2980b9;
+    font-size: 43px;
+}
+
+.file-size {
+    float: right;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.preview-name {
+    font-size: 19px;
+    padding-top: 59px;
+    line-height: 46px;
+    text-align: center;
+}
+
+.preview-name .icon-pencil {
+    color: #27ae60;
+    font-size: 19px;
+    padding-left: 4px;
+}
+
+.preview-content {
+    max-height: 300px;
+    padding-top: 10px;
 }
 
 .preview-element {
@@ -513,21 +543,31 @@ section#manager-container.preview .information {
     max-height: 100%;
 }
 
+.preview-share {
+    text-align: center;
+    padding-top: 38px;
+}
+
+.share-button {
+    height: 47px;
+    width: 192px;
+    line-height: 43px;
+    font-size: 17px;
+    background-color: #c0392b;
+    color: rgba(218, 218, 218, 1);
+    margin: auto;
+}
+
+
+.input-file {
+    display: none;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 775px) {
 
-    section#toolbar {
-        height: 50px;
-    }
-    #toolbar article.tb-option {
-        width: 60px;
-    }
-    #toolbar article.tb-option-title {
-        display: none;
-    }
-
-
     #manager section.manager-bloc:first-child {
-        width: 100%;
+        width: 100% !important;
     }
     #manager section.manager-bloc:nth-child(2) {
         display: none;
