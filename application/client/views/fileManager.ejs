@@ -4,7 +4,7 @@
 
     <section id="container" ng-controller="FileManagerController">
         <section id="manager">
-            <section id="manager-container">
+            <section id="manager-container" ng-class="{ preview: FileManager.previewActivated }">
                 <section class="manager-bloc">
                     <section id="toolbar">
                         <section id="breadcrumb" class="pull-left google-font big-font" ng-controller="BreadcrumbController">
@@ -47,7 +47,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="item item-file-manager big-font google-font" item item-id={{index}} ng-dblclick="_item.open(_item)" file-uploader file-path={{item.path}} file-id=_{{index}}_ ng-repeat="(index, item) in FileManager.items">
+                                        <tr class="item item-file-manager big-font google-font" ng-class="{selected: _item.selected}" item item-id={{index}} ng-dblclick="_item.open();" ng-click="_item.select($event);" file-uploader file-path={{item.path}} file-id=_{{index}}_ ng-repeat="(index, item) in FileManager.items">
                                             <td class="item-label" ng-class="_item.item.category"></td>
                                             <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text">{{_item.item.name}}</td>
                                             <td class="information">{{_item.item.category}}</td>

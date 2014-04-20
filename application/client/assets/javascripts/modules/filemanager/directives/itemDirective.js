@@ -10,6 +10,11 @@ angular.module('FileManager').
 				$local.item = {};
 				$local.selected = false;
 
+				$scope.$on('unselect', function() {
+					$local.selected = false;
+					console.log('unselected')
+				})
+
 				$local.open = function(item) {
 					if($local.item.category != 'folder')
 						$local.download()
@@ -19,7 +24,18 @@ angular.module('FileManager').
 				$local.move = function() { $local.item.move(); };
 				$local.rename = function() { $local.item.rename(); };
 				$local.remove = function() { $local.item.remove(); };
-				$local.preview = function() { $local.item.preview(); };
+				$local.select = function($event) {
+					if(!$event.ctrlKey)
+						$scope.$emit('unselect_all');
+
+
+					$local.selected = !$local.selected;
+
+					$scope.FileManager.selectedItems += $local.selected ? 1 : -1;
+
+					$scope.FileManager.preview();
+					
+				};
 				$local.download = function() { $local.item.download(); };
 
 				$scope.toString = function() {

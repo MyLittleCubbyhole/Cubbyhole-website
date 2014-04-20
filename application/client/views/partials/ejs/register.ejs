@@ -39,7 +39,7 @@
         </article>
 
         <article class="input-group">
-            <article class="input-form">Pays: <select ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
+            <article class="input-form">Pays: <select select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
             <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
                 <article ng-show="form.country.$error.required">Renseignez votre pays</article>
             </section>

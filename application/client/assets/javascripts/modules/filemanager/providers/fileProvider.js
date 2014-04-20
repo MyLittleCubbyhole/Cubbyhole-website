@@ -27,6 +27,10 @@ angular.module('FileManager').
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
 
+			File.prototype.toString = function() {
+				return 'File';
+			};
+
 			return File
 		}]
 	})

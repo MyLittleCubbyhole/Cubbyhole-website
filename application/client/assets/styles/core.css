@@ -1,6 +1,7 @@
 @import url(/styles/libraries/font.css);
 @import url(/styles/libraries/bootstrap/bootstrap.min.css);
 @import url(/styles/libraries/animate/animate.css);
+@import url(/styles/libraries/select2/select2-bootstrap.css);
 @import url(/styles/components/header.css);
 
 html, body {
@@ -408,7 +409,11 @@ section#list-file-container {
     transition: .08s all linear;
 }
 
-#manager tr.item:hover, #manager tr.item.selected {
+#manager tr.item.selected {
+    background-color: #34495e;
+    color: white;
+}
+#manager tr.item:hover {
     background-color: #333333;
     color: white;
 }
