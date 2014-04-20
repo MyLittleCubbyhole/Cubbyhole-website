@@ -61,9 +61,17 @@
                         </section>
                     </article>
                 </section>
-                <section class="manager-bloc">
-                    <article class="manager-bloc-container">
-                        preview et contenu super cool - affichage de l'icon du type de fichier, listing des uploads en cours ... bref y a pleins de chose a mettre ici :D
+                <section class="manager-bloc" ng-controller="PreviewController">
+                    <article class="manager-bloc-container" ng-if="FileManager.selectedItems.length == 1">
+                        <section class="preview-infos">
+                            <article class="preview-icon"></article>
+                            <article class="prview-name">{{FileManager.selectedItems[0].name}}</article>
+                        </section>
+                        <section class="preview-content">
+                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='image'">
+                                <img ng-src="{{Preview.getRessourceUrl()}}"/>
+                            </article>
+                        </section>
                     </article>
                 </section>
             </section>

@@ -12,7 +12,6 @@ angular.module('FileManager').
 
 				$scope.$on('unselect', function() {
 					$local.selected = false;
-					console.log('unselected')
 				})
 
 				$local.open = function(item) {
@@ -28,13 +27,15 @@ angular.module('FileManager').
 					if(!$event.ctrlKey)
 						$scope.$emit('unselect_all');
 
-
 					$local.selected = !$local.selected;
 
-					$scope.FileManager.selectedItems += $local.selected ? 1 : -1;
+					if($local.selected)
+						$scope.FileManager.selectedItems.push($local.item);
+					else
+						$scope.FileManager.selectedItems = _.without($scope.FileManager.selectedItems, $local.item);
 
 					$scope.FileManager.preview();
-					
+
 				};
 				$local.download = function() { $local.item.download(); };
 

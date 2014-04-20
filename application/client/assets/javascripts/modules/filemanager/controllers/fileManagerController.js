@@ -5,13 +5,13 @@ angular.module('FileManager').
 		$local.currentPath = '/';
 		$local.previewActivated = false;
 
-		$local.selectedItems = 0;
+		$local.selectedItems = [];
 		$local.items = [];
 
 		ItemFactory($scope, {local: $local}).load();
 
 		$scope.$on('unselect_all', function() {
-			$local.selectedItems = 0;
+			$local.selectedItems = [];
 			$scope.$broadcast('unselect');
 		})
 
@@ -20,7 +20,7 @@ angular.module('FileManager').
         };
 
         $local.preview = function() {
-        	$local.previewActivated = $local.selectedItems == 1;
+            $local.previewActivated = $local.selectedItems.length == 1;
         }
 
 		$scope.toString = function() {
