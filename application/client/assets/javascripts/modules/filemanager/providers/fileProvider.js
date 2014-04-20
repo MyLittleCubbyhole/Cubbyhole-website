@@ -13,8 +13,7 @@ angular.module('FileManager').
 		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', 'AuthenticationFactory', function(Class, Item, $window, apiUrl, UserFactory, AuthenticationFactory) {
 
 			var File = function(options) {
-
-				options = angular.extend(_default, options);
+				options = _.extend(_default, options);
 				Item.call(this, options);
 			};
 
@@ -22,10 +21,14 @@ angular.module('FileManager').
 
 			File.prototype.init = function() {};
 			File.prototype.download = function() {
-				var url = apiUrl + 'download/' + UserFactory(this.scope).get().ID + this.path + this.name;
+				var url = apiUrl + 'download/' + UserFactory(this.scope).get().ID + this.getPath();
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
+
+			File.prototype.getPath = function() {
+				return this.path + this.name;
+			}
 
 			File.prototype.toString = function() {
 				return 'File';

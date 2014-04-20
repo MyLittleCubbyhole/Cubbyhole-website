@@ -6,8 +6,7 @@ angular.module('FileManager').
 
             if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0]) {
                 var url = apiUrl + 'download/' + UserFactory($scope).get().ID + $scope.FileManager.currentPath + $scope.FileManager.selectedItems[0].name;
-                url = AuthenticationFactory.request({ url: url }).url;
-                url += "&run";
+                url = AuthenticationFactory.request({ url: url }).url + "&run";
 
                 return url;
             }

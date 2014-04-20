@@ -36,6 +36,10 @@ angular.module('FileManager').
 
 				$node.on('drop', function(event){
 					event.originalEvent.preventDefault();
+
+					if(event.originalEvent.dataTransfer.files.length <= 0)
+						return true;
+
 					self.file = event.originalEvent.dataTransfer.files[0];
 
 					UploaderFactory($scope, {local: $local, controller: self}).add(self.id, self.file);

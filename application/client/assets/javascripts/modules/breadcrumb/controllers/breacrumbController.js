@@ -14,6 +14,7 @@ angular.module('Breadcrumb').
 			for(var i =0; i<=index; i++)
 				fullPath += $local.path[i];
 
+			$scope.FileManager.preview(false);
 			ItemFactory($scope, {local: $scope.FileManager}).load(fullPath);
 		}
 

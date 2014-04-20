@@ -17,8 +17,10 @@ angular.module('FileManager').
 				$local.open = function(item) {
 					if($local.item.category != 'folder')
 						$local.download()
-					else
+					else {
+						$scope.FileManager.preview(false);
 						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.path);
+					}
 				};
 				$local.move = function() { $local.item.move(); };
 				$local.rename = function() { $local.item.rename(); };

@@ -15,12 +15,23 @@ angular.module('FileManager').
 			$scope.$broadcast('unselect');
 		})
 
+		$local.createFolder = function() {
+            ItemFactory($scope, {local: $local}).createFolder('new-folder');
+		};
+
+		$local.delete = function() {
+			for(var i = 0; i<$local.selectedItems.length; i++)
+            	ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getPath());
+		}
+
+		$local.download = function() {};
+
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.currentPath );
         };
 
-        $local.preview = function() {
-            $local.previewActivated = $local.selectedItems.length == 1;
+        $local.preview = function(force) {
+            $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 
 		$scope.toString = function() {

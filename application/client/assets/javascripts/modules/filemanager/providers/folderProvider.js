@@ -16,7 +16,7 @@ angular.module('FileManager').
 
 				options.path += options.name + '/';
 
-				options = angular.extend(_default, options);
+				options = _.extend(_default, options);
 				Item.call(this, options);
 			};
 
@@ -24,10 +24,14 @@ angular.module('FileManager').
 
 			Folder.prototype.init = function() {};
 			Folder.prototype.download = function() {
-				var url = apiUrl + 'download/' + userFactory(this.scope).get().ID + this.name + '/';
+				var url = apiUrl + 'download/' + userFactory(this.scope).get().ID + this.getPath();
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
+
+			Folder.prototype.getPath = function() {
+				return this.name + '/';
+			}
 
 			Folder.prototype.toString = function() {
 				return 'Folder';

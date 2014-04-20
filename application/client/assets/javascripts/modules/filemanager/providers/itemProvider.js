@@ -27,11 +27,8 @@ angular.module('FileManager').
 			};
 
 			Item.prototype.init = function() { throw 'init method must be overrided'; };
-			Item.prototype.move = function() { throw 'move method must be overrided'; };
-			Item.prototype.rename = function() { throw 'rename method must be overrided'; };
-			Item.prototype.remove = function() { throw 'remove method must be overrided'; };
-			Item.prototype.preview = function() { throw 'preview method must be overrided'; };
 			Item.prototype.download = function() { throw 'download method must be overrided'; };
+			Item.prototype.getPath = function() { throw 'getPath method must be overrided'; };
 
 			Object.defineProperties(Item.prototype, {
 				'node' : {
