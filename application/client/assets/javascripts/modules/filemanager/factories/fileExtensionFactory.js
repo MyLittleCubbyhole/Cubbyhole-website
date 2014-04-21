@@ -73,6 +73,7 @@ angular.module('FileManager').
 						case "wmv": case "avi": case "mpg": case "mpeg": case "mov":
 						case "3gp": case "dat": case "flv": case "m4v": case "mp4":
 						case "ogg": case "mkv": case "vob": case "divx": case "xvid":
+						case "webm":
 							file.icon = "icon-film";
 							file.category = "video";
 						break;

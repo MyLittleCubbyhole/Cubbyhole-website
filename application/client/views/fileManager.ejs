@@ -74,7 +74,7 @@
                 <section class="manager-bloc" ng-controller="PreviewController">
                     <article class="manager-bloc-container google-font preview-container" ng-if="FileManager.selectedItems.length == 1">
                         <section class="preview-infos">
-                            <article class="share-icon"><i class="icon-link"></i></article>
+                            <article class="share-icon"><i ng-class="{'icon-link': FileManager.selectedItems[0].category != 'folder', 'icon-group': FileManager.selectedItems[0].category == 'folder'}"></i></article>
                             <article class="file-size">250 Mo</article>
                             <article class="preview-name">{{FileManager.selectedItems[0].name}} <i class="icon-pencil"></i></article>
                         </section>
@@ -82,9 +82,15 @@
                             <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='image'">
                                 <img ng-src="{{Preview.getRessourceUrl()}}"/>
                             </article>
+                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='video'">
+                                <video ng-src="{{Preview.getRessourceUrl()}}" controls/>
+                            </article>
+                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='audio'">
+                                <audio ng-src="{{Preview.getRessourceUrl()}}" controls/>
+                            </article>
                         </section>
                         <section class="preview-share">
-                            <article class="share-button">Partager</article>
+                            <button class="share-button">Partager</button>
                         </section>
                     </article>
                 </section>

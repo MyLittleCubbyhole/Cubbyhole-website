@@ -505,7 +505,8 @@ section#manager-container.preview .information {
     float: left;
 }
 
-.share-icon .icon-link {
+.share-icon .icon-link,
+.share-icon .icon-group {
     color: #2980b9;
     font-size: 43px;
 }
@@ -538,7 +539,9 @@ section#manager-container.preview .information {
     text-align: center;
 }
 
-.preview-element img {
+.preview-element img,
+.preview-element video,
+.preview-element audio {
     max-width: 100%;
     max-height: 100%;
 }
@@ -556,6 +559,11 @@ section#manager-container.preview .information {
     background-color: #c0392b;
     color: rgba(218, 218, 218, 1);
     margin: auto;
+    border: none;
+}
+
+.share-button:focus {
+    outline: none;
 }
 
 
