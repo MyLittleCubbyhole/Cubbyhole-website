@@ -88,6 +88,12 @@
                             <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='audio'">
                                 <audio ng-src="{{Preview.getRessourceUrl()}}" controls/>
                             </article>
+                            <article class="preview-element code" ng-if="FileManager.selectedItems[0].category =='text'">
+                                <pre><code ng-include="Preview.getRessourceUrl()" highlight></code></pre>
+                            </article>
+                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='pdf'">
+                                <iframe ng-src="{{Preview.getRessourceUrl()}}"></iframe>
+                            </article>
                         </section>
                         <section class="preview-share">
                             <button class="share-button">Partager</button>
