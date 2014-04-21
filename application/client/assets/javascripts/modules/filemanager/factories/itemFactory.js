@@ -15,15 +15,14 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.load = function(path) {
-
+				console.log('load ', path)
 				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/');
 
 				path = path || '';
-
 				if(path.slice(-1) != '/')
 					path = path + '/';
 
-				var browsePath = browse.one(path);
+				var browsePath = browse.one(path.substring(1));
 
 				browsePath.getList().then(function(items) {
 					$scope.FileManager.currentPath = path;
@@ -32,13 +31,15 @@ angular.module('FileManager').
 					$local.items.splice(0);
 
 					var options;
-
+					console.log(items)
 					for(var i = 0; i<items.length; i++) {
 
 						options = Object.create({
 							name: items[i].name,
-							path: path,
-							type: items[i].type
+							path: items[i].path,
+							type: items[i].type,
+							ownerId: items[i].ownerId,
+							size: items[i].size
 						})
 
 						prototype.add(options);
@@ -54,7 +55,7 @@ angular.module('FileManager').
 			prototype.createFolder = function(name) {
 
 				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/')
-				,	path = $local.currentPath != '/' ? $local.currentPath : '';
+				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
 
 				browse.post(path, { name: name }).then(function() {
 					prototype.load($local.currentPath);
@@ -71,7 +72,7 @@ angular.module('FileManager').
 			}
 
 			prototype.add = function(options) {
-
+				console.log(options)
 				var item;
 				ExtensionFactory($scope).detection(options);
 
@@ -91,7 +92,7 @@ angular.module('FileManager').
 
 				_items.push(item);
 
-				options.path = item.path;
+				// options.path = item.path;
 				$local && $local.items.push(options);
 			}
 

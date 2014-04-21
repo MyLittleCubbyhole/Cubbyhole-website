@@ -13,9 +13,6 @@ angular.module('FileManager').
 		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', function(Class, Item, $window, apiUrl, userFactory) {
 
 			var Folder = function(options) {
-
-				options.path += options.name + '/';
-
 				options = _.extend(_default, options);
 				Item.call(this, options);
 			};
@@ -30,7 +27,7 @@ angular.module('FileManager').
 			};
 
 			Folder.prototype.getPath = function() {
-				return this.name + '/';
+				return this.path + this.name + '/'
 			}
 
 			Folder.prototype.toString = function() {
