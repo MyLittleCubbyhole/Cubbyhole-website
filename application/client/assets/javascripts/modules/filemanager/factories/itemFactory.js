@@ -15,7 +15,6 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.load = function(path) {
-				console.log('load ', path)
 				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/');
 
 				path = path || '';
@@ -25,13 +24,13 @@ angular.module('FileManager').
 				var browsePath = browse.one(path.substring(1));
 
 				browsePath.getList().then(function(items) {
+					console.log('load',path)
 					$scope.FileManager.currentPath = path;
 
 					_items.splice(0);
 					$local.items.splice(0);
 
 					var options;
-					console.log(items)
 					for(var i = 0; i<items.length; i++) {
 
 						options = Object.create({
@@ -72,7 +71,6 @@ angular.module('FileManager').
 			}
 
 			prototype.add = function(options) {
-				console.log(options)
 				var item;
 				ExtensionFactory($scope).detection(options);
 

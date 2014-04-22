@@ -28,6 +28,7 @@ angular.module('FileManager').
 
 				self.$template[0].addEventListener('change', function(event){
 					self.id = (Math.random() + '').replace('0.', '');
+					console.log($scope.FileManager.currentPath)
 					self.path = $scope.FileManager.currentPath;
 					self.file = event.target.files[0];
 
