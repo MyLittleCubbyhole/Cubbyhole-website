@@ -111,7 +111,7 @@ section.content {
     margin: 30px auto;
 }
 
-section.content:hover:after, section.content.hover:after {
+section.content:hover::after, section.content.hover::after {
     content: 'drop here';
     height: 100%;
     width: 100%;
@@ -436,7 +436,7 @@ section#list-file-container {
 #manager section.manager-bloc:first-child article.manager-bloc-container {
     padding-left: 0px;
 }
-#manager td.item-label:before {
+#manager td.item-label::before {
     content: "";
     background-color: #2ECC71;
     position: absolute;
@@ -451,32 +451,32 @@ section#list-file-container {
 }
 
 
-#manager td.item-label.blue:before,
-#manager td.item-label.video:before {
+#manager td.item-label.blue::before,
+#manager td.item-label.video::before {
     background-color: #3498db;
 }
-#manager td.item-label.red:before,
-#manager td.item-label.audio:before {
+#manager td.item-label.red::before,
+#manager td.item-label.audio::before {
     background-color: #e74c3c;
 }
-#manager td.item-label.violet:before,
-#manager td.item-label.archive:before {
+#manager td.item-label.violet::before,
+#manager td.item-label.archive::before {
     background-color: #8e44ad;
 }
-#manager td.item-label.orange:before,
-#manager td.item-label.image:before {
+#manager td.item-label.orange::before,
+#manager td.item-label.image::before {
     background-color: #f39c12;
 }
-#manager td.item-label.black:before,
-#manager td.item-label.folder:before {
+#manager td.item-label.black::before,
+#manager td.item-label.folder::before {
     background-color: #000;
 }
-#manager td.item-label.gray:before,
-#manager td.item-label.text:before {
+#manager td.item-label.gray::before,
+#manager td.item-label.text::before {
     background-color: #7f8c8d;
 }
 
-#manager td.item-label.green:before {
+#manager td.item-label.green::before {
     background-color: #16a085;
 }
 
