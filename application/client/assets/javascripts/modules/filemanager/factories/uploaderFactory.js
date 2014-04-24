@@ -12,7 +12,7 @@ angular.module('FileManager').
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
 
-			files[data.id].context.controller.fileReader.readAsBinaryString(part);
+			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
 		});
 
 

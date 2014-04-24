@@ -24,7 +24,6 @@ angular.module('FileManager').
 				var browsePath = browse.one(path.substring(1));
 
 				browsePath.getList().then(function(items) {
-					console.log('load',path)
 					$scope.FileManager.currentPath = path;
 
 					_items.splice(0);

@@ -10,9 +10,9 @@ angular.module('FileManager').
 
 				$local.progress = '';
 
-				self.file;
+				self.fileReaders = {};
+				self.files = {};
 				self.path;
-				self.fileReader = new FileReader();
 
 				self.noop = function(event) {
 					event.preventDefault();
@@ -31,33 +31,50 @@ angular.module('FileManager').
 				var $local = $scope._fileUploader
 				,	socket = WebsocketFactory();
 
-				self.id = attributes.fileId || (Math.random() + '').replace('0.', '');
 				self.path = attributes.filePath || '/';
 
 				$node.on('dragenter', self.noop);
 				$node.on('dragleave', self.noop);
 				$node.on('dragover', self.noop);
-				$node.on('dragstart', self.dragstart);
+				$node.on('dragstart', self.noop);
 
 				$node.on('drop', function(event){
-					console.log(event);
 					event.originalEvent.preventDefault();
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
 						return true;
+					
+					for(var i = 0; i<event.originalEvent.dataTransfer.files.length; i++) {
 
-					self.file = event.originalEvent.dataTransfer.files[0];
+						var id = Math.random().toString().replace('0.', '');
 
-					UploaderFactory($scope, {local: $local, controller: self}).add(self.id, self.file);
+						self.fileReaders[id] = new FileReader();
+						self.files[id] = event.originalEvent.dataTransfer.files[i];
 
-					self.fileReader.onload = function(event){
+						UploaderFactory($scope, {local: $local, controller: self}).add(id, self.files[id]);
 
-						var data = event.target.result
-						socket.emit('upload', { data: data, name: self.file.name });
+						self.fileReaders[id].onload = function(event){
+
+							var data = event.target.result
+							socket.emit('upload', { data: data, name: self.files[id].name });
+						}
+						// console.log({ 
+						// 	id: id, 
+						// 	owner: UserFactory($scope).get().id, 
+						// 	name : self.files[id].name, 
+						// 	size : self.files[id].size, 
+						// 	type: self.files[id].type, 
+						// 	path: self.path 
+						// })
+						socket.emit('upload_init', { 
+							id: id, 
+							owner: UserFactory($scope).get().id, 
+							name : self.files[id].name, 
+							size : self.files[id].size, 
+							type: self.files[id].type, 
+							path: self.path 
+						});
 					}
-
-					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
-
 					// $local.progress = '0%';
 					// $scope.$apply();
 				});
