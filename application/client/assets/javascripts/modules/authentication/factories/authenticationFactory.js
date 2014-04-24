@@ -5,7 +5,7 @@ angular.module('Authentication').
                 config.url += "?token=";
                 var user = localStorage.getItem('user');
                 if(user)
-                    config.url += JSON.parse(user).TOKEN || "";
+                    config.url += JSON.parse(user).token || "";
 
                 return config || $q.when(config);
             },
