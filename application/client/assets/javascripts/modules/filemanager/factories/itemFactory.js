@@ -15,7 +15,7 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.load = function(path) {
-				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/');
+				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				path = path || '';
 				if(path.slice(-1) != '/')
@@ -53,7 +53,7 @@ angular.module('FileManager').
 
 			prototype.createFolder = function(name) {
 
-				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/')
+				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/')
 				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
 
 				browse.post(path, { name: name }).then(function() {
@@ -63,7 +63,7 @@ angular.module('FileManager').
 
 			prototype.delete = function(path) {
 
-				var browse = restangular.one('browse').one(userFactory($scope).get().ID + '/');
+				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				browse.one(path).remove().then(function() {
 					prototype.load($local.currentPath);

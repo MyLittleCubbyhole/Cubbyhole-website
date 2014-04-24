@@ -5,21 +5,21 @@
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
-			<article class="option nav" ng-if="!Authentication.user.USERNAME" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
+			<article class="option nav" ng-if="!Authentication.user.username" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
 				<span class="label">Connexion</span>
 			</article>
-			<article class="option authentication" ng-if="Authentication.user.USERNAME">
+			<article class="option authentication" ng-if="Authentication.user.username">
 				<section class="button-profile" ng-click="Authentication.open();">
 					<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
-					<span class="label hidden-xs">{{Authentication.user.USERNAME}}</span>
+					<span class="label hidden-xs">{{Authentication.user.username}}</span>
 				</section>
 
 				<section id="user-card" class="flipInX animated" ng-class="{ open: Authentication.opened }">
 					<section id="user-profile">
 						<article class="user-picture"><img class="img-circle" src="/images/unknown-person.png" alt="profile picture"></article>
 						<article class="user-info">
-							<article class="user-firstname">{{Authentication.user.FIRSTNAME}}</article>
-							<article class="user-lastname">{{Authentication.user.LASTNAME}}</article>
+							<article class="user-firstname">{{Authentication.user.firstname}}</article>
+							<article class="user-lastname">{{Authentication.user.lastname}}</article>
 						</article>
 					</section>
 					<hr class="tiny"></hr>

@@ -7,6 +7,7 @@ angular.module('Websocket').
 		var init = function() {
 			console.info('connection to websocket server...');
 			if(typeof io != 'undefined') {
+				console.log(apiUrl);
 				socketIO = io.connect(apiUrl);
 				socket = socketIO.socket.of(socketRoom);
 				console.info('socket connected at ' + apiUrl);
