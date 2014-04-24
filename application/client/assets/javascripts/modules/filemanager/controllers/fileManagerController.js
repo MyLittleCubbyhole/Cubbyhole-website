@@ -4,6 +4,7 @@ angular.module('FileManager').
 
 		$local.currentPath = '/';
 		$local.previewActivated = false;
+		$local.previewItem = null;
 
 		$local.selectedItems = [];
 		$local.items = [];
@@ -32,8 +33,8 @@ angular.module('FileManager').
             ItemFactory($scope, {local: $local}).load( $local.currentPath );
         };
 
-        $local.preview = function(force) {
-            $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
+        $local.preview = function(item, force) {
+            $local.previewActivated = typeof force !== 'undefined' ? force : !!$local.previewItem;
         }
 
 		$scope.toString = function() {

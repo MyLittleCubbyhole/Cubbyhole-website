@@ -35,11 +35,14 @@ angular.module('FileManager').
 						$scope.FileManager.selectedItems.push($local.item);
 					else
 						$scope.FileManager.selectedItems = _.without($scope.FileManager.selectedItems, $local.item);
-
-					$scope.FileManager.preview();
-
 				};
-				$local.download = function() { $local.item.download(); };
+				$local.preview = function($event) {
+					$local.select($event);
+					$scope.FileManager.preview($local.item);
+				}
+				$local.download = function() {
+					$local.item.download();
+				};
 
 				$scope.toString = function() {
 					return '_item';

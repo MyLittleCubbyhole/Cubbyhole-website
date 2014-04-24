@@ -6,11 +6,11 @@ angular.module('FileManager').
 
             var url = "";
 
-            if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0]) {
-                url = apiUrl + 'download/' + UserFactory($scope).get().id + $scope.FileManager.currentPath + $scope.FileManager.selectedItems[0].name;
+            if($scope.FileManager.previewItem && $scope.FileManager.previewItem) {
+                url = apiUrl + 'download/' + UserFactory($scope).get().id + $scope.FileManager.currentPath + $scope.FileManager.previewItem.name;
                 url = AuthenticationFactory.request({ url: url }).url + "&run";
 
-                if($scope.FileManager.selectedItems[0].category == 'pdf')
+                if($scope.FileManager.previewItem.category == 'pdf')
                     url += "&nostream";
             }
 

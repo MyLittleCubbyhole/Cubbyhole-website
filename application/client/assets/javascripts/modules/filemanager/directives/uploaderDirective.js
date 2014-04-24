@@ -56,7 +56,6 @@ angular.module('FileManager').
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove);
 					}
 
-
 					if(event.originalEvent.dataTransfer.files.length <= 0)
 						return true;
 
@@ -76,11 +75,18 @@ angular.module('FileManager').
 					UploaderFactory($scope, {local: $local, controller: self}).add(id, self.files[id]);
 
 					self.fileReaders[id].onload = function(event){
-						console.log(id, self.files[id].name)
 						var data = event.target.result
 						socket.emit('upload', { data: data, name: self.files[id].name });
+
 					}
 
+					ItemFactory($scope, {local: $scope.FileManager}).add({
+						name: self.files[id].name,
+						owner: UserFactory($scope).get().username,
+						size : self.files[id].size,
+						type: self.files[id].type,
+						path: self.path
+					})
 					socket.emit('upload_init', {
 						id: id,
 						owner: UserFactory($scope).get().id,

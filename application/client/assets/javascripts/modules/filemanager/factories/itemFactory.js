@@ -53,8 +53,9 @@ angular.module('FileManager').
 							name: items[i].name,
 							path: items[i].path,
 							type: items[i].type,
-							ownerId: items[i].ownerId,
-							size: items[i].size
+							owner: items[i].ownerId,
+							size: items[i].size,
+							lastUpdate: items[i].lastUpdate
 						})
 
 						prototype.add(options);
@@ -95,7 +96,7 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.add = function(options) {
+			prototype.add = function(options, callback) {
 				var item;
 				ExtensionFactory($scope).detection(options);
 
@@ -118,6 +119,7 @@ angular.module('FileManager').
 
 				// options.path = item.path;
 				$local && $local.items.push(options);
+				callback && callback.call(this);
 			}
 
 			return prototype;
