@@ -33,8 +33,8 @@ angular.module('FileManager').
             ItemFactory($scope, {local: $local}).load( $local.currentPath );
         };
 
-        $local.preview = function(item, force) {
-            $local.previewActivated = typeof force !== 'undefined' ? force : !!$local.previewItem;
+        $local.preview = function(force) {
+            $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 
 		$scope.toString = function() {
