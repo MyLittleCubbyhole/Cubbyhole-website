@@ -21,12 +21,16 @@ angular.module('FileManager').
 
 			File.prototype.init = function() {};
 			File.prototype.download = function() {
-				var url = apiUrl + 'download/' + UserFactory(this.scope).get().id + this.getPath();
+				var url = apiUrl + 'download/' + UserFactory(this.scope).get().id + this.getFullPath();
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
 
 			File.prototype.getPath = function() {
+				return this.path;
+			}
+
+			File.prototype.getFullPath = function() {
 				return this.path + this.name;
 			}
 

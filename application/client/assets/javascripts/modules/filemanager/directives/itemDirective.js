@@ -19,7 +19,7 @@ angular.module('FileManager').
 						$local.download()
 					else {
 						$scope.FileManager.preview(false);
-						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getPath());
+						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath());
 					}
 				};
 				$local.move = function() { $local.item.move(); };
