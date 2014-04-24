@@ -24,11 +24,28 @@ angular.module('FileManager').
 				var browsePath = browse.one(path.substring(1));
 
 				browsePath.getList().then(function(items) {
-					console.log('load',path)
 					$scope.FileManager.currentPath = path;
 
 					_items.splice(0);
 					$local.items.splice(0);
+					if(path != '/') {
+						items.push(Object.create({
+							name: '. .',
+							path: path,
+							type: 'folder',
+							ownerId: userFactory($scope).get().id,
+							size: 0
+						}));
+					}
+
+
+					items.push(Object.create({
+						name: ' . ',
+						path: path,
+						type: 'folder',
+						ownerId: userFactory($scope).get().id,
+						size: 0
+					}));
 
 					var options;
 					for(var i = 0; i<items.length; i++) {
@@ -89,6 +106,7 @@ angular.module('FileManager').
 				}
 
 				_items.push(item);
+				options.path = item.getPath();
 
 				// options.path = item.path;
 				$local && $local.items.push(options);
