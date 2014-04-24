@@ -21,7 +21,8 @@ angular.module('FileManager').
 
 		$local.delete = function() {
 			for(var i = 0; i<$local.selectedItems.length; i++)
-            	ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getFullPath());
+                if($local.selectedItems[i].name != '. .')
+            	   ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getFullPath());
             $local.preview(false);
 		}
 

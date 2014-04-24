@@ -43,7 +43,16 @@ angular.module('FileManager').
 
 					var pathTargetMove = self.path;
 					var pathToMove = event.originalEvent.dataTransfer.getData('fileToMove').substring(1);
-					if(pathTargetMove && pathToMove) {
+
+					var pathsToMove = pathToMove.split('/');
+					var path = '';
+					for(var i = 0; i < pathsToMove.length - 1; i++)
+						path += pathsToMove[i] + '/';
+
+					if(path.slice(0, 1) != '/')
+						path = '/' + path;
+
+					if(pathTargetMove && pathToMove && pathTargetMove != path) {
 						var move = restangular.one('move').one(UserFactory($scope).get().id + '');
 						move.post(pathToMove, { path: pathTargetMove }).then(function() {
 							ItemFactory($scope, {local: $scope.FileManager}).load($scope.FileManager.currentPath);
