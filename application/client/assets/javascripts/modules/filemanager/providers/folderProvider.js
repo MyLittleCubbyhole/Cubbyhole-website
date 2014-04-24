@@ -21,13 +21,27 @@ angular.module('FileManager').
 
 			Folder.prototype.init = function() {};
 			Folder.prototype.download = function() {
-				var url = apiUrl + 'download/' + userFactory(this.scope).get().id + this.getPath();
+				var url = apiUrl + 'download/' + userFactory(this.scope).get().id + this.getFullPath();
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
 
 			Folder.prototype.getPath = function() {
-				return this.path + this.name + '/'
+				var path = this.path;
+				if(this.name == '. .') {
+					var paths = path.split('/');
+					path = '';
+					for(var i = 0; i < paths.length - 2; i++)
+						path += paths[i] + '/';
+				}
+				else if(this.name != ' . ') {
+					path += this.name + '/'
+				}
+				return path;
+			}
+
+			Folder.prototype.getFullPath = function() {
+				return this.getPath();
 			}
 
 			Folder.prototype.toString = function() {
