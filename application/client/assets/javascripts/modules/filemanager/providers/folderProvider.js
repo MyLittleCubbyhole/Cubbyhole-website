@@ -21,7 +21,7 @@ angular.module('FileManager').
 
 			Folder.prototype.init = function() {};
 			Folder.prototype.download = function() {
-				var url = apiUrl + 'download/' + userFactory(this.scope).get().ID + this.getPath();
+				var url = apiUrl + 'download/' + userFactory(this.scope).get().id + this.getPath();
 
 				$window.location = AuthenticationFactory.request({ url: url }).url;
 			};
@@ -33,7 +33,7 @@ angular.module('FileManager').
 			Folder.prototype.toString = function() {
 				return 'Folder';
 			}
-			
+
 			return Folder
 		}];
 	})

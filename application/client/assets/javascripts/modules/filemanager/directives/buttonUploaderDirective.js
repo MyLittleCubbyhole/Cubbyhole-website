@@ -28,7 +28,6 @@ angular.module('FileManager').
 
 				self.$template[0].addEventListener('change', function(event){
 					self.id = (Math.random() + '').replace('0.', '');
-					console.log($scope.FileManager.currentPath)
 					self.path = $scope.FileManager.currentPath;
 					self.file = event.target.files[0];
 
@@ -39,8 +38,7 @@ angular.module('FileManager').
 						var data = event.target.result
 						socket.emit('upload', { data: data, name: self.file.name });
 					}
-					console.log(self.path)
-					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().ID, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
+					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
 				});
 			}
 		};

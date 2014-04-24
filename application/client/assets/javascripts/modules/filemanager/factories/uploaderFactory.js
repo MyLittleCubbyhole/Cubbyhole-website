@@ -7,6 +7,7 @@ angular.module('FileManager').
 		socket.on('upload_next', function(data){
 			// files[data.id].context.$local.progress = Math.floor(data['percent']) + '%';
 			// files[data.id].context.$scope.$apply();
+			console.log(Math.floor(data['percent']) + '%');
 
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
@@ -34,7 +35,7 @@ angular.module('FileManager').
 			,	$node = context.node || {}
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
-			
+
 			var prototype = {};
 
 			prototype.add = function(id, file) {
