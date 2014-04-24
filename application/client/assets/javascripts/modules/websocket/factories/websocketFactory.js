@@ -1,5 +1,5 @@
 angular.module('Websocket').
-	factory('WebsocketFactory', ['apiUrl', 'socketRoom', function(apiUrl, socketRoom) {
+	factory('WebsocketFactory', ['websocketUrl', 'socketRoom', function(url, socketRoom) {
 
 		var socketIO = {}
 		,	socket;
@@ -7,9 +7,9 @@ angular.module('Websocket').
 		var init = function() {
 			console.info('connection to websocket server...');
 			if(typeof io != 'undefined') {
-				socketIO = io.connect(apiUrl);
+				socketIO = io.connect(url);
 				socket = socketIO.socket.of(socketRoom);
-				console.info('socket connected at ' + apiUrl);
+				console.info('socket connected at ' + url);
 			}
 			else
 				console.error('io not defined - problem with webservice');
