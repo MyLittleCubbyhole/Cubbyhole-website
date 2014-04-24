@@ -49,7 +49,7 @@
                                     <thead>
                                         <tr class="list-header big-font google-font">
                                             <th class="item-label"></th>
-                                            <th>Name</th>
+                                            <th >Name</th>
                                             <th class="information">Type</th>
                                             <th class="information">Owner</th>
                                             <th class="information hidden-xs">size</th>
@@ -61,9 +61,9 @@
                                             <td class="item-label" ng-class="_item.item.category"></td>
                                             <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text">{{_item.item.name}}</td>
                                             <td class="information">{{_item.item.category}}</td>
-                                            <td class="information">Ju13nt</td>
-                                            <td class="information hidden-xs">200mo</td>
-                                            <td class="information hidden-xs">14/03/12 6h30</td>
+                                            <td class="information">{{_item.item.owner}}</td>
+                                            <td class="information hidden-xs">{{_item.item.size}}</td>
+                                            <td class="information hidden-xs">{{_item.item.lastUpdate}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

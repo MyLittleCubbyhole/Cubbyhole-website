@@ -49,7 +49,6 @@ angular.module('FileManager').
 
 					var options;
 					for(var i = 0; i<items.length; i++) {
-
 						options = Object.create({
 							name: items[i].name,
 							path: items[i].path,
