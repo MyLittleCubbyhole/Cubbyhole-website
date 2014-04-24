@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	directive('buttonUploader', ['WebsocketFactory', 'UserFactory', 'UploaderFactory', function(WebsocketFactory, UserFactory, UploaderFactory) {
+	directive('buttonUploader', ['WebsocketFactory', 'UserFactory', 'UploaderFactory', 'ItemFactory', function(WebsocketFactory, UserFactory, UploaderFactory, ItemFactory) {
 		return {
 			scope: true,
 			controller: function($scope) {
@@ -39,14 +39,22 @@ angular.module('FileManager').
 						var data = event.target.result
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
-					socket.emit('upload_init', { 
-						id: id, 
-						owner: UserFactory($scope).get().id, 
-						name : self.files[id].name, 
+					console.log('passage')
+					ItemFactory($scope, {local: $scope.FileManager}).add({
+						name: self.files[id].name,
+						owner: UserFactory($scope).get().username,
 						size : self.files[id].size, 
-						type: self.files[id].type, 
+						type: 'file', 
 						path: self.path 
-					});
+					}, function() { $scope.$apply(); })
+					// socket.emit('upload_init', { 
+					// 	id: id, 
+					// 	owner: UserFactory($scope).get().id, 
+					// 	name : self.files[id].name, 
+					// 	size : self.files[id].size, 
+					// 	type: self.files[id].type, 
+					// 	path: self.path 
+					// });
 				});
 			}
 		};

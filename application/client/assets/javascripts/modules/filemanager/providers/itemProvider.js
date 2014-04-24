@@ -7,7 +7,10 @@ angular.module('FileManager').
 			icon: '',
 			category: '',
 			scope: null,
-			node: null
+			node: null,
+			lastUpdate: null,
+			size: 0,
+			owner: ''
 		};
 
 		this.$get = function() {
@@ -22,6 +25,9 @@ angular.module('FileManager').
 				this.scope = this.options.scope;
 				this._node = null;
 				this.node = this.options.node;
+				this.lastUpdate = this.options.lastUpdate;
+				this.size = this.options.size;
+				this.owner = this.options.owner;
 
 				options && this.init();
 			};
