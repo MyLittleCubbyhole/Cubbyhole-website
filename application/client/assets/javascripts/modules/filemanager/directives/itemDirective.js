@@ -26,6 +26,7 @@ angular.module('FileManager').
 				$local.rename = function() { $local.item.rename(); };
 				$local.remove = function() { $local.item.remove(); };
 				$local.select = function($event) {
+					$scope.FileManager.preview(false);
 					if(!$event.ctrlKey)
 						$scope.$emit('unselect_all');
 
@@ -38,7 +39,7 @@ angular.module('FileManager').
 				};
 				$local.preview = function($event) {
 					$local.select($event);
-					$scope.FileManager.preview($local.item);
+					$scope.FileManager.preview();
 				}
 				$local.download = function() {
 					$local.item.download();
