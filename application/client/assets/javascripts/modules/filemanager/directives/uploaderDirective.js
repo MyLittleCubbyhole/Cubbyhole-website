@@ -83,8 +83,7 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 
 					}
-<<<<<<< HEAD
-					console.log('passage')
+					
 					ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
@@ -92,16 +91,6 @@ angular.module('FileManager').
 						type: self.files[id].type, 
 						path: self.path 
 					})
-					// socket.emit('upload_init', { 
-					// 	id: id, 
-					// 	owner: UserFactory($scope).get().id, 
-					// 	name : self.files[id].name, 
-					// 	size : self.files[id].size, 
-					// 	type: self.files[id].type, 
-					// 	path: self.path 
-					// });
-=======
-
 					socket.emit('upload_init', {
 						id: id,
 						owner: UserFactory($scope).get().id,
@@ -110,7 +99,6 @@ angular.module('FileManager').
 						type: self.files[id].type,
 						path: self.path
 					});
->>>>>>> f4af24b9360fc12edbc2faa6dd478f93ab4448b4
 				}
 			}
 		};
