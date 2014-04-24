@@ -4,7 +4,8 @@ angular.module('FileManager').
 		var files = {}
 		,	socket = WebsocketFactory();
 
-		socket.on('upload_next', function(data){
+		socket.on('upload_next', function(data) {
+			console.log(data);
 			// files[data.id].context.$local.progress = Math.floor(data['percent']) + '%';
 			// files[data.id].context.$scope.$apply();
 			console.log(Math.floor(data['percent']) + '%');

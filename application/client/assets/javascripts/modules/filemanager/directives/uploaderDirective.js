@@ -45,39 +45,37 @@ angular.module('FileManager').
 						return true;
 					
 					for(var i = 0; i<event.originalEvent.dataTransfer.files.length; i++) {
-
-						var id = Math.random().toString().replace('0.', '');
-
-						self.fileReaders[id] = new FileReader();
-						self.files[id] = event.originalEvent.dataTransfer.files[i];
-
-						UploaderFactory($scope, {local: $local, controller: self}).add(id, self.files[id]);
-
-						self.fileReaders[id].onload = function(event){
-
-							var data = event.target.result
-							socket.emit('upload', { data: data, name: self.files[id].name });
-						}
-						// console.log({ 
-						// 	id: id, 
-						// 	owner: UserFactory($scope).get().id, 
-						// 	name : self.files[id].name, 
-						// 	size : self.files[id].size, 
-						// 	type: self.files[id].type, 
-						// 	path: self.path 
-						// })
-						socket.emit('upload_init', { 
-							id: id, 
-							owner: UserFactory($scope).get().id, 
-							name : self.files[id].name, 
-							size : self.files[id].size, 
-							type: self.files[id].type, 
-							path: self.path 
-						});
+						var file = event.originalEvent.dataTransfer.files[i]
+						init(file);
 					}
+					
 					// $local.progress = '0%';
 					// $scope.$apply();
 				});
+
+				function init(file) {
+					var id = Math.random().toString().replace('0.', '');
+
+					self.fileReaders[id] = new FileReader();
+					self.files[id] = file;
+
+					UploaderFactory($scope, {local: $local, controller: self}).add(id, self.files[id]);
+
+					self.fileReaders[id].onload = function(event){
+						console.log(id, self.files[id].name)
+						var data = event.target.result
+						socket.emit('upload', { data: data, name: self.files[id].name });
+					}
+					
+					socket.emit('upload_init', { 
+						id: id, 
+						owner: UserFactory($scope).get().id, 
+						name : self.files[id].name, 
+						size : self.files[id].size, 
+						type: self.files[id].type, 
+						path: self.path 
+					});
+				}
 			}
 		};
 	}]);
