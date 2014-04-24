@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	directive('fileUploader', ['WebsocketFactory', 'UserFactory', 'ItemFactory', 'UploaderFactory', 'Restangular', function(WebsocketFactory, UserFactory, ItemFactory, UploaderFactory, restangular){
+	directive('fileUploader', ['WebsocketFactory', 'UserFactory', 'ItemFactory', 'UploaderFactory', function(WebsocketFactory, UserFactory, ItemFactory, UploaderFactory){
 		return {
 			scope: true,
 			require: 'fileUploader',
@@ -53,10 +53,7 @@ angular.module('FileManager').
 						path = '/' + path;
 
 					if(pathTargetMove && pathToMove && pathTargetMove != path) {
-						var move = restangular.one('move').one(UserFactory($scope).get().id + '');
-						move.post(pathToMove, { path: pathTargetMove }).then(function() {
-							ItemFactory($scope, {local: $scope.FileManager}).load($scope.FileManager.currentPath);
-						}, function(error) { console.error(error); });
+						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove);
 					}
 
 

@@ -86,6 +86,15 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			prototype.move = function(pathToMove, pathTargetMove) {
+
+				var move = restangular.one('move').one(userFactory($scope).get().id + '');
+
+				move.post(pathToMove, { path: pathTargetMove }).then(function() {
+					prototype.load($local.currentPath);
+				}, function(error) { console.error(error); });
+			}
+
 			prototype.add = function(options) {
 				var item;
 				ExtensionFactory($scope).detection(options);
