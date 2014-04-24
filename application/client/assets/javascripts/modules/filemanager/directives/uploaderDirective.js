@@ -19,6 +19,10 @@ angular.module('FileManager').
 					event.stopPropagation();
 				}
 
+				self.dragstart = function(event) {
+					event.dataTransfer.fileToMove = "ok";
+				}
+
 				$scope.toString = function() {
 					return '_fileUploader';
 				}
@@ -33,8 +37,10 @@ angular.module('FileManager').
 				$node.on('dragenter', self.noop);
 				$node.on('dragleave', self.noop);
 				$node.on('dragover', self.noop);
+				$node.on('dragstart', self.dragstart);
 
 				$node.on('drop', function(event){
+					console.log(event);
 					event.originalEvent.preventDefault();
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
@@ -50,7 +56,7 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.file.name });
 					}
 
-					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().ID, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
+					socket.emit('upload_init', { id: self.id, owner: UserFactory($scope).get().id, name : self.file.name, size : self.file.size, type: self.file.type, path: self.path });
 
 					// $local.progress = '0%';
 					// $scope.$apply();
