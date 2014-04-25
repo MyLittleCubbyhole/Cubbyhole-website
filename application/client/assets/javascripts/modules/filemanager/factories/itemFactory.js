@@ -28,8 +28,11 @@ angular.module('FileManager').
 
 					_items.splice(0);
 					$local.items.splice(0);
+					_items = [];
+					$local.items = [];
 
 					path != '/' && prototype.add({
+						_id: '',
 						name: '. .',
 						path: path,
 						type: 'folder',
@@ -39,6 +42,7 @@ angular.module('FileManager').
 					});
 
 					prototype.add({
+						_id: '',
 						name: ' . ',
 						path: path,
 						type: 'folder',
@@ -50,6 +54,7 @@ angular.module('FileManager').
 					var options;
 					for(var i = 0; i<items.length; i++) {
 						options = Object.create({
+							_id : items[i]._id,
 							name: items[i].name,
 							path: items[i].path,
 							type: items[i].type,
@@ -61,11 +66,24 @@ angular.module('FileManager').
 						prototype.add(options);
 					}
 
+					console.log(_items);
+					console.log($local.items);
+
 				}, function(error) { console.error(error); });
 			}
 
 			prototype.get = function(id) {
 				return _items[id];
+			}
+
+			prototype.getAll = function() {
+				return _items;
+			}
+
+			prototype.clean = function(itemId) {
+				_items.splice(itemId, 1);
+				console.log(_items)
+				prototype.synchronize();
 			}
 
 			prototype.createFolder = function(name) {
@@ -74,16 +92,16 @@ angular.module('FileManager').
 				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
 
 				browse.post(path, { name: name }).then(function() {
-					prototype.load($local.currentPath);
+					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.delete = function(path) {
+			prototype.delete = function(item) {
 
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
-				browse.one(path).remove().then(function() {
-					prototype.load($local.currentPath);
+				browse.one(item.getFullPath()).remove().then(function() {
+					prototype.clean(item._id);
 				}, function(error) { console.error(error); });
 			}
 
@@ -92,7 +110,7 @@ angular.module('FileManager').
 				var move = restangular.one('move').one(userFactory($scope).get().id + '');
 
 				move.post(pathToMove, { path: pathTargetMove }).then(function() {
-					prototype.load($local.currentPath);
+					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
 			}
 
@@ -101,8 +119,14 @@ angular.module('FileManager').
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				browse.one(path).customPUT({name: newName}).then(function() {
-					prototype.load($local.currentPath);
+					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
+			}
+
+			prototype.synchronize = function() {
+				$local.items.splice(0);
+				for(var i =0; i<_items.length; i++)
+					$local.items.push(_items[i].options);
 			}
 
 			prototype.add = function(options, callback) {

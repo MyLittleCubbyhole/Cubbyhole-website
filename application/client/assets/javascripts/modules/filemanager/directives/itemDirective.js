@@ -8,7 +8,6 @@ angular.module('FileManager').
 
 				$local.item = {};
 				$local.oldName = "";
-				$local.editMode = false;
 				$local.selected = false;
 
 				$scope.$on('unselect', function() {
@@ -32,28 +31,39 @@ angular.module('FileManager').
 				$local.rename = function() {
 					if($local.selected) {
 						$scope.FileManager.cancelPreview();
-						$local.editMode = true;
+						$local.item.editMode = true;
 						$local.oldName = $local.item.name;
 					}
 				};
 
 				$local.cancelEdit = function() {
-					$local.editMode = false;
+					$local.item.editMode = false;
 					$local.item.name = $local.oldName;
+
+					if($local.item.newItem) {
+						ItemFactory($scope, {local: $scope.FileManager}).clean(self.itemId);
+						ItemFactory($scope, {local: $scope.FileManager}).synchronize();
+					}
 				};
 
 				$local.validEdit = function() {
-					$local.editMode = false;
+					$local.item.editMode = false;
 					var newName = $local.item.name;
 					$local.item.name = $local.oldName;
 					var fullPath = $local.item.getFullPath();
 					$local.item.name = newName;
-					ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
+					if(!$local.item.newItem) {
+						ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
+					}
+					else {
+						ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item.name);
+						$local.item.newItem = false;
+					}
 				};
 
 				$local.remove = function() { $local.item.remove(); };
 				$local.select = function($event) {
-					if($local.item.unselectable === true) 
+					if($local.item.unselectable === true)
 						return true;
 
 					$scope.FileManager.preview(false);
@@ -75,7 +85,7 @@ angular.module('FileManager').
 				};
 				$local.preview = function($event) {
 					$local.select($event);
-					if(!$local.editMode)
+					if(!$local.item.editMode)
 						$scope.FileManager.preview();
 				}
 				$local.download = function() {
@@ -90,8 +100,11 @@ angular.module('FileManager').
 			restrict: 'A',
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._item;
-				$local.item = ItemFactory($scope).get( attributes.itemId );
+				self.itemId = attributes.itemId;
+				$local.item = ItemFactory($scope).get(attributes.itemId);
 				$local.item.node = $node;
+
+				console.log($local.item)
 			}
 		};
 	}]);
