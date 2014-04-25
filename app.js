@@ -30,6 +30,10 @@ app.configure('development', function () {
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+if(app.settings.env == 'prod')
+    for(var i in console)
+        console[i] = function() {};
+
 var config = require(global.paths.server + '/config/core').init();
 require(global.paths.server + '/dependencies')(server, app);
 

@@ -41,6 +41,7 @@ angular.module('FileManager').
 					var witness = $local.selected;
 					if(!$event.ctrlKey)
 						$scope.$emit('unselect_all');
+
 					$local.selected = !witness;
 
 					if($local.selected)
@@ -59,7 +60,7 @@ angular.module('FileManager').
 				}
 				$local.download = function() {
 					$local.item.download();
-				};
+				}
 
 				$scope.toString = function() {
 					return '_item';
@@ -69,10 +70,8 @@ angular.module('FileManager').
 			restrict: 'A',
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._item;
-
 				$local.item = ItemFactory($scope).get( attributes.itemId );
 				$local.item.node = $node;
-
 			}
 		};
 	}]);
