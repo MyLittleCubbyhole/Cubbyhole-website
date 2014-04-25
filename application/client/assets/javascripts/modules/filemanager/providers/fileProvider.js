@@ -13,8 +13,9 @@ angular.module('FileManager').
 		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', 'AuthenticationFactory', function(Class, Item, $window, apiUrl, UserFactory, AuthenticationFactory) {
 
 			var File = function(options) {
-				options = _.extend(_default, options);
-				Item.call(this, options);
+				var params = {};
+				_.extend(params, _default, options);
+				Item.call(this, params);
 			};
 
 			Class.extend(Item, File);

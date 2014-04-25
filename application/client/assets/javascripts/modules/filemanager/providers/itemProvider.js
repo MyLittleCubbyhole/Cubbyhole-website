@@ -17,7 +17,8 @@ angular.module('FileManager').
 
 			var Item = function(options) {
 
-				this.options = angular.extend(_default, options);
+				this.options = {};
+				_.extend(this.options, _default, options);
 				this.name = this.options.name;
 				this.path = this.options.path;
 				this.category = this.options.category;

@@ -134,7 +134,7 @@ angular.module('FileManager').
 				ExtensionFactory($scope).detection(options);
 
 				options.scope = $scope;
-
+				console.log(options)
 				switch(options.type) {
 					case 'file':
 						item = new File(options);
