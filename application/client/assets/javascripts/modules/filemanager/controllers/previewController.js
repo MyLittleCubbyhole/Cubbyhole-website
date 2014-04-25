@@ -6,7 +6,7 @@ angular.module('FileManager').
 
             var url = "";
 
-            if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0]) {
+            if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0] && $scope.FileManager.previewActivated) {
                 url = apiUrl + 'download/' + UserFactory($scope).get().id + $scope.FileManager.currentPath + $scope.FileManager.selectedItems[0].name;
                 url = AuthenticationFactory.request({ url: url }).url + "&run";
 

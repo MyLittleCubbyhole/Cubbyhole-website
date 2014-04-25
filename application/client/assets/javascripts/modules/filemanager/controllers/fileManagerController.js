@@ -46,6 +46,10 @@ angular.module('FileManager').
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 
+        $local.cancelPreview = function() {
+            $local.previewActivated = false;
+        }
+
 		$scope.toString = function() {
 			return 'FileManager';
 		}

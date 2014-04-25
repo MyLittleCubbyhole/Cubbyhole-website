@@ -490,6 +490,48 @@ section#list-file-container {
     max-width: 135px;
 }
 
+#manager td.limit-text input {
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    margin-right: -64px;
+    padding-right: 64px;
+}
+
+#manager td.limit-text i {
+    font-size: 22px;
+    cursor: pointer;
+    float: right;
+    color: #8D8D8D;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 8px;
+}
+
+#manager tr.item:hover td.limit-text i {
+    color: rgb(221, 221, 221);
+}
+
+#manager tr.item.selected td.limit-text i {
+    color: rgb(221, 221, 221);
+}
+
+#manager td.limit-text i:last-of-type {
+    padding-left: 8px;
+}
+
+#manager td.limit-text i:first-of-type {
+    padding-right: 8px;
+}
+
+#manager td.limit-text .edit {
+    width: 100%;
+}
+
+#manager td.limit-text input:focus {
+    outline: none;
+}
+
 section#manager-container.preview .manager-bloc:last-child {
     width: 35%;
 }
