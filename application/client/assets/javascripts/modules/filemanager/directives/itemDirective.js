@@ -8,6 +8,7 @@ angular.module('FileManager').
 
 
 				$local.item = {};
+				$local.editMode = false;
 				$local.selected = false;
 
 				$scope.$on('unselect', function() {

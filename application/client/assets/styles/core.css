@@ -324,6 +324,9 @@ section#toolbar {
     line-height: 46px;
     font-size: 23px;
 }
+#toolbar article.tb-icon.small {
+    font-size: 20px;
+}
 #toolbar article.tb-option-title {
     height: 17px;
     line-height: 13px;

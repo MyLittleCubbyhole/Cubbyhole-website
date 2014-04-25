@@ -27,6 +27,10 @@ angular.module('FileManager').
             $local.preview(false);
 		}
 
+        $local.rename = function() {
+
+        }
+
 		$local.download = function() {};
 
         $local.refresh = function() {
