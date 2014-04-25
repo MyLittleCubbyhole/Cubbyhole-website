@@ -28,6 +28,9 @@ angular.module('FileManager').
 				this.lastUpdate = this.options.lastUpdate;
 				this.size = this.options.size;
 				this.owner = this.options.owner;
+				this.editMode = this.options.editMode || false;
+				this.newItem = this.options.newItem || false;
+				this._id = this.options._id || -1;
 
 				options && this.init();
 			};

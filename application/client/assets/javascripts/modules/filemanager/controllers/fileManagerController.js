@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', 'ItemFactory', function($scope, ItemFactory) {
+	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', function($scope, ItemFactory, UserFactory) {
 		var $local = $scope.FileManager = {};
 
 		$local.currentPath = '/';
@@ -17,12 +17,21 @@ angular.module('FileManager').
 		})
 
 		$local.createFolder = function() {
-            ItemFactory($scope, {local: $local}).createFolder('new-folder');
+            ItemFactory($scope, {local: $scope.FileManager}).add({
+                name: '',
+                owner: UserFactory($scope).get().username,
+                size : 0,
+                type: 'folder',
+                path: $local.currentPath,
+                editMode: true,
+                newItem: true
+            });
 		};
 
 		$local.delete = function() {
 			for(var i = 0; i<$local.selectedItems.length; i++)
-				ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getFullPath());
+                if($local.selectedItems[i].name != '. .')
+            	   ItemFactory($scope, {local: $local}).delete($local.selectedItems[i]);
             $local.preview(false);
 		}
 
@@ -30,13 +39,7 @@ angular.module('FileManager').
             $scope.$broadcast('rename_item');
         }
 
-		$local.download = function() {
-			console.log($local.selectedItems[0].toString())
-			if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
-				$local.selectedItems[0].download();
-			else
-				$scope.$broadcast('start_post_download');
-		};
+		$local.download = function() {};
 
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.currentPath );
@@ -44,6 +47,10 @@ angular.module('FileManager').
 
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
+        }
+
+        $local.deleteItem = function(itemId) {
+            $local.items.splice(itemId, 1);
         }
 
         $local.cancelPreview = function() {
