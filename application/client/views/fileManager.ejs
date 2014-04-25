@@ -67,8 +67,8 @@
                                             <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text"><span ng-hide="_item.editMode">{{_item.item.name}}</span><span class="edit" ng-show="_item.editMode"><input type="text" ng-model="_item.item.name" placeholder="{{_item.item.name}}" autofocus><i class="icon-check" ng-click="_item.validEdit();"></i><i class="icon-times" ng-click="_item.cancelEdit();"></i></span></td>
                                             <td class="information">{{_item.item.category}}</td>
                                             <td class="information">{{_item.item.owner}}</td>
-                                            <td class="information hidden-xs">{{_item.item.size}}</td>
-                                            <td class="information hidden-xs">{{_item.item.lastUpdate}}</td>
+                                            <td class="information hidden-xs">{{_item.item.size | ItemSizeFilter}}</td>
+                                            <td class="information hidden-xs">{{_item.item.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

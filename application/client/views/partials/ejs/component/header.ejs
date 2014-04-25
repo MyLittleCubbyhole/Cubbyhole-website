@@ -1,8 +1,10 @@
 <header ng-class="{ preventClick: Overlay.activated }">
 	<section id="global-nav" ng-controller="NavigationController">
 		<section id="logo-container" class="pull-left">
-			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
-			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
+			<a href="/home">
+				<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
+				<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
+			</a>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
 			<article class="option nav" ng-if="!Authentication.user.username" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
