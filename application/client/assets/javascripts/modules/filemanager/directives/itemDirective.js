@@ -53,7 +53,7 @@ angular.module('FileManager').
 
 				$local.remove = function() { $local.item.remove(); };
 				$local.select = function($event) {
-					if($local.item.unselectable === 'true')
+					if($local.item.unselectable === true) 
 						return true;
 
 					$scope.FileManager.preview(false);

@@ -7,16 +7,18 @@ angular.module('FileManager').
 			icon: '',
 			category: '',
 			scope: null,
-			node: null
+			node: null,
+			unselectable: false
 		};
 
 		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', function(Class, Item, $window, apiUrl, userFactory) {
 
 			var Folder = function(options) {
-				options = _.extend(_default, options);
-				Item.call(this, options);
+				var params = {};
+				_.extend(params, _default, options);
+				Item.call(this, params);
 
-				this.unselectable = options.unselectable || false;
+				this.unselectable = params.unselectable || false;
 			};
 
 			Class.extend(Item, Folder);
