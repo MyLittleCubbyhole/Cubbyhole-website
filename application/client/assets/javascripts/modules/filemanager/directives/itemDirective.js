@@ -36,6 +36,9 @@ angular.module('FileManager').
 
 				$local.remove = function() { $local.item.remove(); };
 				$local.select = function($event) {
+					if($local.item.unselectable === 'true')
+						return true;
+
 					$scope.FileManager.preview(false);
 
 					var witness = $local.selected;
@@ -47,12 +50,11 @@ angular.module('FileManager').
 					if($local.selected)
 						$scope.FileManager.selectedItems.push($local.item);
 					else
-						dance:for(var i = 0; i<$scope.FileManager.selectedItems.length; i++) {
+						for(var i = 0; i<$scope.FileManager.selectedItems.length; i++)
 							if($scope.FileManager.selectedItems[i].name == $local.item.name) {
 								$scope.FileManager.selectedItems.splice(i,1);
-								break dance;
+								break;
 							}
-						}
 				};
 				$local.preview = function($event) {
 					$local.select($event);

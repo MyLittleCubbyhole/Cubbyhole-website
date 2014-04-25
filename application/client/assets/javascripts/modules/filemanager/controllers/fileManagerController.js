@@ -22,8 +22,7 @@ angular.module('FileManager').
 
 		$local.delete = function() {
 			for(var i = 0; i<$local.selectedItems.length; i++)
-                if($local.selectedItems[i].name != '. .')
-            	   ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getFullPath());
+				ItemFactory($scope, {local: $local}).delete($local.selectedItems[i].getFullPath());
             $local.preview(false);
 		}
 
@@ -31,7 +30,13 @@ angular.module('FileManager').
             $scope.$broadcast('rename_item');
         }
 
-		$local.download = function() {};
+		$local.download = function() {
+			console.log($local.selectedItems[0].toString())
+			if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
+				$local.selectedItems[0].download();
+			else
+				$scope.$broadcast('start_post_download');
+		};
 
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.currentPath );

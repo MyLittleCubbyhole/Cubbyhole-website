@@ -41,20 +41,19 @@ angular.module('FileManager').
 
 					event.originalEvent.preventDefault();
 
-					var pathTargetMove = self.path;
-					var pathToMove = event.originalEvent.dataTransfer.getData('fileToMove').substring(1);
+					var pathTargetMove = self.path
+					,	pathToMove = event.originalEvent.dataTransfer.getData('fileToMove').substring(1)
+					,	pathsToMove = pathToMove.split('/')
+					,	path = '';
 
-					var pathsToMove = pathToMove.split('/');
-					var path = '';
 					for(var i = 0; i < pathsToMove.length - 1; i++)
 						path += pathsToMove[i] + '/';
 
 					if(path.slice(0, 1) != '/')
 						path = '/' + path;
 
-					if(pathTargetMove && pathToMove && pathTargetMove != path) {
+					if(pathTargetMove && pathToMove && pathTargetMove != path)
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove);
-					}
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
 						return true;
@@ -84,7 +83,7 @@ angular.module('FileManager').
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
 						size : self.files[id].size,
-						type: self.files[id].type,
+						type: 'file', 
 						path: self.path
 					})
 					socket.emit('upload_init', {

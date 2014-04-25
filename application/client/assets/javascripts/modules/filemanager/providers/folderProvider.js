@@ -15,6 +15,8 @@ angular.module('FileManager').
 			var Folder = function(options) {
 				options = _.extend(_default, options);
 				Item.call(this, options);
+
+				this.unselectable = options.unselectable || false;
 			};
 
 			Class.extend(Item, Folder);

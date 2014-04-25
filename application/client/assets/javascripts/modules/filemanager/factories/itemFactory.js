@@ -19,7 +19,7 @@ angular.module('FileManager').
 
 				path = path || '';
 				if(path.slice(-1) != '/')
-					path = path + '/';
+					path += '/';
 
 				var browsePath = browse.one(path.substring(1));
 
@@ -28,24 +28,24 @@ angular.module('FileManager').
 
 					_items.splice(0);
 					$local.items.splice(0);
-					if(path != '/') {
-						items.push(Object.create({
-							name: '. .',
-							path: path,
-							type: 'folder',
-							ownerId: userFactory($scope).get().id,
-							size: 0
-						}));
-					}
 
+					path != '/' && prototype.add({
+						name: '. .',
+						path: path,
+						type: 'folder',
+						ownerId: userFactory($scope).get().id,
+						size: '',
+						unselectable: true
+					});
 
-					items.push(Object.create({
+					prototype.add({
 						name: ' . ',
 						path: path,
 						type: 'folder',
 						ownerId: userFactory($scope).get().id,
-						size: 0
-					}));
+						size: '',
+						unselectable: true
+					});
 
 					var options;
 					for(var i = 0; i<items.length; i++) {
