@@ -96,6 +96,15 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			prototype.rename = function(path, newName) {
+
+				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
+
+				browse.one(path).customPUT({name: newName}).then(function() {
+					prototype.load($local.currentPath);
+				}, function(error) { console.error(error); });
+			}
+
 			prototype.add = function(options, callback) {
 				var item;
 				ExtensionFactory($scope).detection(options);

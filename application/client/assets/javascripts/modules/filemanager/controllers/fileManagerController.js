@@ -28,7 +28,7 @@ angular.module('FileManager').
 		}
 
         $local.rename = function() {
-
+            $scope.$broadcast('rename_item');
         }
 
 		$local.download = function() {};
