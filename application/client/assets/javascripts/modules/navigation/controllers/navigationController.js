@@ -4,7 +4,7 @@ angular.module('Navigation').
 
 		$local.goto = function(path) {
 
-			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().TOKEN : "";
+			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().token : "";
 
 			$window.location = path;
 		};

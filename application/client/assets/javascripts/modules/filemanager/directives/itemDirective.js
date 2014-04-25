@@ -7,6 +7,7 @@ angular.module('FileManager').
 				,	self = this;
 
 				$local.item = {};
+				$local.oldName = "";
 				$local.editMode = false;
 				$local.selected = false;
 
@@ -30,8 +31,24 @@ angular.module('FileManager').
 
 				$local.rename = function() {
 					if($local.selected) {
+						$scope.FileManager.cancelPreview();
 						$local.editMode = true;
+						$local.oldName = $local.item.name;
 					}
+				};
+
+				$local.cancelEdit = function() {
+					$local.editMode = false;
+					$local.item.name = $local.oldName;
+				};
+
+				$local.validEdit = function() {
+					$local.editMode = false;
+					var newName = $local.item.name;
+					$local.item.name = $local.oldName;
+					var fullPath = $local.item.getFullPath();
+					$local.item.name = newName;
+					ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
 				};
 
 				$local.remove = function() { $local.item.remove(); };
@@ -56,7 +73,8 @@ angular.module('FileManager').
 				};
 				$local.preview = function($event) {
 					$local.select($event);
-					$scope.FileManager.preview();
+					if(!$local.editMode)
+						$scope.FileManager.preview();
 				}
 				$local.download = function() {
 					$local.item.download();
