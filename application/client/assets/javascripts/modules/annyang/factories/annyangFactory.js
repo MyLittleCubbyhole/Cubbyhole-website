@@ -9,8 +9,6 @@ angular.module('Annyang').
          * les parametres de context sont placés dans le premier appel
          * on peut ainsi attaquer un scope annexe a partir d'un appel local
          *
-         * ex: fileExtension($scope, {local: $local, controller: self}).maMethode('parameters', {une config})
-         *
          * @param  {$scope} scope   angular scope
          * @param  {object} context [OPTIONAL] specification du context - peut contenir refs vers $local, $node et controller
          */
