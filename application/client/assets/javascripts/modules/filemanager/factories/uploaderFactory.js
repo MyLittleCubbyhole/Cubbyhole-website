@@ -9,7 +9,7 @@ angular.module('FileManager').
 			// files[data.id].context.$local.progress = Math.floor(data['percent']) + '%';
 			// files[data.id].context.$scope.$apply();
 			// console.log(Math.floor(data['percent']) + '%');
-			files[data.id].context.entity.size = data['downloaded'];
+			files[data.id].context.entity.size += data['size'];
 			files[data.id].context.$scope.$apply();
 			// console.log(files[data.id].context.$node)
 			var chunk = data['chunk'] * 524288
@@ -24,7 +24,7 @@ angular.module('FileManager').
 			// file.context.$local.progress = '100%';
 			// file.context.$scope.$apply();
 			// file.context.$scope.FileManager.refresh();
-			files[data.id].context.entity.size = data['downloaded'];
+			files[data.id].context.entity.size += data['size'];
 			files[data.id].context.$scope.$apply();
 			// console.log(files[data.id].context.$node)
 

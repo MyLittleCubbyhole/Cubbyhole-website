@@ -71,7 +71,7 @@ angular.module('FileManager').
 					self.fileReaders[id] = new FileReader();
 					self.files[id] = file;
 
-					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
+					var newItem = self.path == $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
 						ownerId: UserFactory($scope).get().id,
@@ -79,7 +79,7 @@ angular.module('FileManager').
 						type: 'file', 
 						path: self.path,
 						lastUpdate: new Date()
-					}, function() { $scope.$apply(); })
+					}, function() { $scope.$apply(); }) : $scope._item.item;
 
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
 

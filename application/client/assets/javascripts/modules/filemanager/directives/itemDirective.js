@@ -50,9 +50,8 @@ angular.module('FileManager').
 					$local.item.name = $local.oldName;
 					var fullPath = $local.item.getFullPath();
 					$local.item.name = newName;
-					if(!$local.item.newItem) {
+					if(!$local.item.newItem)
 						ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
-					}
 					else {
 						ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item.name);
 						$local.item.newItem = false;
