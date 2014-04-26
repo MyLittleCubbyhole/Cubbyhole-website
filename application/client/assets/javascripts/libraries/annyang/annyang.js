@@ -248,6 +248,10 @@
       });
     },
 
+    removeAll: function() {
+      commandsList = {};
+    },
+
     // Lets the user add a callback of one of 9 types:
     // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
     // Can also optionally receive a context for the callback function as the third argument
