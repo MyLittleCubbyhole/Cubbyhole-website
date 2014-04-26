@@ -9,8 +9,9 @@ angular.module('FileManager').
 			scope: null,
 			node: null,
 			lastUpdate: null,
-			size: 0,
-			owner: ''
+			size: '',
+			owner: '',
+			ownerId: ''
 		};
 
 		this.$get = function() {
@@ -29,6 +30,7 @@ angular.module('FileManager').
 				this.lastUpdate = this.options.lastUpdate;
 				this.size = this.options.size;
 				this.owner = this.options.owner;
+				this.ownerId = this.options.ownerId;
 				this.editMode = this.options.editMode || false;
 				this.newItem = this.options.newItem || false;
 				this._id = this.options._id || -1;

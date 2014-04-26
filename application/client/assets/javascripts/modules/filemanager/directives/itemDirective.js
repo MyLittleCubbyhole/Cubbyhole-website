@@ -40,10 +40,8 @@ angular.module('FileManager').
 					$local.item.editMode = false;
 					$local.item.name = $local.oldName;
 
-					if($local.item.newItem) {
+					if($local.item.newItem)
 						ItemFactory($scope, {local: $scope.FileManager}).clean(self.itemId);
-						ItemFactory($scope, {local: $scope.FileManager}).synchronize();
-					}
 				};
 
 				$local.validEdit = function() {
@@ -104,7 +102,6 @@ angular.module('FileManager').
 				$local.item = ItemFactory($scope).get(attributes.itemId);
 				$local.item.node = $node;
 
-				console.log($local.item)
 			}
 		};
 	}]);

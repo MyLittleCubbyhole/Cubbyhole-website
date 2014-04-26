@@ -31,25 +31,7 @@ angular.module('FileManager').
 					_items = [];
 					$local.items = [];
 
-					path != '/' && prototype.add({
-						_id: '',
-						name: '. .',
-						path: path,
-						type: 'folder',
-						ownerId: userFactory($scope).get().id,
-						size: '',
-						unselectable: true
-					});
-
-					prototype.add({
-						_id: '',
-						name: ' . ',
-						path: path,
-						type: 'folder',
-						ownerId: userFactory($scope).get().id,
-						size: '',
-						unselectable: true
-					});
+					addFileNavigation();
 
 					var options;
 					for(var i = 0; i<items.length; i++) {
@@ -58,16 +40,14 @@ angular.module('FileManager').
 							name: items[i].name,
 							path: items[i].path,
 							type: items[i].type,
-							owner: items[i].ownerId,
+							ownerId: items[i].ownerId,
+                			owner: '',
 							size: items[i].size,
 							lastUpdate: items[i].lastUpdate
-						})
+						});
 
 						prototype.add(options);
 					}
-
-					console.log(_items);
-					console.log($local.items);
 
 				}, function(error) { console.error(error); });
 			}
@@ -81,8 +61,10 @@ angular.module('FileManager').
 			}
 
 			prototype.clean = function(itemId) {
-				_items.splice(itemId, 1);
-				console.log(_items)
+				for(var i=0; i<_items.length; i++)
+					if(_items[i]._id == itemId)
+						_items.splice(i, 1);
+
 				prototype.synchronize();
 			}
 
@@ -97,7 +79,6 @@ angular.module('FileManager').
 			}
 
 			prototype.delete = function(item) {
-
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				browse.one(item.getFullPath()).remove().then(function() {
@@ -125,8 +106,11 @@ angular.module('FileManager').
 
 			prototype.synchronize = function() {
 				$local.items.splice(0);
-				for(var i =0; i<_items.length; i++)
+				$local.items = [];
+
+				for(var i =0; i<_items.length; i++) {
 					$local.items.push(_items[i].options);
+				}
 			}
 
 			prototype.add = function(options, callback) {
@@ -145,13 +129,37 @@ angular.module('FileManager').
 						throw 'unknow item type';
 					break;
 				}
-
 				_items.push(item);
 				options.path = item.getPath();
 
 				// options.path = item.path;
 				$local && $local.items.push(options);
 				callback && callback.call(this);
+				return item;
+			}
+
+			function addFileNavigation() {				
+				$scope.FileManager.currentPath != '/' && prototype.add({
+					_id: '. .',
+					name: '. .',
+					path: $scope.FileManager.currentPath,
+					type: 'folder',
+					owner: '',
+					ownerId: userFactory($scope).get().id,
+					size: '',
+					unselectable: true
+				});
+
+				prototype.add({
+					_id: '.',
+					name: ' . ',
+					path: $scope.FileManager.currentPath,
+					type: 'folder',
+					owner: '',
+					ownerId: userFactory($scope).get().id,
+					size: '',
+					unselectable: true
+				});
 			}
 
 			return prototype;

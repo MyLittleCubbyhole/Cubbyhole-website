@@ -32,20 +32,24 @@ angular.module('FileManager').
 					self.files[id] = event.target.files[0];
 					self.fileReaders[id] = new FileReader();
 
-					UploaderFactory($scope, {local: $local, controller: self}).add(id, self.files[id]);
+					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
+						name: self.files[id].name,
+						owner: UserFactory($scope).get().username,
+						ownerId: UserFactory($scope).get().id,
+						size : 0, 
+						type: 'file', 
+						path: self.path,
+						lastUpdate: new Date()
+					}, function() { $scope.$apply(); })
+
+					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
 
 					self.fileReaders[id].onload = function(event){
 
 						var data = event.target.result
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
-					ItemFactory($scope, {local: $scope.FileManager}).add({
-						name: self.files[id].name,
-						owner: UserFactory($scope).get().username,
-						size : self.files[id].size, 
-						type: 'file', 
-						path: self.path 
-					}, function() { $scope.$apply(); })
+
 					socket.emit('upload_init', { 
 						id: id, 
 						owner: UserFactory($scope).get().id, 

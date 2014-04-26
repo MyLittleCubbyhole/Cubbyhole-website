@@ -20,18 +20,19 @@ angular.module('FileManager').
             ItemFactory($scope, {local: $scope.FileManager}).add({
                 name: '',
                 owner: UserFactory($scope).get().username,
+                ownerId: UserFactory($scope).get().id,
                 size : 0,
                 type: 'folder',
                 path: $local.currentPath,
                 editMode: true,
-                newItem: true
+                newItem: true,
+                lastUpdate: new Date()
             });
 		};
 
 		$local.delete = function() {
 			for(var i = 0; i<$local.selectedItems.length; i++)
-                if($local.selectedItems[i].name != '. .')
-            	   ItemFactory($scope, {local: $local}).delete($local.selectedItems[i]);
+                ItemFactory($scope, {local: $local}).delete($local.selectedItems[i]);
             $local.preview(false);
 		}
 
