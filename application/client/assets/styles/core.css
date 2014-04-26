@@ -484,27 +484,39 @@ section#list-file-container {
 }
 
 #manager td.limit-text {
+    max-width: 135px;
+}
+
+#manager td.limit-text > article {
+    position: relative;
+    height: 40px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 135px;
+    max-width: 2000px;
+}
+
+#manager td.limit-text .edit {
+    width: 100%;
+    height: 40px;
+    position: absolute;
 }
 
 #manager td.limit-text input {
     height: 40px;
+    width: 100%;
     background-color: transparent;
-    border: 0;
-    margin-right: -64px;
-    padding-right: 64px;
+    border: none;
+    padding-right: 57px;
 }
 
 #manager td.limit-text i {
     font-size: 22px;
     cursor: pointer;
-    float: right;
+    position: absolute;
+    right: 0;
     color: #8D8D8D;
-    padding-left: 4px;
-    padding-right: 4px;
     padding-top: 8px;
 }
 
@@ -518,14 +530,11 @@ section#list-file-container {
 
 #manager td.limit-text i:last-of-type {
     padding-left: 8px;
+    right: 36px;
 }
 
 #manager td.limit-text i:first-of-type {
     padding-right: 8px;
-}
-
-#manager td.limit-text .edit {
-    width: 100%;
 }
 
 #manager td.limit-text input:focus {
@@ -541,6 +550,22 @@ section#manager-container.preview .manager-bloc:first-child {
 }
 section#manager-container.preview .information {
     display: none;
+}
+
+section#manager-container .listing th.information.type {
+    width: 150px;
+}
+
+section#manager-container .listing th.information.owner {
+    width: 260px;
+}
+
+section#manager-container .listing th.information.size {
+    width: 130px;
+}
+
+section#manager-container .listing th.information.update {
+    width: 220px;
 }
 
 .preview-infos {

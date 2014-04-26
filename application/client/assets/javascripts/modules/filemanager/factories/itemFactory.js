@@ -62,8 +62,10 @@ angular.module('FileManager').
 
 			prototype.clean = function(itemId) {
 				for(var i=0; i<_items.length; i++)
-					if(_items[i]._id == itemId)
+					if(_items[i]._id == itemId) {
 						_items.splice(i, 1);
+						i--;
+					}
 
 				prototype.synchronize();
 			}
@@ -86,12 +88,12 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.move = function(pathToMove, pathTargetMove) {
+			prototype.move = function(pathToMove, pathTargetMove, itemId) {
 
 				var move = restangular.one('move').one(userFactory($scope).get().id + '');
 
 				move.post(pathToMove, { path: pathTargetMove }).then(function() {
-					//prototype.load($local.currentPath);
+					prototype.clean(itemId);
 				}, function(error) { console.error(error); });
 			}
 
@@ -138,7 +140,7 @@ angular.module('FileManager').
 				return item;
 			}
 
-			function addFileNavigation() {				
+			function addFileNavigation() {
 				$scope.FileManager.currentPath != '/' && prototype.add({
 					_id: '. .',
 					name: '. .',

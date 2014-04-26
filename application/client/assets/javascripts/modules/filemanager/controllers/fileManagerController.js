@@ -37,7 +37,15 @@ angular.module('FileManager').
 		}
 
         $local.rename = function() {
-            $scope.$broadcast('rename_item');
+            var canceled = false;
+            for(var i = 0; i < $local.selectedItems.length; i++)
+                if($local.selectedItems[i].editMode) {
+                    $scope.$broadcast('cancel_edit');
+                    canceled = true;
+                    break;
+                }
+
+            !canceled && $scope.$broadcast('rename_item');
         }
 
 		$local.download = function() {};
