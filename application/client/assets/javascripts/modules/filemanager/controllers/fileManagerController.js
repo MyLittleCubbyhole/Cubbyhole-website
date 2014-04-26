@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', function($scope, ItemFactory, UserFactory) {
+	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'AnnyangService', function($scope, ItemFactory, UserFactory, AnnyangService) {
 		var $local = $scope.FileManager = {};
 
 		$local.currentPath = '/';
@@ -16,24 +16,46 @@ angular.module('FileManager').
 			$scope.$broadcast('unselect');
 		})
 
-		$local.createFolder = function() {
-            ItemFactory($scope, {local: $scope.FileManager}).add({
-                name: '',
-                owner: UserFactory($scope).get().username,
-                ownerId: UserFactory($scope).get().id,
-                size : 0,
-                type: 'folder',
-                path: $local.currentPath,
-                editMode: true,
-                newItem: true,
-                lastUpdate: new Date()
-            });
+		$local.createFolder = function(name, callback) {
+            console.log(name);
+            var options = {
+                    owner: UserFactory($scope).get().username,
+                    ownerId: UserFactory($scope).get().id,
+                    size : 0,
+                    type: 'folder',
+                    path: $local.currentPath,
+                    newItem: true,
+                    lastUpdate: new Date()
+                }
+
+            if(name) {
+                options.name = name;
+                options.editMode = false;
+                ItemFactory($scope, {local: $local}).createFolder(name);
+            }
+            else {
+                options.name = '';
+                options.editMode = true;
+            }
+
+            ItemFactory($scope, {local: $local}).add(options, callback);
 		};
 
-		$local.delete = function() {
-			for(var i = 0; i<$local.selectedItems.length; i++)
-                ItemFactory($scope, {local: $local}).delete($local.selectedItems[i]);
+		$local.delete = function(name) {
+            var items = name ? [] : $local.selectedItems;
+
+            if(name)
+                for(var i = 0; i<$local.items.length; i++)
+                    if($local.items[i].name == name)
+                        items.push($local.items[i]);
+
+            console.log(items);
+
+            for(var i = 0; i<items.length; i++)
+                ItemFactory($scope, {local: $local}).delete(items[i]);
+
             $local.preview(false);
+
 		}
 
         $local.rename = function() {
@@ -65,6 +87,30 @@ angular.module('FileManager').
         $local.cancelPreview = function() {
             $local.previewActivated = false;
         }
+
+
+        AnnyangService.set('create_folder', function(name) {
+            $local.createFolder(name, function() { $scope.$apply(); });
+        })
+
+        AnnyangService.set('refresh', function(name) {
+            $local.refresh();
+        })
+
+        AnnyangService.set('rename_item', function(name, name2) {
+
+        })
+
+        AnnyangService.set('delete_item', function(name) {
+            $local.delete(name);
+        })
+
+        AnnyangService.set('open_item', function(name) {
+            $scope.$broadcast('open_folder', name);
+        })
+
+        AnnyangService.start();
+
 
 		$scope.toString = function() {
 			return 'FileManager';

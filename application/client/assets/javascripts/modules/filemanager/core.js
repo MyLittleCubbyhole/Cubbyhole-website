@@ -1,1 +1,1 @@
-angular.module('FileManager', ['Tools', 'Websocket', 'Authentication']);
+angular.module('FileManager', ['Tools', 'Websocket', 'Authentication', 'Annyang']);

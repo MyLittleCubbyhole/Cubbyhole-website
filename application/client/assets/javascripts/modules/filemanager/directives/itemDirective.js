@@ -18,15 +18,11 @@ angular.module('FileManager').
 					$local.rename();
 				})
 
-				$scope.$on('rename_item', function() {
-					$local.rename();
-				})
-
 				$scope.$on('cancel_edit', function() {
 					$local.cancelEdit();
 				})
 
-				$local.open = function(item) {
+				$local.open = function() {
 					if($local.item.category != 'folder')
 						$local.download()
 					else {
@@ -34,6 +30,12 @@ angular.module('FileManager').
 						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath());
 					}
 				};
+
+				$scope.$on('open_folder', function(scope, name) {
+					if($local.item.name == name)
+						$local.open();
+				});
+
 				$local.move = function() { $local.item.move(); };
 
 				$local.rename = function() {

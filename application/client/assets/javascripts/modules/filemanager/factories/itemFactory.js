@@ -81,6 +81,7 @@ angular.module('FileManager').
 			}
 
 			prototype.delete = function(item) {
+				console.log(item);
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				browse.one(item.getFullPath()).remove().then(function() {
@@ -111,7 +112,7 @@ angular.module('FileManager').
 				$local.items = [];
 
 				for(var i =0; i<_items.length; i++) {
-					$local.items.push(_items[i].options);
+					$local.items.push(_items[i]);
 				}
 			}
 
@@ -133,9 +134,11 @@ angular.module('FileManager').
 				}
 				_items.push(item);
 				options.path = item.getPath();
+				// options._id = item.getPath();
+				// options.fullPath = item.getPath();
 
 				// options.path = item.path;
-				$local && $local.items.push(options);
+				$local && $local.items.push(item);
 				callback && callback.call(this);
 				return item;
 			}

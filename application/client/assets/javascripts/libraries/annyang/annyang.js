@@ -249,7 +249,7 @@
     },
 
     removeAll: function() {
-      commandsList = {};
+      commandsList.splice(0);
     },
 
     // Lets the user add a callback of one of 9 types:
