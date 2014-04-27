@@ -35,6 +35,7 @@ angular.module('FileManager').
 					if($scope._item.item._id != '.' && $scope._item.item._id != '. .') {
 						event.originalEvent.dataTransfer.setData('itemToMove', $scope._item.item.path + $scope._item.item.name);
 						event.originalEvent.dataTransfer.setData('itemIdToMove', $scope._item.item._id);
+						event.originalEvent.dataTransfer.setData('itemSizeToMove', $scope._item.item.size);
 					}
 				});
 
@@ -57,6 +58,8 @@ angular.module('FileManager').
 
 					if(pathTargetMove && pathToMove && pathTargetMove != path && self.path.slice(-1) == '/' && $scope._item.item._id != '.') {
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove, event.originalEvent.dataTransfer.getData('itemIdToMove'));
+						if($scope._item.item._id != '. .')
+							$scope._item.item.size += parseInt(event.originalEvent.dataTransfer.getData('itemSizeToMove'), 10);
 					}
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
