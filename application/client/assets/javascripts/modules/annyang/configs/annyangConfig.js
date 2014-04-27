@@ -1,6 +1,7 @@
 angular.module('Annyang').
     config(function() {
-
-        annyang.setLanguage('fr-FR');
+    	
+    	if(annyang)
+        	annyang.setLanguage('fr-FR');
 
     });

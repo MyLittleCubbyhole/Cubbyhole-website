@@ -18,6 +18,7 @@ angular.module('FileManager').
 				_.extend(params, _default, options);
 				Item.call(this, params);
 
+				console.log(options.path, options.name, this.scope.FileManager.currentPath)
 				this.unselectable = params.unselectable || false;
 			};
 
