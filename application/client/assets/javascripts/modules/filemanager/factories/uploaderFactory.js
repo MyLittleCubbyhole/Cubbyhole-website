@@ -5,14 +5,8 @@ angular.module('FileManager').
 		,	socket = WebsocketFactory();
 
 		socket.on('upload_next', function(data) {
-			// console.log(data);
-			// files[data.id].context.$local.progress = Math.floor(data['percent']) + '%';
-			// files[data.id].context.$scope.$apply();
-			// console.log(Math.floor(data['percent']) + '%');
-			console.log(data)
 			files[data.id].context.entity.size += data['chunkSize'];
 			files[data.id].context.$scope.$apply();
-			// console.log(files[data.id].context.$node)
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
 
@@ -22,13 +16,8 @@ angular.module('FileManager').
 
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
-			// file.context.$local.progress = '100%';
-			// file.context.$scope.$apply();
-			// file.context.$scope.FileManager.refresh();
 			files[data.id].context.entity.size += data['chunkSize'];
 			files[data.id].context.$scope.$apply();
-			// console.log(files[data.id].context.$node)
-
 
 			delete files[data.id];
 		});
