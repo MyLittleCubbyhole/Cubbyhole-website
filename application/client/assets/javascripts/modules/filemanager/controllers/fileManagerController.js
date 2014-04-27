@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'AnnyangService', function($scope, ItemFactory, UserFactory, AnnyangService) {
+	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, ItemFactory, UserFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
 		$local.currentPath = '/';
@@ -30,7 +30,7 @@ angular.module('FileManager').
             options.name = name ? name : ''
             options.editMode = name ? false : true;
 
-            if((name && !ItemFactory($scope, {local: $local}).checkNameExists(name)) || !name) {
+            if((name && !ItemFactory($scope, {local: $local}).checkNameExists(name, true)) || !name) {
                 var item = ItemFactory($scope, {local: $local}).add(options, callback);
 
                 if(name)
@@ -43,7 +43,7 @@ angular.module('FileManager').
 
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
-                    if($local.items[i].name == name)
+                    if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
                         items.push($local.items[i]);
 
             for(var i = 0; i<items.length; i++)
@@ -65,7 +65,12 @@ angular.module('FileManager').
             !canceled && $scope.$broadcast('rename_item');
         }
 
-		$local.download = function() {};
+		$local.download = function() {
+            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
+                $local.selectedItems[0].download();
+            else if($local.selectedItems.length > 0)
+                $scope.$broadcast('start_post_download');
+        };
 
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.currentPath );
@@ -83,20 +88,11 @@ angular.module('FileManager').
             $local.previewActivated = false;
         }
 
-
-        AnnyangService.set('create_folder', function(name) {
-            $local.createFolder(name, function() { $scope.$apply(); });
-        })
-
-        AnnyangService.set('refresh', function(name) {
-            $local.refresh();
-        })
-
-        AnnyangService.set('rename_item', function(oldName, newName) {
-            if(!ItemFactory($scope, {local: $local}).checkNameExists(newName)) {
+        $local.renameVocal = function(oldName, newName) {
+            if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
                 var item = null
                 for(var i = 0; i < $local.items.length; i++)
-                    if($local.items[i].name == oldName) {
+                    if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(oldName)) {
                         item = $local.items[i];
                         break;
                     }
@@ -106,15 +102,75 @@ angular.module('FileManager').
                     item.name = newName;
                 }
             }
-        })
+        }
 
-        AnnyangService.set('delete_item', function(name) {
-            $local.delete(name);
-        })
+        $local.downloadVocal = function(name) {
+            for(var i = 0; i < $local.items.length; i++)
+                if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
+                    $local.selectedItems.push($local.items[i]);
+
+            $scope.$apply();
+
+            $local.download();
+        }
 
         AnnyangService.set('open_item', function(name) {
             $scope.$broadcast('open_folder', name);
-        })
+        });
+
+        AnnyangService.set('open_parent_item', function() {
+            $scope.$broadcast('open_parent_folder');
+        });
+        AnnyangService.set('open_parent_item_alternative', function() {
+            $scope.$broadcast('open_parent_folder');
+        });
+        AnnyangService.set('open_parent_item_alternative2', function() {
+            $scope.$broadcast('open_parent_folder');
+        });
+
+        AnnyangService.set('download_file', function(name) {
+            $local.downloadVocal(name);
+        });
+        AnnyangService.set('download_file_alternative', function(name) {
+            $local.downloadVocal(name);
+        });
+        AnnyangService.set('download_file_alternative2', function(name) {
+            $local.downloadVocal(name);
+        });
+
+        AnnyangService.set('create_folder', function(name) {
+            $local.createFolder(name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('create_folder_alternative', function(name) {
+            $local.createFolder(name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('create_folder_alternative2', function(name) {
+            $local.createFolder(name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('create_folder_alternative3', function(name) {
+            $local.createFolder(name, function() { $scope.$apply(); });
+        });
+
+        AnnyangService.set('rename_item', function(oldName, newName) {
+            $local.renameVocal(oldName, newName);
+        });
+        AnnyangService.set('rename_item_alternative', function(oldName, newName) {
+            $local.renameVocal(oldName, newName);
+        });
+        AnnyangService.set('rename_item_alternative2', function(oldName, newName) {
+            $local.renameVocal(oldName, newName);
+        });
+        AnnyangService.set('rename_item_alternative3', function(oldName, newName) {
+            $local.renameVocal(oldName, newName);
+        });
+
+        AnnyangService.set('delete_item', function(name) {
+            $local.delete(name);
+        });
+
+        AnnyangService.set('refresh', function(name) {
+            $local.refresh();
+        });
 
         AnnyangService.start();
 

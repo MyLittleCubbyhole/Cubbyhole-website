@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	factory('ItemFactory', ['FileProvider', 'FolderProvider', 'FileExtensionFactory', 'Restangular', 'UserFactory', function(File, Folder, ExtensionFactory, restangular, userFactory){
+	factory('ItemFactory', ['FileProvider', 'FolderProvider', 'FileExtensionFactory', 'Restangular', 'UserFactory', 'AnnyangFormatService', function(File, Folder, ExtensionFactory, restangular, userFactory, AnnyangFormatService){
 
 		var _items = [];
 
@@ -107,13 +107,22 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.checkNameExists = function(name) {
+			prototype.checkNameExists = function(name, vocalMode) {
+				vocalMode = typeof vocalMode !== 'undefined' && vocalMode === true;
 				var exists = false;
-				for(var i = 0; i < _items.length; i++)
-					if(_items[i].name == name) {
+				for(var i = 0; i < _items.length; i++) {
+					var actualName = _items[i].name;
+
+					if(vocalMode) {
+						actualName = AnnyangFormatService.baseFormat(actualName);
+						name = AnnyangFormatService.baseFormat(name);
+					}
+
+					if(actualName == name) {
 						exists = true;
 						break;
 					}
+				}
 
 				return exists;
 			}

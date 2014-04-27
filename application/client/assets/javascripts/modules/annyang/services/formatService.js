@@ -1,8 +1,7 @@
 angular.module('Annyang').
 	service('AnnyangFormatService', function(){
 
-        var commands = {'bonjour': function() {console.log('passage')}}
-        ,   prototype = {};
+        var prototype = {};
 
         prototype.base = function(string) {
             return string.toLowerCase();
@@ -14,8 +13,27 @@ angular.module('Annyang').
         	return string;
         }
 
+        prototype.accents = function(string) {
+            return prototype.base(string)
+            .replace(/\s/g,"")
+            .replace(/[àáâãäå]/g,"a")
+            .replace(/æ/g,"ae")
+            .replace(/ç/g,"c")
+            .replace(/[èéêë]/g,"e")
+            .replace(/[ìíîï]/g,"i")
+            .replace(/ñ/g,"n")
+            .replace(/[òóôõö]/g,"o")
+            .replace(/œ/g,"oe")
+            .replace(/[ùúûü]/g,"u")
+            .replace(/[ýÿ]/g,"y");
+        }
+
+        prototype.baseFormat = function(string) {
+            return prototype.accents(prototype.purals(prototype.base(string)));
+        }
+
         prototype.email = function(string) {
-        	
+
         }
 
         return prototype;
