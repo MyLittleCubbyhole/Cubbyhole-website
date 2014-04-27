@@ -70,8 +70,6 @@ angular.module('FileManager').
 									ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
 								else {
 									ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item);
-									$local.item.newItem = false;
-									$local.item._id = $local.item.ownerId + '/' + $local.item.path + '/' + $local.item.name;
 								}
 							} else
 								$local.cancelEdit();

@@ -98,7 +98,7 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.rename = function(path, newName) {
+			prototype.rename = function(path, newName, callback) {
 
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 

@@ -93,8 +93,20 @@ angular.module('FileManager').
             $local.refresh();
         })
 
-        AnnyangService.set('rename_item', function(name, name2) {
+        AnnyangService.set('rename_item', function(oldName, newName) {
+            if(!ItemFactory($scope, {local: $local}).checkNameExists(newName)) {
+                var item = null
+                for(var i = 0; i < $local.items.length; i++)
+                    if($local.items[i].name == oldName) {
+                        item = $local.items[i];
+                        break;
+                    }
 
+                if(item) {
+                    ItemFactory($scope, {local: $local}).rename(item.getFullPath(), newName);
+                    item.name = newName;
+                }
+            }
         })
 
         AnnyangService.set('delete_item', function(name) {
