@@ -17,7 +17,6 @@ angular.module('FileManager').
 		})
 
 		$local.createFolder = function(name, callback) {
-            console.log(name);
             var options = {
                     owner: UserFactory($scope).get().username,
                     ownerId: UserFactory($scope).get().id,

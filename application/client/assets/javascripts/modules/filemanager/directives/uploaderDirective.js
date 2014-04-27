@@ -39,7 +39,6 @@ angular.module('FileManager').
 				$node.on('drop', function(event){
 
 					self.path = $scope._item.item.getFullPath() || '/';
-					console.log(self.path);
 
 					event.originalEvent.preventDefault();
 
@@ -48,14 +47,15 @@ angular.module('FileManager').
 					,	pathsToMove = pathToMove.split('/')
 					,	path = '';
 
-					for(var i = 0; i < pathsToMove.length - 1; i++)
+					for(var i = 0; i < pathsToMove.length; i++)
 						path += pathsToMove[i] + '/';
 
 					if(path.slice(0, 1) != '/')
 						path = '/' + path;
 
-					if(pathTargetMove && pathToMove && pathTargetMove != path)
+					if(pathTargetMove && pathToMove && pathTargetMove != path && self.path.slice(-1) == '/') {
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove, event.originalEvent.dataTransfer.getData('itemIdToMove'));
+					}
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
 						return true;

@@ -1,7 +1,7 @@
 angular.module('Annyang').
     service('AnnyangService', ['ConfigFactory', function(ConfigFactory){
 
-        var commands = {'bonjour': function() {console.log('passage')}}
+        var commands = {}
         ,   prototype = {};
 
         prototype.set = function(commandName, callback) {
