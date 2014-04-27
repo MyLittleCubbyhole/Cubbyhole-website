@@ -32,8 +32,10 @@ angular.module('FileManager').
 				$node.on('dragover', self.noop);
 
 				$node.on('dragstart', function(event) {
-					event.originalEvent.dataTransfer.setData('itemToMove', $scope._item.item.path + $scope._item.item.name);
-					event.originalEvent.dataTransfer.setData('itemIdToMove', $scope._item.item._id);
+					if($scope._item.item._id != '.' && $scope._item.item._id != '. .') {
+						event.originalEvent.dataTransfer.setData('itemToMove', $scope._item.item.path + $scope._item.item.name);
+						event.originalEvent.dataTransfer.setData('itemIdToMove', $scope._item.item._id);
+					}
 				});
 
 				$node.on('drop', function(event){
@@ -53,7 +55,7 @@ angular.module('FileManager').
 					if(path.slice(0, 1) != '/')
 						path = '/' + path;
 
-					if(pathTargetMove && pathToMove && pathTargetMove != path && self.path.slice(-1) == '/') {
+					if(pathTargetMove && pathToMove && pathTargetMove != path && self.path.slice(-1) == '/' && $scope._item.item._id != '.') {
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove, event.originalEvent.dataTransfer.getData('itemIdToMove'));
 					}
 

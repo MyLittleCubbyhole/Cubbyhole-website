@@ -61,7 +61,7 @@ angular.module('FileManager').
 						var newName = $local.item.name;
 						$local.item.name = $local.oldName;
 
-						if(newName != '') {
+						if(newName != '' && newName.indexOf('/') == -1 && newName.indexOf('\\') == -1) {
 
 							if(!ItemFactory($scope, {local: $scope.FileManager}).checkNameExists(newName)) {
 								var fullPath = $local.item.getFullPath();
@@ -73,7 +73,7 @@ angular.module('FileManager').
 								}
 							} else
 								$local.cancelEdit();
-						} else if(newName == '' && $local.item.newItem)
+						} else
 							$local.cancelEdit();
 					}
 				};

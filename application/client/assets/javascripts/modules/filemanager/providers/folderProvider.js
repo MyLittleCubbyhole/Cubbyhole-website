@@ -32,13 +32,13 @@ angular.module('FileManager').
 
 			Folder.prototype.getPath = function() {
 				var path = this.path;
-				if(this.name == '. .') {
+				if(this._id == '. .') {
 					var paths = path.split('/');
 					path = '';
 					for(var i = 0; i < paths.length - 2; i++)
 						path += paths[i] + '/';
 				}
-				else if(this.name != ' . ') {
+				else if(this._id != '.') {
 					path += this.name + '/'
 				}
 				return path;
