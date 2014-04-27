@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	directive('item', ['ItemFactory', function(ItemFactory){
+	directive('item', ['ItemFactory', 'AnnyangFormatService', function(ItemFactory, AnnyangFormatService){
 		return {
 			scope: true,
 			controller: function($scope) {
@@ -18,9 +18,31 @@ angular.module('FileManager').
 					$local.rename();
 				})
 
+				$scope.$on('download_item', function(scope, name) {
+					var itemName = $local.item.name.split(".");
+				    var extension = '';
+				    if(itemName.length !== 1 && (itemName[0] !== "" || itemName.length !== 2) )
+				        extension = itemName.pop();
+
+				    var nameOnly = itemName.join('.');
+
+					if(name && AnnyangFormatService.baseFormat(nameOnly) == AnnyangFormatService.baseFormat(name))
+						$local.download(name);
+				})
+
 				$scope.$on('cancel_edit', function() {
 					$local.cancelEdit();
 				})
+
+				$scope.$on('open_folder', function(scope, name) {
+					if(name && AnnyangFormatService.baseFormat($local.item.name) == AnnyangFormatService.baseFormat(name))
+						$local.open();
+				});
+
+				$scope.$on('open_parent_folder', function() {
+					if($local.item._id == '. .')
+						$local.open();
+				});
 
 				$local.open = function() {
 					if($local.item.category != 'folder')
@@ -30,11 +52,6 @@ angular.module('FileManager').
 						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath());
 					}
 				};
-
-				$scope.$on('open_folder', function(scope, name) {
-					if($local.item.name == name)
-						$local.open();
-				});
 
 				$local.move = function() { $local.item.move(); };
 
@@ -105,7 +122,7 @@ angular.module('FileManager').
 					if(!$local.item.editMode)
 						$scope.FileManager.preview();
 				}
-				$local.download = function() {
+				$local.download = function(name) {
 					$local.item.download();
 				}
 

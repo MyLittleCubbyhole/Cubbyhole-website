@@ -27,6 +27,8 @@ angular.module('FileManager').
 				var $local = $scope._fileUploader
 				,	socket = WebsocketFactory();
 
+				self.path = attributes.filePath;
+
 				$node.on('dragenter', self.noop);
 				$node.on('dragleave', self.noop);
 				$node.on('dragover', self.noop);
@@ -41,11 +43,11 @@ angular.module('FileManager').
 
 				$node.on('drop', function(event){
 
-					self.path = $scope._item.item.getFullPath() || '/';
+					var fullPath = $scope._item.item.getFullPath() || '/';
 
 					event.originalEvent.preventDefault();
 
-					var pathTargetMove = self.path
+					var pathTargetMove = fullPath
 					,	pathToMove = event.originalEvent.dataTransfer.getData('itemToMove').substring(1)
 					,	pathsToMove = pathToMove.split('/')
 					,	path = '';
@@ -56,7 +58,7 @@ angular.module('FileManager').
 					if(path.slice(0, 1) != '/')
 						path = '/' + path;
 
-					if(pathTargetMove && pathToMove && pathTargetMove != path && self.path.slice(-1) == '/' && $scope._item.item._id != '.') {
+					if(pathTargetMove && pathToMove && pathTargetMove != path && fullPath.slice(-1) == '/' && $scope._item.item._id != '.') {
 						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove, event.originalEvent.dataTransfer.getData('itemIdToMove'));
 						if($scope._item.item._id != '. .')
 							$scope._item.item.size += parseInt(event.originalEvent.dataTransfer.getData('itemSizeToMove'), 10);
@@ -95,6 +97,8 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 
 					}
+
+					console.log(self.path);
 
 					socket.emit('upload_init', {
 						id: id,

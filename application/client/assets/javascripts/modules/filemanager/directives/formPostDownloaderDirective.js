@@ -29,7 +29,6 @@ angular.module('FileManager').
 				,	template = '<iframe name="downloadFrame" id="downloadIFrame" style="display: none;" src="" />';
 
 				$local.download = function() {
-
 					angular.element('#downloadIFrame').remove();
 					angular.element('body').append(template);
 					$node.submit();
