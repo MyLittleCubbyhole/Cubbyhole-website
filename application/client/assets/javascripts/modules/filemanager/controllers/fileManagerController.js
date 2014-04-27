@@ -28,17 +28,15 @@ angular.module('FileManager').
                     lastUpdate: new Date()
                 }
 
-            if(name) {
-                options.name = name;
-                options.editMode = false;
-                ItemFactory($scope, {local: $local}).createFolder(name);
-            }
-            else {
-                options.name = '';
-                options.editMode = true;
-            }
+            options.name = name ? name : ''
+            options.editMode = name ? false : true;
 
-            ItemFactory($scope, {local: $local}).add(options, callback);
+            if((name && !ItemFactory($scope, {local: $local}).checkNameExists(name)) || !name) {
+                var item = ItemFactory($scope, {local: $local}).add(options, callback);
+
+                if(name)
+                    ItemFactory($scope, {local: $local}).createFolder(item);
+            }
 		};
 
 		$local.delete = function(name) {
@@ -48,8 +46,6 @@ angular.module('FileManager').
                 for(var i = 0; i<$local.items.length; i++)
                     if($local.items[i].name == name)
                         items.push($local.items[i]);
-
-            console.log(items);
 
             for(var i = 0; i<items.length; i++)
                 ItemFactory($scope, {local: $local}).delete(items[i]);

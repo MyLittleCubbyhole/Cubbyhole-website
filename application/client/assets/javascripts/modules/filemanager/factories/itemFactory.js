@@ -70,18 +70,18 @@ angular.module('FileManager').
 				prototype.synchronize();
 			}
 
-			prototype.createFolder = function(name) {
+			prototype.createFolder = function(item) {
 
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/')
 				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
 
-				browse.post(path, { name: name }).then(function() {
-					//prototype.load($local.currentPath);
+				browse.post(path, { name: item.name }).then(function() {
+					item.newItem = false;
+					item._id = item.ownerId + '/' + item.path + '/' + item.name;
 				}, function(error) { console.error(error); });
 			}
 
 			prototype.delete = function(item) {
-				console.log(item);
 				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
 				browse.one(item.getFullPath()).remove().then(function() {
@@ -105,6 +105,17 @@ angular.module('FileManager').
 				browse.one(path).customPUT({name: newName}).then(function() {
 					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
+			}
+
+			prototype.checkNameExists = function(name) {
+				var exists = false;
+				for(var i = 0; i < _items.length; i++)
+					if(_items[i].name == name) {
+						exists = true;
+						break;
+					}
+
+				return exists;
 			}
 
 			prototype.synchronize = function() {

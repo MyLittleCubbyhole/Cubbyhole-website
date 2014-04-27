@@ -62,21 +62,14 @@ angular.module('FileManager').
 						$local.item.name = $local.oldName;
 
 						if(newName != '') {
-							var editPossible = true;
-							var _items = ItemFactory($scope, {local: $scope.FileManager}).getAll();
-							for(var i = 0; i < _items.length; i++)
-								if(_items[i].name == newName) {
-									editPossible = false;
-									break;
-								}
 
-							if(editPossible) {
+							if(!ItemFactory($scope, {local: $scope.FileManager}).checkNameExists(newName)) {
 								var fullPath = $local.item.getFullPath();
 								$local.item.name = newName;
 								if(!$local.item.newItem)
 									ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
 								else {
-									ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item.name);
+									ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item);
 									$local.item.newItem = false;
 									$local.item._id = $local.item.ownerId + '/' + $local.item.path + '/' + $local.item.name;
 								}
