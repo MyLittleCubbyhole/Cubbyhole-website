@@ -51,6 +51,8 @@ angular.module('Authentication').
                         $window.location.reload();
                     }).
                     error(function(data, status, headers, config) {
+                        localStorage.removeItem('user');
+                        $window.location.reload();
                         console.error(data);
                     });
                 }

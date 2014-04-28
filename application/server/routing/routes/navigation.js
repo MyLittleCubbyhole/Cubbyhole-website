@@ -52,6 +52,13 @@ navigation.get.filemanager = function(request, response) {
 	response.render('fileManager', options);
 }
 
+navigation.get.shared = function(request, response) {
+    options.angular = { module: 'Sharing', controller: 'SharingController' };
+    options.headers = { title: 'Fichier partagé', description: 'Cubbyhole' };
+    options.javascripts.core = '../partials/ejs/javascripts/core/shared.ejs';
+    response.render('shared', options);
+}
+
 navigation.get.partial = function(request, response) {
 	var path = 'partials/ejs/' + request.params[0] + '.ejs';
 	var fullpath = global.paths.views + '/' + path;
