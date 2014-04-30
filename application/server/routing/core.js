@@ -10,7 +10,7 @@ routing.init = function(app) {
     app.get('/activation', navigation.get.activation);
     app.get('/authentication', navigation.get.authentication);
     app.get('/manager', filters.tokenInterceptor, navigation.get.filemanager);
-    app.get(/^\/shared\/(.+)+/, navigation.get.shared);
+    //app.get(/^\/shared\/(.+)+/, navigation.get.shared);
     app.get(/partials\/(.+)/, navigation.get.partial);
     app.get(/templates\/(.+)/, navigation.get.template);
 
