@@ -18,7 +18,7 @@ angular.module('Sharing').
         $local.getFile();
 
         $local.getRessourceUrl = function() {
-            return $local.token ? apiUrl + 'shared/preview/' + $local.token + '?run' : '';
+            return $local.token ? apiUrl + 'download/shared/' + $local.token + '?run' : '';
         };
 
         $scope.toString = function() {

@@ -1,1 +1,1 @@
-angular.module('Sharing', ['Authentication', 'restangular']);
+angular.module('Sharing', ['FileManager', 'restangular']);
