@@ -1,1 +1,1 @@
-angular.module('CubbyHome', ['Authentication', 'Annyang']);
+angular.module('CubbyHome', ['Authentication']);
