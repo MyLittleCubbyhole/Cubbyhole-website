@@ -18,26 +18,41 @@ angular.module('Authentication').
                 angular.extend(_user, user);
             };
 
-            prototype.createUser = function(user) {
+            prototype.createUser = function(user, callback) {
                 $http.post(apiUrl + 'users', user).
                 success(function(data, status, headers, config) {
-                    $window.location = $window.location.protocol + "//" + $window.location.host + "/authentication#/login";
+                    if(data && data.user && data.user.id) {
+                        callback.call(this, null);
+                        $window.location = $window.location.protocol + "//" + $window.location.host + "/authentication#/login";
+                    }
+                    else
+                        callback.call(this, 'registration failed');
                 }).
                 error(function(data, status, headers, config) {
+                    callback.call(this, 'registration failed');
                     console.error(data);
                 });
             };
 
-            prototype.login = function(user) {
+            prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
                     if(data && data.user && data.user.token) {
                         prototype.set(data.user);
-                        localStorage.setItem('user', JSON.stringify(data.user));
+                        if(rememberMe)
+                            localStorage.setItem('user', JSON.stringify(data.user));
+                        else
+                            sessionStorage.setItem('user', JSON.stringify(data.user));
+
+                        callback.call(this, null);
+
                         $window.location = $window.location.protocol + "//" + $window.location.host + "/manager?token=" + data.user.token;
+                    } else {
+                        callback.call(this, 'authentication failed');
                     }
                 }).
                 error(function(data, status, headers, config) {
+                    callback.call(this, 'authentication failed');
                     console.error(data);
                 });
             };
@@ -48,10 +63,12 @@ angular.module('Authentication').
                     $http.get(apiUrl + 'logout').
                     success(function(data, status, headers, config) {
                         localStorage.removeItem('user');
+                        sessionStorage.removeItem('user');
                         $window.location.reload();
                     }).
                     error(function(data, status, headers, config) {
                         localStorage.removeItem('user');
+                        sessionStorage.removeItem('user');
                         $window.location.reload();
                         console.error(data);
                     });

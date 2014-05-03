@@ -1,72 +1,148 @@
 
-<section id="container" ng-controller="RegisterController">
-    <form name="form" ng-submit="Register.save(form.$valid)" class="register-form" novalidate>
+<section id="container" class="form-container" ng-controller="RegisterController">
+    <form name="form" ng-submit="Register.save(form.$valid)" class="form" novalidate>
 
-        <article class="input-group">
-            <article class="input-form">E-mail: <input type="email" name="email" class="form-control" ng-model="Register.user.email" autofocus required /></article>
-            <section ng-show="(form.email.$dirty || Register.isFormSubmited) && form.email.$invalid" class="error-form">
-                <article ng-show="form.email.$error.required">Renseignez votre email</article>
-                <article ng-show="form.email.$error.email">Email invalide</article>
+        <header>Inscription</header>
+
+        <fieldset>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">E-mail</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.email.$dirty || Register.isFormSubmited) && form.email.$invalid)}">
+                            <i class="icon-append icon-envelope"></i>
+                            <input type="email" name="email" class="form-control" ng-model="Register.user.email" autofocus required />
+                        </label>
+                        <section ng-show="(form.email.$dirty || Register.isFormSubmited) && form.email.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.email.$error.required">Renseignez votre email.</article>
+                            <article class="note note-error" ng-show="form.email.$error.email">Email invalide.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Pseudo: <input type="text" name="username" class="form-control" ng-model="Register.user.username" required /></article>
-            <section ng-show="(form.username.$dirty || Register.isFormSubmited) && form.username.$invalid" class="error-form">
-                <article ng-show="form.username.$error.required">Renseignez votre pseudo</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Pseudo</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.username.$dirty || Register.isFormSubmited) && form.username.$invalid)}">
+                            <i class="icon-append icon-user"></i>
+                            <input type="text" name="username" class="form-control" ng-model="Register.user.username" required />
+                        </label>
+                        <section ng-show="(form.username.$dirty || Register.isFormSubmited) && form.username.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.username.$error.required">Renseignez votre pseudo.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Nom: <input type="text" name="lastname" class="form-control" ng-model="Register.user.lastname" required /></article>
-            <section ng-show="(form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid" class="error-form">
-                <article ng-show="form.lastname.$error.required">Renseignez votre nom</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Mot de passe</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.password.$dirty || Register.isFormSubmited) && form.password.$invalid)}">
+                            <i class="icon-append icon-lock"></i>
+                            <input type="password" name="password" class="form-control" ng-model="Register.user.password" ng-minlength="8" required />
+                            <b class="tooltip tooltip-top-right">8 caractères minimum.</b>
+                        </label>
+                        <section ng-show="(form.password.$dirty || Register.isFormSubmited) && form.password.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.password.$error.required">Renseignez votre mot de passe.</article>
+                            <article class="note note-error" ng-show="form.password.$error.minlength">Votre mot de passe doit comporter au moins 8 caractères.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Prénom: <input type="text" name="firstname" class="form-control" ng-model="Register.user.firstname" required /></article>
-            <section ng-show="(form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid" class="error-form">
-                <article ng-show="form.firstname.$error.required">Renseignez votre prénom</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Confirmez le mot de passe</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': (((form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid) || Register.isFormSubmited && Register.errorPasswordMatch)}">
+                            <i class="icon-append icon-lock"></i>
+                            <input type="password" name="password2" class="form-control" ng-model="Register.user.password2" ng-minlength="8" required />
+                        </label>
+                        <section ng-show="(form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.password2.$error.required">Confirmez votre mot de passe.</article>
+                            <article class="note note-error" ng-show="form.password2.$error.minlength">Votre mot de passe doit comporter au moins 8 caractères.</article>
+                        </section>
+                        <section ng-show="Register.isFormSubmited && Register.errorPasswordMatch" class="error-form">
+                            <article class="note note-error">Vos deux mots de passe doivent être identiques.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
-
-        <article class="input-group">
-            <article class="input-form">Date de naissance: <input type="date" name="birthdate" class="form-control" ng-model="Register.user.birthdate" required /></article>
-            <section ng-show="(form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid" class="error-form">
-                <article ng-show="form.birthdate.$error.required">Renseignez votre date de naissance</article>
+        </fieldset>
+        <fieldset>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Nom</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid)}">
+                            <i class="icon-append icon-user"></i>
+                            <input type="text" name="lastname" class="form-control" ng-model="Register.user.lastname" required />
+                        </label>
+                        <section ng-show="(form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.lastname.$error.required">Renseignez votre nom.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Pays: <select select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
-            <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
-                <article ng-show="form.country.$error.required">Renseignez votre pays</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Prénom</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid)}">
+                            <i class="icon-append icon-user"></i>
+                            <input type="text" name="firstname" class="form-control" ng-model="Register.user.firstname" required />
+                        </label>
+                        <section ng-show="(form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.firstname.$error.required">Renseignez votre prénom.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Mot de passe: <input type="password" name="password" class="form-control" ng-model="Register.user.password" ng-minlength="8" required /></article>
-            <section ng-show="(form.password.$dirty || Register.isFormSubmited) && form.password.$invalid" class="error-form">
-                <article ng-show="form.password.$error.required">Renseignez votre mot de passe</article>
-                <article ng-show="form.password.$error.minlength">Votre mot de passe doit comporter au moins 8 caractères</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Date de naissance</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid)}">
+                            <i class="icon-append icon-calendar"></i>
+                            <input type="text" name="birthdate" class="form-control" ng-model="Register.user.birthdate" date-picker required />
+                        </label>
+                        <section ng-show="(form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.birthdate.$error.required">Renseignez votre date de naissance.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-        </article>
 
-        <article class="input-group">
-            <article class="input-form">Confirmez le mot de passe: <input type="password" name="password2" class="form-control" ng-model="Register.user.password2" ng-minlength="8" required /></article>
-            <section ng-show="(form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid" class="error-form">
-                <article ng-show="form.password2.$error.required">Confirmez votre mot de passe</article>
-                <article ng-show="form.password2.$error.minlength">Votre mot de passe doit comporter au moins 8 caractères</article>
+            <section>
+                <article class="row">
+                    <label class="label col col-4">Pays</label>
+                    <article class="col col-8">
+                        <label class="input" ng-class="{'state-error': ((form.country.$dirty || Register.isFormSubmited) && form.country.$invalid)}">
+                            <select select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
+                        </label>
+                        <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
+                            <article class="note note-error" ng-show="form.country.$error.required">Renseignez votre pays.</article>
+                        </section>
+                    </article>
+                </article>
             </section>
-            <section ng-show="Register.isFormSubmited && Register.errorPasswordMatch" class="error-form">
-                <article>Vos deux mots de passe doivent être identiques</article>
+
+            <section>
+                <article class="note note-error message" ng-show="Register.errorRegister">Inscription échouée, l'utilisateur existe déjà.</article>
             </section>
-        </article>
 
-        <article class="input-group"><button class="form-button" type="submit">Inscription</button></article>
+        </fieldset>
 
-        <article class="input-group"><button class="link-button" ng-click="Register.goLogin()">Connexion</button></article>
+        <footer>
+            <button class="button" type="submit">Inscription</button>
+            <button class="button button-secondary" ng-click="Register.goLogin()">Connexion</button>
+        </footer>
+
     </form>
     <input type="text" select2-tags>
 </section>

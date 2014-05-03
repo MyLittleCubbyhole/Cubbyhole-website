@@ -6,7 +6,8 @@ angular.module('Authentication').
         $local.errorPasswordMatch = false;
 
         $local.user = {};
-        $local.user.country = CountryFactory($scope).get('FR').name;
+
+        $local.errorRegister = false;
 
         $local.countries = CountryFactory($scope).list();
 
@@ -15,7 +16,12 @@ angular.module('Authentication').
             if(isValid) {
                 if($local.user.password === $local.user.password2) {
                     $local.errorPasswordMatch = false;
-                    UserFactory($scope).createUser($local.user);
+                    UserFactory($scope).createUser($local.user, function(error) {
+                        if(error)
+                            $local.errorRegister = true;
+                        else
+                           $local.errorRegister = false;
+                    });
                 } else {
                     $local.errorPasswordMatch = true;
                 }

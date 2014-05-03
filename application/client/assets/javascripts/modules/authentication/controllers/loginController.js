@@ -6,12 +6,22 @@ angular.module('Authentication').
 
         $local.user = {};
 
+        $local.rememberMe = true;
+
+        $local.errorLogin = false;
+
         localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
 
         $local.authenticate = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {
-                UserFactory($scope).login($local.user);
+                UserFactory($scope).login($local.user, $local.rememberMe, function(error) {
+                    if(error)
+                        $local.errorLogin = true;
+                    else
+                       $local.errorLogin = false;
+                });
             }
         };
 

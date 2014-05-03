@@ -4,6 +4,8 @@ angular.module('Authentication').
             request: function(config) {
                 config.url += "?token=";
                 var user = localStorage.getItem('user');
+                if(!user)
+                    user = sessionStorage.getItem('user');
                 if(user)
                     config.url += JSON.parse(user).token || "";
 
