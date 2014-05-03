@@ -624,6 +624,10 @@ section#manager-container .listing th.information.update {
     max-height: 100%;
 }
 
+.preview-element.code code > .hljs {
+    word-wrap: break-word;
+}
+
 .preview-element iframe {
     height: 340px;
     width: 100%;
