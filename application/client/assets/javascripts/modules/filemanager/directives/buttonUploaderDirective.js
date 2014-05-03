@@ -10,6 +10,10 @@ angular.module('FileManager').
 				self.fileReaders = {};
 				self.files = {};
 
+				$scope.$on('upload_file', function() {
+					$local.selectFile();
+				});
+
 				$local.selectFile = function() {
 					self.$template.click();
 				}
@@ -36,8 +40,8 @@ angular.module('FileManager').
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
 						ownerId: UserFactory($scope).get().id,
-						size : 0, 
-						type: 'file', 
+						size : 0,
+						type: 'file',
 						path: self.path,
 						lastUpdate: new Date()
 					}, function() { $scope.$apply(); })
@@ -50,13 +54,13 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
 
-					socket.emit('upload_init', { 
-						id: id, 
-						owner: UserFactory($scope).get().id, 
-						name : self.files[id].name, 
-						size : self.files[id].size, 
-						type: self.files[id].type, 
-						path: self.path 
+					socket.emit('upload_init', {
+						id: id,
+						owner: UserFactory($scope).get().id,
+						name : self.files[id].name,
+						size : self.files[id].size,
+						type: self.files[id].type,
+						path: self.path
 					});
 				});
 			}

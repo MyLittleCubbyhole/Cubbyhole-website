@@ -113,6 +113,9 @@
 .icon-calendar:before {
     content: "\e607";
 }
+.icon-microphone:before {
+    content: "\e60b";
+}
 .icon-chevron-right:before {
     content: "\e608";
 }

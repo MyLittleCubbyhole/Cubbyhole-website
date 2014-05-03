@@ -39,6 +39,12 @@
 			</article>
 		</section>
 
+		<section class="navigation pull-right" ng-controller="AnnyangController">
+			<article class="option nav" ng-click="Annyang.startStop()" ng-if="Annyang.activated">
+				<i class="icon-microphone"></i>
+			</article>
+		</section>
+
 		<section class="redirect-zone pull-right">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
 				<i class="icon icon-dropbox"></i>

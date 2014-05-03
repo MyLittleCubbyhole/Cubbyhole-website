@@ -138,6 +138,25 @@ angular.module('FileManager').
             $local.downloadVocal(name);
         });
 
+        AnnyangService.set('upload_file', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative2', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative3', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative4', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative5', function() {
+            $scope.$broadcast('upload_file');
+        });
+
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
         });
@@ -171,9 +190,6 @@ angular.module('FileManager').
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
         });
-
-        AnnyangService.start();
-
 
 		$scope.toString = function() {
 			return 'FileManager';
