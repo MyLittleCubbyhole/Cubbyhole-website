@@ -89,6 +89,7 @@ angular.module('FileManager').
         };
 
         $local.preview = function(force) {
+            console.log("yolo")
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 
@@ -174,23 +175,8 @@ angular.module('FileManager').
             $local.downloadVocal(name);
         });
 
-        AnnyangService.set('upload_file', function() {
-            $scope.$broadcast('upload_file');
-        });
-        AnnyangService.set('upload_file_alternative', function() {
-            $scope.$broadcast('upload_file');
-        });
-        AnnyangService.set('upload_file_alternative2', function() {
-            $scope.$broadcast('upload_file');
-        });
-        AnnyangService.set('upload_file_alternative3', function() {
-            $scope.$broadcast('upload_file');
-        });
-        AnnyangService.set('upload_file_alternative4', function() {
-            $scope.$broadcast('upload_file');
-        });
-        AnnyangService.set('upload_file_alternative5', function() {
-            $scope.$broadcast('upload_file');
+        AnnyangService.set('preview_file', function(name) {
+            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
         });
 
         AnnyangService.set('create_folder', function(name) {
