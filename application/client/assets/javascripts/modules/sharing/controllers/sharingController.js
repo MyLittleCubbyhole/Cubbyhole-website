@@ -8,18 +8,30 @@ angular.module('Sharing').
 
         $local.getFile = function() {
             if(!$local.file.name && $local.token) {
-                var shared = restangular.one('shared').one($local.token);
-                shared.getList().then(function(file) {
-                    $local.file = file[0];
-                }, function(error) { console.error(error); });
-            }
+                var shared = restangular.one('shared');
+                shared.customGET($local.token).then(function(file) {
+                    if(file && file[0] && file[0].name) {
+                        $local.file = file[0];
+                        $local.file.token = $local.token;
+                        $scope.$broadcast('select_file', $local.file);
+                    }
+                    else
+                        window.location = window.location.origin;
+                }, function(error) {
+                    window.location = window.location.origin;
+                    console.error(error);
+                });
+            } else
+               window.location = window.location.origin;
         }
 
         $local.getFile();
 
-        $local.getRessourceUrl = function() {
-            return $local.token ? apiUrl + 'shared/preview/' + $local.token + '?run' : '';
-        };
+        $local.download = function() {
+            if($local.file && $local.token) {
+                $window.location = apiUrl + 'download/shared/' + $local.token;
+            }
+        }
 
         $scope.toString = function() {
             return 'Sharing';

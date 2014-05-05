@@ -15,41 +15,44 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.load = function(path) {
-				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
+				if(userFactory($scope).get().id) {
+					var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
 
-				path = path || '';
-				if(path.slice(-1) != '/')
-					path += '/';
+					path = path || '';
+					if(path.slice(-1) != '/')
+						path += '/';
 
-				var browsePath = browse.one(path.substring(1));
+					var browsePath = browse.one(path.substring(1));
 
-				browsePath.getList().then(function(items) {
-					$scope.FileManager.currentPath = path;
+					browsePath.getList().then(function(items) {
+						$scope.FileManager.currentPath = path;
 
-					_items.splice(0);
-					$local.items.splice(0);
-					_items = [];
-					$local.items = [];
+						_items.splice(0);
+						$local.items.splice(0);
+						_items = [];
+						$local.items = [];
 
-					addFileNavigation();
+						addFileNavigation();
 
-					var options;
-					for(var i = 0; i<items.length; i++) {
-						options = Object.create({
-							_id : items[i]._id,
-							name: items[i].name,
-							path: items[i].path,
-							type: items[i].type,
-							ownerId: items[i].ownerId,
-                			owner: '',
-							size: items[i].size,
-							lastUpdate: items[i].lastUpdate
-						});
+						var options;
+						for(var i = 0; i<items.length; i++) {
+							options = Object.create({
+								_id : items[i]._id,
+								name: items[i].name,
+								path: items[i].path,
+								type: items[i].type,
+								ownerId: items[i].ownerId,
+	                			owner: '',
+								size: items[i].size,
+								lastUpdate: items[i].lastUpdate,
+								shared: items[i].shared
+							});
 
-						prototype.add(options);
-					}
+							prototype.add(options);
+						}
 
-				}, function(error) { console.error(error); });
+					}, function(error) { console.error(error); });
+				}
 			}
 
 			prototype.get = function(id) {
@@ -125,6 +128,34 @@ angular.module('FileManager').
 				}
 
 				return exists;
+			}
+
+			prototype.shareFile = function(item, callback) {
+				var share = restangular.one('share');
+
+				share.one(userFactory($scope).get().id + item.getFullPath()).get().then(function(result) {
+					if(result && result.token)
+						callback.call(this, null, result.token);
+					else
+						callback.call(this, 'sharing failed');
+				}, function(error) {
+					callback.call(this, 'sharing failed');
+					console.error(error);
+				});
+			}
+
+			prototype.unshareFile = function(item, callback) {
+				var unshare = restangular.one('unshare');
+
+				unshare.one(userFactory($scope).get().id + item.getFullPath()).get().then(function(result) {
+					if(result && result.information)
+						callback.call(this, null, result.information);
+					else
+						callback.call(this, 'unsharing failed');
+				}, function(error) {
+					callback.call(this, 'unsharing failed');
+					console.error(error);
+				});
 			}
 
 			prototype.synchronize = function() {

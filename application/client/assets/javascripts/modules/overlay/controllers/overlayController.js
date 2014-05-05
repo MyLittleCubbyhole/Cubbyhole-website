@@ -4,7 +4,7 @@ angular.module('Overlay').
 
 		$local.activated = false;
 
-		$scope.$on('unable_overlay', function() { $local.activated = true; });
+		$scope.$on('enable_overlay', function() { $local.activated = true; });
 
 		$local.clickout = function() {
 			$local.activated = false;

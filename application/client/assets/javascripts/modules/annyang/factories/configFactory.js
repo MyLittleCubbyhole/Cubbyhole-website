@@ -11,6 +11,13 @@ angular.module('Annyang').
             'download_file_alternative': 'téléchargé (le) (dossier) (fichier) *term',
             'download_file_alternative2': 'téléchargez (le) (dossier) (fichier) *term',
 
+            'upload_file': 'téléverser (un) (fichier)',
+            'upload_file_alternative': 'téléversé (un) (fichier)',
+            'upload_file_alternative2': 'téléversez (un) (fichier)',
+            'upload_file_alternative3': 'uploader (un) (fichier)',
+            'upload_file_alternative4': 'uploadé (un) (fichier)',
+            'upload_file_alternative5': 'uploadez (un) (fichier)',
+
             'create_folder': 'créer (le) (un) (dossier) *term',
             'create_folder_alternative': 'creer (le) (un) (dossier) *term',
             'create_folder_alternative2': 'cree (le) (un) (dossier) *term',

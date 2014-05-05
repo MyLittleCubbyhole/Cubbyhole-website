@@ -2,7 +2,14 @@ angular.module('Authentication').
 	controller('AuthenticationController', ['$scope', 'UserFactory', function($scope, UserFactory) {
 		var $local = $scope.Authentication = {};
 
-		var user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+		var user = localStorage.getItem('user');
+		if(!user)
+			user = sessionStorage.getItem('user');
+
+		if(user)
+			user = JSON.parse(user);
+		else
+			user = {};
 
 		UserFactory($scope).set(user);
 
@@ -18,7 +25,7 @@ angular.module('Authentication').
 
 		$local.open = function() {
 			$local.opened = !$local.opened;
-			$scope.$emit('unable_overlay');
+			$scope.$emit('enable_overlay');
 		};
 
 		$local.logout = function() {

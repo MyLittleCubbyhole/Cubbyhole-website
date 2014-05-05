@@ -2,7 +2,7 @@
 
 <section id="container">
 
-    <section id="container" ng-controller="FileManagerController">
+    <section id="container" ng-controller="FileManagerController" ng-cloak>
         <section id="manager">
             <section id="manager-container" ng-class="{ preview: FileManager.previewActivated }">
                 <section class="manager-bloc">
@@ -71,7 +71,6 @@
                                                         <input type="text" ng-model="_item.item.name" placeholder="{{_item.oldName}}" ng-keyup="_item.validEdit($event)" ng-auto-focus>
                                                         <i class="icon-check" ng-click="_item.validEdit();"></i>
                                                         <i class="icon-times" ng-click="_item.cancelEdit();"></i>
-                                                        </span>
                                                     </article>
                                                 </article>
                                             </td>
@@ -89,34 +88,29 @@
                 <section class="manager-bloc" ng-controller="PreviewController">
                     <article class="manager-bloc-container google-font preview-container" ng-if="FileManager.selectedItems.length == 1">
                         <section class="preview-infos">
-                            <article class="share-icon"><i ng-class="{'icon-link': FileManager.selectedItems[0].category != 'folder', 'icon-group': FileManager.selectedItems[0].category == 'folder'}"></i></article>
-                            <article class="file-size">250 Mo</article>
+                            <article class="share-icon"><i ng-class="{'icon-link': FileManager.selectedItems[0].category != 'folder', 'icon-group': FileManager.selectedItems[0].category == 'folder'}" ng-show="(FileManager.selectedItems[0].category != 'folder' && FileManager.selectedItems[0].shared) || (FileManager.selectedItems[0].category == 'folder')" ng-click="FileManager.unshareFile()"></i></article>
+                            <article class="file-size">{{FileManager.selectedItems[0].size | ItemSizeFilter}}</article>
                             <article class="preview-name">{{FileManager.selectedItems[0].name}} <i class="icon-pencil"></i></article>
                         </section>
-                        <section class="preview-content">
-                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='image'">
-                                <img ng-src="{{Preview.getRessourceUrl()}}"/>
-                            </article>
-                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='video'">
-                                <video ng-src="{{Preview.getRessourceUrl()}}" controls/>
-                            </article>
-                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='audio'">
-                                <audio ng-src="{{Preview.getRessourceUrl()}}" controls/>
-                            </article>
-                            <article class="preview-element code" ng-if="FileManager.selectedItems[0].category =='text'">
-                                <pre><code ng-include="Preview.getRessourceUrl()" highlight></code></pre>
-                            </article>
-                            <article class="preview-element" ng-if="FileManager.selectedItems[0].category =='pdf'">
-                                <iframe ng-src="{{Preview.getRessourceUrl()}}"></iframe>
-                            </article>
-                        </section>
+                        <%- include partials/ejs/component/preview.ejs %>
                         <section class="preview-share">
-                            <button class="share-button">Partager</button>
+                            <button class="share-button" ng-click="FileManager.shareFile()">Partager</button>
                         </section>
                     </article>
                 </section>
             </section>
         </section>
+
+        <section class="md-modal md-effect-1" id="modal-sharing-file" ng-class="{'md-show': FileManager.urlSharing != null}" modal>
+            <section class="md-content">
+                <h3>Partage public</h3>
+                <article>
+                    <a ng-href="{{FileManager.urlSharing}}" target="_blank">{{FileManager.urlSharing}}</a>
+                    <button class="md-close" ng-click="_modal.close()">Fermer</button>
+                </article>
+            </section>
+        </section>
+
         <form-post-downloader></form-post-downloader>
     </section>
 </section>

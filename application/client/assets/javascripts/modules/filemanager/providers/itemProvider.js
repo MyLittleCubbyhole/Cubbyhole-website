@@ -11,7 +11,11 @@ angular.module('FileManager').
 			lastUpdate: null,
 			size: '',
 			owner: '',
-			ownerId: ''
+			ownerId: '',
+			shared: false,
+			editMode: false,
+			newItem: false,
+			_id: -1
 		};
 
 		this.$get = function() {
@@ -31,6 +35,7 @@ angular.module('FileManager').
 				this.size = this.options.size;
 				this.owner = this.options.owner;
 				this.ownerId = this.options.ownerId;
+				this.shared = typeof this.options.shared !== 'undefined' && this.options.shared === true;
 				this.editMode = typeof this.options.editMode !== 'undefined' && this.options.editMode === true;
 				this.newItem = typeof this.options.newItem !== 'undefined' && this.options.newItem === true;
 				this._id = this.options._id || -1;

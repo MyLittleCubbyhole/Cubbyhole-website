@@ -1,1 +1,1 @@
-angular.module('Authentication', ['Config', 'Navigation', 'Overlay', 'ngRoute', 'Tools']);
+angular.module('Authentication', ['Config', 'Navigation', 'Overlay', 'ngRoute', 'Tools', 'Annyang']);

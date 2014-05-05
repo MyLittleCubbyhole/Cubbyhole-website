@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, ItemFactory, UserFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
 		$local.currentPath = '/';
@@ -9,12 +9,24 @@ angular.module('FileManager').
 		$local.selectedItems = [];
 		$local.items = [];
 
+        $local.urlSharing = null;
+
 		ItemFactory($scope, {local: $local}).load();
 
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
 			$scope.$broadcast('unselect');
 		})
+
+        $scope.$on('select_file', function(scope, file) {
+            ExtensionFactory($scope).detection(file);
+            $local.selectedItems.push(file);
+            $local.previewActivated = true;
+        })
+
+        $scope.$on('hide', function() {
+            $local.urlSharing = null;
+        });
 
 		$local.createFolder = function(name, callback) {
             var options = {
@@ -88,6 +100,30 @@ angular.module('FileManager').
             $local.previewActivated = false;
         }
 
+        $local.shareFile = function() {
+            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
+                ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
+                    if(!error && token) {
+                        $local.urlSharing = window.location.origin + '/shared/' + token;
+                        $local.selectedItems[0].shared = true;
+                        $scope.$emit('enable_overlay');
+                    } else
+                        console.error(error);
+                });
+            }
+        }
+
+        $local.unshareFile = function() {
+            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
+                ItemFactory($scope, {local: $local}).unshareFile($local.selectedItems[0], function(error, information) {
+                    if(!error && information) {
+                        $local.selectedItems[0].shared = false;
+                    } else
+                        console.error(error);
+                });
+            }
+        }
+
         $local.renameVocal = function(oldName, newName) {
             if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
                 var item = null
@@ -138,6 +174,25 @@ angular.module('FileManager').
             $local.downloadVocal(name);
         });
 
+        AnnyangService.set('upload_file', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative2', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative3', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative4', function() {
+            $scope.$broadcast('upload_file');
+        });
+        AnnyangService.set('upload_file_alternative5', function() {
+            $scope.$broadcast('upload_file');
+        });
+
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
         });
@@ -171,9 +226,6 @@ angular.module('FileManager').
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
         });
-
-        AnnyangService.start();
-
 
 		$scope.toString = function() {
 			return 'FileManager';

@@ -3,7 +3,9 @@
 @import url(/styles/libraries/animate/animate.css);
 @import url(/styles/libraries/select2/select2-bootstrap.css);
 @import url(/styles/libraries/highlight/monokai.css);
+@import url(/styles/libraries/modalWindowEffects/component.css);
 @import url(/styles/components/header.css);
+@import url(/styles/components/forms.css);
 
 html, body {
     height: 100%;
@@ -574,6 +576,7 @@ section#manager-container .listing th.information.update {
 
 .share-icon {
     float: left;
+    cursor: pointer;
 }
 
 .share-icon .icon-link,
@@ -624,6 +627,10 @@ section#manager-container .listing th.information.update {
     max-height: 100%;
 }
 
+.preview-element.code code > .hljs {
+    word-wrap: break-word;
+}
+
 .preview-element iframe {
     height: 340px;
     width: 100%;
@@ -654,6 +661,37 @@ section#manager-container .listing th.information.update {
 .input-file {
     display: none;
     pointer-events: none;
+}
+
+.preview-sharing {
+    max-width: 800px;
+    text-align: center;
+}
+.preview-sharing .manager-bloc {
+    width: 100% !important;
+    background-color: transparent !important;
+    max-height: 400px;
+}
+
+
+.md-modal {
+    max-width: 700px;
+}
+.md-content {
+    background-color: #34495e;
+}
+.md-content a {
+    color: #FFF;
+}
+.md-close {
+    width: 100px;
+    height: 40px;
+    background-color: #1F2A35;
+    border: 0;
+    margin-top: 22px !important;
+}
+.md-close:focus {
+    outline: none;
 }
 
 

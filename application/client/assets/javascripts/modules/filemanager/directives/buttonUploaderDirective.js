@@ -10,6 +10,10 @@ angular.module('FileManager').
 				self.fileReaders = {};
 				self.files = {};
 
+				$scope.$on('upload_file', function() {
+					$local.selectFile();
+				});
+
 				$local.selectFile = function() {
 					self.$template.click();
 				}
@@ -36,8 +40,8 @@ angular.module('FileManager').
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
 						ownerId: UserFactory($scope).get().id,
-						size: 0, 
-						type: 'file', 
+						size : 0,
+						type: 'file',
 						path: self.path,
 						lastUpdate: new Date()
 					}, function() { $scope.$apply(); })
