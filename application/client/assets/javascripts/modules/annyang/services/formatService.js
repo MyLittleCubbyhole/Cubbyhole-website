@@ -32,6 +32,16 @@ angular.module('Annyang').
             return prototype.accents(prototype.purals(prototype.base(string)));
         }
 
+        prototype.removeExtension = function(string) {
+
+            var itemName = string.split(".");
+            var extension = '';
+            if(itemName.length !== 1 && (itemName[0] !== "" || itemName.length !== 2) )
+                extension = itemName.pop();
+
+            return nameOnly = itemName.join('.');
+        }
+
         prototype.email = function(string) {
 
         }

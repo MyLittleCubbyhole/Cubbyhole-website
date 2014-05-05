@@ -14,19 +14,19 @@ angular.module('FileManager').
 					$local.selected = false;
 				})
 
+				$scope.$on('preview_item', function(scope, name, callback) {
+					if(name && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name))
+						$local.preview({ctrlKey : true});
+
+					callback && callback.call(this);
+				})
+
 				$scope.$on('rename_item', function() {
 					$local.rename();
 				})
 
 				$scope.$on('download_item', function(scope, name) {
-					var itemName = $local.item.name.split(".");
-				    var extension = '';
-				    if(itemName.length !== 1 && (itemName[0] !== "" || itemName.length !== 2) )
-				        extension = itemName.pop();
-
-				    var nameOnly = itemName.join('.');
-
-					if(name && AnnyangFormatService.baseFormat(nameOnly) == AnnyangFormatService.baseFormat(name))
+					if(name && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat(nameOnly)) == AnnyangFormatService.baseFormat(name))
 						$local.download(name);
 				})
 
