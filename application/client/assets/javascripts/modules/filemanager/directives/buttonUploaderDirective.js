@@ -36,7 +36,7 @@ angular.module('FileManager').
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().username,
 						ownerId: UserFactory($scope).get().id,
-						size : 0, 
+						size: 0, 
 						type: 'file', 
 						path: self.path,
 						lastUpdate: new Date()
@@ -53,8 +53,8 @@ angular.module('FileManager').
 					socket.emit('upload_init', { 
 						id: id, 
 						owner: UserFactory($scope).get().id, 
-						name : self.files[id].name, 
-						size : self.files[id].size, 
+						name: self.files[id].name, 
+						size: self.files[id].size, 
 						type: self.files[id].type, 
 						path: self.path 
 					});
