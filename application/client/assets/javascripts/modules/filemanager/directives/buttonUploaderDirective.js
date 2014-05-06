@@ -54,13 +54,13 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
 
-					socket.emit('upload_init', {
-						id: id,
-						owner: UserFactory($scope).get().id,
-						name : self.files[id].name,
-						size : self.files[id].size,
-						type: self.files[id].type,
-						path: self.path
+					socket.emit('upload_init', { 
+						id: id, 
+						owner: UserFactory($scope).get().id, 
+						name: self.files[id].name, 
+						size: self.files[id].size, 
+						type: self.files[id].type, 
+						path: self.path 
 					});
 				});
 			}
