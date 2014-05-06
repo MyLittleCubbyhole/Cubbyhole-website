@@ -30,7 +30,7 @@ angular.module('FileManager').
 
 		$local.createFolder = function(name, callback) {
             var options = {
-                    owner: UserFactory($scope).get().username,
+                    owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
                     ownerId: UserFactory($scope).get().id,
                     size : 0,
                     type: 'folder',
@@ -89,7 +89,6 @@ angular.module('FileManager').
         };
 
         $local.preview = function(force) {
-            console.log("yolo")
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 

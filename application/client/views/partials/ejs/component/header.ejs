@@ -7,13 +7,13 @@
 			</a>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
-			<article class="option nav" ng-if="!Authentication.user.username" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
+			<article class="option nav" ng-if="!Authentication.user.firstname" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
 				<span class="label">Connexion</span>
 			</article>
-			<article class="option authentication" ng-if="Authentication.user.username">
+			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
 					<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
-					<span class="label hidden-xs">{{Authentication.user.username}}</span>
+					<span class="label hidden-xs">{{Authentication.user.firstname}}</span>
 				</section>
 
 				<section id="user-card" class="flipInX animated" ng-class="{ open: Authentication.opened }">
@@ -26,7 +26,7 @@
 					</section>
 					<hr class="tiny"></hr>
 					<section id="user-navigation">
-						<article class="user-nav-options"><span class="user-icon icon-user"></span><span class="title-option">Compte</span></article>
+						<article class="user-nav-options" ng-click="Navigation.goto('/account')"><span class="user-icon icon-user"></span><span class="title-option">Compte</span></article>
 						<article class="user-nav-options"><span class="user-icon icon-newspaper"></span><span class="title-option">Offre</span></article>
 						<article class="user-nav-options"><span class="user-icon icon-gift"></span><span class="title-option">Facturation</span></article>
 					</section>

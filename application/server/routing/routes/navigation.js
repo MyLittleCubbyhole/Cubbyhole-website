@@ -45,6 +45,13 @@ navigation.get.authentication = function(request, response) {
 	response.render('authentication', options);
 }
 
+navigation.get.account = function(request, response) {
+    options.angular = { module: 'Account', controller: 'AccountController' };
+    options.headers = { title: 'Gestionnaire de compte', description: 'Cubbyhole' };
+    options.javascripts.core = '../partials/ejs/javascripts/core/account.ejs';
+    response.render('account', options);
+}
+
 navigation.get.filemanager = function(request, response) {
 	options.angular = { module: 'CubbyHole', controller: 'CubbyHoleController' };
 	options.headers = { title: 'Gestionnaire de fichier', description: 'Cubbyhole' };

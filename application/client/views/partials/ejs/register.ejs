@@ -23,21 +23,6 @@
 
             <section>
                 <article class="row">
-                    <label class="label col col-4">Pseudo</label>
-                    <article class="col col-8">
-                        <label class="input" ng-class="{'state-error': ((form.username.$dirty || Register.isFormSubmited) && form.username.$invalid)}">
-                            <i class="icon-append icon-user"></i>
-                            <input type="text" name="username" class="form-control" ng-model="Register.user.username" required />
-                        </label>
-                        <section ng-show="(form.username.$dirty || Register.isFormSubmited) && form.username.$invalid" class="error-form">
-                            <article class="note note-error" ng-show="form.username.$error.required">Renseignez votre pseudo.</article>
-                        </section>
-                    </article>
-                </article>
-            </section>
-
-            <section>
-                <article class="row">
                     <label class="label col col-4">Mot de passe</label>
                     <article class="col col-8">
                         <label class="input" ng-class="{'state-error': ((form.password.$dirty || Register.isFormSubmited) && form.password.$invalid)}">
