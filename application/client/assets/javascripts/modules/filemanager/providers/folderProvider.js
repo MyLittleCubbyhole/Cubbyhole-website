@@ -24,10 +24,14 @@ angular.module('FileManager').
 			Class.extend(Item, Folder);
 
 			Folder.prototype.init = function() {};
-			Folder.prototype.download = function() {
+			Folder.prototype.download = function(dumpOnly) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
+				url = AuthenticationFactory.request({ url: url }).url;
 
-				$window.location = AuthenticationFactory.request({ url: url }).url;
+				if(!dumpOnly)
+					$window.location = url;
+
+				return url;
 			};
 
 			Folder.prototype.getPath = function() {

@@ -2,7 +2,10 @@ angular.module('FileManager').
 	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
-		$local.currentPath = '/';
+        $local.draggedItem = null;
+
+        $local.currentPath = '/';
+		$local.folderOwner = -1;
 		$local.previewActivated = false;
 		$local.previewItem = null;
 
@@ -30,14 +33,14 @@ angular.module('FileManager').
 
 		$local.createFolder = function(name, callback) {
             var options = {
-                    owner: UserFactory($scope).get().username,
-                    ownerId: UserFactory($scope).get().id,
-                    size : 0,
-                    type: 'folder',
-                    path: $local.currentPath,
-                    newItem: true,
-                    lastUpdate: new Date()
-                }
+                owner: UserFactory($scope).get().username,
+                ownerId: UserFactory($scope).get().id,
+                size : 0,
+                type: 'folder',
+                path: $local.currentPath,
+                newItem: true,
+                lastUpdate: new Date()
+            }
 
             options.name = name ? name : ''
             options.editMode = name ? false : true;
@@ -89,7 +92,6 @@ angular.module('FileManager').
         };
 
         $local.preview = function(force) {
-            console.log("yolo")
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
         }
 

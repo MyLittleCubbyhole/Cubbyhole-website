@@ -34,34 +34,26 @@ angular.module('FileManager').
 				$node.on('dragover', self.noop);
 
 				$node.on('dragstart', function(event) {
-					if($scope._item.item._id != '.' && $scope._item.item._id != '. .') {
-						event.originalEvent.dataTransfer.setData('itemToMove', $scope._item.item.path + $scope._item.item.name);
-						event.originalEvent.dataTransfer.setData('itemIdToMove', $scope._item.item._id);
-						event.originalEvent.dataTransfer.setData('itemSizeToMove', $scope._item.item.size);
-					}
+					$scope.FileManager.draggedItem = null;
+					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')
+						$scope.FileManager.draggedItem = $scope._item.item;
 				});
 
 				$node.on('drop', function(event){
 
-					var fullPath = $scope._item.item.getFullPath() || '/';
-
 					event.originalEvent.preventDefault();
 
-					var pathTargetMove = fullPath
-					,	pathToMove = event.originalEvent.dataTransfer.getData('itemToMove').substring(1)
-					,	pathsToMove = pathToMove.split('/')
-					,	path = '';
+					var source = $scope.FileManager.draggedItem
+					,	target = $scope._item.item;
 
-					for(var i = 0; i < pathsToMove.length; i++)
-						path += pathsToMove[i] + '/';
-
-					if(path.slice(0, 1) != '/')
-						path = '/' + path;
-
-					if(pathTargetMove && pathToMove && pathTargetMove != path && fullPath.slice(-1) == '/' && $scope._item.item._id != '.') {
-						ItemFactory($scope, {local: $scope.FileManager}).move(pathToMove, pathTargetMove, event.originalEvent.dataTransfer.getData('itemIdToMove'));
-						if($scope._item.item._id != '. .')
-							$scope._item.item.size += parseInt(event.originalEvent.dataTransfer.getData('itemSizeToMove'), 10);
+					if(target 
+					&& source
+					&& target.getFullPath() != source.getFullPath()
+					&& target.toString('Folder')
+					&& target._id != '.') {
+						ItemFactory($scope, {local: $scope.FileManager}).move(source, target);
+						if(target._id != '. .')
+							target.size += parseInt(source.size, 10);
 					}
 
 					if(event.originalEvent.dataTransfer.files.length <= 0)
@@ -97,8 +89,6 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 
 					}
-
-					console.log(self.path);
 
 					socket.emit('upload_init', {
 						id: id,

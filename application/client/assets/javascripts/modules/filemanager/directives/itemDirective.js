@@ -49,11 +49,9 @@ angular.module('FileManager').
 						$local.download()
 					else {
 						$scope.FileManager.preview(false);
-						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath());
+						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath(), $local.item.ownerId);
 					}
 				};
-
-				$local.move = function() { $local.item.move(); };
 
 				$local.rename = function() {
 					if($local.selected) {
@@ -81,21 +79,19 @@ angular.module('FileManager').
 						if(newName != '' && newName.indexOf('/') == -1 && newName.indexOf('\\') == -1) {
 
 							if(!ItemFactory($scope, {local: $scope.FileManager}).checkNameExists(newName)) {
-								var fullPath = $local.item.getFullPath();
 								$local.item.name = newName;
 								if(!$local.item.newItem)
-									ItemFactory($scope, {local: $scope.FileManager}).rename(fullPath, $local.item.name);
-								else {
+									ItemFactory($scope, {local: $scope.FileManager}).rename($local.item, $local.item.name);
+								else
 									ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item);
-								}
-							} else
+							}
+							else
 								$local.cancelEdit();
 						} else
 							$local.cancelEdit();
 					}
 				};
 
-				$local.remove = function() { $local.item.remove(); };
 				$local.select = function($event) {
 					if($local.item.unselectable === true)
 						return true;
@@ -117,18 +113,20 @@ angular.module('FileManager').
 								break;
 							}
 				};
+
 				$local.preview = function($event) {
 					$local.select($event);
 					if(!$local.item.editMode)
 						$scope.FileManager.preview();
-				}
+				};
+
 				$local.download = function(name) {
 					$local.item.download();
-				}
+				};
 
 				$scope.toString = function() {
 					return '_item';
-				}
+				};
 			},
 			require: 'item',
 			restrict: 'A',

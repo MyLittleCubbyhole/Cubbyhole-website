@@ -10,12 +10,19 @@ angular.module('Breadcrumb').
 		})
 
 		$local.load = function(index) {
-			var fullPath = '';
-			for(var i =0; i<=index; i++)
+			var fullPath = ''
+			,	witness = false;
+			for(var i =0; i<=index; i++) {
+				//vire la partie shared dans le cas de dossier partagé afin d'utiliser les meme routes que dans un cas normal
+				if(index>1 && $local.path[i] == 'Shared/') {
+					witness = true;
+					continue;
+				}
 				fullPath += $local.path[i];
+			}
 
 			$scope.FileManager.preview(false);
-			ItemFactory($scope, {local: $scope.FileManager}).load(fullPath);
+			ItemFactory($scope, {local: $scope.FileManager}).load(fullPath, witness ? $scope.FileManager.folderOwner : null);
 		}
 
 		$scope.toString = function() {

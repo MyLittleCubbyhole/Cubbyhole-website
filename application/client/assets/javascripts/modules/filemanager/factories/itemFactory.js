@@ -14,9 +14,13 @@ angular.module('FileManager').
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
 
-			prototype.load = function(path) {
+			prototype.load = function(path, ownerId) {
+
 				if(userFactory($scope).get().id) {
-					var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
+					ownerId = ownerId || userFactory($scope).get().id;
+					$scope.FileManager.folderOwner = ownerId;
+
+					var browse = restangular.one('browse').one(ownerId + '/');
 
 					path = path || '';
 					if(path.slice(-1) != '/')
@@ -25,7 +29,7 @@ angular.module('FileManager').
 					var browsePath = browse.one(path.substring(1));
 
 					browsePath.getList().then(function(items) {
-						$scope.FileManager.currentPath = path;
+						$scope.FileManager.currentPath = ownerId != userFactory($scope).get().id ? '/Shared'+path : path;
 
 						_items.splice(0);
 						$local.items.splice(0);
@@ -75,8 +79,10 @@ angular.module('FileManager').
 
 			prototype.createFolder = function(item) {
 
-				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/')
+				var browse = restangular.one('browse').one($scope.FileManager.folderOwner + '/')
 				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
+
+				path = path.indexOf('Shared') != 0 ? path : path.slice(7); 
 
 				browse.post(path, { name: item.name }).then(function() {
 					item.newItem = false;
@@ -85,25 +91,26 @@ angular.module('FileManager').
 			}
 
 			prototype.delete = function(item) {
-				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
+				var browse = restangular.one('browse').one(getOwnerIdFromContext(item) + '/');
 
 				browse.one(item.getFullPath()).remove().then(function() {
 					prototype.clean(item._id);
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.move = function(pathToMove, pathTargetMove, itemId) {
+			prototype.move = function(source, target) {
 
-				var move = restangular.one('move').one(userFactory($scope).get().id + '');
+				var move = restangular.one('move').one(getOwnerIdFromContext(target) + '');
 
-				move.post(pathToMove, { path: pathTargetMove }).then(function() {
-					prototype.clean(itemId);
+				move.post(source.getFullPath().substring(1), { path: target.getFullPath() }).then(function() {
+					prototype.clean(source._id);
 				}, function(error) { console.error(error); });
 			}
 
-			prototype.rename = function(path, newName, callback) {
-
-				var browse = restangular.one('browse').one(userFactory($scope).get().id + '/');
+			prototype.rename = function(item, newName, callback) {
+				
+				var path = item.getFullPath()
+				,	browse = restangular.one('browse').one(getOwnerIdFromContext(item) + '/');
 
 				browse.one(path).customPUT({name: newName}).then(function() {
 					//prototype.load($local.currentPath);
@@ -133,7 +140,7 @@ angular.module('FileManager').
 			prototype.shareFile = function(item, callback) {
 				var share = restangular.one('share');
 
-				share.one(userFactory($scope).get().id + item.getFullPath()).get().then(function(result) {
+				share.one(getOwnerIdFromContext(item) + item.getFullPath()).get().then(function(result) {
 					if(result && result.token)
 						callback.call(this, null, result.token);
 					else
@@ -147,7 +154,7 @@ angular.module('FileManager').
 			prototype.unshareFile = function(item, callback) {
 				var unshare = restangular.one('unshare');
 
-				unshare.one(userFactory($scope).get().id + item.getFullPath()).get().then(function(result) {
+				unshare.one(getOwnerIdFromContext(item) + item.getFullPath()).get().then(function(result) {
 					if(result && result.information)
 						callback.call(this, null, result.information);
 					else
@@ -185,13 +192,13 @@ angular.module('FileManager').
 				}
 				_items.push(item);
 				options.path = item.getPath();
-				// options._id = item.getPath();
-				// options.fullPath = item.getPath();
-
-				// options.path = item.path;
 				$local && $local.items.push(item);
 				callback && callback.call(this);
 				return item;
+			}
+
+			function getOwnerIdFromContext(item) {
+				return item._id.match(/[0-9]+\/Shared.*/) ? item.ownerId : userFactory($scope).get().id;
 			}
 
 			function addFileNavigation() {
