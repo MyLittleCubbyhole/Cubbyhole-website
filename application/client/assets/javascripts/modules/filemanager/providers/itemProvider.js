@@ -33,13 +33,13 @@ angular.module('FileManager').
 				this.node = this.options.node;
 				this.lastUpdate = this.options.lastUpdate;
 				this.size = this.options.size;
-				this.owner = this.options.owner;
+				this.creator = this.options.creator;
 				this.ownerId = this.options.ownerId;
 				this.shared = typeof this.options.shared !== 'undefined' && this.options.shared === true;
 				this.editMode = typeof this.options.editMode !== 'undefined' && this.options.editMode === true;
 				this.newItem = typeof this.options.newItem !== 'undefined' && this.options.newItem === true;
 				this._id = this.options._id || -1;
-				
+
 				options && this.init();
 			};
 

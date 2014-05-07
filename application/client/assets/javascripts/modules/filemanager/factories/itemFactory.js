@@ -46,7 +46,7 @@ angular.module('FileManager').
 								path: items[i].path,
 								type: items[i].type,
 								ownerId: items[i].ownerId,
-	                			owner: items[i].owner,
+	                			creator: items[i].creator,
 								size: items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								shared: items[i].shared
@@ -82,7 +82,7 @@ angular.module('FileManager').
 				var browse = restangular.one('browse').one($scope.FileManager.folderOwner + '/')
 				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
 
-				path = path.indexOf('Shared') != 0 ? path : path.slice(7); 
+				path = path.indexOf('Shared') != 0 ? path : path.slice(7);
 
 				browse.post(path, { name: item.name }).then(function() {
 					item.newItem = false;
@@ -108,7 +108,7 @@ angular.module('FileManager').
 			}
 
 			prototype.rename = function(item, newName, callback) {
-				
+
 				var path = item.getFullPath()
 				,	browse = restangular.one('browse').one(getOwnerIdFromContext(item) + '/');
 
