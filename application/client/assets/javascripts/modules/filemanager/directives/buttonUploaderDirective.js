@@ -34,6 +34,7 @@ angular.module('FileManager').
 					var id = (Math.random() + '').replace('0.', '');
 					self.path = $scope.FileManager.currentPath;
 					self.files[id] = event.target.files[0];
+					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
 
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
@@ -54,13 +55,14 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
 
-					socket.emit('upload_init', { 
-						id: id, 
-						owner: UserFactory($scope).get().id, 
-						name: self.files[id].name, 
-						size: self.files[id].size, 
-						type: self.files[id].type, 
-						path: self.path 
+					socket.emit('upload_init', {
+						id: id,
+						owner: UserFactory($scope).get().id,
+						name: self.files[id].name,
+						size: self.files[id].size,
+						type: self.files[id].type,
+						path: self.path,
+						token: UserFactory($scope).get().token
 					});
 				});
 			}
