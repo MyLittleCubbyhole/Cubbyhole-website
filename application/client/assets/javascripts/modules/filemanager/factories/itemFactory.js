@@ -46,7 +46,7 @@ angular.module('FileManager').
 								path: items[i].path,
 								type: items[i].type,
 								ownerId: items[i].ownerId,
-	                			owner: '',
+	                			owner: items[i].owner,
 								size: items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								shared: items[i].shared

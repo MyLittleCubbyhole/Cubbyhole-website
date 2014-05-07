@@ -33,7 +33,7 @@ angular.module('FileManager').
 
 		$local.createFolder = function(name, callback) {
             var options = {
-                owner: UserFactory($scope).get().username,
+                owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
                 ownerId: UserFactory($scope).get().id,
                 size : 0,
                 type: 'folder',

@@ -9,6 +9,7 @@ routing.init = function(app) {
     app.get('/home', navigation.get.index);
     app.get('/activation', navigation.get.activation);
     app.get('/authentication', navigation.get.authentication);
+    app.get('/account', navigation.get.account);
     app.get('/manager', filters.tokenInterceptor, navigation.get.filemanager);
     app.get(/^\/shared\/(.+)+/, navigation.get.shared);
     app.get(/partials\/(.+)/, navigation.get.partial);
