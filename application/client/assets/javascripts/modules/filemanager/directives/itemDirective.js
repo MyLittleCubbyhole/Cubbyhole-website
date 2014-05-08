@@ -77,7 +77,7 @@ angular.module('FileManager').
 						$local.item.editMode = false;
 						var newName = $local.item.name;
 						$local.item.name = $local.oldName;
-						var fullpath = $local.item.getFullPath();
+						var fullpath = $local.item.ownerId.toString() + $local.item.getFullPath();
 						
 						if(newName != '' && newName.indexOf('/') == -1 && newName.indexOf('\\') == -1) {
 

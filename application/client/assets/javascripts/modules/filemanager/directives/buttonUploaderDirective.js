@@ -31,7 +31,8 @@ angular.module('FileManager').
 				self.$template = $node.parent().find('[type=file]');
 
 				self.$template[0].addEventListener('change', function(event){
-					var id = (Math.random() + '').replace('0.', '');
+					var id = (Math.random() + '').replace('0.', '')
+					,	nbPathPart = $scope.FileManager.pathItems.length;
 					self.path = $scope.FileManager.currentPath;
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
@@ -40,7 +41,7 @@ angular.module('FileManager').
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-						ownerId: $scope.FileManager.folderOwner,
+						ownerId: $scope.FileManager.pathItems.length > 1 ?  $scope.FileManager.pathItems[nbPathPart] : $scope.FileManager.folderOwner,
 						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',

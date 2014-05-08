@@ -130,7 +130,7 @@ angular.module('FileManager').
 
 			prototype.rename = function(fullpath, newName, callback) {
 
-				restangular.one('browse').one(item.ownerId.toString()+fullpath).customPUT({name: newName}).then(function() {
+				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function() {
 					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
 			}
