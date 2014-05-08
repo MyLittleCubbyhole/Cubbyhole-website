@@ -41,7 +41,7 @@ angular.module('FileManager').
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-						ownerId: $scope.FileManager.pathItems.length > 1 ?  $scope.FileManager.pathItems[nbPathPart] : $scope.FileManager.folderOwner,
+						ownerId: $scope.FileManager.folderOwner,
 						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',
