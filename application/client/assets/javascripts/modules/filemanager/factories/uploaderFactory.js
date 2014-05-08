@@ -27,7 +27,7 @@ angular.module('FileManager').
 		});
 
 		socket.on('upload_stopped', function(data){
-			console.error("upload stopped");
+			console.error("upload stopped - " + data.error);
 			if(files[data.id].context.entity.toString() == 'File')
 				files[data.id].context.entity.remove();
 			else
