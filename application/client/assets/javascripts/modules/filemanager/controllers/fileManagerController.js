@@ -41,7 +41,8 @@ angular.module('FileManager').
                 type: 'folder',
                 path: $local.currentPath,
                 newItem: true,
-                lastUpdate: new Date()
+                lastUpdate: new Date(),
+                creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname
             }
 
             options.name = name ? name : ''
