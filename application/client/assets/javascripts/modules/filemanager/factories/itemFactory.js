@@ -23,7 +23,7 @@ angular.module('FileManager').
 							name: item.name,
 							item: item
 						});
-					else 
+					else
 						$scope.FileManager.pathItems.pop();
 				}
 
@@ -39,7 +39,7 @@ angular.module('FileManager').
 					if(path.slice(-1) != '/')
 						path += '/';
 
-					if(path == '/' && (!item || (item._id != '. .' &&  item._id != '.')))						
+					if(path == '/' && (!item || (item._id != '. .' &&  item._id != '.')))
 						$scope.FileManager.pathItems.push({
 							name: '/',
 							item: '/'
@@ -219,10 +219,9 @@ angular.module('FileManager').
 				var index = $scope.FileManager.pathItems.length-1
 				,	path;
 
-				path = $scope.FileManager.pathItems[index] && typeof $scope.FileManager.pathItems[index].item != 'string' ? 
-					$scope.FileManager.pathItems[index].item.getFullPath() : 
+				path = $scope.FileManager.pathItems[index] && typeof $scope.FileManager.pathItems[index].item != 'string' ?
+					$scope.FileManager.pathItems[index].item.getFullPath() :
 					$scope.FileManager.pathItems[index].item;
-					console.log('.',path)
 				prototype.add({
 					_id: '.',
 					name: ' . ',
@@ -235,10 +234,9 @@ angular.module('FileManager').
 				});
 
 				if($scope.FileManager.currentPath != '/') {
-					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ? 
-						$scope.FileManager.pathItems[index-1].item.getFullPath() : 
+					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
+						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
-						console.log('. .',path)
 					prototype.add({
 						_id: '. .',
 						name: '. .',
