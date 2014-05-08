@@ -49,7 +49,9 @@ angular.module('FileManager').
 						$local.download()
 					else {
 						$scope.FileManager.preview(false);
-						ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath(), $local.item.ownerId);
+						console.log('open =>', $local.item)
+						ItemFactory($scope, {local: $scope.FileManager}).load($local.item);
+						// ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath(), $local.item.ownerId);
 					}
 				};
 
@@ -75,13 +77,14 @@ angular.module('FileManager').
 						$local.item.editMode = false;
 						var newName = $local.item.name;
 						$local.item.name = $local.oldName;
-
+						var fullpath = $local.item.getFullPath();
+						
 						if(newName != '' && newName.indexOf('/') == -1 && newName.indexOf('\\') == -1) {
 
 							if(!ItemFactory($scope, {local: $scope.FileManager}).checkNameExists(newName)) {
 								$local.item.name = newName;
 								if(!$local.item.newItem)
-									ItemFactory($scope, {local: $scope.FileManager}).rename($local.item, $local.item.name);
+									ItemFactory($scope, {local: $scope.FileManager}).rename(fullpath, newName);
 								else
 									ItemFactory($scope, {local: $scope.FileManager}).createFolder($local.item);
 							}

@@ -9,8 +9,8 @@
                     <section id="toolbar">
                         <section id="breadcrumb" class="pull-left google-font big-font" ng-controller="BreadcrumbController">
                             <span class="path-part" ng-repeat="(index, part) in Breadcrumb.path track by $index">
-                                <span ng-if="index != Breadcrumb.path.length - 1" ng-click="Breadcrumb.load(index)">{{part}}</span>
-                                <span ng-if="index == Breadcrumb.path.length - 1" class="active">{{part}}</span>
+                                <span ng-if="index != Breadcrumb.path.length - 1" ng-click="Breadcrumb.load(index)">{{part.name}}</span>
+                                <span ng-if="index == Breadcrumb.path.length - 1" class="active">{{part.name}}</span>
                             </span>
                         </section>
                         <section class="tb-container pull-right">

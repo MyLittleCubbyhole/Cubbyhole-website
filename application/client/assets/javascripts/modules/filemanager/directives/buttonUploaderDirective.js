@@ -39,7 +39,7 @@ angular.module('FileManager').
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-						ownerId: UserFactory($scope).get().id,
+						ownerId: $scope.FileManager.folderOwner,
 						size : 0,
 						type: 'file',
 						path: self.path,
@@ -56,7 +56,7 @@ angular.module('FileManager').
 
 					socket.emit('upload_init', { 
 						id: id, 
-						owner: UserFactory($scope).get().id, 
+						owner: $scope.FileManager.folderOwner, 
 						name: self.files[id].name, 
 						size: self.files[id].size, 
 						type: self.files[id].type, 

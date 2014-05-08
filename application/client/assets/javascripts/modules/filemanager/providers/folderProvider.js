@@ -36,15 +36,17 @@ angular.module('FileManager').
 
 			Folder.prototype.getPath = function() {
 				var path = this.path;
-				if(this._id == '. .') {
-					var paths = path.split('/');
-					path = '';
-					for(var i = 0; i < paths.length - 2; i++)
-						path += paths[i] + '/';
+				// if(this._id == '. .') {
+				// 	var paths = path.split('/');
+				// 	path = '';
+				// 	for(var i = 0; i < paths.length - 2; i++)
+				// 		path += paths[i] + '/';
+				// }
+				// else 
+				if(this._id != '.' && this._id != '. .') {
+					path += this.name + '/';
 				}
-				else if(this._id != '.') {
-					path += this.name + '/'
-				}
+
 				return path;
 			}
 

@@ -8,6 +8,8 @@ angular.module('FileManager').
 		$local.folderOwner = -1;
 		$local.previewActivated = false;
 		$local.previewItem = null;
+        $local.pathItems = [];
+
 
 		$local.selectedItems = [];
 		$local.items = [];
