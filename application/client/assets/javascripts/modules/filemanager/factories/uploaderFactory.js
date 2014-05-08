@@ -6,6 +6,7 @@ angular.module('FileManager').
 
 		socket.on('upload_next', function(data) {
 			files[data.id].context.entity.size += data['chunkSize'];
+			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
 			files[data.id].context.$scope.$apply();
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
@@ -16,10 +17,23 @@ angular.module('FileManager').
 
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
-			files[data.id].context.entity.size += data['chunkSize'];
-			files[data.id].context.$scope.$apply();
+			file.context.entity.size += data['chunkSize'];
+			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
+			file.context.entity._id = data._id;
+			file.context.entity.unselectable = false;
+			file.context.$scope.$apply();
 
 			delete files[data.id];
+		});
+
+		socket.on('upload_stopped', function(data){
+			console.error("upload stopped");
+			if(files[data.id].context.entity.toString() == 'File')
+				files[data.id].context.entity.remove();
+			else
+				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
+
+			files[data.id].context.$scope.$apply();
 		});
 
 		return function($scope, context) {

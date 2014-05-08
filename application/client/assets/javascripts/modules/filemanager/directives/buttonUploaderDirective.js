@@ -34,16 +34,19 @@ angular.module('FileManager').
 					var id = (Math.random() + '').replace('0.', '');
 					self.path = $scope.FileManager.currentPath;
 					self.files[id] = event.target.files[0];
+					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
 
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						ownerId: $scope.FileManager.folderOwner,
+						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',
 						path: self.path,
-						lastUpdate: new Date()
+						lastUpdate: new Date(),
+						unselectable: true
 					}, function() { $scope.$apply(); })
 
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
@@ -54,13 +57,14 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name });
 					}
 
-					socket.emit('upload_init', { 
-						id: id, 
+					socket.emit('upload_init', {
+						id: id,
 						owner: $scope.FileManager.folderOwner, 
-						name: self.files[id].name, 
-						size: self.files[id].size, 
-						type: self.files[id].type, 
-						path: self.path 
+						name: self.files[id].name,
+						size: self.files[id].size,
+						type: self.files[id].type,
+						path: self.path,
+						token: UserFactory($scope).get().token
 					});
 				});
 			}

@@ -31,6 +31,10 @@ angular.module('FileManager').
 				return url;
 			};
 
+			File.prototype.remove = function() {
+				this.node.remove();
+			}
+
 			File.prototype.getPath = function() {
 				return this.path;
 			}

@@ -46,7 +46,7 @@ angular.module('FileManager').
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
 
-					if(target 
+					if(target
 					&& source
 					&& target.getFullPath() != source.getFullPath()
 					&& target.toString('Folder')
@@ -71,15 +71,18 @@ angular.module('FileManager').
 
 					self.fileReaders[id] = new FileReader();
 					self.files[id] = file;
+					self.files[id].sizeAdded = 0;
 
 					var newItem = self.path == $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						ownerId: UserFactory($scope).get().id,
+						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',
 						path: self.path,
-						lastUpdate: new Date()
+						lastUpdate: new Date(),
+						unselectable: true
 					}, function() { $scope.$apply(); }) : $scope._item.item;
 
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
@@ -96,7 +99,8 @@ angular.module('FileManager').
 						name : self.files[id].name,
 						size : self.files[id].size,
 						type: self.files[id].type,
-						path: self.path
+						path: self.path,
+						token: UserFactory($scope).get().token
 					});
 				}
 			}
