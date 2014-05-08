@@ -39,6 +39,7 @@ angular.module('FileManager').
 				this.editMode = typeof this.options.editMode !== 'undefined' && this.options.editMode === true;
 				this.newItem = typeof this.options.newItem !== 'undefined' && this.options.newItem === true;
 				this._id = this.options._id || -1;
+				this.unselectable = typeof this.options.unselectable !== 'undefined' && this.options.unselectable === true;
 
 				options && this.init();
 			};

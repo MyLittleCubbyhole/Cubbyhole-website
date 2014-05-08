@@ -81,7 +81,8 @@ angular.module('FileManager').
 						size : 0,
 						type: 'file',
 						path: self.path,
-						lastUpdate: new Date()
+						lastUpdate: new Date(),
+						unselectable: true
 					}, function() { $scope.$apply(); }) : $scope._item.item;
 
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);

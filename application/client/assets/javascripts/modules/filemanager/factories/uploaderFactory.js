@@ -20,6 +20,7 @@ angular.module('FileManager').
 			file.context.entity.size += data['chunkSize'];
 			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
 			file.context.entity._id = data._id;
+			file.context.entity.unselectable = false;
 			file.context.$scope.$apply();
 
 			delete files[data.id];
