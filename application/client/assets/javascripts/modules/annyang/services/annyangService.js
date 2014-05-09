@@ -9,18 +9,22 @@ angular.module('Annyang').
         };
 
         prototype.submitCommands = function() {
-            annyang.removeAll();
-            annyang.debug();
-            annyang.addCommands(commands);
+            if(annyang) {
+                annyang.removeAll();
+                annyang.debug();
+                annyang.addCommands(commands);
+            }
         };
 
         prototype.start = function() {
             prototype.submitCommands();
-            annyang.start();
+            if(annyang)
+                annyang.start();
         };
 
         prototype.stop = function() {
-            annyang.abort();
+            if(annyang)
+                annyang.abort();
         };
 
         return prototype;
