@@ -1,1 +1,1 @@
-angular.module('Account', ['Authentication']);
+angular.module('Account', ['CubbyHole', 'highcharts-ng']);

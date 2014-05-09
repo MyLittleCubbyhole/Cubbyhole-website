@@ -704,6 +704,57 @@ tr.item.uploading::after {
     background-color: #158918;
     box-shadow: 0px 0px 1px rgb(15, 161, 31);
 }
+.chart-container {
+    position: relative;
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.chart-container .leftPanel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.chart-container .topPanel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    vertical-align: text-top;
+    right: -100px;
+    text-align: center;
+    width: 200px;
+}
+
+.chart-label-primary {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+    font-size: 41px;
+    margin: auto;
+    height: 69px;
+}
+
+.chart-label-secondary {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    font-weight: 300;
+    font-size: 21px;
+    margin: auto;
+    height: 60px;
+    margin-top: 48px;
+    margin-left: 39px;
+}
 
 @media screen and (max-width: 775px) {
 

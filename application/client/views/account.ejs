@@ -1,5 +1,7 @@
 <% layout('./layout/core') %>
 
-<section id="container" ng-cloak>
-    gestionnaire de compte
+<section id="container" ng-controller="InformationsController" ng-cloak>
+    <article class="chart-container" ng-repeat="chart in Informations.charts track by $index">
+        <donutchart size-available="{{chart.availableSize}}" size-text="{{chart.textSize}}" data="{{chart.data}}" title="{{chart.title}}" subtitle="{{chart.subtitle}}"></donutchart>
+    </article>
 </section>

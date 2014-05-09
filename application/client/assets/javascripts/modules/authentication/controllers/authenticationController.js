@@ -13,7 +13,6 @@ angular.module('Authentication').
 
 		UserFactory($scope).set(user);
 
-
 		$local.user = user;
 		$local.authenticated = false;
 

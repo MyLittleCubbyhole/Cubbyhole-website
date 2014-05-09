@@ -120,6 +120,9 @@ section#global-nav .img-circle {
 }
 
 section#global-nav  #logo-container {
+	position: absolute;
+	top: 0;
+	left: 0;
 	cursor: pointer;
 }
 

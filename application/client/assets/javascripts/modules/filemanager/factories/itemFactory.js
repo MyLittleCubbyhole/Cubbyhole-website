@@ -61,7 +61,7 @@ angular.module('FileManager').
 
 						var options;
 						for(var i = 0; i<items.length; i++) {
-							options = Object.create({
+							options = {
 								_id : items[i]._id,
 								name: items[i].name,
 								path: items[i].path,
@@ -71,7 +71,7 @@ angular.module('FileManager').
 								size: items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								shared: items[i].shared
-							});
+							};
 
 							prototype.add(options);
 						}
