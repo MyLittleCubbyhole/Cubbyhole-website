@@ -31,7 +31,8 @@ angular.module('FileManager').
 				self.$template = $node.parent().find('[type=file]');
 
 				self.$template[0].addEventListener('change', function(event){
-					var id = (Math.random() + '').replace('0.', '');
+					var id = (Math.random() + '').replace('0.', '')
+					,	nbPathPart = $scope.FileManager.pathItems.length;
 					self.path = $scope.FileManager.currentPath;
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
