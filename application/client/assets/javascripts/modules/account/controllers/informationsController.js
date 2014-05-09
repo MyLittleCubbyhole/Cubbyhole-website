@@ -7,39 +7,97 @@ angular.module('Account').
         function updateElements() {
             $local.charts = [];
 
-            $local.charts.push({
-                availableSize: '5Go',
-                textSize: 'LIBRE',
-                data: [
-                    {
-                        name: 'video',
-                        y: 12.5,
-                        color: '#ff3d3d'
-                    },
-                    {
-                        name: 'image',
-                        y: 25,
-                        color: '#74cf24'
-                    },
-                    {
-                        name: 'musique',
-                        y: 12.5,
-                        color: '#40a7fd'
-                    },
-                    {
-                        name: 'document',
-                        y: 5,
-                        color: '#ffa63d'
-                    },
-                    {
-                        name: 'disponible',
-                        y: 45,
-                        color: '#ffffff'
+            DataChartFactory($scope).getSizeUsed(function(error, sizes) {
+                var availableSize = 0
+                ,   usedSpace = 0
+                ,   data = null
+                ,   videos = 0
+                ,   images = 0
+                ,   musiques = 0
+                ,   documents = 0
+                ,   others = 0;
+
+                if(!error && sizes) {
+                    for(var i = 0; i < sizes.length; i++) {
+                        if(sizes[i]._id.indexOf("video") > -1)
+                            videos += sizes[i].size;
+                        else if(sizes[i]._id.indexOf("image") > -1)
+                             images += sizes[i].size;
+                        else if(sizes[i]._id.indexOf("audio") > -1)
+                             musiques += sizes[i].size;
+                        else if(sizes[i]._id.indexOf("document") > -1 || sizes[i]._id.indexOf("pdf") > -1)
+                             documents += sizes[i].size;
+                        else
+                             others += sizes[i].size;
+
+                        usedSpace += sizes[i].size;
                     }
-                ],
-                title: 'STOCKAGE UTILISE',
-                subtitle: $scope.Account.currentPlan.storage ? FormatSizeService.format($scope.Account.currentPlan.storage) + ' total' : ''
-            });
+
+                    availableSize = $scope.Account.currentPlan.storage - usedSpace;
+                }
+
+                $local.charts.push({
+                    availableSize: FormatSizeService.format(availableSize, true),
+                    textSize: 'LIBRE',
+                    data: [
+                        {
+                            name: 'Disponible',
+                            y: parseInt(availableSize, 10),
+                            size: FormatSizeService.format(availableSize),
+                            color: '#ffffff'
+                        }
+                    ],
+                    title: 'STOCKAGE UTILISE',
+                    subtitle: $scope.Account.currentPlan.storage ? FormatSizeService.format($scope.Account.currentPlan.storage) + ' total' : ''
+                })
+
+                if(videos)
+                   $local.charts[0].data.push(
+                        {
+                            name: 'Vidéos',
+                            y: parseInt(videos, 10),
+                            size: FormatSizeService.format(videos),
+                            color: '#ff3d3d'
+                        }
+                   );
+                if(images)
+                   $local.charts[0].data.push(
+                        {
+                            name: 'Images',
+                            y: parseInt(images, 10),
+                            size: FormatSizeService.format(images),
+                            color: '#74cf24'
+                        }
+                   );
+                if(musiques)
+                   $local.charts[0].data.push(
+                        {
+                            name: 'Musiques',
+                            y: parseInt(musiques, 10),
+                            size: FormatSizeService.format(musiques),
+                            color: '#40a7fd'
+                        }
+                   );
+                if(documents)
+                   $local.charts[0].data.push(
+                        {
+                            name: 'Documents',
+                            y: parseInt(documents, 10),
+                            size: FormatSizeService.format(documents),
+                            color: '#ffa63d'
+                        }
+                   );
+                if(others)
+                   $local.charts[0].data.push(
+                        {
+                            name: 'Autre',
+                            y: parseInt(others, 10),
+                            size: FormatSizeService.format(others),
+                            color: '#b175ef'
+                        }
+                   );
+
+            })
 
             DataChartFactory($scope).getCurrentQuota(function(error, quota) {
                 var availableSize = null;
@@ -47,17 +105,19 @@ angular.module('Account').
                     availableSize = $scope.Account.currentPlan.quota - quota.quotaUsed;
                 }
                 $local.charts.push({
-                    availableSize: availableSize ? FormatSizeService.format(availableSize) : '',
+                    availableSize: availableSize ? FormatSizeService.format(availableSize, true) : '',
                     textSize: 'DISPO',
                     data: [
                         {
-                            name: 'utilisé',
-                            y: 50,
+                            name: 'Utilisé',
+                            y: quota.quotaUsed,
+                            size: FormatSizeService.format(quota.quotaUsed),
                             color: '#40a7fd'
                         },
                         {
-                            name: 'disponible',
-                            y: 50,
+                            name: 'Disponible',
+                            y: availableSize,
+                            size: FormatSizeService.format(availableSize),
                             color: '#ffffff'
                         }
                     ],

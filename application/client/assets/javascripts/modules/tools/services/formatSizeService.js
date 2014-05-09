@@ -1,6 +1,6 @@
 angular.module('Tools').
     service('FormatSizeService', function() {
-        this.format = function(input) {
+        this.format = function(input, ceil) {
             var out = "";
             var size = parseInt(input, 10);
 
@@ -19,6 +19,8 @@ angular.module('Tools').
                 out = size.toFixed(2);
                 out.slice(-1) == "0" ? out = out.slice(0, -1) : out;
                 out.slice(-1) == "0" ? out = out.slice(0, -2) : out;
+                if(ceil)
+                    out = Math.round(parseFloat(out, 10));
             }
 
             out += ' ' + unit[i];

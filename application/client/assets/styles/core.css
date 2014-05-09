@@ -764,4 +764,8 @@ tr.item.uploading::after {
     #manager section.manager-bloc:nth-child(2) {
         display: none;
     }
+
+    .chart-container {
+        width: 100%;
+    }
 }
