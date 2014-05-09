@@ -1,25 +1,28 @@
 angular.module('Account').
-    provider('DonutChartProvider', function(){
+    provider('DonutChartProvider', function() {
 
         var _default = {
             options: {
                 chart: {
                     type: 'pie',
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: function() {
+                            setTimeout(function(){$(window).trigger('resize')}, 00);
+                        }
+                    }
                 },
                 plotOptions: {
                     pie: {
                         dataLabels: {
                             enabled: false
                         },
-                        point: {
-                            events: {
-                                legendItemClick: function (event) { event.preventDefault() }
-                            }
-                        },
                         showInLegend: true,
                         startAngle: 120,
-                        borderWidth: 0
+                        borderWidth: 0,
+                        tooltip: {
+                            pointFormat: '<b>{point.size}<b>'
+                        }
                     }
                 },
                 legend: {
@@ -67,7 +70,7 @@ angular.module('Account').
                 this.title = this.opts.title;
                 this.subtitle = this.opts.subtitle;
                 this.loading = this.opts.loading;
-
+                this.tooltip = this.opts.tooltip;
             };
 
             Object.defineProperties(DonutChart.prototype, {

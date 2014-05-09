@@ -1,5 +1,5 @@
 angular.module('Account').
-    directive('donutchart', ['DonutChartProvider', '$parse', function(DonutChart, $parse) {
+    directive('donutchart', ['DonutChartProvider', '$parse', '$window', function(DonutChart, $parse, $window) {
         return {
             scope: true,
             restrict: 'E',
@@ -37,6 +37,8 @@ angular.module('Account').
                 $local.chart.series[0].data = $parse(attributes.data)($scope);
                 $local.chart.title.text = attributes.title;
                 $local.chart.subtitle.text = attributes.subtitle;
+
+                angular.element($window).trigger('resize');
 
             }
         };
