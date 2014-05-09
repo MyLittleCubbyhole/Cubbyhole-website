@@ -8,7 +8,7 @@ angular.module('FileManager').
 				,	iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
 				,	android = navigator.userAgent.toLowerCase().match(/android/g) ? true : false;
 
-				$local.url = apiUrl + 'download/' +UserFactory($scope).get().id+ '/';
+				$local.url = apiUrl + 'download/' +UserFactory($scope).get().id+ '/?token=' + UserFactory($scope).get().token;
 				$local.target = iOS || android ? '_blank' : 'downloadFrame';
 
 				$scope.$on('start_post_download', function() {
