@@ -1,17 +1,20 @@
 section#breadcrumb {
-    color: rgba(242, 242, 242, 1);
-    font-size: 19px;
-    line-height: 40px;
+    color: black;
+    font-size: 26px;
+    line-height: 47px;
     margin-left: 10px;
 }
-#breadcrumb span.path-part:hover, #breadcrumb span.path-part span.active {
-    color: #C94A4A;
+#breadcrumb span.path-part span:first-child:hover, #breadcrumb span.path-part span.active {
+    color: #46B5EA;
 }
-#breadcrumb span.path-part {
+#breadcrumb span.path-part span:first-child {
     cursor: pointer;
     -webkit-transition: .1s all linear;
     -moz-transition: .1s all linear;
     -ms-transition: .1s all linear;
     -o-transition: .1s all linear;
     transition: .1s all linear;
+}
+#breadcrumb img {
+    height: 13px;
 }

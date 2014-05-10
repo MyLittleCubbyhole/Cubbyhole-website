@@ -3,6 +3,7 @@ section#toolbar {
     width: 100%;
     background-color: #e3e3e3;
     z-index: 5;
+    background-image: url(/images/design/toolbar-background.png);
 }
 #toolbar article.tb-option {
     position: relative;
@@ -56,8 +57,5 @@ section#toolbar {
     font-size: 14px;
 }
 #toolbar article.tb-option:hover {
-    color: #A2D5ED;
-}
-#toolbar article.tb-option:hover .tb-icon {
-    /*text-shadow: 0px 0px 10px rgba(3, 116, 3, 0.4); *;*/
+    color: #46B5EA;
 }

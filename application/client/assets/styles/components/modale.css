@@ -18,7 +18,7 @@
     height: 311px;
     text-align: center;
 }
-.md-content .url .copy-zone {
+.md-content .url.copy-zone>section {
     height: 177px;
     position: absolute;
     top: 0;
@@ -40,13 +40,29 @@
     bottom: 0;
     margin: auto;
 }
-.md-content .url .copy-zone:hover .icon-cloud-download {
+.md-content .url.copy-zone:hover .icon-cloud-download {
     color: #75c8ef;
     text-shadow: 0px 0px 4px #2B7597;
 }
-.md-content .url .copy-zone.zeroclipboard-is-hover .icon-cloud-download {
+.md-content .url.copy-zone.zeroclipboard-is-hover .icon-cloud-download {
     color: #75c8ef;
     text-shadow: 0px 0px 4px #2B7597;
+}
+.md-content .url.copy-zone:active .icon-cloud-download {
+
+    -webkit-backface-visibility: visible;
+    -ms-backface-visibility: visible;
+    backface-visibility: visible;
+    -webkit-animation-name: flip;
+    animation-name: flip;
+}
+.md-content .url.copy-zone.zeroclipboard-is-active .icon-cloud-download {
+
+    -webkit-backface-visibility: visible;
+    -ms-backface-visibility: visible;
+    backface-visibility: visible;
+    -webkit-animation-name: flip;
+    animation-name: flip;
 }
 .md-content .url span {
     font-size: 20px;
@@ -58,10 +74,10 @@
     right: 0;
     bottom: 0;
 }
-.md-content .url .copy-zone:hover span {
+.md-content .url.copy-zone:hover span {
     color: #75c8ef;
 }
-.md-content .url .copy-zone.zeroclipboard-is-hover span {
+.md-content .url.copy-zone.zeroclipboard-is-hover span {
     color: #75c8ef;
 }
 
