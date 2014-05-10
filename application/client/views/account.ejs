@@ -5,9 +5,9 @@
         <donutchart size-available="{{chart.availableSize}}" size-text="{{chart.textSize}}" data="{{chart.data}}" title="{{chart.title}}" subtitle="{{chart.subtitle}}"></donutchart>
     </article> -->
 
-	<aside id="vertical-toolbar">
+	<aside id="vertical-toolbar" ng-controller="NavigationController">
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container">
+			<article class="option-toolbar container" ng-click="Navigation.goto('config');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-user"></span>
 				</article>
@@ -17,7 +17,7 @@
 			</article>
 		</article>
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container">
+			<article class="option-toolbar container" ng-click="Navigation.goto('infos');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-stats"></span>
 				</article>
@@ -27,7 +27,7 @@
 			</article>
 		</article>
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container">
+			<article class="option-toolbar container" ng-click="Navigation.goto('timeline');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-timeline"></span>
 				</article>
@@ -37,7 +37,7 @@
 			</article>
 		</article>
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container">
+			<article class="option-toolbar container" ng-click="Navigation.goto('plans');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-plans"></span>
 				</article>
@@ -47,7 +47,7 @@
 			</article>
 		</article>
 	</aside>
-	<section id="configuration-container">
+	<section id="configuration-container" scroll-bar theme="dark">
 		<section id="configuration-view" ng-view></section>
 	</section>
 
