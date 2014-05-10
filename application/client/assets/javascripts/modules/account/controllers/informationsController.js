@@ -49,7 +49,7 @@ angular.module('Account').
                     ],
                     title: 'STOCKAGE UTILISE',
                     subtitle: $scope.Account.currentPlan.storage ? FormatSizeService.format($scope.Account.currentPlan.storage) + ' total' : ''
-                })
+                });
 
                 if(videos)
                    $local.charts[0].data.push(
@@ -100,30 +100,32 @@ angular.module('Account').
             })
 
             DataChartFactory($scope).getCurrentQuota(function(error, quota) {
-                var availableSize = null;
+                var availableSize = 1;
                 if(!error && quota) {
                     availableSize = $scope.Account.currentPlan.quota - quota.quotaUsed;
                 }
                 $local.charts.push({
-                    availableSize: availableSize ? FormatSizeService.format(availableSize, true) : '',
+                    availableSize: availableSize > 1 ? FormatSizeService.format(availableSize, true) : FormatSizeService.format($scope.Account.currentPlan.quota, true),
                     textSize: 'DISPO',
-                    data: [
-                        {
-                            name: 'Utilisé',
-                            y: quota.quotaUsed,
-                            size: FormatSizeService.format(quota.quotaUsed),
-                            color: '#40a7fd'
-                        },
-                        {
-                            name: 'Disponible',
-                            y: availableSize,
-                            size: FormatSizeService.format(availableSize),
-                            color: '#ffffff'
-                        }
-                    ],
+                    data: [],
                     title: 'QUOTA DE PARTAGE',
                     subtitle: $scope.Account.currentPlan.quota ? FormatSizeService.format($scope.Account.currentPlan.quota) + ' total' : ''
                 });
+
+                if(quota)
+                    $local.charts[1].data.push({
+                        name: 'Utilisé',
+                        y: quota.quotaUsed,
+                        size: FormatSizeService.format(quota.quotaUsed),
+                        color: '#40a7fd'
+                    })
+
+                $local.charts[1].data.push({
+                    name: 'Disponible',
+                    y: availableSize,
+                    size: FormatSizeService.format(availableSize),
+                    color: '#ffffff'
+                })
             })
         }
 
