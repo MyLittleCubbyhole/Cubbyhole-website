@@ -16,18 +16,18 @@
                         <section class="tb-container pull-right">
                             <article class="tb-option" ng-click="FileManager.refresh()">
                                 <article class="tb-option-container">
-                                    <article class="tb-icon"><i class="icon-refresh"></i></article>
+                                    <article class="tb-icon refresh"><i class="icon-refresh"></i></article>
                                 </article>
                             </article>
                             <article class="tb-option">
                                 <input type="file" class="input-file" />
                                 <article class="tb-option-container" button-uploader ng-click="_buttonUploader.selectFile()">
-                                    <article class="tb-icon"><i class="icon-cloud-upload"></i></article>
+                                    <article class="tb-icon upload"><i class="icon-cloud-upload"></i></article>
                                 </article>
                             </article>
                             <article class="tb-option">
                                 <article class="tb-option-container" ng-click="FileManager.download();">
-                                    <article class="tb-icon"><i class="icon-cloud-download"></i></article>
+                                    <article class="tb-icon download"><i class="icon-cloud-download"></i></article>
                                 </article>
                             </article>
                             <article class="tb-option">
@@ -103,10 +103,16 @@
 
         <section class="md-modal md-effect-1" id="modal-sharing-file" ng-class="{'md-show': FileManager.urlSharing != null}" modal>
             <section class="md-content">
-                <h3>Partage public</h3>
                 <article>
-                    <a ng-href="{{FileManager.urlSharing}}" target="_blank">{{FileManager.urlSharing}}</a>
-                    <button class="md-close" ng-click="_modal.close()">Fermer</button>
+                    <section class="url">
+                        <section class="copy-zone" clip-copy="FileManager.urlSharing">
+                            <i class="icon-cloud-download"></i>
+                            <span>Cliquer pour copier</span>
+                        </section>
+                    </section>
+                    <section class="buttons">
+                        <button class="button right blue google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>FERMER</button>
+                    </section>
                 </article>
             </section>
         </section>

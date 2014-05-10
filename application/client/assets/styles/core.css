@@ -57,6 +57,7 @@ section#body {
     right: 0px;
     bottom: 0px;
     z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 #overlay.activated {
@@ -287,10 +288,9 @@ section#breadcrumb {
 
 
 section#toolbar {
-    height: 40px;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
+    height: 47px;
     width: 100%;
-    background-color: #2C2C2C;
+    background-color: #e3e3e3;
     z-index: 5;
 }
 #toolbar article.tb-option {
@@ -300,9 +300,8 @@ section#toolbar {
     float: right;
     width: 45px;
     margin-right: 2px;
-    background-color: rgb(43, 43, 43);
     cursor: pointer;
-    color: #8D8D8D;
+    color: #2c2c2c;
     -webkit-transition: .05s all linear;
     -moz-transition: .05s all linear;
     -ms-transition: .05s all linear;
@@ -312,8 +311,8 @@ section#toolbar {
 }
 #toolbar section.tb-container {
     height: 100%;
-    /*width: 100%;*/
     overflow: hidden;
+    padding-top: 3px;
 }
 #toolbar article.tb-option-container {
     height: 100%;
@@ -324,10 +323,20 @@ section#toolbar {
     height: 100%;
     text-align: center;
     line-height: 46px;
-    font-size: 23px;
+    font-size: 25px;
 }
 #toolbar article.tb-icon.small {
-    font-size: 20px;
+    font-size: 21px;
+}
+#toolbar article.tb-icon.download {
+    margin-top: 2px;
+}
+#toolbar article.tb-icon.upload {
+    margin-top: 2px;
+}
+#toolbar article.tb-icon.refresh {
+    font-size: 23px;
+    margin-top: 2px;
 }
 #toolbar article.tb-option-title {
     height: 17px;
@@ -336,10 +345,10 @@ section#toolbar {
     font-size: 14px;
 }
 #toolbar article.tb-option:hover {
-    color: #C94A4A;
+    color: #75c8ef;
 }
 #toolbar article.tb-option:hover .tb-icon {
-    text-shadow: 0px 0px 10px rgba(3, 116, 3, 0.4); *;
+    /*text-shadow: 0px 0px 10px rgba(3, 116, 3, 0.4); *;*/
 }
 
 
@@ -401,16 +410,16 @@ section#list-file-container {
     border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 #manager  td.item-label {
-    width: 30px;
+    width: 41px;
     position: relative;
     vertical-align: top;
 }
 #manager tr.item {
-    background-color: rgba(242, 242, 242, 1);
+    background-color: white;
     height: 40px;
     font-size: 1.3em;
     line-height: 40px;
-    border-bottom: 1px solid rgba(218, 218, 218, 1);
+    border-bottom: 1px solid #e3e3e3;
     position: relative;
     -webkit-transition: .08s all linear;
     -moz-transition: .08s all linear;
@@ -435,18 +444,25 @@ section#list-file-container {
 #manager tr.list-head {
     height: 40px;
 }
+#manager .list-header {
+    font-size: 18px;
+}
+#manager .list-header th {
+    padding-bottom: 15px;
+}
 #manager section.manager-bloc:first-child {
     height: 100%;
 }
 #manager section.manager-bloc:first-child article.manager-bloc-container {
-    padding-left: 0px;
+    padding-left: 18px;
+    background-color: white;
 }
 #manager td.item-label::before {
     content: "";
-    background-color: #2ECC71;
+    background-color: #52d11a;
     position: absolute;
     height: 40px;
-    width: 10px;
+    width: 7px;
 }
 
 #manager td.item-folder {
@@ -458,19 +474,19 @@ section#list-file-container {
 
 #manager td.item-label.blue::before,
 #manager td.item-label.video::before {
-    background-color: #3498db;
+    background-color: #75c8ef;
 }
 #manager td.item-label.red::before,
 #manager td.item-label.audio::before {
-    background-color: #e74c3c;
+    background-color: #ff5a5a;
 }
 #manager td.item-label.violet::before,
 #manager td.item-label.archive::before {
-    background-color: #8e44ad;
+    background-color: #B175EF;
 }
 #manager td.item-label.orange::before,
 #manager td.item-label.image::before {
-    background-color: #f39c12;
+    background-color: #ffcb2d;
 }
 #manager td.item-label.black::before,
 #manager td.item-label.folder::before {
@@ -478,11 +494,11 @@ section#list-file-container {
 }
 #manager td.item-label.gray::before,
 #manager td.item-label.text::before {
-    background-color: #7f8c8d;
+    background-color: #e3e3e3;
 }
 
 #manager td.item-label.green::before {
-    background-color: #16a085;
+    background-color: #52d11a;
 }
 
 #manager td.limit-text {
@@ -676,22 +692,147 @@ section#manager-container .listing th.information.update {
 
 .md-modal {
     max-width: 700px;
+    width: 500px;
 }
 .md-content {
-    background-color: #34495e;
+    background-color: #f5f5f5;
+    border-radius: 0;
 }
 .md-content a {
     color: #FFF;
 }
-.md-close {
-    width: 100px;
-    height: 40px;
-    background-color: #1F2A35;
-    border: 0;
-    margin-top: 22px !important;
+.md-content > article {
+    padding: 9px 9px 9px;
 }
-.md-close:focus {
+.md-content .url {
+    position: relative;
+    width: 100%;
+    height: 311px;
+    text-align: center;
+}
+.md-content .url .copy-zone {
+    height: 177px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.md-content .url .icon-cloud-download {
+    font-size: 177px;
+    height: 177px;
+    color: #D5D5D5;
+    text-shadow: 0px 0px 4px rgb(133, 133, 133);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.md-content .url .copy-zone:hover .icon-cloud-download {
+    color: #75c8ef;
+    text-shadow: 0px 0px 4px #2B7597;
+}
+.md-content .url .copy-zone.zeroclipboard-is-hover .icon-cloud-download {
+    color: #75c8ef;
+    text-shadow: 0px 0px 4px #2B7597;
+}
+.md-content .url span {
+    font-size: 20px;
+    height: 16px;
+    color: #BDBDBD;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.md-content .url .copy-zone:hover span {
+    color: #75c8ef;
+}
+.md-content .url .copy-zone.zeroclipboard-is-hover span {
+    color: #75c8ef;
+}
+
+.buttons {
+    height: 68px;
+    padding-top: 20px;
+}
+
+.button {
+    border-radius: 0;
+    border: 0;
+    height: 39px;
+    width: 204px;
+    font-size: 20px !important;
+    background-color: #ff5a5a;
+    text-align: left;
+}
+.button:focus {
     outline: none;
+}
+.button.left {
+    float: left;
+}
+.button.right {
+    float: right;
+}
+
+.button.red {
+    background-color: #ff5a5a;
+}
+.button.blue {
+    background-color: #75c8ef;
+}
+
+.button img {
+    height: 24px;
+    margin-left: 21px;
+    margin-right: 29px;
+    padding-bottom: 2px
+}
+
+@media screen and (max-width: 520px) {
+
+    .md-modal {
+        width: 400px;
+    }
+
+    .md-content .url .copy-zone {
+        height: 147px;
+    }
+
+    .md-content .url .icon-cloud-download {
+        font-size: 137px;
+        height: 137px;
+    }
+
+    .button {
+        width: 184px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+
+    .md-modal {
+        width: 100px;
+    }
+
+    .md-content .url .copy-zone {
+        height: 137px;
+    }
+
+    .md-content .url .icon-cloud-download {
+        font-size: 117px;
+        height: 117px;
+    }
+
+    .button {
+        width: 174px;
+    }
 }
 
 

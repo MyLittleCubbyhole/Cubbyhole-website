@@ -7,6 +7,7 @@ angular.module('FileManager').
                 ,   self = this;
 
                 $local.close = function() {
+                    $scope.Overlay.clickout();
                     $scope.FileManager.urlSharing = null;
                 }
 
