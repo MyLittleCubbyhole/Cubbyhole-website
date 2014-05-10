@@ -59,18 +59,6 @@
 .icon-bell:before {
     content: "\e61b";
 }
-.icon-newspaper:before {
-    content: "\e61d";
-}
-.icon-address-book:before {
-    content: "\e61e";
-}
-.icon-home:before {
-    content: "\e61c";
-}
-.icon-gift:before {
-    content: "\e61f";
-}
 .icon-switch:before {
     content: "\e603";
 }
@@ -79,9 +67,6 @@
 }
 .icon-bars:before {
     content: "\e60c";
-}
-.icon-archive:before {
-    content: "\f187";
 }
 .icon-check:before {
     content: "\f00c";
@@ -127,4 +112,7 @@
 }
 .icon-chevron-left:before {
     content: "\e60a";
+}
+.icon-cross:before {
+    content: "\e602";
 }

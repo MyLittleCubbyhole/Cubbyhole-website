@@ -1,15 +1,15 @@
-<section class="md-modal md-effect-1" id="modal-sharing-file" ng-class="{'md-show': FileManager.urlSharing != null}" modal>
+<section class="md-modal md-effect-1" id="modal-sharing-folder" ng-class="{'md-show': FileManager.folderSharing === true}" modal>
     <section class="md-content">
         <article>
-            <section class="url copy-zone" clip-copy="FileManager.urlSharing">
-                <section>
-                    <i class="icon-cloud-download animated"></i>
-                    <span>Cliquer pour copier</span>
-                </section>
+            <section class="">
+                <article></article>
+                <article class="input-share">
+                    <input type="email" name="email" placeholder="E-mail"></input>
+                </article>
             </section>
             <section class="buttons">
-                <button class="button left red google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>FERMER</button>
-                <button class="button right blue google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>FERMER</button>
+                <button class="button left red share google-font" ng-click="_modal.close()"><img src="/images/design/share.png"></img>SHARE</button>
+                <button class="button right blue close google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>CLOSE</button>
             </section>
         </article>
     </section>

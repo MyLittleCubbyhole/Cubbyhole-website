@@ -9,6 +9,7 @@ angular.module('FileManager').
                 $local.close = function() {
                     $scope.Overlay.clickout();
                     $scope.FileManager.urlSharing = null;
+                    $local.folderSharing = false;
                 }
 
                 $scope.toString = function() {
