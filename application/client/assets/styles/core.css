@@ -4,6 +4,7 @@
 @import url(/styles/libraries/select2/select2-bootstrap.css);
 @import url(/styles/libraries/highlight/monokai.css);
 @import url(/styles/libraries/modalWindowEffects/component.css);
+@import url(/styles/libraries/customScrollBar/customScrollBar.css);
 @import url(/styles/components/header.css);
 @import url(/styles/components/forms.css);
 @import url(/styles/components/userCard.css);
