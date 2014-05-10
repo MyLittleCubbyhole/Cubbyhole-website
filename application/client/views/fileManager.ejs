@@ -11,6 +11,7 @@
                             <span class="path-part" ng-repeat="(index, part) in Breadcrumb.path track by $index">
                                 <span ng-if="index != Breadcrumb.path.length - 1" ng-click="Breadcrumb.load(index)">{{part.name}}</span>
                                 <span ng-if="index == Breadcrumb.path.length - 1" class="active">{{part.name}}</span>
+                                <span ng-if="index != Breadcrumb.path.length - 1" ><img src="/images/design/blue-arrow.png" alt="/"></span>
                             </span>
                         </section>
                         <section class="tb-container pull-right">
@@ -87,14 +88,19 @@
                 </section>
                 <section class="manager-bloc" ng-controller="PreviewController">
                     <article class="manager-bloc-container google-font preview-container" ng-if="FileManager.selectedItems.length == 1">
-                        <section class="preview-infos">
-                            <article class="share-icon"><i ng-class="{'icon-link': FileManager.selectedItems[0].category != 'folder', 'icon-group': FileManager.selectedItems[0].category == 'folder'}" ng-show="(FileManager.selectedItems[0].category != 'folder' && FileManager.selectedItems[0].shared) || (FileManager.selectedItems[0].category == 'folder')" ng-click="FileManager.unshareFile()"></i></article>
-                            <article class="file-size">{{FileManager.selectedItems[0].size | ItemSizeFilter}}</article>
-                            <article class="preview-name">{{FileManager.selectedItems[0].name}} <i class="icon-pencil"></i></article>
+                        <section class="preview-infos row">
+                            <article class="preview-name col-sm-6">{{FileManager.selectedItems[0].name}}</article>
+                            <article class="size col-sm-6">
+                                <progress-bar value='5' total='100' ng-if="FileManager.previewActivated">
+                            </article>
                         </section>
                         <%- include partials/ejs/component/preview.ejs %>
                         <section class="preview-share">
-                            <button class="share-button" ng-click="FileManager.shareFile()">Partager</button>
+                            <article class="share-button" ng-click="FileManager.shareFile()">
+                                <section class="button-text">
+                                    <span class="share-icon"></span>Partager                                
+                                </section>
+                            </article>
                         </section>
                     </article>
                 </section>
@@ -104,9 +110,9 @@
         <section class="md-modal md-effect-1" id="modal-sharing-file" ng-class="{'md-show': FileManager.urlSharing != null}" modal>
             <section class="md-content">
                 <article>
-                    <section class="url">
-                        <section class="copy-zone" clip-copy="FileManager.urlSharing">
-                            <i class="icon-cloud-download"></i>
+                    <section class="url copy-zone" clip-copy="FileManager.urlSharing">
+                        <section>
+                            <i class="icon-cloud-download animated"></i>
                             <span>Cliquer pour copier</span>
                         </section>
                     </section>
