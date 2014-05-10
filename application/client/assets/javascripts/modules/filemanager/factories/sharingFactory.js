@@ -16,7 +16,21 @@ angular.module('FileManager').
             var prototype = {};
 
             prototype.getSharedUsers = function(path, callback) {
-
+                restangular.one('users').one('shared').one(path).getList().then(function(data) {
+                    if(data) {
+                        var users = [];
+                        for(var i = 0; i < data.length; i++)
+                            users.push({
+                                email: data[i].email,
+                                right: data[i].right
+                            })
+                        callback.call(this, null, users);
+                    } else
+                        callback.call(this, 'no users found', null)
+                }, function(error) {
+                    callback.call(this, 'no users found', null)
+                    console.error(error);
+                });
             }
 
             prototype.checkUserExists = function(email, callback) {
@@ -32,7 +46,7 @@ angular.module('FileManager').
             }
 
             prototype.share = function(path, target, right, callback) {
-                restangular.one('share').one(path).post(path, {'target': target, 'right': right}).then(function(data) {
+                restangular.one('share').post(path, {'target': target, 'right': right}).then(function(data) {
                     if(data.information == 'folder shared')
                         callback.call(this, null, data.params)
                     else
@@ -44,7 +58,7 @@ angular.module('FileManager').
             }
 
             prototype.unshare = function(path, target, callback) {
-                restangular.one('unshare').one(path).post(path, {'target': target}).then(function(data) {
+                restangular.one('unshare').post(path, {'target': target}).then(function(data) {
                     if(data.information == 'folder shared')
                         callback.call(this, null, data.params)
                     else

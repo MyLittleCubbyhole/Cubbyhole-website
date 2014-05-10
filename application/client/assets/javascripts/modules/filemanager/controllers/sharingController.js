@@ -15,8 +15,8 @@ angular.module('FileManager').
             if($scope.FileManager.selectedItems[0]) {
                 SharingFactory($scope, {local: $local}).getSharedUsers($scope.FileManager.selectedItems[0]._id + '/', function(error, data) {
                     if(!error && data) {
-                       $local.usersWebservice = data;
-                       $local.users = data;
+                        _.merge($local.usersWebservice, data);
+                        _.merge($local.users, data);
                     }
                 })
             }
@@ -37,6 +37,7 @@ angular.module('FileManager').
         }
 
         $local.share = function() {
+            //debugger;
             if($scope.FileManager.selectedItems[0]) {
                 var path = $scope.FileManager.selectedItems[0]._id + '/';
                 for(var i = 0 ; i < $local.usersToRemove.length; i++) {
