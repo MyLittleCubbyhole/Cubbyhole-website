@@ -13,6 +13,7 @@
 @import url(/styles/modules/fileManager/manager.css);
 @import url(/styles/modules/fileManager/preview.css);
 @import url(/styles/modules/fileManager/toolbar.css);
+@import url(/styles/modules/account/vertical-menu.css);
 @import url(/styles/modules/tools/progressBar.css);
 
 html, body {
