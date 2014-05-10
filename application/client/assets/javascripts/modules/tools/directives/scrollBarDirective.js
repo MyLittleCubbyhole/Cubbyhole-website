@@ -11,7 +11,7 @@ angular.module('Tools').
 					advanced:{  
 						updateOnBrowserResize:true,   
 						updateOnContentResize:true   
-					} // removed extra commas  
+					}
 				});
 			}
 		};
