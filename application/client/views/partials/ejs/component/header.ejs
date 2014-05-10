@@ -6,7 +6,7 @@
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
 			<article class="option nav" ng-if="!Authentication.user.firstname" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
-				<span class="label">Connexion</span>
+				<span class="label">LOG IN</span>
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
@@ -35,7 +35,7 @@
 						<article class="user-nav-options"><span class="user-icon icon-credit-card"></span></article>
 					</section>
 					<section id="user-disconnect" class="big-font google-font" ng-click="Authentication.logout()">
-						</span><span>Deconnecter</span>
+						</span><span>Log out</span>
 					</section>
 				</section>
 			</article>
@@ -51,19 +51,19 @@
 		<nav class="navigation pull-left">
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
 				<!-- <i class="icon icon-home"></i> -->
-				<span class="label hidden-xs hidden-sm">ACCUEIL</span>
+				<span class="label hidden-xs hidden-sm">HOME</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover')">
 				<!-- <i class="icon icon-newspaper"></i> -->
-				<span class="label hidden-xs hidden-sm">DECOUVRIR</span>
+				<span class="label hidden-xs hidden-sm">DISCOVER</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan')">
 				<!-- <i class="icon icon-gift"></i> -->
-				<span class="label hidden-xs hidden-sm">OFFRES</span>
+				<span class="label hidden-xs hidden-sm">PLANS</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact')">
 				<!-- <i class="icon icon-address-book"></i> -->
-				<span class="label hidden-xs hidden-sm">L'EQUIPE</span>
+				<span class="label hidden-xs hidden-sm">TEAM</span>
 			</article>
 		</nav>
 
