@@ -123,7 +123,7 @@ angular.module('Account').
                 $local.charts[1].data.push({
                     name: 'Disponible',
                     y: availableSize,
-                    size: FormatSizeService.format(availableSize),
+                    size: availableSize > 1 ? FormatSizeService.format(availableSize) : FormatSizeService.format($scope.Account.currentPlan.quota),
                     color: '#ffffff'
                 })
             })
