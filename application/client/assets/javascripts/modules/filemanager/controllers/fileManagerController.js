@@ -119,6 +119,7 @@ angular.module('FileManager').
                         console.error(error);
                 });
             } else if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'Folder') {
+                $scope.$broadcast('enable_overlay_sharing');
                 $local.folderSharing = true;
                 $scope.$emit('enable_overlay');
             }

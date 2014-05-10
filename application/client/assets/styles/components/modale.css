@@ -98,8 +98,96 @@
     outline: none;
 }
 
+.users-container {
+    height: 370px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-bottom: 10px;
+    overflow: auto;
+}
 
+.users-share {
+    margin-bottom: 25px;
+}
 
+.users-share .user-share:last-child {
+    border-bottom: 0;
+}
+
+.users-share .user-share {
+    height: 44px;
+    margin-top: 4px;
+    margin-bottom: 3px;
+    position: relative;
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.users-share .user-share .user-icon {
+    display: inline-block;
+}
+.user-share .user-icon .img-circle {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+    position: relative;
+}
+
+.user-share .user-icon .img-circle img {
+    height: 40px;
+    margin: auto;
+    display: block;
+    background-color: black;
+}
+
+.users-share .user-share .user-email {
+    display: inline-block;
+    color: #8B8B8B;
+    font-size: 16px;
+    position: absolute;
+    margin-left: 8px;
+    top: 9px;
+    max-width: 264px;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.users-share .user-share .user-right {
+    display: inline-block;
+    width: 108px;
+    height: 25px;
+    position: absolute;
+    margin-left: 7px;
+    right: 47px;
+    top: 8px;
+    overflow: hidden;
+    color: #8B8B8B;
+    font-size: 16px;
+}
+
+.users-share .user-share .user-right select {
+    width: 122px;
+    height: 23px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #c5c5c5;
+    background-color: transparent;
+}
+.users-share .user-share .user-right select:focus {
+    outline: none;
+}
+
+.users-share .user-share .user-remove {
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #A5A5A5;
+}
 
 
 .buttons {
@@ -178,6 +266,10 @@
         height: 137px;
     }
 
+    .users-share .user-share .user-email {
+        max-width: 172px;
+    }
+
     .button {
         width: 184px;
     }
@@ -198,7 +290,21 @@
         height: 117px;
     }
 
+    .users-share .user-share .user-email {
+        max-width: 97px;
+    }
+
     .button {
         width: 174px;
+    }
+
+    #modal-sharing-folder .button {
+        width: 144px;
+    }
+
+    #modal-sharing-folder .button img,
+    #modal-sharing-folder .button i {
+        margin-left: 14px;
+        margin-right: 11px;
     }
 }
