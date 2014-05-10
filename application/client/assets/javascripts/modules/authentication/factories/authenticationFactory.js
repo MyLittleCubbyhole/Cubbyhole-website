@@ -2,7 +2,11 @@ angular.module('Authentication').
     factory('AuthenticationFactory', ['$window', '$q', function($window, $q) {
         return {
             request: function(config) {
-                config.url += "?token=";
+
+                config.url += config.url.indexOf('?') > -1 ? '&' : '?';
+
+                config.url += "token=";
+
                 var user = localStorage.getItem('user');
                 if(!user)
                     user = sessionStorage.getItem('user');

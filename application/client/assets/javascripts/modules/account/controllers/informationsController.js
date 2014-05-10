@@ -57,7 +57,7 @@ angular.module('Account').
                             name: 'Vidéos',
                             y: parseInt(videos, 10),
                             size: FormatSizeService.format(videos),
-                            color: '#ff3d3d'
+                            color: '#75c8ef'
                         }
                    );
                 if(images)
@@ -66,7 +66,7 @@ angular.module('Account').
                             name: 'Images',
                             y: parseInt(images, 10),
                             size: FormatSizeService.format(images),
-                            color: '#74cf24'
+                            color: '#ffcb2d'
                         }
                    );
                 if(musiques)
@@ -75,7 +75,7 @@ angular.module('Account').
                             name: 'Musiques',
                             y: parseInt(musiques, 10),
                             size: FormatSizeService.format(musiques),
-                            color: '#40a7fd'
+                            color: '#ff5a5a'
                         }
                    );
                 if(documents)
@@ -84,7 +84,7 @@ angular.module('Account').
                             name: 'Documents',
                             y: parseInt(documents, 10),
                             size: FormatSizeService.format(documents),
-                            color: '#ffa63d'
+                            color: '#52d11a'
                         }
                    );
                 if(others)
@@ -93,7 +93,7 @@ angular.module('Account').
                             name: 'Autre',
                             y: parseInt(others, 10),
                             size: FormatSizeService.format(others),
-                            color: '#b175ef'
+                            color: '#B175EF'
                         }
                    );
 

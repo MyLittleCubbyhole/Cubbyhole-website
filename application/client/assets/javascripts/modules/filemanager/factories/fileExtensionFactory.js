@@ -79,13 +79,18 @@ angular.module('FileManager').
 						break;
 						// CODE
 						case "js": case "html": case "htm": case "xhtml": case "css":
-						case "jsp": case "php": case "java": case "xml": case "json":
-						case "c": case "cpp": case "h": case "hpp": case "cs":
-						case "xaml": case "py": case "asm": case "asp": case "aspx":
-						case "lua": case "pl": case "ps1": case "rb": case "vbs":
-						case "lisp": case "vb":
+						case "jsp": case "php": case "java": case "xml": case "c":
+						case "cpp": case "h": case "hpp": case "cs": case "xaml":
+						case "py": case "asm": case "asp": case "aspx": case "lua":
+						case "pl": case "ps1": case "rb": case "vbs": case "lisp":
+						case "vb":
 							file.icon = "icon-file-xml";
 							file.category = "text";
+						break;
+						// JSON
+						case "json":
+							file.icon = "icon-file-xml";
+							file.category = "json";
 						break;
 						// DISKS
 						case "iso": case "dmg": case "img": case "cdi": case "c2d":
