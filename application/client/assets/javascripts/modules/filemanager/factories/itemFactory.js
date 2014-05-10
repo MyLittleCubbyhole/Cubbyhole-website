@@ -40,7 +40,7 @@ angular.module('FileManager').
 						path += '/';
 
 					if(path == '/' && (!item || (item._id != '. .' &&  item._id != '.')))
-						$scope.FileManager.pathItems.push({
+						$scope.FileManager.pathItems = new Array({
 							name: '/',
 							item: '/'
 						});
@@ -112,9 +112,7 @@ angular.module('FileManager').
 			}
 
 			prototype.delete = function(item) {
-				var browse = restangular.one('browse').one(item.ownerId.toString());
-
-				browse.one(item.getFullPath()).remove().then(function() {
+				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function() {
 					prototype.clean(item._id);
 				}, function(error) { console.error(error); });
 			}
