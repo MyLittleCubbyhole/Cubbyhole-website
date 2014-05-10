@@ -41,3 +41,46 @@ aside#vertical-toolbar article.option-toolbar.container:hover, article.option-t
     color: #2c2c2c;
     background-color: #f5f5f5;
 }
+
+.img-icon {
+    width: 55px;
+    height: 55px;
+    display: block;
+    margin: 15px auto;
+    background-size: 100% 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.img-icon-user {
+    background-image: url(/images/design/user_grey.png);
+}
+
+.img-icon-stats {
+    background-image: url(/images/design/infos_grey.png);
+}
+
+.img-icon-timeline {
+    background-image: url(/images/design/history_grey.png);
+}
+
+.img-icon-plans::before {
+    content: '€';
+}
+
+
+aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-user {
+    background-image: url(/images/design/user_black.png);
+}
+
+aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-stats {
+    background-image: url(/images/design/infos_black.png);
+}
+
+aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-timeline {
+    background-image: url(/images/design/history_black.png);
+}
+
+aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-plans {
+    /*background-image: url(/images/design/history_black.png);*/
+}

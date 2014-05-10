@@ -1,0 +1,10 @@
+section#configuration-container {
+	width: 100%;
+	padding-right: 105px;
+	-webkit-box-sizing:  border-box;
+	-moz-box-sizing:  border-box;
+	box-sizing:  border-box;
+	height: 100%;
+	margin-left: 105px;
+	overflow: hidden;
+}
