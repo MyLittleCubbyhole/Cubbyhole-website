@@ -15,6 +15,7 @@ angular.module('FileManager').
 		$local.items = [];
 
         $local.urlSharing = null;
+        $local.folderSharing = false;
 
 		ItemFactory($scope, {local: $local}).load();
 
@@ -31,6 +32,7 @@ angular.module('FileManager').
 
         $scope.$on('hide', function() {
             $local.urlSharing = null;
+            $local.folderSharing = false;
         });
 
 		$local.createFolder = function(name, callback) {
@@ -106,7 +108,7 @@ angular.module('FileManager').
             $local.previewActivated = false;
         }
 
-        $local.shareFile = function() {
+        $local.shareItem = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
                     if(!error && token) {
@@ -116,6 +118,9 @@ angular.module('FileManager').
                     } else
                         console.error(error);
                 });
+            } else if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'Folder') {
+                $local.folderSharing = true;
+                $scope.$emit('enable_overlay');
             }
         }
 

@@ -4,11 +4,12 @@
             <section class="url copy-zone" clip-copy="FileManager.urlSharing">
                 <section>
                     <i class="icon-cloud-download animated"></i>
-                    <span>Cliquer pour copier</span>
+                    <span>Click to copy</span>
                 </section>
             </section>
             <section class="buttons">
-                <button class="button right blue google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>FERMER</button>
+                <button class="button left red unshare google-font" ng-click="FileManager.unshareFile(); _modal.close()"><i class="icon-cross"></i>UNSHARE</button>
+                <button class="button right blue close google-font" ng-click="_modal.close()"><img src="/images/design/icons/cancel.png"></img>CLOSE</button>
             </section>
         </article>
     </section>
