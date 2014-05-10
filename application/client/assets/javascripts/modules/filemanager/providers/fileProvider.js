@@ -21,9 +21,11 @@ angular.module('FileManager').
 			Class.extend(Item, File);
 
 			File.prototype.init = function() {};
-			File.prototype.download = function(dumpOnly) {
+			File.prototype.download = function(dumpOnly, withoutToken) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
-				url = AuthenticationFactory.request({ url: url }).url;
+
+				if(!withoutToken)
+					url = AuthenticationFactory.request({ url: url }).url;
 
 				if(!dumpOnly)
 					$window.location = url;

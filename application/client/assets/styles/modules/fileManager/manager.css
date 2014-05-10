@@ -15,6 +15,7 @@ section#manager-container {
 }
 section.manager-bloc {
     height: 100%;
+    padding-bottom: 30px;
     float: left;
     -webkit-transition: .2s all linear;
     -moz-transition: .2s all linear;
@@ -103,7 +104,7 @@ section#list-file-container {
 }
 #manager td.item-label::before {
     content: "";
-    background-color: #52d11a;
+    background-color: #B175EF;
     position: absolute;
     height: 40px;
     width: 7px;
@@ -124,24 +125,31 @@ section#list-file-container {
 #manager td.item-label.audio::before {
     background-color: #ff5a5a;
 }
-#manager td.item-label.violet::before,
-#manager td.item-label.archive::before {
+#manager td.item-label.violet::before {
     background-color: #B175EF;
 }
 #manager td.item-label.orange::before,
-#manager td.item-label.image::before {
+#manager td.item-label.image::before,
+#manager td.item-label.psd::before,
+#manager td.item-label.ai::before {
     background-color: #ffcb2d;
 }
-#manager td.item-label.black::before,
-#manager td.item-label.folder::before {
-    background-color: #000;
-}
 #manager td.item-label.gray::before,
-#manager td.item-label.text::before {
+#manager td.item-label.folder::before {
     background-color: #e3e3e3;
 }
+#manager td.item-label.brown::before,
+#manager td.item-label.archive::before {
+    background-color: #C77B35;
+}
 
-#manager td.item-label.green::before {
+#manager td.item-label.green::before,
+#manager td.item-label.text::before,
+#manager td.item-label.word::before,
+#manager td.item-label.presentation::before,
+#manager td.item-label.calculation::before,
+#manager td.item-label.pdf::before,
+#manager td.item-label.json::before {
     background-color: #52d11a;
 }
 

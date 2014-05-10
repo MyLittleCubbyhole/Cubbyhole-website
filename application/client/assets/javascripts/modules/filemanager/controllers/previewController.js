@@ -11,7 +11,7 @@ angular.module('FileManager').
                     url = apiUrl + 'download/shared/' + $scope.FileManager.selectedItems[0].token + '?run';
                 }
                 else {
-                    url = $scope.FileManager.selectedItems[0].download(true) + "&run";
+                    url = ($scope.FileManager.selectedItems[0].category != 'text' ? $scope.FileManager.selectedItems[0].download(true) + "&run" : $scope.FileManager.selectedItems[0].download(true, true) + '?run');
                 }
 
                 if($scope.FileManager.selectedItems[0].category == 'pdf')
