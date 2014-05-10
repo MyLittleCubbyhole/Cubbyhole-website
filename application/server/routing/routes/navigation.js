@@ -74,7 +74,7 @@ navigation.get.partial = function(request, response) {
 }
 
 navigation.get.template = function(request, response) {
-	var path = 'templates/' + request.params[0] + '.ejs';
+	var path = 'partials/angular/' + request.params[0] + '.ejs';
 	var fullpath = global.paths.views + '/' + path;
 	path = fs.existsSync(fullpath) ? path : '404.ejs';
 	response.render(path);

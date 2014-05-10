@@ -3,8 +3,9 @@ angular.module('Tools').
 		return {
 			scope: true,
 			restrict: 'A',
-			link: function($scope, $node, attributes) {				
-				$node.mCustomScrollbar({  
+			link: function($scope, $node, attributes) {			
+				$node.mCustomScrollbar({
+					theme: attributes.theme || 'light',
 					scrollEasing:"easeOutCirc",  
 					mouseWheel:"auto",   
 					autoDraggerLength:true,   
