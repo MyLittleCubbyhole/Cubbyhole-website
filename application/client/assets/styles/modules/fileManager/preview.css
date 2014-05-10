@@ -1,0 +1,102 @@
+.preview-infos {
+    color: rgba(218, 218, 218, 1);
+}
+
+.share-icon {
+    float: left;
+    cursor: pointer;
+}
+
+.share-icon .icon-link,
+.share-icon .icon-group {
+    color: #2980b9;
+    font-size: 43px;
+}
+
+.file-size {
+    float: right;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.preview-name {
+    font-size: 19px;
+    padding-top: 59px;
+    line-height: 46px;
+    text-align: center;
+}
+
+.preview-name .icon-pencil {
+    color: #27ae60;
+    font-size: 19px;
+    padding-left: 4px;
+}
+
+.preview-content {
+    max-height: 340px;
+    padding-top: 10px;
+}
+
+.preview-element {
+    text-align: center;
+}
+
+.preview-element.code {
+    text-align: left;
+    height: 340px;
+}
+
+.preview-element img,
+.preview-element video,
+.preview-element audio,
+.preview-element pre,
+.preview-element iframe {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.preview-element.code code > .hljs {
+    word-wrap: break-word;
+}
+
+.preview-element iframe {
+    height: 340px;
+    width: 100%;
+    border: none;
+}
+
+.preview-share {
+    text-align: center;
+    padding-top: 38px;
+}
+
+.share-button {
+    height: 47px;
+    width: 192px;
+    line-height: 43px;
+    font-size: 17px;
+    background-color: #c0392b;
+    color: rgba(218, 218, 218, 1);
+    margin: auto;
+    border: none;
+}
+
+.share-button:focus {
+    outline: none;
+}
+
+
+.input-file {
+    display: none;
+    pointer-events: none;
+}
+
+.preview-sharing {
+    max-width: 800px;
+    text-align: center;
+}
+.preview-sharing .manager-bloc {
+    width: 100% !important;
+    background-color: transparent !important;
+    max-height: 400px;
+}

@@ -1,0 +1,104 @@
+.md-modal {
+    max-width: 700px;
+    width: 500px;
+}
+.md-content {
+    background-color: #f5f5f5;
+    border-radius: 0;
+}
+.md-content a {
+    color: #FFF;
+}
+.md-content > article {
+    padding: 9px 9px 9px;
+}
+.md-content .url {
+    position: relative;
+    width: 100%;
+    height: 311px;
+    text-align: center;
+}
+.md-content .url .copy-zone {
+    height: 177px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.md-content .url .icon-cloud-download {
+    font-size: 177px;
+    height: 177px;
+    color: #D5D5D5;
+    text-shadow: 0px 0px 4px rgb(133, 133, 133);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.md-content .url .copy-zone:hover .icon-cloud-download {
+    color: #75c8ef;
+    text-shadow: 0px 0px 4px #2B7597;
+}
+.md-content .url .copy-zone.zeroclipboard-is-hover .icon-cloud-download {
+    color: #75c8ef;
+    text-shadow: 0px 0px 4px #2B7597;
+}
+.md-content .url span {
+    font-size: 20px;
+    height: 16px;
+    color: #BDBDBD;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.md-content .url .copy-zone:hover span {
+    color: #75c8ef;
+}
+.md-content .url .copy-zone.zeroclipboard-is-hover span {
+    color: #75c8ef;
+}
+
+.buttons {
+    height: 68px;
+    padding-top: 20px;
+}
+
+.button {
+    border-radius: 0;
+    border: 0;
+    height: 39px;
+    width: 204px;
+    font-size: 20px !important;
+    background-color: #ff5a5a;
+    text-align: left;
+}
+.button:focus {
+    outline: none;
+}
+.button.left {
+    float: left;
+}
+.button.right {
+    float: right;
+}
+
+.button.red {
+    background-color: #ff5a5a;
+}
+.button.blue {
+    background-color: #75c8ef;
+}
+
+.button img {
+    height: 24px;
+    margin-left: 21px;
+    margin-right: 29px;
+    padding-bottom: 2px
+}

@@ -10,17 +10,17 @@
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-envelope:before {
@@ -31,9 +31,6 @@
 }
 .icon-cog:before {
     content: "\e601";
-}
-.icon-user:before {
-    content: "\e602";
 }
 .icon-lock:before {
     content: "\e604";
@@ -80,6 +77,9 @@
 .icon-link:before {
     content: "\e605";
 }
+.icon-bars:before {
+    content: "\e60c";
+}
 .icon-archive:before {
     content: "\f187";
 }
@@ -109,6 +109,12 @@
 }
 .icon-group:before {
     content: "\f0c0";
+}
+.icon-user:before {
+    content: "\f007";
+}
+.icon-credit-card:before {
+    content: "\f09d";
 }
 .icon-calendar:before {
     content: "\e607";

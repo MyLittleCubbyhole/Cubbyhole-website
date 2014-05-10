@@ -1,10 +1,8 @@
 <header ng-class="{ preventClick: Overlay.activated }">
 	<section id="global-nav" ng-controller="NavigationController">
 		<section id="logo-container" class="pull-left">
-			<a href="/home">
-				<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
-				<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
-			</a>
+			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
+			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
 			<article class="option nav" ng-if="!Authentication.user.firstname" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
@@ -12,28 +10,32 @@
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
-					<img src="/images/unknown-person.png" alt="profile image" class="img-circle">
-					<span class="label hidden-xs">{{Authentication.user.firstname}}</span>
+					<article class="img-circle"><img src="http://www.thomasdufourneau-photographies.fr/Galeries/thumbs/portfolio-photographie-portrait.jpg" alt="profile image"></article>
+					<article class="label hidden-xs">{{Authentication.user.firstname}}</article>
 				</section>
 
 				<section id="user-card" class="flipInX animated" ng-class="{ open: Authentication.opened }">
+					<article class="card-arrow"></article>
 					<section id="user-profile">
-						<article class="user-picture"><img class="img-circle" src="/images/unknown-person.png" alt="profile picture"></article>
+						<article class="user-picture">
+							<article class="border-circle-blue">
+								<article class="img-circle">
+									<img src="http://www.thomasdufourneau-photographies.fr/Galeries/thumbs/portfolio-photographie-portrait.jpg" alt="profile picture">
+								</article>
+							</article>
+						</article>
 						<article class="user-info">
-							<article class="user-firstname">{{Authentication.user.firstname}}</article>
-							<article class="user-lastname">{{Authentication.user.lastname}}</article>
+							<article class="user-firstname google-font">{{Authentication.user.firstname}}</article>
+							<article class="user-lastname google-font">{{Authentication.user.lastname}}</article>
 						</article>
 					</section>
-					<hr class="tiny"></hr>
 					<section id="user-navigation">
-						<article class="user-nav-options" ng-click="Navigation.goto('/account')"><span class="user-icon icon-user"></span><span class="title-option">Compte</span></article>
-						<article class="user-nav-options"><span class="user-icon icon-newspaper"></span><span class="title-option">Offre</span></article>
-						<article class="user-nav-options"><span class="user-icon icon-gift"></span><span class="title-option">Facturation</span></article>
+						<article class="user-nav-options" ng-click="Navigation.goto('/account')"><span class="user-icon icon-user"></span></article>
+						<article class="user-nav-options"><span class="user-icon icon-bars"></span></article>
+						<article class="user-nav-options"><span class="user-icon icon-credit-card"></span></article>
 					</section>
-					<hr class="tiny"></hr>
-					<hr class="tiny"></hr>
-					<section id="user-disconnect" ng-click="Authentication.logout()">
-						<span class="user-icon icon-switch"></span><span>deconnexion</span>
+					<section id="user-disconnect" class="big-font google-font" ng-click="Authentication.logout()">
+						</span><span>Deconnecter</span>
 					</section>
 				</section>
 			</article>
@@ -45,30 +47,31 @@
 			</article>
 		</section>
 
-		<section class="redirect-zone pull-right">
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
-				<i class="icon icon-dropbox"></i>
-				<span class="label hidden-xs">Gestionnaire de fichier</span>
-			</article>
-		</section>
 
-		<nav class="navigation pull-right">
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
-				<i class="icon icon-home"></i>
-				<span class="label hidden-xs hidden-sm">Accueil</span>
+		<nav class="navigation pull-left">
+			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
+				<!-- <i class="icon icon-home"></i> -->
+				<span class="label hidden-xs hidden-sm">ACCUEIL</span>
 			</article>
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover')">
-				<i class="icon icon-newspaper"></i>
-				<span class="label hidden-xs hidden-sm">Decouvrir</span>
+			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover')">
+				<!-- <i class="icon icon-newspaper"></i> -->
+				<span class="label hidden-xs hidden-sm">DECOUVRIR</span>
 			</article>
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan')">
-				<i class="icon icon-gift"></i>
-				<span class="label hidden-xs hidden-sm">Offre</span>
+			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan')">
+				<!-- <i class="icon icon-gift"></i> -->
+				<span class="label hidden-xs hidden-sm">OFFRES</span>
 			</article>
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact')">
-				<i class="icon icon-address-book"></i>
-				<span class="label hidden-xs hidden-sm">Contact</span>
+			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact')">
+				<!-- <i class="icon icon-address-book"></i> -->
+				<span class="label hidden-xs hidden-sm">L'EQUIPE</span>
 			</article>
 		</nav>
+
+		<section class="redirect-zone pull-left">
+			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
+				<!-- <i class="icon icon-dropbox"></i> -->
+				<span class="label hidden-xs">FILE MANAGER</span>
+			</article>
+		</section>
 	</section>
 </header>

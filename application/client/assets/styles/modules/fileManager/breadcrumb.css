@@ -1,0 +1,17 @@
+section#breadcrumb {
+    color: rgba(242, 242, 242, 1);
+    font-size: 19px;
+    line-height: 40px;
+    margin-left: 10px;
+}
+#breadcrumb span.path-part:hover, #breadcrumb span.path-part span.active {
+    color: #C94A4A;
+}
+#breadcrumb span.path-part {
+    cursor: pointer;
+    -webkit-transition: .1s all linear;
+    -moz-transition: .1s all linear;
+    -ms-transition: .1s all linear;
+    -o-transition: .1s all linear;
+    transition: .1s all linear;
+}
