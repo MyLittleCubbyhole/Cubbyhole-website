@@ -95,10 +95,53 @@
 .button.blue {
     background-color: #75c8ef;
 }
+.button.blue:hover {
+    background-color: #53A5CC;
+}
 
 .button img {
     height: 24px;
     margin-left: 21px;
     margin-right: 29px;
     padding-bottom: 2px
+}
+
+@media screen and (max-width: 520px) {
+
+    .md-modal {
+        width: 400px;
+    }
+
+    .md-content .url .copy-zone {
+        height: 147px;
+    }
+
+    .md-content .url .icon-cloud-download {
+        font-size: 137px;
+        height: 137px;
+    }
+
+    .button {
+        width: 184px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+
+    .md-modal {
+        width: 100px;
+    }
+
+    .md-content .url .copy-zone {
+        height: 137px;
+    }
+
+    .md-content .url .icon-cloud-download {
+        font-size: 117px;
+        height: 117px;
+    }
+
+    .button {
+        width: 174px;
+    }
 }

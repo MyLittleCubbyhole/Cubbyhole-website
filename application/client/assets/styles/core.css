@@ -179,60 +179,6 @@ article.item-file-manager:hover {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 520px) {
-
-    .md-modal {
-        width: 400px;
-    }
-
-    .md-content .url .copy-zone {
-        height: 147px;
-    }
-
-    .md-content .url .icon-cloud-download {
-        font-size: 137px;
-        height: 137px;
-    }
-
-    .button {
-        width: 184px;
-    }
-}
-
-@media screen and (max-width: 420px) {
-
-    .md-modal {
-        width: 100px;
-    }
-
-    .md-content .url .copy-zone {
-        height: 137px;
-    }
-
-    .md-content .url .icon-cloud-download {
-        font-size: 117px;
-        height: 117px;
-    }
-
-    .button {
-        width: 174px;
-    }
-}
-
-
 tr.item.uploading::after {
     position: absolute;
     content: '';
