@@ -1,4 +1,4 @@
-angular.module('CubbyHome').
+angular.module('Account').
 	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
 
         $routeProvider
