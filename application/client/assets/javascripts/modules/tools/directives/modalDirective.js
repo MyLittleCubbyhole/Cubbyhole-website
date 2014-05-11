@@ -1,4 +1,4 @@
-angular.module('FileManager').
+angular.module('Tools').
     directive('modal', [function() {
         return {
             scope: true,
@@ -8,8 +8,12 @@ angular.module('FileManager').
 
                 $local.close = function() {
                     $scope.Overlay.clickout();
-                    $scope.FileManager.urlSharing = null;
-                    $local.folderSharing = false;
+                    if($scope.FileManager) {
+                        $scope.FileManager.urlSharing = null;
+                        $scope.FileManager.folderSharing = false;
+                    }
+                    if($scope.Register)
+                        $scope.Register.showModal = false;
                 }
 
                 $scope.toString = function() {

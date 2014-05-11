@@ -5,7 +5,7 @@
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
-			<article class="option nav" ng-if="!Authentication.user.firstname" ng-class="{ selected: Navigation.isSelected('/authentication', '/login') }" ng-click="Navigation.goto('/authentication#login')">
+			<article class="option nav" ng-if="!Authentication.user.firstname" ng-click="CubbyHome.showLoginModal()">
 				<span class="label">LOG IN</span>
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
@@ -41,7 +41,7 @@
 			</article>
 		</section>
 
-		<section class="navigation pull-right" ng-controller="AnnyangController">
+		<section class="navigation pull-right" ng-controller="AnnyangController" ng-cloak>
 			<article class="option nav" ng-click="Annyang.startStop()" ng-if="Annyang.activated">
 				<i class="icon-microphone"></i>
 			</article>

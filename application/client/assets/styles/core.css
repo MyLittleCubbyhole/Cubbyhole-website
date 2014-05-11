@@ -37,6 +37,9 @@ html, body {
     font-weight: 400;
 }
 
+[ng-cloak], .ng-cloak {
+    display: none;
+}
 section#body {
     overflow: hidden;
     width: 100%;

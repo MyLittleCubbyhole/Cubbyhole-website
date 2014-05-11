@@ -23,6 +23,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+
 .icon-envelope:before {
     content: "\e600";
 }
@@ -107,6 +108,9 @@
 .icon-microphone:before {
     content: "\e60b";
 }
+.icon-profile-male:before {
+    content: "\e040";
+}
 .icon-chevron-right:before {
     content: "\e608";
 }
@@ -115,4 +119,7 @@
 }
 .icon-cross:before {
     content: "\e602";
+}
+.icon-camera:before {
+    content: "\e60d";
 }

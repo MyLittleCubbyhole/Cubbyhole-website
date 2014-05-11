@@ -1,4 +1,4 @@
-angular.module('Authentication').
+/*angular.module('CubbyHome').
 	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
 
         $routeProvider
@@ -17,4 +17,4 @@ angular.module('Authentication').
 
         $httpProvider.interceptors.push('AuthenticationFactory');
 
-	}])
+	}])*/

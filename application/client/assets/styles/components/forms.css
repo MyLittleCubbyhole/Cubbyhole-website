@@ -1,17 +1,10 @@
-
-.form-container {
-    max-width: 500px;
-    margin-top: 40px !important;
-}
-
 .form {
     margin: 0;
     outline: none;
-    box-shadow: 0 0 20px rgba(0,0,0,.3);
     font: 15px 'Open Sans', sans-serif;
     color: #666;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 13px;
+    margin-left: 15px;
 }
 .form * {
     margin: 0;
@@ -20,37 +13,73 @@
 .form header {
     display: block;
     padding: 20px 30px;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    background: rgba(248,248,248,.9);
     font-size: 25px;
-    font-weight: 300;
-    color: #232323;
+    font-weight: 400;
+    color: #161616;
+    text-align: center;
+}
+.form .user-picture {
+    margin-bottom: 10px;
+}
+.form .user-picture .camera-icon {
+    border-radius: 50%;
+    background-color: #75c8ef;
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    z-index: 1;
+    text-align: center;
+    line-height: 53px;
+}
+.form .user-picture .camera-icon i {
+    font-size: 28px;
+    color: white;
+}
+.form .user-picture .border-circle-blue {
+    width: 130px;
+    height: 130px;
+    border: 3px solid #9ad6f2;
+    position: relative;
+    border-radius: 50%;
+    margin: auto;
+    cursor: pointer;
+}
+.form .user-picture .img-circle {
+    width: 123px;
+    height: 123px;
+    margin: 0px;
+    border: 4px solid white;
+    overflow: hidden;
+    float: left;
+    display: block;
+    text-align: center;
+    position: relative;
+}
+
+.form .user-picture .img-circle img {
+    height: 116px;
+    margin: auto;
+    display: block;
+    background-color: black;
+}
+.form .user-picture .img-circle i {
+    font-size: 87px;
+    color: #8A8A8A;
+    display: block;
+    margin-top: 10px;
 }
 .form fieldset {
     display: block;
-    padding: 25px 30px 5px;
+    padding: 8px 5px 0px;
     border: none;
-    background: rgba(255,255,255,.9);
-}
-.form fieldset + fieldset {
-    border-top: 1px solid rgba(0,0,0,.1);
 }
 .form > fieldset > section {
     margin-bottom: 20px;
 }
-.form footer {
-    display: block;
-    padding: 15px 30px 25px;
-    border-top: 1px solid rgba(0,0,0,.1);
-    background: rgba(248,248,248,.9);
-}
-.form footer:after {
-    content: '';
-    display: table;
-    clear: both;
-}
 .form a {
-    color: #2da5da;
+    color: #9ad6f2;
 }
 .form .label {
     display: block;
@@ -60,6 +89,7 @@
 .form .label.col {
     margin: 0;
     padding-top: 10px;
+    color: #ababab;
 }
 .form .note {
     margin-top: 6px;
@@ -89,12 +119,11 @@
     height: 39px;
     padding: 8px 10px;
     outline: none;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 0;
-    background: #fff;
+    border: none;
+    border-bottom: 1px solid #ececec;
+    background: transparent;
     font: 15px/19px 'Open Sans', sans-serif;
-    color: #404040;
+    color: #ababab;
     appearance: normal;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -143,11 +172,11 @@
 }
 .form .select i:after {
     bottom: 0;
-    border-top: 4px solid #404040;
+    border-top: 4px solid #ababab;
 }
 .form .select i:before {
     top: 0;
-    border-bottom: 4px solid #404040;
+    border-bottom: 4px solid #ababab;
 }
 .form .select-multiple select {
     height: auto;
@@ -160,7 +189,7 @@
     padding-left: 27px;
     font-size: 15px;
     line-height: 27px;
-    color: #404040;
+    color: #ababab;
     cursor: pointer;
 }
 .form .radio:last-child,
@@ -245,7 +274,7 @@
     padding-right: 61px;
     font-size: 15px;
     line-height: 27px;
-    color: #404040;
+    color: #ababab;
     cursor: pointer;
 }
 .form .toggle:last-child {
@@ -308,7 +337,6 @@
 
 
 .form .button {
-    float: right;
     height: 39px;
     overflow: hidden;
     margin: 10px 0 0 20px;
@@ -335,14 +363,10 @@
 .form .icon-append {
     right: 5px;
     padding-left: 3px;
-    border-left-width: 1px;
-    border-left-style: solid;
 }
 .form .icon-prepend {
     left: 5px;
     padding-right: 3px;
-    border-right-width: 1px;
-    border-right-style: solid;
 }
 .form .input .icon-prepend + input,
 .form .textarea .icon-prepend + textarea {
@@ -350,13 +374,12 @@
 }
 .form .input .icon-append + input,
 .form .textarea .icon-append + textarea {
-    padding-right: 46px;
+    padding-right: 31px;
 }
 .form .input .icon-prepend + .icon-append + input,
 .form .textarea .icon-prepend + .icon-append + textarea {
     padding-left: 46px;
 }
-
 
 .form .row {
     margin: 0 -15px;
@@ -406,6 +429,9 @@
         float: none;
         width: 100%;
     }
+    .scroll-bar-container {
+        height: 600px;
+    }
 }
 
 
@@ -417,7 +443,7 @@
     font-size: 11px;
     line-height: 16px;
     font-weight: 400;
-    background: rgba(0,0,0,0.9);
+    background: #75c8ef;
     color: #fff;
     opacity: 0;
     transition: margin 0.3s, opacity 0.3s;
@@ -430,8 +456,8 @@
     content: '';
     position: absolute;
 }
-.form .input input:focus + .tooltip,
-.form .textarea textarea:focus + .tooltip {
+.form .input input:focus ~ .tooltip,
+.form .textarea textarea:focus ~ .tooltip {
     opacity: 1;
 }
 
@@ -442,12 +468,12 @@
 .form .tooltip-top-right:after {
     top: 100%;
     right: 16px;
-    border-top: 4px solid rgba(0,0,0,0.9);
+    border-top: 4px solid #75c8ef;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
-.form .input input:focus + .tooltip-top-right,
-.form .textarea textarea:focus + .tooltip-top-right {
+.form .input input:focus ~ .tooltip-top-right,
+.form .textarea textarea:focus ~ .tooltip-top-right {
     right: 0;
     left: auto;
     margin-bottom: 5px;
@@ -562,10 +588,10 @@
     -webkit-transition: border-color 0.3s;
 }
 .form .toggle i:before {
-    background-color: #2da5da;
+    background-color: #9ad6f2;
 }
 .form .button {
-    background-color: #2da5da;
+    background-color: #9ad6f2;
     opacity: 0.8;
     transition: opacity 0.2s;
     -o-transition: opacity 0.2s;
@@ -581,62 +607,25 @@
     color: #ccc;
 }
 
-
-.form .input:hover input,
-.form .select:hover select,
-.form .textarea:hover textarea,
-.form .select2-container,
-.form .radio:hover i,
-.form .checkbox:hover i,
-.form .toggle:hover i,
-.form .select2-container:hover > a {
-    border-color: #8dc9e5;
-}
-.form .rating input + label:hover,
-.form .rating input + label:hover ~ label {
-    color: #2da5da;
-}
 .form .button:hover {
     opacity: 1;
 }
 
 
-.form .input input:focus,
-.form .select select:focus,
-.form .textarea textarea:focus,
-.form .radio input:focus + i,
-.form .checkbox input:focus + i,
-.form .toggle input:focus + i,
-.form .select2-container-active > a {
-    border-color: #2da5da;
-}
-
-
 .form .radio input + i:after {
-    background-color: #2da5da;
+    background-color: #9ad6f2;
 }
 .form .checkbox input + i:after {
-    color: #2da5da;
+    color: #9ad6f2;
 }
 .form .radio input:checked + i,
 .form .checkbox input:checked + i,
 .form .toggle input:checked + i {
-    border-color: #2da5da;
-}
-.form .rating input:checked ~ label {
-    color: #2da5da;
+    border-color: #9ad6f2;
 }
 
-
-.form .state-error input,
-.form .state-error select,
-.form .state-error textarea,
-.form .radio.state-error i,
-.form .checkbox.state-error i,
-.form .toggle.state-error i,
-.form .state-error > div > a,
-.form .state-error > div > a span  {
-    background: #fff0f0 !important;
+.form i.state-error {
+    color: #F57171;
 }
 .form .state-error select + i {
     background: #fff0f0;
@@ -651,6 +640,10 @@
 .form .note-error.message {
     font-size: 16px;
     text-align: center;
+}
+
+.form .error-form {
+    position: absolute;
 }
 
 
@@ -671,6 +664,17 @@
 }
 .form .note-success {
     color: #6fb679;
+}
+
+.form .input input:hover {
+    border-bottom: 1px solid #9ad6f2;
+}
+
+.form .input input:focus {
+    border-bottom: 1px solid #9ad6f2;
+}
+.form .input input:focus~i {
+    color: #9ad6f2;
 }
 
 
@@ -698,9 +702,8 @@
 }
 
 .form .select2-container .select2-choice .select2-arrow {
-    border-radius: 0;
-    border-left: 1px solid #E5E5E5;
-    background: white;
+    border: none;
+    background: transparent;
     width: 32px;
 }
 
@@ -734,7 +737,7 @@
     color: #666;
 }
 .ui-datepicker a {
-    color: #404040;
+    color: #ababab;
 }
 .ui-datepicker-header {
     position: relative;
@@ -782,10 +785,10 @@
     width: 35px;
     margin: auto;
     text-decoration: none;
-    color: #404040;
+    color: #ababab;
 }
 .ui-datepicker-calendar a:hover {
-    background: #EB7474;
+    background: #9ad6f2;
 }
 .ui-datepicker-calendar span {
     color: #bfbfbf;
@@ -831,42 +834,7 @@
     background-color: #cc3d3d;
 }
 
-.form .input:hover input,
-.form .select:hover select,
-.form .textarea:hover textarea,
-.form .radio:hover i,
-.form .checkbox:hover i,
-.form .toggle:hover i,
-.form .select2-container:hover > a {
-    border-color: #dc9596;
-}
-.form .rating input + label:hover,
-.form .rating input + label:hover ~ label {
-    color: #cc3d3d;
-}
-
-.form .input input:focus,
-.form .select select:focus,
-.form .textarea textarea:focus,
-.form .radio input:focus + i,
-.form .checkbox input:focus + i,
-.form .toggle input:focus + i,
-.form .select2-container-active > a {
-    border-color: #cc3d3d !important;
-}
-
 
 .form .radio input + i:after {
     background-color: #cc3d3d;
-}
-.form .checkbox input + i:after {
-    color: #cc3d3d;
-}
-.form .radio input:checked + i,
-.form .checkbox input:checked + i,
-.form .toggle input:checked + i {
-    border-color: #cc3d3d;
-}
-.form .rating input:checked ~ label {
-    color: #cc3d3d;
 }
