@@ -68,7 +68,7 @@ angular.module('FileManager').
 								type: items[i].type,
 								ownerId: items[i].ownerId,
 	                			creator: items[i].creator,
-								size: items[i].size,
+								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								shared: items[i].shared
 							};
@@ -129,7 +129,6 @@ angular.module('FileManager').
 			prototype.rename = function(fullpath, newName, callback) {
 
 				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function() {
-					//prototype.load($local.currentPath);
 				}, function(error) { console.error(error); });
 			}
 
@@ -215,7 +214,8 @@ angular.module('FileManager').
 
 			function addFileNavigation() {
 				var index = $scope.FileManager.pathItems.length-1
-				,	path;
+				,	path
+				,	ownerId = $scope.FileManager.folderOwner;
 
 				path = $scope.FileManager.pathItems[index] && typeof $scope.FileManager.pathItems[index].item != 'string' ?
 					$scope.FileManager.pathItems[index].item.getFullPath() :
@@ -226,7 +226,7 @@ angular.module('FileManager').
 					path:  path,
 					type: 'folder',
 					owner: '',
-					ownerId: userFactory($scope).get().id,
+					ownerId: ownerId,
 					size: '',
 					unselectable: true
 				});
@@ -235,16 +235,18 @@ angular.module('FileManager').
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
-					prototype.add({
-						_id: '. .',
-						name: '. .',
-						path: path,
-						type: 'folder',
-						owner: '',
-						ownerId: userFactory($scope).get().id,
-						size: '',
-						unselectable: true
-					});
+					
+					if(path != '/Shared/')
+						prototype.add({
+							_id: '. .',
+							name: '. .',
+							path: path,
+							type: 'folder',
+							owner: '',
+							ownerId: ownerId,
+							size: '',
+							unselectable: true
+						});
 				}
 			}
 

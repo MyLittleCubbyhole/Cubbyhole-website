@@ -11,24 +11,26 @@ angular.module('Account').
 				witness = true;
 				switch(data[i].action) {
 					case 'delete': 
-						data[i].message += 'deleted ';
+						data[i].message += 'deleted "'+ data[i].name +'"';
 					break;
 					case 'create':
-						data[i].message += data[i].itemType == 'folder' ? 'created ' : 'uploaded ';
+						console.log(data[i].fullPath)
+						data[i].message += (data[i].itemType == 'folder' ? 'created ' : 'uploaded ') + '"'+ data[i].name +'" in ' + data[i].fullPath.substring(1,data[i].fullPath.lastIndexOf('/')) + '/' ;
 					break;
 					case 'share':
-						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" to ';
+						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" with ';
+						if(data[i].targetOwner == 'You')
+							data[i].message +=  'you';
+						else
+							data[i].message += '"'+ data[i].name +'"';
 					break;
 					case 'unshare':
-						data[i].message += 'stoped the sharing of "/'+ data[i].fullPath.split('/').pop() + '" ';
-						witness = false;
+						data[i].message += 'stoped the sharing of "/'+ data[i].fullPath.split('/').pop() + '" with you ';
 					break;
 					case 'rename':
-						data[i].message += 'renamed "/'+ data[i].fullPath.split('/').pop() + '" to ';
+						data[i].message += 'renamed "'+ data[i].fullPath.split('/').pop() + '" to "'+ data[i].name +'"';
 					break;
 				}
-				if(witness)
-					data[i].message += '"'+ data[i].name +'"';
 			}
 			$local.events = data;
 		});
