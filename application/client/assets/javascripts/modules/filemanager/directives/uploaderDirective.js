@@ -35,16 +35,20 @@ angular.module('FileManager').
 
 				$node.on('dragstart', function(event) {
 					$scope.FileManager.draggedItem = null;
-					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')
+					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')// && $scope._item.item._id.substring(1) != '/Shared')
 						$scope.FileManager.draggedItem = $scope._item.item;
 				});
 
 				$node.on('drop', function(event){
 
+
 					event.originalEvent.preventDefault();
 
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
+
+					// if($scope._item.item._id.substring(1) == '/Shared')
+						// return true;
 
 					if(target
 					&& source
