@@ -107,7 +107,7 @@ angular.module('FileManager').
 
 				browse.post(path, { name: item.name }).then(function() {
 					item.newItem = false;
-					item._id = item.ownerId + '/' + item.path + '/' + item.name;
+					item._id = item.ownerId + item.path + item.name;
 				}, function(error) { console.error(error); });
 			}
 
