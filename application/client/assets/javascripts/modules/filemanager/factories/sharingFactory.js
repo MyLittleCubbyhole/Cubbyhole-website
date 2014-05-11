@@ -16,8 +16,8 @@ angular.module('FileManager').
             var prototype = {};
 
             prototype.getSharedUsers = function(path, callback) {
-                restangular.one('users').one('shared').one(path).getList().then(function(data) {
-                    if(data) {
+                restangular.one('users').one('shared').one(path).get().then(function(data) {
+                    if(data && !data.information) {
                         var users = [];
                         for(var i = 0; i < data.length; i++)
                             users.push({
@@ -26,7 +26,7 @@ angular.module('FileManager').
                             })
                         callback.call(this, null, users);
                     } else
-                        callback.call(this, 'no users found', null)
+                        callback.call(this, data.information, null)
                 }, function(error) {
                     callback.call(this, 'no users found', null)
                     console.error(error);
