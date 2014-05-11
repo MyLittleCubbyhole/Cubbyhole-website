@@ -59,7 +59,7 @@ angular.module('FileManager').
 
             prototype.unshare = function(path, target, callback) {
                 restangular.one('unshare').post(path, {'target': target}).then(function(data) {
-                    if(data.information == 'folder shared')
+                    if(data.information == 'folder unshared')
                         callback.call(this, null, data.params)
                     else
                         callback.call(this, data.information, null)

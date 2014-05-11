@@ -37,31 +37,41 @@ angular.module('FileManager').
         }
 
         $local.share = function() {
-            //debugger;
             if($scope.FileManager.selectedItems[0]) {
-                var path = $scope.FileManager.selectedItems[0]._id + '/';
-                for(var i = 0 ; i < $local.usersToRemove.length; i++) {
-                    SharingFactory($scope, {local: $local}).unshare(path, $local.usersToRemove[i].email, function(error, data) {
-                        if(error && !data)
-                            console.error(error);
-                    })
+                var path = $scope.FileManager.selectedItems[0]._id + '/'
+                ,   length = $local.usersToRemove.length;
+
+                var callback = function() {
+                    for(var i = 0; i < $local.users.length; i++) {
+                        var updateOrCreate = true;
+                        for(var j = 0; j < $local.usersWebservice[j].length; j++) {
+                            if($local.users[i].email == $local.usersWebservice[j].email && $local.users[i].right == $local.usersWebservice[j].right)
+                                updateOrCreate = false;
+                        }
+
+                        if(updateOrCreate)
+                            SharingFactory($scope, {local: $local}).share(path, $local.users[i].email, $local.users[i].right, function(error, data) {
+                                if(error && !data)
+                                    console.error(error);
+                            })
+                    }
                 }
 
-                for(var i = 0; i < $local.users.length; i++) {
-                    var updateOrCreate = false;
-                    if($local.usersWebservice[i] !== undefined) {
-                        if($local.users[i].email == $local.usersWebservice[i].email && $local.users[i].right != $local.usersWebservice[i].right)
-                            updateOrCreate = true;
-                    }
-                    else
-                        updateOrCreate = true;
-
-                    if(updateOrCreate)
-                        SharingFactory($scope, {local: $local}).share(path, $local.users[i].email, $local.users[i].right, function(error, data) {
+                if(length>0)
+                    for(var i = 0 ; i < $local.usersToRemove.length; i++) {
+                        var userToRevove = $local.usersToRemove[i];
+                        SharingFactory($scope, {local: $local}).unshare(path, userToRevove.email, function(error, data) {
                             if(error && !data)
                                 console.error(error);
+                            var index = $local.usersWebservice.indexOf(userToRevove);
+                            if(index > -1)
+                                $local.usersWebservice.slice(index, 1);
+                            --length <= 0 && callback();
                         })
-                }
+                    }
+                else
+                    callback();
+
             }
         }
 
