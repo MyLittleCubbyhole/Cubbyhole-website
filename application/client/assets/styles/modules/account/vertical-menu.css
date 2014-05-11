@@ -2,14 +2,14 @@ aside#vertical-toolbar {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 102px;
+    width: 92px;
     background-color: #fff;
     height: 100%;
     border-left: 2px solid #e3e3e3;
 }
 aside#vertical-toolbar article.option-toolbar {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 90px;
     position: relative;
     border-bottom: 2px solid #e3e3e3;
     background-color: #fff;
@@ -19,7 +19,7 @@ aside#vertical-toolbar article.option-toolbar {
 aside#vertical-toolbar article.icon-option-toolbar {
     width: 100%;
     left: 0px;
-    height: 80px;
+    height: 50px;
     position: absolute;
 }
 aside#vertical-toolbar .icon-option-toolbar span.icon-user {
@@ -43,12 +43,12 @@ aside#vertical-toolbar article.option-toolbar.container:hover, article.option-t
 }
 
 .img-icon {
-    width: 55px;
-    height: 55px;
+    width: 35px;
+    height: 35px;
     display: block;
     margin: 15px auto;
     background-size: 100% 100%;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
 }
 
@@ -83,4 +83,29 @@ aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-timeline
 
 aside#vertical-toolbar article.option-toolbar.container:hover .img-icon-plans {
     /*background-image: url(/images/design/history_black.png);*/
+}
+
+
+
+@media screen and (max-width: 775px) {
+    aside#vertical-toolbar article.option-toolbar {
+        height: 55px;
+        width: 50px;
+    }
+    aside#vertical-toolbar {
+        width: 52px;
+    }
+    aside#vertical-toolbar article.icon-option-toolbar {
+        height: 50px;
+        line-height: 25px;
+    }
+    .img-icon {
+        width: 25px;
+        height: 25px;
+        margin: 15px auto;
+        font-size: 30px;
+    }
+    aside#vertical-toolbar .option-toolbar article.title-option {
+        display: none;
+    }
 }

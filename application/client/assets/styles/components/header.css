@@ -144,9 +144,7 @@ section#global-nav .img-circle img {
 }
 
 section#global-nav  #logo-container {
-	/*position: absolute;*/
-	top: 0;
-	left: 0;
+	margin-left: 10px;
 	cursor: pointer;
 }
 

@@ -4,19 +4,19 @@ angular.module('Account').
         $routeProvider
         .when('/config', {
             templateUrl: '/templates/account/configuration',
-            controller: 'configurationController'
+            controller: 'ConfigurationController'
         })
         .when('/infos', {
             templateUrl: '/templates/account/information',
-            controller: 'informationsController'
+            controller: 'InformationsController'
         })
         .when('/timeline', {
             templateUrl: '/templates/account/timeline',
-            controller: 'timelineController'
+            controller: 'TimelineController'
         })
         .when('/plans', {
             templateUrl: '/templates/account/plans',
-            controller: 'plansController'
+            controller: 'PlansController'
         })
         .otherwise({ redirectTo: '/config' });
 

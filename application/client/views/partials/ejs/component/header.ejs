@@ -30,9 +30,9 @@
 						</article>
 					</section>
 					<section id="user-navigation">
-						<article class="user-nav-options" ng-click="Navigation.goto('/account')"><span class="user-icon icon-user"></span></article>
-						<article class="user-nav-options"><span class="user-icon icon-bars"></span></article>
-						<article class="user-nav-options"><span class="user-icon icon-credit-card"></span></article>
+						<article class="user-nav-options" ng-click="Navigation.goto('/account#config')"><span class="user-icon icon-user"></span></article>
+						<article class="user-nav-options"  ng-click="Navigation.goto('/account#infos')"><span class="user-icon icon-bars"></span></article>
+						<article class="user-nav-options"  ng-click="Navigation.goto('/account#plans')"><span class="user-icon icon-credit-card"></span></article>
 					</section>
 					<section id="user-disconnect" class="big-font google-font" ng-click="Authentication.logout()">
 						</span><span>Log out</span>

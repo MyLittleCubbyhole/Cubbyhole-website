@@ -75,6 +75,15 @@ angular.module('Authentication').
                 }
             };
 
+            prototype.historic = function(callback) {
+                var user = prototype.get();
+                $http.get(apiUrl + 'users/'+user.id+'/historic').
+                success(callback).
+                error(function(data, status, headers, config) {
+                    console.error(status, data);
+                });
+            }
+
             return prototype;
         };
     }]);
