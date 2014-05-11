@@ -47,6 +47,9 @@ angular.module('FileManager').
                 creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname
             }
 
+            if($local.currentPath == '/Shared/')
+                return true;
+
             options.name = name ? name : ''
             options.editMode = name ? false : true;
 
@@ -60,7 +63,7 @@ angular.module('FileManager').
 
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
-
+            console.log(name)
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
                     if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))

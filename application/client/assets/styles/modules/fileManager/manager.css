@@ -5,6 +5,7 @@ section#manager {
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: default;
 }
 section#manager-container {
     width: 100%;
@@ -97,7 +98,16 @@ section#list-file-container {
     font-size: 18px;
 }
 #manager .list-header th {
-    padding-bottom: 15px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    -webkit-transition: .08s all linear;
+    -moz-transition: .08s all linear;
+    -ms-transition: .08s all linear;
+    -o-transition: .08s all linear;
+    transition: .08s all linear;
+}
+#manager .list-header th:hover {
+    color: #46B5EA;
 }
 #manager section.manager-bloc:first-child {
     height: 100%;
@@ -113,7 +123,19 @@ section#list-file-container {
     height: 40px;
     width: 7px;
 }
-
+#manager tr.special td.item-label::after {
+    border: solid transparent;
+    content: "";
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    pointer-events: none;
+    border-left-color: #e3e3e3;
+    border-width: 10px;
+    display: block;
+    margin-top: 10px;
+    margin-left: 6px;
+}
 #manager td.item-folder {
     padding-right: 8px;
     padding-left: 5px;

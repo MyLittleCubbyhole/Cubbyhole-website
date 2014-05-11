@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	factory('ItemFactory', ['FileProvider', 'FolderProvider', 'FileExtensionFactory', 'Restangular', 'UserFactory', 'AnnyangFormatService', function(File, Folder, ExtensionFactory, restangular, userFactory, AnnyangFormatService){
+	factory('ItemFactory', ['FileProvider', 'FolderProvider', 'FileExtensionFactory', 'Restangular', 'UserFactory', 'AnnyangFormatService', function(File, Folder, ExtensionFactory, restangular, UserFactory, AnnyangFormatService){
 
 		var _items = [];
 
@@ -15,6 +15,7 @@ angular.module('FileManager').
 			,	controller = context.controller || {};
 
 			prototype.load = function(item) {
+
 				var ownerId = typeof item == 'object' ? item.ownerId : false
 				,	path = typeof item == 'object' ? item.getFullPath() : item ? item : '';
 				if(typeof item == 'object' && item._id != '.') {
@@ -27,8 +28,8 @@ angular.module('FileManager').
 						$scope.FileManager.pathItems.pop();
 				}
 
-				if(userFactory($scope).get().id) {
-					ownerId = ownerId || userFactory($scope).get().id;
+				if(UserFactory($scope).get().id) {
+					ownerId = ownerId || UserFactory($scope).get().id;
 
 
 					$scope.FileManager.folderOwner = ownerId;
@@ -41,16 +42,14 @@ angular.module('FileManager').
 
 					if(path == '/' && (!item || (item._id != '. .' &&  item._id != '.')))
 						$scope.FileManager.pathItems = new Array({
-							name: '/',
+							name: 'Files',
 							item: '/'
 						});
 
 					var browsePath = browse.one(path.substring(1));
 
 					browsePath.getList().then(function(items) {
-						// $scope.FileManager.currentPath = ownerId != userFactory($scope).get().id ? '/Shared'+path : path;
 						$scope.FileManager.currentPath = path;
-
 
 						_items.splice(0);
 						$local.items.splice(0);
@@ -72,6 +71,9 @@ angular.module('FileManager').
 								lastUpdate: items[i].lastUpdate,
 								shared: items[i].shared
 							};
+
+							if(options._id.substring(1) == '/Shared')
+								options.unselectable = true;
 
 							prototype.add(options);
 						}
@@ -231,7 +233,7 @@ angular.module('FileManager').
 					unselectable: true
 				});
 
-				if($scope.FileManager.currentPath != '/') {
+				if($scope.FileManager.currentPath != '/' && $scope.FileManager.currentPath != '/Shared/') {
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;

@@ -84,6 +84,21 @@ angular.module('Authentication').
                 });
             }
 
+            prototype.getUsedSizeStorage = function(callback) {
+                var user = prototype.get();
+                $http.get(apiUrl + 'browse/' + user.id + '/size').success(function(sizes) {
+                    var size = 0;
+                    if(sizes && sizes.length > 0)
+                        for(var i = 0; i < sizes.length; i++) 
+                            size += parseInt(sizes[i].size, 10);
+                    callback.call(this, (size>0 ? null : 'no sizes'), size);
+                }).error(function(error) { 
+                    callback.call(this, 'no sizes', null);
+                    console.error(error);
+                });
+            }
+
+
             return prototype;
         };
     }]);

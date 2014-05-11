@@ -1,5 +1,5 @@
 angular.module('Tools').
-	directive('progressBar', function(){
+	directive('progressBar', ['$parse', function($parse){
 		return {
 			scope: true,
 			restrict: 'E',
@@ -11,9 +11,9 @@ angular.module('Tools').
 			link: function($scope, $node, attributes) {
 				var $local = $scope._loadingBar = {};
 
-				$local.value = parseFloat( (attributes.value || 0) );
+				$local.value = $scope.FileManager.selectedItems[0].size;
 
-				var total = parseFloat( (attributes.total || 0) )
+				var total = $scope.Preview.totalSize
 				,	percent = Math.round($local.value)*100 / Math.round(total)
 				,	bgColor = attributes.bgColor || '#2c2c2c'
 				,	barColor = attributes.bgColor || '#52d11a'
@@ -21,14 +21,23 @@ angular.module('Tools').
 
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
-				$node.find('.progress-bar-value').css({
-					'width': percent+'%',
-					'background-color': barColor
-				});
+
+				$scope.$watch('Preview.totalSize', function() {
+					total = $scope.Preview.totalSize;
+				})
+				$scope.$watch('FileManager.selectedItems', function() {
+					$local.value = $scope.FileManager.selectedItems[0].size;
+					percent = Math.round($local.value)*100 / Math.round(total);
+					$node.find('.progress-bar-value').css({
+						'width': percent+'%',
+						'background-color': barColor
+					});
+				})
+
 
 				$scope.toString = function() {
 					return '_loadingBar';
 				}
 			}
 		};
-	});
+	}]);

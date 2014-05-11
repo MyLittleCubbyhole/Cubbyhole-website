@@ -1,7 +1,11 @@
 angular.module('FileManager').
-    controller('PreviewController', ['$scope', 'apiUrl', 'UserFactory', 'AuthenticationFactory', 'Restangular', function($scope, apiUrl, UserFactory, AuthenticationFactory, restangular) {
+    controller('PreviewController', ['$scope', 'apiUrl', 'AuthenticationFactory', 'UserFactory', 'Restangular', function($scope, apiUrl, AuthenticationFactory, UserFactory, restangular) {
         var $local = $scope.Preview = {};
+        $local.totalSize = 0;
 
+        UserFactory($scope).getUsedSizeStorage(function(error, data) {
+            $local.totalSize = data;
+        });
         $local.getRessourceUrl = function() {
 
             var url = "";

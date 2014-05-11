@@ -3,7 +3,7 @@
         <article>
             <section>
                 <section class="corner-panel" ng-click="CubbyHome.showLoginModal()">
-                    <article class="corner-panel-text big-font">LOGIN</article>
+                    <article class="corner-panel-text big-font">login</article>
                 </section>
                 <i class="close-icon icon-cross" ng-click="_modal.close()"></i>
                 <section class="register-container scroll-bar-container" scroll-bar>
@@ -24,10 +24,10 @@
                         <fieldset>
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">E-mail</label>
+                                    <label for="input-email-register" class="label col col-4">E-mail</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="email" name="email" class="form-control" ng-model="Register.user.email" autofocus required />
+                                            <input id="input-email-register" type="email" name="email" class="form-control" ng-model="Register.user.email" autofocus required />
                                             <i class="icon-append icon-envelope" ng-class="{'state-error': ((form.email.$dirty || Register.isFormSubmited) && form.email.$invalid)}"></i>
                                         </label>
                                         <section ng-show="(form.email.$dirty || Register.isFormSubmited) && form.email.$invalid" class="error-form">
@@ -40,10 +40,10 @@
 
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">Password</label>
+                                    <label for="input-password-register" class="label col col-4">Password</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="password" name="password" class="form-control" ng-model="Register.user.password" ng-minlength="8" required />
+                                            <input id="input-password-register" type="password" name="password" class="form-control" ng-model="Register.user.password" ng-minlength="8" required />
                                             <i class="icon-append icon-lock" ng-class="{'state-error': ((form.password.$dirty || Register.isFormSubmited) && form.password.$invalid)}"></i>
                                             <b class="tooltip tooltip-top-right">Minimum 8 characters.</b>
                                         </label>
@@ -57,10 +57,10 @@
 
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">Password confirmation</label>
+                                    <label for="input-confirm-register" class="label col col-4">Password confirmation</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="password" name="password2" class="form-control" ng-model="Register.user.password2" ng-minlength="8" required />
+                                            <input id="input-confirm-register" type="password" name="password2" class="form-control" ng-model="Register.user.password2" ng-minlength="8" required />
                                             <i class="icon-append icon-lock" ng-class="{'state-error': (((form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid) || Register.isFormSubmited && Register.errorPasswordMatch)}"></i>
                                         </label>
                                         <section ng-show="(form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid" class="error-form">
@@ -75,10 +75,10 @@
                             </section>
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">First name</label>
+                                    <label for="input-firstname-register" class="label col col-4">First name</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="text" name="firstname" class="form-control" ng-model="Register.user.firstname" required />
+                                            <input id="input-firstname-register" type="text" name="firstname" class="form-control" ng-model="Register.user.firstname" required />
                                             <i class="icon-append icon-user"ng-class="{'state-error': ((form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid)}"></i>
                                         </label>
                                         <section ng-show="(form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid" class="error-form">
@@ -90,10 +90,10 @@
 
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">Last name</label>
+                                    <label for="input-lastname-register" class="label col col-4">Last name</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="text" name="lastname" class="form-control" ng-model="Register.user.lastname" required />
+                                            <input id="input-lastname-register" type="text" name="lastname" class="form-control" ng-model="Register.user.lastname" required />
                                             <i class="icon-append icon-user" ng-class="{'state-error': ((form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid)}"></i>
                                         </label>
                                         <section ng-show="(form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid" class="error-form">
@@ -105,10 +105,10 @@
 
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">Birthdate</label>
+                                    <label for="input-birthdate-register" class="label col col-4">Birthdate</label>
                                     <article class="col col-8">
                                         <label class="input">
-                                            <input type="text" name="birthdate" class="form-control" ng-model="Register.user.birthdate" date-picker required />
+                                            <input id="input-birthdate-register" type="text" name="birthdate" class="form-control" ng-model="Register.user.birthdate" date-picker required />
                                             <i class="icon-append icon-calendar" ng-class="{'state-error': ((form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid)}"></i>
                                         </label>
                                         <section ng-show="(form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid" class="error-form">
@@ -120,10 +120,10 @@
 
                             <section>
                                 <article class="row">
-                                    <label class="label col col-4">Country</label>
+                                    <label for="input-country-register" class="label col col-4">Country</label>
                                     <article class="col col-8">
                                         <label class="input" ng-class="{'state-error': ((form.country.$dirty || Register.isFormSubmited) && form.country.$invalid)}">
-                                            <select select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
+                                            <select id="input-country-register" select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
                                         </label>
                                         <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
                                             <article class="note note-error" ng-show="form.country.$error.required">Fill your country.</article>
