@@ -2,8 +2,6 @@ angular.module('Authentication').
     controller('LoginController', ['$scope', '$location', 'UserFactory', function($scope, $location, UserFactory) {
         var $local = $scope.Login = {};
 
-        $local.showModal = false;
-
         $local.isFormSubmited = false;
 
         $local.user = {};
@@ -12,19 +10,9 @@ angular.module('Authentication').
 
         $local.errorLogin = false;
 
-        localStorage.removeItem("user");
-        sessionStorage.removeItem("user");
-
-        $scope.$on('show_login_modal', function() {
-            $local.showModal = true;
-            $scope.$emit('enable_overlay');
-        });
-
-        $scope.$on('hide', function() {
-            $local.showModal = false;
-        });
-
         $local.authenticate = function(isValid) {
+            localStorage.removeItem("user");
+            sessionStorage.removeItem("user");
             $local.isFormSubmited = true;
             if(isValid) {
                 UserFactory($scope).login($local.user, $local.rememberMe, function(error) {
@@ -37,6 +25,6 @@ angular.module('Authentication').
         };
 
         $scope.toString = function() {
-            return 'Registration';
+            return 'Login';
         };
     }]);

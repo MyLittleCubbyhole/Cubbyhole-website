@@ -12,10 +12,10 @@ filters.tokenInterceptor = function(request, response, next) {
             if(result == 200)
                 next();
             else
-                response.redirect('/authentication#/login');
+                response.redirect('/home#/login');
         });
     } else {
-        response.redirect('/authentication#/login');
+        response.redirect('/home#/login');
     }
 };
 

@@ -599,6 +599,14 @@
     -moz-transition: opacity 0.2s;
     -webkit-transition: opacity 0.2s;
 }
+#modal-confirmation .button {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+}
 .form .button.button-secondary {
     background-color: #b3b3b3;
 }
@@ -607,8 +615,8 @@
     color: #ccc;
 }
 
-.form .button:hover {
-    opacity: 1;
+.button:hover {
+    opacity: 1 !important;
 }
 
 

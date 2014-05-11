@@ -19,6 +19,10 @@
     height: 107px;
     background-color: #9ad6f2;
     -webkit-transform: rotate(-40deg) translateX(-10px) translateY(-80px);
+       -moz-transform: rotate(-40deg) translateX(-10px) translateY(-80px);
+        -ms-transform: rotate(-40deg) translateX(-10px) translateY(-80px);
+         -o-transform: rotate(-40deg) translateX(-10px) translateY(-80px);
+            transform: rotate(-40deg) translateX(-10px) translateY(-80px);
     cursor: pointer;
     z-index: 1;
 }
@@ -299,6 +303,17 @@
     float: left;
     margin-right: 23px;
     padding-top: 8px;
+}
+#modal-confirmation .button.register i {
+    margin-right: 32px;
+    padding-top: 2px;
+}
+
+.confirmation-container .confirmation {
+    color: #ababab;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 9px;
 }
 
 .button.close img,

@@ -23,7 +23,7 @@ angular.module('Authentication').
                 success(function(data, status, headers, config) {
                     if(data && data.user && data.user.id) {
                         callback.call(this, null);
-                        //$window.location = $window.location.protocol + "//" + $window.location.host + "/authentication#/login";
+                        //$window.location = $window.location.protocol + "//" + $window.location.host + "/home#/login";
                     }
                     else
                         callback.call(this, 'registration failed');

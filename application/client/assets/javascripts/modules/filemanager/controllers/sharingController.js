@@ -44,7 +44,7 @@ angular.module('FileManager').
                 var callback = function() {
                     for(var i = 0; i < $local.users.length; i++) {
                         var updateOrCreate = true;
-                        for(var j = 0; j < $local.usersWebservice[j].length; j++) {
+                        for(var j = 0; j < $local.usersWebservice.length; j++) {
                             if($local.users[i].email == $local.usersWebservice[j].email && $local.users[i].right == $local.usersWebservice[j].right)
                                 updateOrCreate = false;
                         }

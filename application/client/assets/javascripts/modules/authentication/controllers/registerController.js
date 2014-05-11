@@ -2,26 +2,14 @@ angular.module('Authentication').
     controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', function($scope, $location, CountryFactory, UserFactory) {
         var $local = $scope.Register = {};
 
-        $local.showModal = false;
-
         $local.isFormSubmited = false;
         $local.errorPasswordMatch = false;
-
 
         $local.user = {};
 
         $local.errorRegister = false;
 
         $local.countries = CountryFactory($scope).list();
-
-        $scope.$on('show_register_modal', function() {
-            $local.showModal = true;
-            $scope.$emit('enable_overlay');
-        });
-
-        $scope.$on('hide', function() {
-            $local.showModal = false;
-        });
 
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
@@ -31,8 +19,10 @@ angular.module('Authentication').
                     UserFactory($scope).createUser($local.user, function(error) {
                         if(error)
                             $local.errorRegister = true;
-                        else
+                        else {
                            $local.errorRegister = false;
+                           $scope.CubbyHome.showLoginModal();
+                        }
                     });
                 } else {
                     $local.errorPasswordMatch = true;

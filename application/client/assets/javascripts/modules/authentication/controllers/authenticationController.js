@@ -24,7 +24,7 @@ angular.module('Authentication').
 
 		$local.open = function() {
 			$local.opened = !$local.opened;
-			$scope.$emit('enable_overlay');
+			$scope.Overlay.activated = true;
 		};
 
 		$local.logout = function() {

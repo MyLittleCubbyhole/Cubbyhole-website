@@ -1,4 +1,4 @@
-<section class="md-modal md-effect-1 google-font" id="modal-login" ng-controller="LoginController" ng-class="{'md-show': Login.showModal === true}" ng-cloak modal>
+<section class="md-modal md-effect-1 google-font" id="modal-login" ng-controller="LoginController" ng-class="{'md-show': CubbyHome.showModalLogin === true}" ng-cloak modal>
     <section class="md-content">
         <article>
             <section>
@@ -55,9 +55,13 @@
                                 <article class="row">
                                     <article class="col col-4"></article>
                                     <article class="col col-8">
-                                        <label class="checkbox"><input type="checkbox" name="checkbox-inline" ng-model="Login.rememberMe" checked=""><i></i>Rester connecté</label>
+                                        <label class="checkbox"><input type="checkbox" name="checkbox-inline" ng-model="Login.rememberMe" checked=""><i></i>Remember me</label>
                                     </article>
                                 </article>
+                            </section>
+
+                            <section>
+                                <article class="note note-error message" ng-show="Login.errorLogin">Bad credentials.</article>
                             </section>
 
                         </fieldset>

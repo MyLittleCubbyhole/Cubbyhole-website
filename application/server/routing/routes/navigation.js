@@ -29,20 +29,13 @@ navigation.get.activation = function(request, response) {
     if(token) {
         http.activation(token, function(result) {
             if(result == 200) {
-                response.redirect('/authentication#/confirmation');
+                response.redirect('/home#/confirmation');
             }
             else
                 response.redirect('/');
         });
     } else
         response.redirect('/');
-}
-
-navigation.get.authentication = function(request, response) {
-	options.angular = { module: 'Authentication', controller: 'AuthenticationController' };
-	options.headers = { title: 'Authentification', description: 'Cubbyhole' };
-	options.javascripts.core = '../partials/ejs/javascripts/core/authentication.ejs';
-	response.render('authentication', options);
 }
 
 navigation.get.account = function(request, response) {
