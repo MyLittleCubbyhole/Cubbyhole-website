@@ -129,10 +129,12 @@ angular.module('Account').
             })
         }
 
-        $scope.$on('plan_updated', function() {
+        if(!$scope.Account.currentPlan)
+            $scope.$on('plan_updated', function() {
+                updateElements();
+            });
+        else
             updateElements();
-        })
-
 
         $scope.toString = function() {
             return 'Informations';
