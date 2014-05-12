@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js",
 					"application/client/assets/javascripts/modules/cubbyhole/controllers/cubbyholeController.js"
 				],
-				dest: 'application/client/assets/minified/javascripts/authentication.js'
+				dest: 'application/client/assets/minified/javascripts/filemanager.js'
 			},
 			modules_home: {
 				src: [
@@ -129,7 +129,36 @@ module.exports = function(grunt) {
 			}
 		},
 
+		cssmin: {
+			combine: {
+				files: {
+					'application/client/assets/minified/styles/style.min.css' : [
+						"application/client/assets/styles/libraries/font.css",
+						"application/client/assets/styles/libraries/bootstrap/bootstrap.min.css",
+						"application/client/assets/styles/libraries/animate/animate.css",
+						"application/client/assets/styles/libraries/select2/select2-bootstrap.css",
+						"application/client/assets/styles/libraries/highlight/vs.css",
+						"application/client/assets/styles/libraries/modalWindowEffects/component.css",
+						"application/client/assets/styles/libraries/customScrollBar/customScrollBar.css",
+						"application/client/assets/styles/components/header.css",
+						"application/client/assets/styles/components/forms.css",
+						"application/client/assets/styles/components/userCard.css",
+						"application/client/assets/styles/components/modale.css",
+						"application/client/assets/styles/modules/fileManager/breadcrumb.css",
+						"application/client/assets/styles/modules/fileManager/manager.css",
+						"application/client/assets/styles/modules/fileManager/preview.css",
+						"application/client/assets/styles/modules/fileManager/toolbar.css",
+						"application/client/assets/styles/modules/account/vertical-menu.css",
+						"application/client/assets/styles/modules/account/timeline.css",
+						"application/client/assets/styles/modules/account/account.css",
+						"application/client/assets/styles/modules/tools/progressBar.css",
+						"application/client/assets/styles/core.css"
+					]
+				}
+			}
+		}
 	});
+
 
 
 	grunt.registerTask('concatJS', [
@@ -138,7 +167,8 @@ module.exports = function(grunt) {
 		'concat:modules_account',
 		'concat:modules_filemanager',
 		'concat:modules_home',
-		'concat:modules_shared'
+		'concat:modules_shared',
+		'cssmin'
 	])
 
 }

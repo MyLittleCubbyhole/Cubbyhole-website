@@ -68,7 +68,7 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
             $local.charts = [];
 
             DataChartFactory($scope).getSizeUsed(function(error, sizes) {
-                var availableSize = 0
+                var availableSize = 1
                 ,   usedSpace = 0
                 ,   data = null
                 ,   videos = 0
@@ -97,13 +97,13 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
                 }
 
                 $local.charts.push({
-                    availableSize: FormatSizeService.format(availableSize, true),
+                    availableSize: availableSize > 1 ? FormatSizeService.format(availableSize, true) : FormatSizeService.format($scope.Account.currentPlan.storage, true),
                     textSize: 'LIBRE',
                     data: [
                         {
                             name: 'Disponible',
                             y: parseInt(availableSize, 10),
-                            size: FormatSizeService.format(availableSize),
+                            size: availableSize > 1 ? FormatSizeService.format(availableSize) : FormatSizeService.format($scope.Account.currentPlan.storage),
                             color: '#ffffff'
                         }
                     ],
@@ -292,8 +292,8 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
             series: [{
                 name: '',
                 data: null,
-                size: '100%',
-                innerSize: '60%'
+                size: '110%',
+                innerSize: '70%'
             }],
             title: {
                 text: '',
