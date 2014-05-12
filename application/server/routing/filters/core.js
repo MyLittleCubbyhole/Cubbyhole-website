@@ -5,7 +5,6 @@ filters.tokenInterceptor = function(request, response, next) {
     var query = request.query;
 
     var token = query.token || 0;
-    console.log(token)
     token = encodeURIComponent(token);
 
     if(token) {

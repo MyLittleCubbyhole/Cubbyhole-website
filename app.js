@@ -6,7 +6,7 @@ var path    = require('path')
 ,   environment = ( typeof process.argv[2] != 'undefined' ? process.argv[2] : 'dev')
 ,   link = {'prod':'config-prod.json', 'dev':'config-dev.json'};
 
-global.environment = 'prod';//environment;
+global.environment = environment;
 global.configFile = typeof link[environment] != 'undefined' ? link[environment] : link['dev'];
 global.paths = { app: __dirname, server: __dirname + '/application/server', views: __dirname + '/application/client/views/' };
 
