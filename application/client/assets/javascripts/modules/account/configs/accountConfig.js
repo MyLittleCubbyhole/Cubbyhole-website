@@ -22,4 +22,4 @@ angular.module('Account').
 
 		$location.html5Mode(false);
 
-	}])
+	}]);

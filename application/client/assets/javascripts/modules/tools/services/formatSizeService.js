@@ -4,14 +4,14 @@ angular.module('Tools').
             var out = "";
             var size = parseInt(input, 10);
 
-            if (isNaN(size)) return "";
+            if(isNaN(size)) return "";
 
             var unit = ["oct","Ko","Mo","Go","To"];
             var i = 0;
             while (size >= 1024) {
                 i++;
                 size = size/1024;
-            }
+            };
 
             if(size == 0)
                 out = 0;
@@ -21,11 +21,11 @@ angular.module('Tools').
                 out.slice(-1) == "0" ? out = out.slice(0, -2) : out;
                 if(ceil)
                     out = Math.round(parseFloat(out, 10));
-            }
+            };
 
             out += ' ' + unit[i];
 
             return out;
-        }
+        };
 
-    })
+    });

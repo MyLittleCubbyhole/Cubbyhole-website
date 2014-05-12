@@ -11,8 +11,9 @@ angular.module('Websocket').
 				socket = socketIO.socket.of(socketRoom);
 				console.info('socket connected at ' + url);
 			}
-			else
+			else {
 				console.error('io not defined - problem with webservice');
+			}
 		};
 
 		return function() {
