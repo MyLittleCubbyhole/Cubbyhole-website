@@ -11,24 +11,32 @@ angular.module('Account').
 				witness = true;
 				switch(data[i].action) {
 					case 'delete': 
+						data[i].icon = 'icon-times';
 						data[i].message += 'deleted "'+ data[i].name +'"';
 					break;
 					case 'create':
-						console.log(data[i].fullPath)
+						data[i].icon = 'icon-cloud-upload';
 						data[i].message += (data[i].itemType == 'folder' ? 'created ' : 'uploaded ') + '"'+ data[i].name +'" in ' + data[i].fullPath.substring(1,data[i].fullPath.lastIndexOf('/')) + '/' ;
 					break;
 					case 'share':
+						data[i].icon = 'icon-link';
 						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" with ';
-						if(data[i].targetOwner == 'You')
+						if(data[i].targetOwner == 'You' && data[i].name != 'Public' && data[i].name == '')
 							data[i].message +=  'you';
 						else
 							data[i].message += '"'+ data[i].name +'"';
 					break;
 					case 'unshare':
+						data[i].icon = 'icon-link';
 						data[i].message += 'stoped the sharing of "/'+ data[i].fullPath.split('/').pop() + '" with you ';
 					break;
 					case 'rename':
+						data[i].icon = 'icon-pencil';
 						data[i].message += 'renamed "'+ data[i].fullPath.split('/').pop() + '" to "'+ data[i].name +'"';
+					break;
+					case 'move':
+						data[i].icon = 'icon-chevron-right';
+						data[i].message += 'moved "'+ data[i].name + '" in '+ data[i].fullPath;
 					break;
 				}
 			}
