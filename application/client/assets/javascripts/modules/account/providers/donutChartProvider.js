@@ -36,8 +36,8 @@ angular.module('Account').
             series: [{
                 name: '',
                 data: null,
-                size: '100%',
-                innerSize: '60%'
+                size: '110%',
+                innerSize: '70%'
             }],
             title: {
                 text: '',

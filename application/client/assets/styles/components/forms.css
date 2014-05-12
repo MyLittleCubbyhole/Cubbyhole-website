@@ -129,6 +129,35 @@
     -webkit-appearance: none;
 }
 
+.select2-drop {
+    border-radius: 0;
+    border: 1px solid #A5A5A5;
+    border-top: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.select2-drop.select2-drop-above.select2-drop-active {
+    border-radius: 0;
+    border-top: 1px solid #A5A5A5 !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.select2-drop.select2-drop-above .select2-search input,
+.select2-results .select2-result-label,
+.select2-results .select2-no-results,
+.select2-results .select2-searching,
+.select2-results .select2-selection-limit {
+    color: #ababab;
+}
+.select2-results .select2-highlighted {
+    background: #9ad6f2;
+}
+.select2-results .select2-no-results,
+.select2-results .select2-searching,
+.select2-results .select2-selection-limit {
+    background: none;
+}
+
 .form .input-file .button {
     position: absolute;
     top: 4px;
