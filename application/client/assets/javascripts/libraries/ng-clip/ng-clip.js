@@ -49,7 +49,6 @@ angular.module('ngClipboard', []).
             $window.clearTimeout(timer);
             clipTarget.addClass(clipAnimation);
             timer = $window.setTimeout(function() {
-              console.log('stop')
               clipTarget.removeClass(clipAnimation);
             }, clipTimer)
 
