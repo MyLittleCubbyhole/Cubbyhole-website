@@ -129,6 +129,18 @@
     -webkit-appearance: none;
 }
 
+.select2-drop {
+    border-radius: 0;
+    border: 1px solid #A5A5A5;
+    border-top: none;
+}
+
+.select2-results .select2-no-results,
+.select2-results .select2-searching,
+.select2-results .select2-selection-limit {
+    background: none;
+}
+
 .form .input-file .button {
     position: absolute;
     top: 4px;

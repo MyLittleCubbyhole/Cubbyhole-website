@@ -20,7 +20,7 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(express.cookieParser());
     app.use(express.compress());
-    app.use(express.static(path.join(__dirname, '/application/client/assets'), { maxAge: 604800000 }));
+    app.use(express.static(path.join(__dirname, '/application/client/assets')/*, { maxAge: 604800000 }*/));
 });
 
 app.configure('production', function () {
