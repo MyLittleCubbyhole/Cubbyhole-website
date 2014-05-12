@@ -3,6 +3,7 @@ var fs = require('fs')
 ,	navigation 	= { get: {}, post: {}, put: {}, delete: {}, redirect: {} }
 ,   http = require(global.paths.server + '/features/tools/http/core')
 ,	options	= {
+		environment: global.environment,
 		angular: {}, headers: {}, fonts: {}, content: {}, footer: {},
 		javascripts: {
 			libraries: '../partials/ejs/javascripts/libraries.ejs',

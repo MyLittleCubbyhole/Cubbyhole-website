@@ -1,1 +1,0 @@
-angular.module('WaiterUpAndDown', ['Tools']);

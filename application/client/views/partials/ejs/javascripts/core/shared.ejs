@@ -1,3 +1,10 @@
-<script src="/javascripts/modules/sharing/core.js"></script>
-<script src="/javascripts/modules/sharing/configs/sharingConfig.js"></script>
-<script src="/javascripts/modules/sharing/controllers/sharingController.js"></script>
+<%if (environment == 'dev') { %>
+	<script src="/javascripts/modules/sharing/core.js"></script>
+	<script src="/javascripts/modules/sharing/configs/sharingConfig.js"></script>
+	<script src="/javascripts/modules/sharing/controllers/sharingController.js"></script>
+<% } %>
+<% if(environment == 'prod') { %>
+
+	<script src="/minified/javascripts/shared.js"></script>
+
+<% } %>

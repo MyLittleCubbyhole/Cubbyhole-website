@@ -4,4 +4,4 @@ angular.module('Tools').
 			child.prototype = new parent();
 			child.constructor = child;
 		}
-	})
+	});
