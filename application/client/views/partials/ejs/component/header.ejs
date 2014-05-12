@@ -1,11 +1,11 @@
 <header ng-class="{ preventClick: Overlay.activated }">
 	<section id="global-nav" ng-controller="NavigationController">
-		<section id="logo-container" class="pull-left">
+		<section id="logo-container" class="pull-left" ng-click="Navigation.goto('/home')">
 			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
 		<section class="menu pull-right" ng-controller="AuthenticationController" ng-cloak>
-			<article class="option nav" ng-if="!Authentication.user.firstname" ng-click="CubbyHome.showLoginModal()">
+			<article class="option nav" ng-if="!Authentication.user.firstname && !Navigation.isOnShared()" ng-click="CubbyHome.showLoginModal()">
 				<span class="label">LOG IN</span>
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
@@ -48,29 +48,29 @@
 		</section>
 
 
-		<nav class="navigation pull-left">
+		<nav class="navigation pull-left hidden-xs hidden-sm">
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home')">
 				<!-- <i class="icon icon-home"></i> -->
-				<span class="label hidden-xs hidden-sm">HOME</span>
+				<span class="label ">HOME</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover')">
 				<!-- <i class="icon icon-newspaper"></i> -->
-				<span class="label hidden-xs hidden-sm">DISCOVER</span>
+				<span class="label">DISCOVER</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan')">
 				<!-- <i class="icon icon-gift"></i> -->
-				<span class="label hidden-xs hidden-sm">PLANS</span>
+				<span class="label">PLANS</span>
 			</article>
 			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact')">
 				<!-- <i class="icon icon-address-book"></i> -->
-				<span class="label hidden-xs hidden-sm">TEAM</span>
+				<span class="label">TEAM</span>
 			</article>
 		</nav>
 
 		<section class="redirect-zone pull-left">
 			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
 				<!-- <i class="icon icon-dropbox"></i> -->
-				<span class="label hidden-xs">FILE MANAGER</span>
+				<span class="label">FILE MANAGER</span>
 			</article>
 		</section>
 	</section>
