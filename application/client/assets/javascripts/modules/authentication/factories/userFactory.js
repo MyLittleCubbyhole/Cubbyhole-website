@@ -34,6 +34,22 @@ angular.module('Authentication').
                 });
             };
 
+            prototype.updateUser = function(user, callback) {
+                var userLocal = prototype.get();
+                $http.put(apiUrl + 'users/' + userLocal.id, user).
+                success(function(data, status, headers, config) {
+                    if(data && data.user && data.user.id) {
+                        callback.call(this, null);
+                    }
+                    else
+                        callback.call(this, 'update failed');
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'update failed');
+                    console.error(data);
+                });
+            };
+
             prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
