@@ -1,4 +1,9 @@
 <%if (environment == 'dev') { %>
+	<script src="/javascripts/modules/cubbyhole/core.js"></script>
+	<script src="/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js"></script>
+	<script src="/javascripts/modules/cubbyhole/controllers/cubbyholeController.js"></script>
+
+	<!-- module principal -->
 	<script src="/javascripts/modules/account/core.js"></script>
 	<script src="/javascripts/modules/account/configs/accountConfig.js"></script>
 	<script src="/javascripts/modules/account/controllers/accountController.js"></script>
@@ -11,11 +16,6 @@
 	<script src="/javascripts/modules/account/factories/dataChartFactory.js"></script>
 	<script src="/javascripts/modules/account/factories/dataChartFactory.js"></script>
 	<script src="/javascripts/modules/account/directives/donutChartDirective.js"></script>
-
-	<!-- module principal -->
-	<script src="/javascripts/modules/cubbyhole/core.js"></script>
-	<script src="/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js"></script>
-	<script src="/javascripts/modules/cubbyhole/controllers/cubbyholeController.js"></script>
 	<!-- module principal -->
 <% } %>
 <% if(environment == 'prod') { %>

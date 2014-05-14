@@ -1,0 +1,14 @@
+<%if (environment == 'dev') { %>
+
+	<!-- module principal -->
+	<script src="/javascripts/modules/administration/core.js"></script>
+	<script src="/javascripts/modules/administration/configs/administrationConfig.js"></script>
+	<script src="/javascripts/modules/administration/controllers/administrationController.js"></script>
+	<script src="/javascripts/modules/administration/controllers/administrationNavigationController.js"></script>
+	<!-- module principal -->
+<% } %>
+<% if(environment == 'prod') { %>
+
+	<script src="/minified/javascripts/administration.js"></script>
+
+<% } %>
