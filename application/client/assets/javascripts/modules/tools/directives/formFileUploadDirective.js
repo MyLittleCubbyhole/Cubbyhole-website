@@ -31,8 +31,7 @@ angular.module('Tools').
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._formFileUpload
 				,	formFileModel = attributes.formFileModel || ''
-				,	$parent = $node.parent()
-				,	socket = WebsocketFactory();
+				,	$parent = $node.parent();
 
 				self.template = $compile('<input type="file" name="form-file-upload" ng-model="'+ formFileModel +'" style="display:none;"/>')($scope);
 
