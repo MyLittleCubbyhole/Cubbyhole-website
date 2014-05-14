@@ -27,13 +27,14 @@ angular.module('Tools').
 				}
 			},
 			require: 'formFileUpload',
-			restrict: 'A', 
+			restrict: 'A',
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._formFileUpload
 				,	formFileModel = attributes.formFileModel || ''
+				, 	formFileName = attributes.formFileName || ''
 				,	$parent = $node.parent();
 
-				self.template = $compile('<input type="file" name="form-file-upload" ng-model="'+ formFileModel +'" style="display:none;"/>')($scope);
+				self.template = $compile('<input type="file" name="'+(formFileName ? formFileName : 'form-file-upload')+'" ng-model="'+ formFileModel +'" style="display:none;"/>')($scope);
 
 				self.$input = angular.element(self.template).appendTo($parent);
 				self.$target = angular.element(attributes.formFileUpload);
