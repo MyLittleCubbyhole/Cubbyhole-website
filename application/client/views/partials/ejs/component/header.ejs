@@ -10,7 +10,7 @@
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
-					<article class="img-circle"><img src="http://www.thomasdufourneau-photographies.fr/Galeries/thumbs/portfolio-photographie-portrait.jpg" alt="profile image"></article>
+					<article class="img-circle"><img ng-src="{{Authentication.user.photo}}" alt="profile image"></article>
 					<article class="label hidden-xs">{{Authentication.user.firstname}}</article>
 				</section>
 
@@ -20,7 +20,7 @@
 						<article class="user-picture">
 							<article class="border-circle-blue">
 								<article class="img-circle">
-									<img src="http://www.thomasdufourneau-photographies.fr/Galeries/thumbs/portfolio-photographie-portrait.jpg" alt="profile picture">
+									<img ng-src="{{Authentication.user.photo}}" alt="profile picture">
 								</article>
 							</article>
 						</article>
