@@ -229,6 +229,22 @@ tr.item.uploading::after {
     margin-left: 39px;
 }
 
+
+.form-file-preview {
+    background-repeat:no-repeat!important;
+    background-position:center center!important;
+    -webkit-background-size:cover!important;
+    -moz-background-size:cover!important;
+    -o-background-size:cover!important;
+    background-size:cover!important;
+    color:transparent!important;
+}
+
+.form-file-preview .form-file-hide{
+    display:none!important;
+}
+
+
 @media screen and (max-width: 775px) {
 
     #manager section.manager-bloc:first-child {
