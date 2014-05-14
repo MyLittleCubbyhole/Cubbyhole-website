@@ -1,4 +1,4 @@
-angular.module('FileManager').
+angular.module('Tools').
 	factory('UploaderFactory', ['WebsocketFactory', function(WebsocketFactory){
 
 		var files = {}

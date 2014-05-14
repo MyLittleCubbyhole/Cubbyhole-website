@@ -37,7 +37,7 @@ angular.module('FileManager').
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
-					console.log(self.path)
+					
 					if(self.path.substring(1) == '/Shared')
 						return true;
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({

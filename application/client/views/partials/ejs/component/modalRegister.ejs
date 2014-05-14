@@ -8,15 +8,13 @@
                 <i class="close-icon icon-cross" ng-click="_modal.close()"></i>
                 <section class="register-container scroll-bar-container" scroll-bar>
                     <form name="form" ng-submit="Register.save(form.$valid)" class="form" novalidate>
-
                         <header>SIGN IN</header>
 
                         <article class="user-picture">
-                            <article class="border-circle-blue">
+                            <article class="border-circle-blue" form-file-upload="#image-target">
                                 <article class="camera-icon"><i class="icon-camera"></i></article>
-                                <article class="img-circle">
-                                    <!-- <img src="http://www.thomasdufourneau-photographies.fr/Galeries/thumbs/portfolio-photographie-portrait.jpg" alt="profile picture"> -->
-                                    <i class="icon-profile-male"></i>
+                                <article class="img-circle" id="image-target">
+                                    <i class="icon-profile-male form-file-hide"></i>
                                 </article>
                             </article>
                         </article>

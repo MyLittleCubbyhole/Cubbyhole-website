@@ -12,6 +12,14 @@ section#user-card {
     text-align: center;
     pointer-events: auto;
     z-index: 10;
+    -webkit-animation-duration: 0.6s;
+    -moz-animation-duration: 0.6s;
+    -o-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+    -webkit-animation-fill-mode:  both;
+    -moz-animation-fill-mode:  both;
+    -o-animation-fill-mode:  both;
+    animation-fill-mode:  both;
 }
 section#user-card.open {
     display: block;
@@ -22,11 +30,11 @@ section#user-card.open {
 }
 
 section#global-nav #user-profile article.border-circle-blue {
-    width: 150px;
-    height: 150px;
+    width: 148px;
+    height: 148px;
     margin-left: 25px;
     margin-top: 20px;
-    border: 5px solid #9ad6f2;
+    border: 4px solid #9ad6f2;
     position: relative;
     border-radius: 50%;
 }
@@ -61,13 +69,13 @@ section#global-nav #user-profile .img-circle img {
 #user-card article.user-firstname {
     height: 40px;
     line-height: 40px;
-    font-size: 23px;
+    font-size: 19px;
     text-align: center;
     display: inline-block;
 }
 #user-card article.user-lastname {
     text-align: center;
-    font-size: 23px;
+    font-size: 19px;
     display: inline-block;
 }
 
@@ -86,7 +94,7 @@ section#global-nav #user-profile .img-circle img {
     margin-bottom: 10px;
     width: 210px;
     margin-left: -5px;
-    font-size: 23px;
+    font-size: 20px;
 }
 #user-card hr.tiny {
     margin-bottom: 2px;
@@ -128,10 +136,10 @@ section#global-nav #user-profile .img-circle img {
 #user-card #user-navigation .user-nav-options {
     width: 50px;  
     height: 50px;  padding: 0;  text-align: center;  vertical-align: middle;  
-    font-size: 30px;  border-radius: 50%;
+    font-size: 24px;  border-radius: 50%;
     color: white;
     background-color: #A2D5ED;
-    padding-top: 7px;
+    padding-top: 11px;
     display: block;
     margin-left: 12px;
     float: left;
