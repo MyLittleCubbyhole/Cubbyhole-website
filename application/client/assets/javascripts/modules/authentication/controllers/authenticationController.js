@@ -1,5 +1,5 @@
 angular.module('Authentication').
-	controller('AuthenticationController', ['$scope', 'UserFactory', function($scope, UserFactory) {
+	controller('AuthenticationController', ['$scope', 'UserFactory', 'apiUrl', function($scope, UserFactory, apiUrl) {
 		var $local = $scope.Authentication = {};
 
 		var user = localStorage.getItem('user');
@@ -12,6 +12,9 @@ angular.module('Authentication').
 			user = {};
 
 		UserFactory($scope).set(user);
+
+		if(user.photo && user.photo != 'null')
+			user.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run';
 
 		$local.user = user;
 		$local.authenticated = false;

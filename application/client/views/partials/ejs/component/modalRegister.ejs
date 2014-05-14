@@ -7,11 +7,12 @@
                 </section>
                 <i class="close-icon icon-cross" ng-click="_modal.close()"></i>
                 <section class="register-container scroll-bar-container" scroll-bar>
-                    <form name="form" ng-submit="Register.save(form.$valid)" class="form" novalidate>
+                    <form name="form" method="POST" action="http://127.0.0.1:5150/api/users" enctype="multipart/form-data" class="form" novalidate>
+
                         <header>SIGN IN</header>
 
                         <article class="user-picture">
-                            <article class="border-circle-blue" form-file-upload="#image-target">
+                            <article class="border-circle-blue" form-file-upload="#image-target" form-file-model="Register.user.photo">
                                 <article class="camera-icon"><i class="icon-camera"></i></article>
                                 <article class="img-circle" id="image-target">
                                     <i class="icon-profile-male form-file-hide"></i>

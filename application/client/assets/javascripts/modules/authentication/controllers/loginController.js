@@ -1,8 +1,10 @@
 angular.module('Authentication').
-    controller('LoginController', ['$scope', '$location', 'UserFactory', function($scope, $location, UserFactory) {
+    controller('LoginController', ['$scope', '$location', 'apiUrl', 'UserFactory', function($scope, $location, apiUrl, UserFactory) {
         var $local = $scope.Login = {};
 
         $local.isFormSubmited = false;
+
+        $local.formUrl = apiUrl + 'auth';
 
         $local.user = {};
 
@@ -15,6 +17,7 @@ angular.module('Authentication').
             sessionStorage.removeItem("user");
             $local.isFormSubmited = true;
             if(isValid) {
+                console.log($local.user)
                 UserFactory($scope).login($local.user, $local.rememberMe, function(error) {
                     if(error)
                         $local.errorLogin = true;
