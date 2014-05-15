@@ -10,7 +10,7 @@
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
-					<article class="img-circle" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
+					<article class="img-circle image-target" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
 	                    <i class="icon-profile-male form-file-hide"></i>
 	                </article>
 					<article class="label hidden-xs">{{Authentication.user.firstname}}</article>
@@ -21,7 +21,7 @@
 					<section id="user-profile">
 						<article class="user-picture">
 							<article class="border-circle-blue">
-								<article class="img-circle" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
+								<article class="img-circle image-target" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
 				                    <i class="icon-profile-male form-file-hide"></i>
 				                </article>
 							</article>

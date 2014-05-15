@@ -17,7 +17,6 @@ angular.module('Authentication').
             sessionStorage.removeItem("user");
             $local.isFormSubmited = true;
             if(isValid) {
-                console.log($local.user)
                 UserFactory($scope).login($local.user, $local.rememberMe, function(error) {
                     if(error)
                         $local.errorLogin = true;

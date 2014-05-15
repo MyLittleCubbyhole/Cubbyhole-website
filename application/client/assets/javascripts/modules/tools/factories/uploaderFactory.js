@@ -23,6 +23,9 @@ angular.module('Tools').
 			file.context.entity.unselectable = false;
 			file.context.$scope.$apply();
 
+			if(data.name)
+				file.context.controller.updatePhoto(data.name);
+
 			delete files[data.id];
 		});
 

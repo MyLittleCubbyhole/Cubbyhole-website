@@ -22,7 +22,28 @@ angular.module('Tools').
                     fileReaders.readAsDataURL(file);
 				}
 
-				self.upload = function() {}
+				self.updatePhoto = function(photo) {
+					var user = UserFactory($scope).get();
+					user.photo = photo;
+					UserFactory($scope).set(user);
+
+					var session = false;
+					user = localStorage.getItem('user');
+					if(!user) {
+						user = sessionStorage.getItem('user');
+						local = true
+					}
+
+					if(user) {
+						user = JSON.parse(user);
+						user.photo = photo;
+						if(session)
+                            sessionStorage.setItem('user', JSON.stringify(user));
+                        else
+                            localStorage.setItem('user', JSON.stringify(user));
+					}
+
+				}
 
 				$scope.toString = function() {
 					return '_formFileUpload';
@@ -64,7 +85,6 @@ angular.module('Tools').
 							token: UserFactory($scope).get().token,
 							uploadPhoto: true
 						};
-
 						UploaderFactory($scope, {local: $local, controller: self, entity: formFile}).add(id, self.files[id]);
 
 						self.fileReaders[id].onload = function(event){
