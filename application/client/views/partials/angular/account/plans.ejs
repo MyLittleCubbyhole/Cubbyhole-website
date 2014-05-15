@@ -1,17 +1,17 @@
-<button>Paypal</button>
-
-<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<form action="<%- paypal.paypalUrl %>" method="post">
     <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="94153-facilitator@supinfo.com">
-    <input type="hidden" name="notify_url" value="http://127.0.0.1:5152">
     <input type="hidden" name="charset" value="utf-8">
-    <input type="hidden" name="return" value="http://127.0.0.1:5152">
-    <input type="hidden" name="cancel_return" value="http://127.0.0.1:5152">
-    <input type="hidden" name="item_name" value="plan">
 
-    <input type="hidden" name="item_number" value="123">
+    <input type="hidden" name="notify_url" value="<%- paypal.notifyUrl %>">
+    <input type="hidden" name="return" value="<%- paypal.returnUrl %>{{Account.user.token}}">
+    <input type="hidden" name="cancel_return" value="<%- paypal.cancelUrl %>{{Account.user.token}}">
+    <input type="hidden" name="business" value="<%- paypal.paypalBusinessEmail %>">
 
-    <input type="hidden" name="amount" value="15">
+    <input type="hidden" name="item_name" ng-value="Plans.selectedPlan.name">
+    <input type="hidden" name="amount" ng-value="Plans.selectedPlan.price">
+    <input type="hidden" name="quantity" ng-value="Plans.selectedPlan.duration">
+    <input type="hidden" name="item_number" ng-value="Plans.selectedPlan.id">
+    <input type="hidden" name="custom" ng-value="Account.user.id">
 
     <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
 </form>

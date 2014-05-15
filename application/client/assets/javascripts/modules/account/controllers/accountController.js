@@ -4,6 +4,8 @@ angular.module('Account').
 
         $local.currentPlan = {};
 
+        $local.user = UserFactory($scope).get();
+
         $scope.$watch(UserFactory($scope).get(), function() {
             DataChartFactory($scope).getActualPlan(function(error, plan) {
                 if (!error && plan) {

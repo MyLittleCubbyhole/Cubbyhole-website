@@ -11,19 +11,16 @@ var fs = require('fs')
 			features: '../partials/ejs/javascripts/features.ejs',
 			core: ''
 		}
-	};
+	}
+,   webUrl = config['web'].protocol + '//' + config['web'].host + ':' + config['web'].port + '/'
+,   webserviceUrl = config['webservice'].protocol + '//' + config['webservice'].host + ':' + config['webservice'].port + '/';
 
-var formRegisterUrl = config['webservice'].protocol + '//'
-    + config['webservice'].host + ':'
-    + config['webservice'].port
-    + '/api/users?redirectSuccess='
-    + encodeURIComponent(config['web'].protocol + '//'
-    + config['web'].host + ':'
-    + config['web'].port + '/home#login')
-    + '&redirectError='
-    + encodeURIComponent(config['web'].protocol + '//'
-    + config['web'].host + ':'
-    + config['web'].port + '/home#register?error');
+var formRegisterUrl = webserviceUrl
+    + 'api/users?redirectSuccess='
+    + encodeURIComponent(webUrl
+    + 'home#login') + '&redirectError='
+    + encodeURIComponent(webUrl
+    + 'home#register?error');
 
 /********************************[    GET   ]********************************/
 
@@ -92,10 +89,23 @@ navigation.get.template = function(request, response) {
 	var path = 'partials/angular/' + request.params[0] + '.ejs';
 	var fullpath = global.paths.views + '/' + path;
 	path = fs.existsSync(fullpath) ? path : '404.ejs';
-	response.render(path);
+    var options = {}
+    if(request.params[0] == 'account/plans')
+        options.paypal = {
+            paypalUrl: config['paypal_url'],
+            notifyUrl: webserviceUrl + 'api/paypalNotify',
+            returnUrl: webUrl + 'account?token=',
+            cancelUrl: webUrl + 'account?token=',
+            paypalBusinessEmail: config['paypal_business_email']
+        };
+
+	response.render(path, options);
 }
 
 /********************************[   POST   ]********************************/
+navigation.post.account = function(request, response) {
+    response.redirect('/account?token=' + request.query.token);
+}
 /********************************[   PUT    ]********************************/
 /********************************[  DELETE  ]********************************/
 /********************************[  DELETE  ]********************************/

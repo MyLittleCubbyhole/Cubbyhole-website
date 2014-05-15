@@ -15,6 +15,7 @@ routing.init = function(app) {
     app.get(/partials\/(.+)/, navigation.get.partial);
     app.get(/templates\/(.+)/, navigation.get.template);
 
+    app.post('/account', filters.tokenInterceptor, navigation.post.account);
 };
 
 module.exports = routing;
