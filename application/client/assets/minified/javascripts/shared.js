@@ -15,6 +15,8 @@ angular.module('Sharing', ['FileManager', 'restangular']);;angular.module('Shari
 
         $local.token = $window.location.pathname.split('/')[2];
 
+        $local.showPreview = false;
+
         $local.getFile = function() {
             if(!$local.file.name && $local.token) {
                 var shared = restangular.one('shared');
@@ -40,6 +42,10 @@ angular.module('Sharing', ['FileManager', 'restangular']);;angular.module('Shari
             if($local.file && $local.token) {
                 $window.location = apiUrl + 'download/shared/' + $local.token;
             }
+        }
+
+        $local.preview = function() {
+            $local.showPreview = !$local.showPreview;
         }
 
         $scope.toString = function() {

@@ -3,9 +3,12 @@ angular.module('Config', []);;angular.module('Config').
 	constant('apiUrl', 'http://127.0.0.1:5150/api/').
     constant('websocketUrl', 'http://127.0.0.1:5150').
     /*/
+	constant('apiUrl', 'https://api.trouducube.com/api/').
+	constant('websocketUrl', 'https://api.trouducube.com').
+	/*
 	constant('apiUrl', 'http://www.pillowrc.com/api/').
-	constant('websocketUrl', 'http://www.pillowrc.com:80').
-	//*/
+    constant('websocketUrl', 'http://www.pillowrc.com:80').
+    //*/
 	constant('socketRoom', '/cubbyhole');;angular.module('Config').
     factory('CountryFactory', function() {
 
@@ -58,7 +61,7 @@ angular.module('Config', []);;angular.module('Config').
 			!socket && init();
 			return socket;
 		};
-	}]);;angular.module('Tools', []);;angular.module('Tools').
+	}]);;angular.module('Tools', ['Websocket', 'ui.select2']);;angular.module('Tools').
 	service('ClassService', function(){
 		this.extend = 	function(parent, child){
 			child.prototype = new parent();
@@ -95,30 +98,69 @@ angular.module('Config', []);;angular.module('Config').
         };
 
     });;angular.module('Tools').
-	directive('select2', function(){
-		return {
-			scope: true,
-			restrict: 'A',
-			link: function($scope, $node, attributes) {
-				$node.select2({
-					width: '250px',
-					minimumInputLength: 2
-				})
+	factory('UploaderFactory', ['WebsocketFactory', function(WebsocketFactory){
+
+		var files = {}
+		,	socket = WebsocketFactory();
+
+		socket.on('upload_next', function(data) {
+			files[data.id].context.entity.size += data['chunkSize'];
+			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
+			files[data.id].context.$scope.$apply();
+			// var chunk = data['chunk'] * 524288
+			// ,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
+			var chunk = data['chunk'] * 1572864
+			,	part = files[data.id].data.slice(chunk, chunk + Math.min(1572864, (files[data.id].data.size - chunk)));
+
+			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
+		});
+
+
+		socket.on('upload_done', function(data){
+			var file = files[data.id];
+			file.context.entity.size += data['chunkSize'];
+			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
+			file.context.entity._id = data._id;
+			file.context.entity.unselectable = false;
+			file.context.$scope.$apply();
+
+			if(data.name)
+				file.context.controller.updatePhoto(data.name);
+
+			delete files[data.id];
+		});
+
+		socket.on('upload_stopped', function(data){
+			console.error("upload stopped - " + data.error);
+			if(files[data.id].context.entity.toString() == 'File')
+				files[data.id].context.entity.remove();
+			else
+				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
+
+			files[data.id].context.$scope.$apply();
+		});
+
+		return function($scope, context) {
+			context = context || {};
+
+			if(!$scope)
+				throw 'a scope must be defined ';
+
+			var prototype = {}
+			,	$node = context.node || {}
+			,	$local = context.local || {}
+			,	entity = context.entity || {}
+			,	controller = context.controller || {};
+
+			var prototype = {};
+
+			prototype.add = function(id, file) {
+				files[id] = { data: file, context: { $local: $local, $scope: $scope, controller: controller, entity: entity } };
 			}
+
+			return prototype;
 		};
-	});;angular.module('Tools').
-	directive('select2Tags', function(){
-		return {
-			scope: true,
-			restrict: 'A',
-			link: function($scope, $node, attributes) {
-				$node.select2({
-					width: '350px',
-					tags: []
-				})
-			}
-		};
-	});;angular.module('Tools').
+	}]);angular.module('Tools').
 	directive('ngRightClick', function($parse) {
 		return function(scope, element, attrs) {
 			var fn = $parse(attrs.ngRightClick);
@@ -258,7 +300,7 @@ angular.module('Config', []);;angular.module('Config').
 			return 'Breadcrumb';
 		}
 	}]);angular.module('Authentication', ['Config', 'Navigation', 'Overlay', 'ngRoute', 'Tools', 'Annyang']);;angular.module('Authentication').
-	controller('AuthenticationController', ['$scope', 'UserFactory', function($scope, UserFactory) {
+	controller('AuthenticationController', ['$scope', 'UserFactory', 'apiUrl', function($scope, UserFactory, apiUrl) {
 		var $local = $scope.Authentication = {};
 
 		var user = localStorage.getItem('user');
@@ -271,6 +313,11 @@ angular.module('Config', []);;angular.module('Config').
 			user = {};
 
 		UserFactory($scope).set(user);
+
+		$local.stylePhoto = {};
+
+		if(user.photo && user.photo != 'null')
+			$local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
 
 		$local.user = user;
 		$local.authenticated = false;
@@ -294,10 +341,12 @@ angular.module('Config', []);;angular.module('Config').
 			return 'Authentication';
 		};
 	}]);angular.module('Authentication').
-    controller('LoginController', ['$scope', '$location', 'UserFactory', function($scope, $location, UserFactory) {
+    controller('LoginController', ['$scope', '$location', 'apiUrl', 'UserFactory', function($scope, $location, apiUrl, UserFactory) {
         var $local = $scope.Login = {};
 
         $local.isFormSubmited = false;
+
+        $local.formUrl = apiUrl + 'auth';
 
         $local.user = {};
 
@@ -323,7 +372,7 @@ angular.module('Config', []);;angular.module('Config').
             return 'Login';
         };
     }]);;angular.module('Authentication').
-    controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', function($scope, $location, CountryFactory, UserFactory) {
+    controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', 'apiUrl', function($scope, $location, CountryFactory, UserFactory, apiUrl) {
         var $local = $scope.Register = {};
 
         $local.isFormSubmited = false;
@@ -331,7 +380,9 @@ angular.module('Config', []);;angular.module('Config').
 
         $local.user = {};
 
-        $local.errorRegister = false;
+        $local.urlRegister = apiUrl + 'users';
+
+        $local.errorRegister = $location.$$url.indexOf('?error') > -1 ? true : false;
 
         $local.countries = CountryFactory($scope).list();
 
@@ -340,17 +391,9 @@ angular.module('Config', []);;angular.module('Config').
             if(isValid) {
                 if($local.user.password === $local.user.password2) {
                     $local.errorPasswordMatch = false;
-                    UserFactory($scope).createUser($local.user, function(error) {
-                        if(error)
-                            $local.errorRegister = true;
-                        else {
-                           $local.errorRegister = false;
-                           $scope.CubbyHome.showLoginModal();
-                        }
-                    });
-                } else {
+                    angular.element('#form-register').submit();
+                } else
                     $local.errorPasswordMatch = true;
-                }
             }
         };
 
@@ -389,6 +432,22 @@ angular.module('Config', []);;angular.module('Config').
                 }).
                 error(function(data, status, headers, config) {
                     callback.call(this, 'registration failed');
+                    console.error(data);
+                });
+            };
+
+            prototype.updateUser = function(user, callback) {
+                var userLocal = prototype.get();
+                $http.put(apiUrl + 'users/' + userLocal.id, user).
+                success(function(data, status, headers, config) {
+                    if(data && data.user && data.user.id) {
+                        callback.call(this, null);
+                    }
+                    else
+                        callback.call(this, 'update failed');
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'update failed');
                     console.error(data);
                 });
             };
@@ -445,16 +504,20 @@ angular.module('Config', []);;angular.module('Config').
 
             prototype.getUsedSizeStorage = function(callback) {
                 var user = prototype.get();
-                $http.get(apiUrl + 'browse/' + user.id + '/size').success(function(sizes) {
-                    var size = 0;
-                    if(sizes && sizes.length > 0)
-                        for(var i = 0; i < sizes.length; i++) 
-                            size += parseInt(sizes[i].size, 10);
-                    callback.call(this, (size>0 ? null : 'no sizes'), size);
-                }).error(function(error) { 
+                if(user !== undefined && user.id) {
+                    $http.get(apiUrl + 'browse/' + user.id + '/size').success(function(sizes) {
+                        var size = 0;
+                        if(sizes && sizes.length > 0)
+                            for(var i = 0; i < sizes.length; i++)
+                                size += parseInt(sizes[i].size, 10);
+                        callback.call(this, (size>0 ? null : 'no sizes'), size);
+                    }).error(function(error) {
+                        callback.call(this, 'no sizes', null);
+                        console.error(error);
+                    });
+                } else {
                     callback.call(this, 'no sizes', null);
-                    console.error(error);
-                });
+                }
             }
 
 
@@ -693,64 +756,6 @@ angular.module('Config', []);;angular.module('Config').
 			return File
 		}]
 	});angular.module('FileManager').
-	factory('UploaderFactory', ['WebsocketFactory', function(WebsocketFactory){
-
-		var files = {}
-		,	socket = WebsocketFactory();
-
-		socket.on('upload_next', function(data) {
-			files[data.id].context.entity.size += data['chunkSize'];
-			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
-			files[data.id].context.$scope.$apply();
-			var chunk = data['chunk'] * 524288
-			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
-
-			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
-		});
-
-
-		socket.on('upload_done', function(data){
-			var file = files[data.id];
-			file.context.entity.size += data['chunkSize'];
-			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
-			file.context.entity._id = data._id;
-			file.context.entity.unselectable = false;
-			file.context.$scope.$apply();
-
-			delete files[data.id];
-		});
-
-		socket.on('upload_stopped', function(data){
-			console.error("upload stopped - " + data.error);
-			if(files[data.id].context.entity.toString() == 'File')
-				files[data.id].context.entity.remove();
-			else
-				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
-
-			files[data.id].context.$scope.$apply();
-		});
-
-		return function($scope, context) {
-			context = context || {};
-
-			if(!$scope)
-				throw 'a scope must be defined ';
-
-			var prototype = {}
-			,	$node = context.node || {}
-			,	$local = context.local || {}
-			,	entity = context.entity || {}
-			,	controller = context.controller || {};
-
-			var prototype = {};
-
-			prototype.add = function(id, file) {
-				files[id] = { data: file, context: { $local: $local, $scope: $scope, controller: controller, entity: entity } };
-			}
-
-			return prototype;
-		};
-	}]);angular.module('FileManager').
 	factory('FileExtensionFactory', function() {
 
 		/**
@@ -1180,10 +1185,10 @@ angular.module('Config', []);;angular.module('Config').
                 });
             }
 
-            prototype.checkUserExists = function(email, callback) {
-                restangular.one('users').one(email).one('exists').get().then(function(data) {
-                    if(data.information == 'user exists')
-                        callback.call(this, null, true)
+            prototype.getByEmail = function(email, callback) {
+                restangular.one('users').one(email).get().then(function(data) {
+                    if(data && data.id)
+                        callback.call(this, null, data)
                     else
                         callback.call(this, data.information, false)
                 }, function(error) {
@@ -1219,7 +1224,7 @@ angular.module('Config', []);;angular.module('Config').
             return prototype;
         };
     }]);angular.module('FileManager').
-	controller('FileManagerController', ['$scope', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -1237,7 +1242,10 @@ angular.module('Config', []);;angular.module('Config').
         $local.urlSharing = null;
         $local.folderSharing = false;
 
-		ItemFactory($scope, {local: $local}).load();
+
+        if($location.$$absUrl.indexOf('/shared/') == -1) {
+    		ItemFactory($scope, {local: $local}).load();
+        }
 
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
@@ -1451,13 +1459,15 @@ angular.module('Config', []);;angular.module('Config').
 			return 'FileManager';
 		}
 	}]);angular.module('FileManager').
-    controller('PreviewController', ['$scope', 'apiUrl', 'AuthenticationFactory', 'UserFactory', 'Restangular', function($scope, apiUrl, AuthenticationFactory, UserFactory, restangular) {
+    controller('PreviewController', ['$scope', '$location', 'apiUrl', 'AuthenticationFactory', 'UserFactory', 'Restangular', function($scope, $location, apiUrl, AuthenticationFactory, UserFactory, restangular) {
         var $local = $scope.Preview = {};
         $local.totalSize = 0;
 
-        UserFactory($scope).getUsedSizeStorage(function(error, data) {
-            $local.totalSize = data;
-        });
+        if($location.$$absUrl.indexOf('/shared/') == -1) {
+            UserFactory($scope).getUsedSizeStorage(function(error, data) {
+                $local.totalSize = data;
+            });
+        }
         $local.getRessourceUrl = function() {
 
             var url = "";
@@ -1481,7 +1491,7 @@ angular.module('Config', []);;angular.module('Config').
             return 'Preview';
         };
     }]);;angular.module('FileManager').
-    controller('SharingController', ['$scope', 'SharingFactory', function($scope, SharingFactory) {
+    controller('SharingController', ['$scope', 'apiUrl', 'UserFactory', 'SharingFactory', function($scope, apiUrl, UserFactory, SharingFactory) {
         var $local = $scope.Sharing = {};
 
         $local.usersWebservice = [];
@@ -1506,12 +1516,16 @@ angular.module('Config', []);;angular.module('Config').
 
         $local.addUser = function(event) {
             if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
-                SharingFactory($scope, {local: $local}).checkUserExists($local.email, function(error, exists) {
-                    if(!error && exists)
-                        $local.users.push({
+                SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
+                    if(!error && user) {
+                        var userData = {
                             email: $local.email,
                             right: 'R'
-                        })
+                        };
+                        if(user.photo && user.photo != 'null')
+                            userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
+                        $local.users.push(userData);
+                    }
 
                     $local.email = "";
                 });
@@ -1662,7 +1676,7 @@ angular.module('Config', []);;angular.module('Config').
 
 					self.fileReaders[id].onload = function(event){
 						var data = event.target.result
-						socket.emit('upload', { data: data, name: self.files[id].name });
+						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
 
 					}
 
@@ -1831,10 +1845,6 @@ angular.module('Config', []);;angular.module('Config').
 				self.fileReaders = {};
 				self.files = {};
 
-				$scope.$on('upload_file', function() {
-					$local.selectFile();
-				});
-
 				$local.selectFile = function() {
 					self.$template.click();
 				}
@@ -1852,13 +1862,12 @@ angular.module('Config', []);;angular.module('Config').
 				self.$template = $node.parent().find('[type=file]');
 
 				self.$template[0].addEventListener('change', function(event){
-					var id = (Math.random() + '').replace('0.', '')
-					,	nbPathPart = $scope.FileManager.pathItems.length;
+					var id = (Math.random() + '').replace('0.', '');
 					self.path = $scope.FileManager.currentPath;
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
-					console.log(self.path)
+
 					if(self.path.substring(1) == '/Shared')
 						return true;
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
@@ -1878,12 +1887,12 @@ angular.module('Config', []);;angular.module('Config').
 					self.fileReaders[id].onload = function(event){
 
 						var data = event.target.result
-						socket.emit('upload', { data: data, name: self.files[id].name });
+						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
 					}
 
 					socket.emit('upload_init', {
 						id: id,
-						owner: $scope.FileManager.folderOwner, 
+						owner: $scope.FileManager.folderOwner,
 						name: self.files[id].name,
 						size: self.files[id].size,
 						type: self.files[id].type,
@@ -1943,20 +1952,53 @@ angular.module('Config', []);;angular.module('Config').
 				}
 			}
 		};
-	});;angular.module('Navigation', []);;angular.module('Navigation').
-	controller('NavigationController', ['$scope', '$window', '$location', 'UserFactory', function($scope, $window, $location, UserFactory){
+	});;angular.module('Navigation', ['duScroll']);;angular.module('Navigation').
+	controller('NavigationController', ['$scope', '$window', '$location', 'UserFactory', '$document', function($scope, $window, $location, UserFactory, $document){
 		var $local = $scope.Navigation = {};
 
-		$local.goto = function(path) {
-
+		$local.goto = function(path, container) {
 			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().token : "";
+			var pathView = path.slice(0, path.indexOf("#"));
+			var pathAngular = path.slice(path.indexOf("#"));
+			// console.log(path)
+			if(path.indexOf("/account") > -1)
+				path = pathView + "?token=" + UserFactory($scope).get().token + pathAngular;
+			// console.log(pathAngular)
+			
+			if(path.indexOf("/home") > -1 &&  $window.location.pathname == '/home') {
 
-			$window.location = path;
+				$location.path('/'+pathAngular.substring(1));
+				var target = angular.element(pathAngular)
+				,	container = container ? angular.element(container) : $document;
+				if(target.length>0) {
+					// console.log($location)
+					$local.scrollTo(target, container);
+				}
+				else
+					container.scrollTop(0, 1000);
+			}
+			else
+				$window.location = path;
 		};
 
 		$local.isSelected = function(pathname, anchor) {
+			anchor = anchor || '/';
 			return $location.$$path == anchor && $window.location.pathname == pathname;
 		}
+
+		$local.scrollTo = function($node, $container) {
+			$container = $container || $document
+			$container.scrollToElement($node, 0, 1000).then(function() {
+				console && console.log('You just scrolled to the top!');
+			});
+		}
+
+		$local.isOnShared = function() {
+			return ($location.$$absUrl.indexOf("/shared/") > -1);
+		}
+
+		if($window.location.pathname == '/home' && $location.$$path.length>0)
+			$local.goto('/home#' + $location.$$path.substring(1), '#bloc-container')
 
 		$scope.toString = function() {
 			return 'Navigation';

@@ -41,7 +41,7 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
             return 'Account';
         };
     }]);angular.module('Account').
-	controller('AccoutnNavigationController', ['$scope', '$location', function($scope, $location){
+	controller('AccountNavigationController', ['$scope', '$location', function($scope, $location){
 		var $local = $scope.AccountNavigation = {};
 
 		$local.goto = function(target) {
@@ -52,8 +52,62 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 			return 'AccountNavigation';
 		}
 	}]);angular.module('Account').
-	controller('ConfigurationController', ['$scope', function($scope){
+	controller('ConfigurationController', ['$scope', 'CountryFactory', 'apiUrl', 'UserFactory', function($scope, CountryFactory, apiUrl, UserFactory){
 		var $local = $scope.Configuration = {};
+
+        $local.isFormSubmited = false;
+        $local.errorNewPasswordMatch = false;
+
+        $local.user = {};
+
+        $local.errorUpdate = false;
+        $local.updateSuccess = false;
+
+        $local.countries = CountryFactory($scope).list();
+
+        var user = UserFactory($scope).get();
+        user.birthdate = new Date(user.birthdate);
+        user.birthdate = user.birthdate.getDate() + '/' + (user.birthdate.getMonth() + 1) + '/' + user.birthdate.getFullYear();
+
+        $local.user = {
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            birthdate: user.birthdate,
+            country: user.country,
+            photo: user.photo
+        };
+
+        if(user.photo && user.photo != 'null')
+            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
+
+        $local.save = function(isValid) {
+            $local.isFormSubmited = true;
+            if(isValid) {
+                if(($local.user.newPassword === undefined || $local.user.newPassword === '') || ($local.user.newPassword !== undefined && $local.user.newPassword !== '' && $local.user.newPassword == $local.user.newPassword2)) {
+                    $local.errorNewPasswordMatch = false;
+
+                    delete($local.user.newPassword2);
+
+                    UserFactory($scope).updateUser($local.user, function(error) {
+                        if(error)
+                            $local.errorUpdate = true;
+                        else {
+                            $local.updateSuccess = true;
+                            $local.errorUpdate = false;
+                            delete($local.user.password);
+                            delete($local.user.newPassword);
+                            delete($local.user.newPassword2);
+                            $local.isFormSubmited = false;
+                            $scope.form.password.$dirty = false;
+                            $scope.form.password.$invalid = false;
+                        }
+                    });
+                } else {
+                    $local.errorNewPasswordMatch = true;
+                }
+            }
+        };
 
 		$scope.toString = function() {
 			return 'Configuration';
