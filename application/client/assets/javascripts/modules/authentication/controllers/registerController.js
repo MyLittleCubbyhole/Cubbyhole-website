@@ -9,7 +9,7 @@ angular.module('Authentication').
 
         $local.urlRegister = apiUrl + 'users';
 
-        $local.errorRegister = false;
+        $local.errorRegister = $location.$$url.indexOf('?error') > -1 ? true : false;
 
         $local.countries = CountryFactory($scope).list();
 

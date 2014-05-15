@@ -16,10 +16,14 @@ var fs = require('fs')
 var formRegisterUrl = config['webservice'].protocol + '//'
     + config['webservice'].host + ':'
     + config['webservice'].port
-    + '/api/users?redirect='
+    + '/api/users?redirectSuccess='
     + encodeURIComponent(config['web'].protocol + '//'
     + config['web'].host + ':'
-    + config['web'].port + '/home#login');
+    + config['web'].port + '/home#login')
+    + '&redirectError='
+    + encodeURIComponent(config['web'].protocol + '//'
+    + config['web'].host + ':'
+    + config['web'].port + '/home#register?error');
 
 /********************************[    GET   ]********************************/
 
