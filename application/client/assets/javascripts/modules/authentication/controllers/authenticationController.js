@@ -13,8 +13,10 @@ angular.module('Authentication').
 
 		UserFactory($scope).set(user);
 
+		$local.stylePhoto = {};
+
 		if(user.photo && user.photo != 'null')
-			user.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run';
+			$local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
 
 		$local.user = user;
 		$local.authenticated = false;

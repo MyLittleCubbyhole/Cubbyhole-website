@@ -7,7 +7,7 @@
                 </section>
                 <i class="close-icon icon-cross" ng-click="_modal.close()"></i>
                 <section class="register-container scroll-bar-container" scroll-bar>
-                    <form name="form" method="POST" action="http://127.0.0.1:5150/api/users" enctype="multipart/form-data" class="form" novalidate>
+                    <form id="form-register" name="form" method="POST" action="<%- formRegisterUrl %>" enctype="multipart/form-data" class="form" novalidate>
 
                         <header>SIGN IN</header>
 
@@ -122,7 +122,9 @@
                                     <label for="input-country-register" class="label col col-4">Country</label>
                                     <article class="col col-8">
                                         <label class="input" ng-class="{'state-error': ((form.country.$dirty || Register.isFormSubmited) && form.country.$invalid)}">
-                                            <select id="input-country-register" select2 ng-model="Register.user.country" name="country" ng-options="country.name as country.name for country in Register.countries" required></select>
+                                            <select id="input-country-register" ui-select2 name="country" ng-model="Register.user.country" required>
+                                                <option ng-repeat="country in Register.countries" value="{{country.name}}">{{country.name}}</option>
+                                            </select>
                                         </label>
                                         <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
                                             <article class="note note-error" ng-show="form.country.$error.required">Fill your country.</article>
@@ -137,7 +139,7 @@
 
                         </fieldset>
                         <section class="buttons">
-                            <button class="button green register google-font" type="submit"><i class="icon-user"></i>SIGN IN</button>
+                            <section class="button green register google-font" ng-click="Register.save(form.$valid)"><i class="icon-user"></i>SIGN IN</section>
                         </section>
                     </form>
                 </section>

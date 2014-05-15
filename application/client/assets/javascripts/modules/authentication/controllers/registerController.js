@@ -1,11 +1,13 @@
 angular.module('Authentication').
-    controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', function($scope, $location, CountryFactory, UserFactory) {
+    controller('RegisterController', ['$scope', '$location', 'CountryFactory', 'UserFactory', 'apiUrl', function($scope, $location, CountryFactory, UserFactory, apiUrl) {
         var $local = $scope.Register = {};
 
         $local.isFormSubmited = false;
         $local.errorPasswordMatch = false;
 
         $local.user = {};
+
+        $local.urlRegister = apiUrl + 'users';
 
         $local.errorRegister = false;
 
@@ -16,17 +18,9 @@ angular.module('Authentication').
             if(isValid) {
                 if($local.user.password === $local.user.password2) {
                     $local.errorPasswordMatch = false;
-                    UserFactory($scope).createUser($local.user, function(error) {
-                        if(error)
-                            $local.errorRegister = true;
-                        else {
-                           $local.errorRegister = false;
-                           $scope.CubbyHome.showLoginModal();
-                        }
-                    });
-                } else {
+                    angular.element('#form-register').submit();
+                } else
                     $local.errorPasswordMatch = true;
-                }
             }
         };
 

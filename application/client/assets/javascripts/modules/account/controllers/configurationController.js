@@ -1,5 +1,5 @@
 angular.module('Account').
-	controller('ConfigurationController', ['$scope', 'CountryFactory', 'UserFactory', function($scope, CountryFactory, UserFactory){
+	controller('ConfigurationController', ['$scope', 'CountryFactory', 'apiUrl', 'UserFactory', function($scope, CountryFactory, apiUrl, UserFactory){
 		var $local = $scope.Configuration = {};
 
         $local.isFormSubmited = false;
@@ -21,8 +21,12 @@ angular.module('Account').
             firstname: user.firstname,
             lastname: user.lastname,
             birthdate: user.birthdate,
-            country: user.country
-        }
+            country: user.country,
+            photo: user.photo
+        };
+
+        if(user.photo && user.photo != 'null')
+            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
 
         $local.save = function(isValid) {
             $local.isFormSubmited = true;

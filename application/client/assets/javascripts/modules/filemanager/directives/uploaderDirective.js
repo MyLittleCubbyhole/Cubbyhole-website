@@ -93,7 +93,7 @@ angular.module('FileManager').
 
 					self.fileReaders[id].onload = function(event){
 						var data = event.target.result
-						socket.emit('upload', { data: data, name: self.files[id].name });
+						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
 
 					}
 

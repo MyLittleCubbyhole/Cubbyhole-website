@@ -70,10 +70,15 @@
 }
 
 .form .user-picture .img-circle img {
-    height: 116px;
     margin: auto;
     display: block;
     background-color: black;
+    height: 164px;
+    width: auto;
+}
+.form .user-picture .img-circle img {
+    height: auto;
+    width: 164px;
 }
 .form .user-picture .img-circle i {
     font-size: 87px;
