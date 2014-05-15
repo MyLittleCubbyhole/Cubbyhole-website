@@ -3,11 +3,11 @@ angular.module('Account').
 		var $local = $scope.Plans = {};
 
         $local.selectedPlan = {
-            id: 1,
-            price: 0.99,
+            id: 2,
+            price: 5.00,
             name: 'Plan ' + 'yolo',
             storage: 10737418240,
-            duration: 1,
+            duration: 5,
             uploadBandwidth: 2097152,
             downloadBandwith: 2097152,
             quota: 104857600,
