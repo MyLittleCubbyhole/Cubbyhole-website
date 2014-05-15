@@ -27,8 +27,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js",
 					"application/client/assets/javascripts/libraries/shapeHover/snap.svg.js",
 					"application/client/assets/javascripts/libraries/shapeHover/hovers.js",
-					"application/client/assets/javascripts/libraries/annyang/annyang.js",
-					"application/client/assets/minified/javascripts/libraries.js"
+					"application/client/assets/javascripts/libraries/annyang/annyang.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
 			},
