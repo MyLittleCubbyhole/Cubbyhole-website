@@ -25,7 +25,7 @@ var formRegisterUrl = config['webservice'].protocol + '//'
 
 navigation.get.index = function(request, response) {
 	options.angular = { module: 'CubbyHome', controller: 'CubbyHomeController'};
-	options.headers = { title: 'Accueil', description: 'Cubbyhole' };
+	options.headers = { title: 'Index', description: 'Cubbyhole - Index' };
 	options.javascripts.core = '../partials/ejs/javascripts/core/home.ejs';
     options.formRegisterUrl = formRegisterUrl;
 	response.render('home', options);
@@ -51,23 +51,30 @@ navigation.get.activation = function(request, response) {
 
 navigation.get.account = function(request, response) {
     options.angular = { module: 'Account', controller: 'AccountController' };
-    options.headers = { title: 'Gestionnaire de compte', description: 'Cubbyhole' };
+    options.headers = { title: 'Account Management', description: 'Cubbyhole - Account Management' };
     options.javascripts.core = '../partials/ejs/javascripts/core/account.ejs';
     response.render('account', options);
 }
 
 navigation.get.filemanager = function(request, response) {
 	options.angular = { module: 'CubbyHole', controller: 'CubbyHoleController' };
-	options.headers = { title: 'Gestionnaire de fichier', description: 'Cubbyhole' };
+	options.headers = { title: 'File Manager', description: 'Cubbyhole - File Manager' };
 	options.javascripts.core = '../partials/ejs/javascripts/core/filemanager.ejs';
 	response.render('fileManager', options);
 }
 
 navigation.get.shared = function(request, response) {
     options.angular = { module: 'Sharing', controller: 'SharingController' };
-    options.headers = { title: 'Fichier partagé', description: 'Cubbyhole' };
+    options.headers = { title: 'Shared file', description: 'Cubbyhole - Shared File' };
     options.javascripts.core = '../partials/ejs/javascripts/core/shared.ejs';
     response.render('shared', options);
+}
+
+navigation.get.admin = function(request, response) {
+    options.angular = { module: 'Administration', controller: 'AdministrationController' };
+    options.headers = { title: 'Administration', description: 'Cubbyhole - Administration' };
+    options.javascripts.core = '../partials/ejs/javascripts/core/admin.ejs';
+    response.render('admin', options);
 }
 
 navigation.get.partial = function(request, response) {
