@@ -33,10 +33,10 @@ angular.module('FileManager').
                 });
             }
 
-            prototype.checkUserExists = function(email, callback) {
-                restangular.one('users').one(email).one('exists').get().then(function(data) {
-                    if(data.information == 'user exists')
-                        callback.call(this, null, true)
+            prototype.getByEmail = function(email, callback) {
+                restangular.one('users').one(email).get().then(function(data) {
+                    if(data && data.id)
+                        callback.call(this, null, data)
                     else
                         callback.call(this, data.information, false)
                 }, function(error) {

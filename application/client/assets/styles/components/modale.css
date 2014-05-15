@@ -184,6 +184,12 @@
     display: block;
     background-color: black;
 }
+.user-share .user-icon .img-circle i {
+   color: #727272;
+    font-size: 28px;
+    display: block;
+    margin-top: 4px;
+}
 
 .users-share .user-share .user-email {
     display: inline-block;

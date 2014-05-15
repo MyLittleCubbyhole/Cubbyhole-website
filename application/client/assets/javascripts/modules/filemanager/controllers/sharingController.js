@@ -1,5 +1,5 @@
 angular.module('FileManager').
-    controller('SharingController', ['$scope', 'SharingFactory', function($scope, SharingFactory) {
+    controller('SharingController', ['$scope', 'apiUrl', 'UserFactory', 'SharingFactory', function($scope, apiUrl, UserFactory, SharingFactory) {
         var $local = $scope.Sharing = {};
 
         $local.usersWebservice = [];
@@ -24,12 +24,16 @@ angular.module('FileManager').
 
         $local.addUser = function(event) {
             if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
-                SharingFactory($scope, {local: $local}).checkUserExists($local.email, function(error, exists) {
-                    if(!error && exists)
-                        $local.users.push({
+                SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
+                    if(!error && user) {
+                        var userData = {
                             email: $local.email,
                             right: 'R'
-                        })
+                        };
+                        if(user.photo && user.photo != 'null')
+                            userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
+                        $local.users.push(userData);
+                    }
 
                     $local.email = "";
                 });
