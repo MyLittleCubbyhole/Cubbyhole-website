@@ -34,7 +34,7 @@ section#global-nav #user-profile article.border-circle-blue {
     height: 148px;
     margin-left: 25px;
     margin-top: 20px;
-    border: 4px solid #9ad6f2;
+    border: 3px solid #9ad6f2;
     position: relative;
     border-radius: 50%;
 }
@@ -56,14 +56,20 @@ section#global-nav #user-profile article.border-circle-blue {
 }
 
 section#global-nav #user-profile .img-circle {
-    width: 140px;
-    height: 140px;
+    width: 142px;
+    height: 142px;
     margin: 0px;
     border: 5px solid white;
 }
 
 section#global-nav #user-profile .img-circle img {
-    height: 130px;
+    height: 142px;
+    width: auto;
+}
+
+section#global-nav #user-profile .img-circle img {
+    height: auto;
+    width: 142px;
 }
 
 #user-card article.user-firstname {
@@ -134,8 +140,8 @@ section#global-nav #user-profile .img-circle img {
 }
 
 #user-card #user-navigation .user-nav-options {
-    width: 50px;  
-    height: 50px;  padding: 0;  text-align: center;  vertical-align: middle;  
+    width: 50px;
+    height: 50px;  padding: 0;  text-align: center;  vertical-align: middle;
     font-size: 24px;  border-radius: 50%;
     color: white;
     background-color: #A2D5ED;

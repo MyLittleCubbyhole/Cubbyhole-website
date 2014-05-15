@@ -2,6 +2,7 @@ var fs = require('fs')
 ,	_ = require('lodash')
 ,	navigation 	= { get: {}, post: {}, put: {}, delete: {}, redirect: {} }
 ,   http = require(global.paths.server + '/features/tools/http/core')
+,   config = require(global.paths.server + '/config/core').get()
 ,	options	= {
 		environment: global.environment,
 		angular: {}, headers: {}, fonts: {}, content: {}, footer: {},
@@ -12,12 +13,21 @@ var fs = require('fs')
 		}
 	};
 
+var formRegisterUrl = config['webservice'].protocol + '//'
+    + config['webservice'].host + ':'
+    + config['webservice'].port
+    + '/api/users?redirect='
+    + encodeURIComponent(config['web'].protocol + '//'
+    + config['web'].host + ':'
+    + config['web'].port + '/home#login');
+
 /********************************[    GET   ]********************************/
 
 navigation.get.index = function(request, response) {
 	options.angular = { module: 'CubbyHome', controller: 'CubbyHomeController'};
 	options.headers = { title: 'Index', description: 'Cubbyhole - Index' };
 	options.javascripts.core = '../partials/ejs/javascripts/core/home.ejs';
+    options.formRegisterUrl = formRegisterUrl;
 	response.render('home', options);
 }
 

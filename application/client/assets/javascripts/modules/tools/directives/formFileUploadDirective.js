@@ -1,5 +1,5 @@
 angular.module('Tools').
-	directive('formFileUpload', ['$compile', function($compile){
+	directive('formFileUpload', ['$compile', 'WebsocketFactory', 'UserFactory', 'UploaderFactory', function($compile, WebsocketFactory, UserFactory, UploaderFactory){
 		return {
 			scope: true,
 			controller: function($scope) {
@@ -22,6 +22,8 @@ angular.module('Tools').
                     fileReaders.readAsDataURL(file);
 				}
 
+				self.upload = function() {}
+
 				$scope.toString = function() {
 					return '_formFileUpload';
 				}
@@ -32,7 +34,8 @@ angular.module('Tools').
 				var $local = $scope._formFileUpload
 				,	formFileModel = attributes.formFileModel || ''
 				, 	formFileName = attributes.formFileName || ''
-				,	$parent = $node.parent();
+				,	$parent = $node.parent()
+				,	socket = WebsocketFactory();
 
 				self.template = $compile('<input type="file" name="'+(formFileName ? formFileName : 'form-file-upload')+'" ng-model="'+ formFileModel +'" style="display:none;"/>')($scope);
 
@@ -45,6 +48,33 @@ angular.module('Tools').
 
 				self.$input.bind('change', function(event) {
 					self.$target && self.readImage(event.target.files[0]);
+
+					if(typeof attributes.formFileActiveUpload !== 'undefined') {
+
+						var id = (Math.random() + '').replace('0.', '');
+						self.files[id] = event.target.files[0];
+						self.files[id].sizeAdded = 0;
+						self.fileReaders[id] = new FileReader();
+
+						var formFile = {
+							id: id,
+							name: self.files[id].name,
+							size: self.files[id].size,
+							type: self.files[id].type,
+							token: UserFactory($scope).get().token,
+							uploadPhoto: true
+						};
+
+						UploaderFactory($scope, {local: $local, controller: self, entity: formFile}).add(id, self.files[id]);
+
+						self.fileReaders[id].onload = function(event){
+
+							var data = event.target.result
+							socket.emit('upload', { data: data, name: self.files[id].name, id: id });
+						}
+
+						socket.emit('upload_init', formFile);
+					}
 				});
 			}
 		};

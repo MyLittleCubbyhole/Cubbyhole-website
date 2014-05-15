@@ -10,10 +10,9 @@
 			</article>
 			<article class="option authentication" ng-if="Authentication.user.firstname">
 				<section class="button-profile" ng-click="Authentication.open();">
-					<article class="img-circle">
-						<img ng-if="Authentication.user.photo && Authentication.user.photo.indexOf('http') > -1" ng-src="{{Authentication.user.photo}}" alt="profile image">
-						<i ng-if="!Authentication.user.photo || Authentication.user.photo.indexOf('http') == -1" class="icon-profile-male"></i>
-					</article>
+					<article class="img-circle" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
+	                    <i class="icon-profile-male form-file-hide"></i>
+	                </article>
 					<article class="label hidden-xs">{{Authentication.user.firstname}}</article>
 				</section>
 
@@ -22,10 +21,9 @@
 					<section id="user-profile">
 						<article class="user-picture">
 							<article class="border-circle-blue">
-								<article class="img-circle">
-									<img ng-if="Authentication.user.photo && Authentication.user.photo.indexOf('http') > -1" ng-src="{{Authentication.user.photo}}" alt="profile picture">
-									<i ng-if="!Authentication.user.photo || Authentication.user.photo.indexOf('http') == -1" class="icon-profile-male"></i>
-								</article>
+								<article class="img-circle" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
+				                    <i class="icon-profile-male form-file-hide"></i>
+				                </article>
 							</article>
 						</article>
 						<article class="user-info">

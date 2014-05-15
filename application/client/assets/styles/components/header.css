@@ -149,9 +149,14 @@ section#global-nav .img-circle {
 
 section#global-nav .img-circle img {
 	height: 40px;
+	width: auto;
 	margin: auto;
 	display: block;
 	background-color: black;
+}
+section#global-nav .img-circle img {
+	height: auto;
+	width: 40px;
 }
 
 section#global-nav  #logo-container {

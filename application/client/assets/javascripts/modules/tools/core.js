@@ -1,1 +1,1 @@
-angular.module('Tools', ['Websocket']);
+angular.module('Tools', ['Websocket', 'ui.select2']);
