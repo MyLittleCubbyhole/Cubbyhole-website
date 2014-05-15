@@ -1,1 +1,1 @@
-angular.module('Navigation', []);
+angular.module('Navigation', ['duScroll']);

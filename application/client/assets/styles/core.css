@@ -61,16 +61,16 @@ section#body {
 
 #bloc-container {
     height: 100%;
-    width: 100%;
-    overflow-y: hidden;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    /*width: 100%;*/
+    overflow-y: auto;
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
 }
 
 #bloc-container .bloc {
     height: 100%;
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     width: 100%;
 }
 

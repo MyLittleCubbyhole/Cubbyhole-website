@@ -23,6 +23,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/customScrollBar/customScrollBar.js",
 					"application/client/assets/javascripts/libraries/zeroClipboard/zeroClipboard.js",
 					"application/client/assets/javascripts/libraries/ng-clip/ng-clip.js",
+					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js.js",
 					"application/client/assets/javascripts/libraries/annyang/annyang.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
@@ -127,7 +128,19 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/sharing/controllers/sharingController.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/shared.js'
+			},
+			modules_administration: {
+				src: [
+					"/javascripts/modules/administration/core.js",
+					"/javascripts/modules/administration/configs/administrationConfig.js",
+					"/javascripts/modules/administration/controllers/administrationController.js",
+					"/javascripts/modules/administration/controllers/administrationNavigationController.js"					
+				],
+				dest: 'application/client/assets/minified/javascripts/administration.js'
 			}
+
+
+
 		},
 
 		cssmin: {
@@ -169,6 +182,7 @@ module.exports = function(grunt) {
 		'concat:modules_filemanager',
 		'concat:modules_home',
 		'concat:modules_shared',
+		'concat:modules_administration',
 		'cssmin'
 	])
 
