@@ -62,42 +62,6 @@ angular.module('Config', []);;angular.module('Config').
 			return socket;
 		};
 	}]);;angular.module('Tools', ['Websocket', 'ui.select2']);;angular.module('Tools').
-	service('ClassService', function(){
-		this.extend = 	function(parent, child){
-			child.prototype = new parent();
-			child.constructor = child;
-		}
-	});;angular.module('Tools').
-    service('FormatSizeService', function() {
-        this.format = function(input, ceil) {
-            var out = "";
-            var size = parseInt(input, 10);
-
-            if(isNaN(size)) return "";
-
-            var unit = ["oct","Ko","Mo","Go","To"];
-            var i = 0;
-            while (size >= 1024) {
-                i++;
-                size = size/1024;
-            };
-
-            if(size == 0)
-                out = 0;
-            else {
-                out = size.toFixed(2);
-                out.slice(-1) == "0" ? out = out.slice(0, -1) : out;
-                out.slice(-1) == "0" ? out = out.slice(0, -2) : out;
-                if(ceil)
-                    out = Math.round(parseFloat(out, 10));
-            };
-
-            out += ' ' + unit[i];
-
-            return out;
-        };
-
-    });;angular.module('Tools').
 	factory('UploaderFactory', ['WebsocketFactory', function(WebsocketFactory){
 
 		var files = {}
@@ -161,6 +125,42 @@ angular.module('Config', []);;angular.module('Config').
 			return prototype;
 		};
 	}]);angular.module('Tools').
+	service('ClassService', function(){
+		this.extend = 	function(parent, child){
+			child.prototype = new parent();
+			child.constructor = child;
+		}
+	});;angular.module('Tools').
+    service('FormatSizeService', function() {
+        this.format = function(input, ceil) {
+            var out = "";
+            var size = parseInt(input, 10);
+
+            if(isNaN(size)) return "";
+
+            var unit = ["oct","Ko","Mo","Go","To"];
+            var i = 0;
+            while (size >= 1024) {
+                i++;
+                size = size/1024;
+            };
+
+            if(size == 0)
+                out = 0;
+            else {
+                out = size.toFixed(2);
+                out.slice(-1) == "0" ? out = out.slice(0, -1) : out;
+                out.slice(-1) == "0" ? out = out.slice(0, -2) : out;
+                if(ceil)
+                    out = Math.round(parseFloat(out, 10));
+            };
+
+            out += ' ' + unit[i];
+
+            return out;
+        };
+
+    });;angular.module('Tools').
 	directive('ngRightClick', function($parse) {
 		return function(scope, element, attrs) {
 			var fn = $parse(attrs.ngRightClick);
@@ -271,6 +271,106 @@ angular.module('Config', []);;angular.module('Config').
             }
         };
     }]);;angular.module('Tools').
+	directive('formFileUpload', ['$compile', 'WebsocketFactory', 'UserFactory', 'UploaderFactory', function($compile, WebsocketFactory, UserFactory, UploaderFactory){
+		return {
+			scope: true,
+			controller: function($scope) {
+				var $local = $scope._formFileUpload = {}
+				,	self = this;
+
+				self.template = '';
+				self.$input = null;
+				self.$target = null;
+				self.fileReaders = {};
+				self.files = {};
+				self.path;
+
+				self.readImage = function(file) {
+					var fileReaders = new FileReader();
+					fileReaders.onload = function(event){
+						self.$target.css({ "background-image":"url("+ event.target.result +")" });
+						self.$target.addClass('form-file-preview');
+					}
+                    fileReaders.readAsDataURL(file);
+				}
+
+				self.updatePhoto = function(photo) {
+					var user = UserFactory($scope).get();
+					user.photo = photo;
+					UserFactory($scope).set(user);
+
+					var session = false;
+					user = localStorage.getItem('user');
+					if(!user) {
+						user = sessionStorage.getItem('user');
+						local = true
+					}
+
+					if(user) {
+						user = JSON.parse(user);
+						user.photo = photo;
+						if(session)
+                            sessionStorage.setItem('user', JSON.stringify(user));
+                        else
+                            localStorage.setItem('user', JSON.stringify(user));
+					}
+
+				}
+
+				$scope.toString = function() {
+					return '_formFileUpload';
+				}
+			},
+			require: 'formFileUpload',
+			restrict: 'A',
+			link: function($scope, $node, attributes, self) {
+				var $local = $scope._formFileUpload
+				,	formFileModel = attributes.formFileModel || ''
+				, 	formFileName = attributes.formFileName || ''
+				,	$parent = $node.parent()
+				,	socket = WebsocketFactory();
+
+				self.template = $compile('<input type="file" name="'+(formFileName ? formFileName : 'form-file-upload')+'" ng-model="'+ formFileModel +'" style="display:none;"/>')($scope);
+
+				self.$input = angular.element(self.template).appendTo($parent);
+				self.$target = angular.element(attributes.formFileUpload);
+
+				$node.bind('click', function() {
+					self.$input.click();
+				});
+
+				self.$input.bind('change', function(event) {
+					self.$target && self.readImage(event.target.files[0]);
+
+					if(typeof attributes.formFileActiveUpload !== 'undefined') {
+
+						var id = (Math.random() + '').replace('0.', '');
+						self.files[id] = event.target.files[0];
+						self.files[id].sizeAdded = 0;
+						self.fileReaders[id] = new FileReader();
+
+						var formFile = {
+							id: id,
+							name: self.files[id].name,
+							size: self.files[id].size,
+							type: self.files[id].type,
+							token: UserFactory($scope).get().token,
+							uploadPhoto: true
+						};
+						UploaderFactory($scope, {local: $local, controller: self, entity: formFile}).add(id, self.files[id]);
+
+						self.fileReaders[id].onload = function(event){
+
+							var data = event.target.result
+							socket.emit('upload', { data: data, name: self.files[id].name, id: id });
+						}
+
+						socket.emit('upload_init', formFile);
+					}
+				});
+			}
+		};
+	}]);;angular.module('Tools').
     filter('ItemSizeFilter', ['FormatSizeService', function(FormatSizeService) {
         return function(input) {
             return FormatSizeService.format(input);
