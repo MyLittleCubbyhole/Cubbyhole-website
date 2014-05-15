@@ -47,8 +47,8 @@ angular.module('FileManager').
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
 
-					// if($scope._item.item._id.substring(1) == '/Shared')
-						// return true;
+					if($scope._item.item._id.substring(1) == '/Shared')
+						return true;
 
 					if(target
 					&& source
@@ -77,10 +77,11 @@ angular.module('FileManager').
 					self.files[id] = file;
 					self.files[id].sizeAdded = 0;
 
+					var ownerId = $scope._item.item.toString() == 'Folder' ? $scope._item.item.ownerId : $scope.FileManager.folderOwner;
 					var newItem = self.path == $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-						ownerId: UserFactory($scope).get().id,
+						ownerId: ownerId,
 						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',
@@ -99,7 +100,7 @@ angular.module('FileManager').
 
 					socket.emit('upload_init', {
 						id: id,
-						owner: UserFactory($scope).get().id,
+						owner: ownerId,
 						name : self.files[id].name,
 						size : self.files[id].size,
 						type: self.files[id].type,
