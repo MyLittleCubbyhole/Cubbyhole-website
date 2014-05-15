@@ -25,7 +25,9 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/zeroClipboard/zeroClipboard.js",
 					"application/client/assets/javascripts/libraries/ng-clip/ng-clip.js",
 					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js.js",
-					"application/client/assets/javascripts/libraries/annyang/annyang.js"
+					"application/client/assets/javascripts/libraries/annyang/annyang.js",
+					"application/client/assets/javascripts/libraries/shapeHover/snap.svg.js",
+					"application/client/assets/javascripts/libraries/shapeHover/hovers.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
 			},
@@ -153,6 +155,7 @@ module.exports = function(grunt) {
 						"application/client/assets/styles/libraries/highlight/vs.css",
 						"application/client/assets/styles/libraries/modalWindowEffects/component.css",
 						"application/client/assets/styles/libraries/customScrollBar/customScrollBar.css",
+						"application/client/assets/styles/libraries/shapeHover/shapeHover.css",
 						"application/client/assets/styles/components/header.css",
 						"application/client/assets/styles/components/forms.css",
 						"application/client/assets/styles/components/userCard.css",

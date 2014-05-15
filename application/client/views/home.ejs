@@ -7,8 +7,8 @@
 		<button class="button blue register google-font" class="button">DOWNLOAD CLIENT</button><button class="button green register google-font" ng-click="CubbyHome.showRegisterModal()">SUBSCRIBE NOW!</button>
 	</article>
 	<article class="bloc" id="discover">
-		<h2 class="title google-font">Discover Cubbyhole</h2>
-		<article id="schematic"></article>
+		<h2 class="title google-font">DISCOVER CUBBYHOLE</h2>
+		<img src="/images/design/logo_accueil.png" id="schematic"></img>
 		<article class="discover">
 			<p>
 				Back up all your photos, videos, music, documents ... cubbyhole accepts all types of files, and there's no size limit. Your storage space is scalable - you can increase the capacity in just a few clicks. Create folders, delete files, move them, or even publish them online. Your online storage platform created and managed by you
@@ -21,8 +21,78 @@
 			</p>
 		</article>
 	</article>
-	<article class="bloc" id="plan">plan</article>
-	<article class="bloc" id="contact">contact</article>
+	<article class="bloc" id="plan">
+
+		<h2 class="title google-font">CUBBY-OFFERS</h2>
+		
+		<section class="plan-container">
+			<a href="#" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z">
+				<figure>
+					<svg class="form-file-preview" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
+					<figcaption>
+						<h2>GRATOS</h2>
+						<p>Gratuit</p>
+						<button>GET IT</button>
+					</figcaption>
+				</figure>
+			</a>
+			<a href="#" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z">
+				<figure>
+					<svg class="form-file-preview" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
+					<figcaption>
+						<h2>CYPACHERE</h2>
+						<p>10€</p>
+						<button>GET IT</button>
+					</figcaption>
+				</figure>
+			</a>
+			<a href="#" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z">
+				<figure>
+					<svg class="form-file-preview" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
+					<figcaption>
+						<h2>TOPMOUMOUTH</h2>
+						<p>17€</p>
+						<button>GET IT</button>
+					</figcaption>
+				</figure>
+			</a>
+		</section>
+
+	</article>
+	<article class="bloc" id="contact">
+		<h2 class="title google-font">OUR TEAM</h2>
+		<section class="team-container">
+			<article class="border-circle-blue">
+				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url(http://127.0.0.1:5150/api/download/1/userPhotos/5374870d93c7ba4c15b5948a.PNG?token=q8A4Ewv518qFj3Ad9%2Bj7YThvXcej3ghV1KXBiOglWg0%3D&amp;run);">
+					<i class="icon-profile-male form-file-hide"></i>
+				</article>
+			</article>
+		</section>
+		<section class="team-container">
+			<article class="border-circle-blue">
+				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url(http://127.0.0.1:5150/api/download/1/userPhotos/5374870d93c7ba4c15b5948a.PNG?token=q8A4Ewv518qFj3Ad9%2Bj7YThvXcej3ghV1KXBiOglWg0%3D&amp;run);">
+					<i class="icon-profile-male form-file-hide"></i>
+				</article>
+			</article>
+		</section>
+		<section class="team-container">
+			<article class="border-circle-blue">
+				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url(http://127.0.0.1:5150/api/download/1/userPhotos/5374870d93c7ba4c15b5948a.PNG?token=q8A4Ewv518qFj3Ad9%2Bj7YThvXcej3ghV1KXBiOglWg0%3D&amp;run);">
+					<i class="icon-profile-male form-file-hide"></i>
+				</article>
+			</article>
+		</section>
+		<section class="team-container">
+			<article class="border-circle-blue">
+				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url(http://127.0.0.1:5150/api/download/1/userPhotos/5374870d93c7ba4c15b5948a.PNG?token=q8A4Ewv518qFj3Ad9%2Bj7YThvXcej3ghV1KXBiOglWg0%3D&amp;run);">
+					<i class="icon-profile-male form-file-hide"></i>
+				</article>
+			</article>
+		</section>
+
+
+		<section id="copyright">© CubbyHole 2014</section>
+	</article>
 </section>
 
 <%- include partials/ejs/component/modalRegister.ejs %>
