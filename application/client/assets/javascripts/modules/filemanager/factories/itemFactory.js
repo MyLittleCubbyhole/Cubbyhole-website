@@ -16,9 +16,9 @@ angular.module('FileManager').
 
 			prototype.load = function(item) {
 
-				var ownerId = typeof item == 'object' ? item.ownerId : false
-				,	path = typeof item == 'object' ? item.getFullPath() : item ? item : '';
-				if(typeof item == 'object' && item._id != '.') {
+				var ownerId = item && typeof item == 'object' ? item.ownerId : false
+				,	path = item && typeof item == 'object' ? item.getFullPath() : item ? item : '';
+				if(item && typeof item == 'object' && item._id != '.') {
 					if(item._id != '. .')
 						$scope.FileManager.pathItems.push({
 							name: item.name,
