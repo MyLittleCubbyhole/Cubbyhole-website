@@ -6,7 +6,7 @@ angular.module('Tools').
 
             if(isNaN(size)) return "";
 
-            var unit = ["oct","Ko","Mo","Go","To"];
+            var unit = ["B","KB","MB","GB","TB"];
             var i = 0;
             while (size >= 1024) {
                 i++;

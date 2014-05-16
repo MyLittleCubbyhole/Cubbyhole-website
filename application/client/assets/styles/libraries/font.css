@@ -48,26 +48,17 @@
 .icon-pencil:before {
     content: "\e617";
 }
-.icon-stop:before {
-    content: "\e61a";
-}
-.icon-play:before {
-    content: "\e618";
-}
-.icon-pause:before {
-    content: "\e619";
-}
 .icon-bell:before {
     content: "\e61b";
 }
 .icon-switch:before {
     content: "\e603";
 }
-.icon-link:before {
-    content: "\e605";
-}
 .icon-bars:before {
     content: "\e60c";
+}
+.icon-paypal:before {
+    content: "\e605";
 }
 .icon-check:before {
     content: "\f00c";

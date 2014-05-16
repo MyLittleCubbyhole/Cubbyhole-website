@@ -167,6 +167,7 @@ module.exports = function(grunt) {
 						"application/client/assets/styles/modules/fileManager/toolbar.css",
 						"application/client/assets/styles/modules/account/vertical-menu.css",
 						"application/client/assets/styles/modules/account/timeline.css",
+						"application/client/assets/styles/modules/account/plans.css",
 						"application/client/assets/styles/modules/account/account.css",
 						"application/client/assets/styles/modules/tools/progressBar.css",
 						"application/client/assets/styles/core.css"

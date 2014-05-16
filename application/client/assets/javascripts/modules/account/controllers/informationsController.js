@@ -32,7 +32,6 @@ angular.module('Account').
 
                         usedSpace += sizes[i].size;
                     }
-
                     availableSize = $scope.Account.currentPlan.storage - usedSpace;
                 }
 

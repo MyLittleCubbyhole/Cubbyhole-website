@@ -1,30 +1,65 @@
 
-<section class="plan-container">
-
+<section class="plan-container-account">
     <section class="plan-container-header">
-        <article class="current-plan">Current plan: {{Account.currrentPlan.name}}</article>
-        <section class="">
-            <article></article>
+        <article class="current-plan">Current plan: {{Account.currentPlan.name}}</article>
+        <section class="current-plan-remaining">
             <progress-bar-plan></progress-bar-plan>
         </section>
     </section>
 
+    <section class="plan-container-body">
+        <article class="plan-container-body-header">OTHER OFFERS</article>
+        <section class="plan-container">
+            <a ng-repeat="plan in Plans.plans" class="animated" ng-show="!Plans.selectedPlan.id || (Plans.selectedPlan.id && plan.selected)" ng-class="{bounceOutRight: (Plans.selectedPlan.id && !plan.selected), bounceInLeft: (Plans.selectedPlan.id && plan.selected), 'plan-selected': (Plans.selectedPlan.id && plan.selected)}" ng-click="Plans.selectPlan(plan)">
+                <section class="plan-header google-font big-font">
+                    <section class="plan-price">{{plan.price}}$</section>
+                    <section class="plan-border-left"></section>
+                    <section class="plan-border-right"></section>
+                </section>
+                <section class="plan-body google-font">
+                    <article class="plan-name">{{plan.name}}</article>
+                    <article class="plan-storage">{{plan.storage | ItemSizeFilter}} storage</article>
+                </section>
+            </a>
+            <section class="plan-details animated" ng-show="Plans.selectedPlan.id" ng-class="{bounceInDown: Plans.selectedPlan.id}">
+                <i class="close-icon icon-cross" ng-click="Plans.unselect()"></i>
+                <article class="details description">Description :</article>
+                <article class="details description-content">{{Plans.selectedPlan.description}}</article>
+                <article class="details download-speed">Download speed : {{Plans.selectedPlan.downloadBandwidth | ItemSizeFilter}}/s</article>
+                <article class="details upload-speed">Upload speed : {{Plans.selectedPlan.uploadBandwidth | ItemSizeFilter}}/s</article>
+                <article class="details quota">Daily sharing quota : {{Plans.selectedPlan.quota | ItemSizeFilter}}</article>
+                <article class="details duration form">
+                    <article>Duration :</article>
+                    <select ui-select2="Plans.select2Options" ng-model="Plans.selectedPlan.duration" ng-change="Plans.changeDuration()">
+                        <option value="1">1 month</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                        <option value="6">6 months</option>
+                        <option value="12">1 year</option>
+                        <option value="24">2 years</option>
+                    </select>
+                </article>
+                <article class="buy">
+                    <form action="<%- paypal.paypalUrl %>" method="post">
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="charset" value="utf-8">
+
+                        <input type="hidden" name="notify_url" value="<%- paypal.notifyUrl %>">
+                        <input type="hidden" name="return" value="<%- paypal.returnUrl %>{{Account.user.token}}#/plans">
+                        <input type="hidden" name="cancel_return" value="<%- paypal.cancelUrl %>{{Account.user.token}}#/plans">
+                        <input type="hidden" name="business" value="<%- paypal.paypalBusinessEmail %>">
+
+                        <input type="hidden" name="item_name" ng-value="Plans.selectedPlan.name">
+                        <input type="hidden" name="amount" ng-value="Plans.selectedPlan.price">
+                        <input type="hidden" name="quantity" ng-value="Plans.selectedPlan.duration">
+                        <input type="hidden" name="item_number" ng-value="Plans.selectedPlan.id">
+                        <input type="hidden" name="custom" ng-value="Account.user.id">
+
+                        <button type="submit" class="button green register google-font"><i class="icon-paypal"></i>SUBSCRIBE</button>
+                    </form>
+                </article>
+            </section>
+        </section>
+    </section>
+
 </section>
-
-<form action="<%- paypal.paypalUrl %>" method="post">
-    <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="charset" value="utf-8">
-
-    <input type="hidden" name="notify_url" value="<%- paypal.notifyUrl %>">
-    <input type="hidden" name="return" value="<%- paypal.returnUrl %>{{Account.user.token}}">
-    <input type="hidden" name="cancel_return" value="<%- paypal.cancelUrl %>{{Account.user.token}}">
-    <input type="hidden" name="business" value="<%- paypal.paypalBusinessEmail %>">
-
-    <input type="hidden" name="item_name" ng-value="Plans.selectedPlan.name">
-    <input type="hidden" name="amount" ng-value="Plans.selectedPlan.price">
-    <input type="hidden" name="quantity" ng-value="Plans.selectedPlan.duration">
-    <input type="hidden" name="item_number" ng-value="Plans.selectedPlan.id">
-    <input type="hidden" name="custom" ng-value="Account.user.id">
-
-    <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
-</form>

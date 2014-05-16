@@ -12,21 +12,19 @@ angular.module('Account').
 
         $local.countries = CountryFactory($scope).list();
 
-        var user = UserFactory($scope).get();
-        user.birthdate = new Date(user.birthdate);
-        user.birthdate = user.birthdate.getDate() + '/' + (user.birthdate.getMonth() + 1) + '/' + user.birthdate.getFullYear();
+        var birthdate = new Date($scope.Account.user.birthdate).getDate() + '/' + (new Date($scope.Account.user.birthdate).getMonth() + 1) + '/' + new Date($scope.Account.user.birthdate).getFullYear();
 
         $local.user = {
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            birthdate: user.birthdate,
-            country: user.country,
-            photo: user.photo
+            email: $scope.Account.user.email,
+            firstname: $scope.Account.user.firstname,
+            lastname: $scope.Account.user.lastname,
+            birthdate: birthdate,
+            country: $scope.Account.user.country,
+            photo: $scope.Account.user.photo
         };
 
-        if(user.photo && user.photo != 'null')
-            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
+        if($scope.Account.user.photo && $scope.Account.user.photo != 'null')
+            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + $scope.Account.user.photo + '?token=' + $scope.Account.user.token + '&run)'};
 
         $local.save = function(isValid) {
             $local.isFormSubmited = true;

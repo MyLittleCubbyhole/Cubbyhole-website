@@ -51,6 +51,9 @@ aside#vertical-toolbar article.option-toolbar.container:hover, article.option-t
     font-size: 40px;
     text-align: center;
 }
+.img-icon.img-icon-plans {
+    margin-top: 10px;
+}
 
 .img-icon-user {
     background-image: url(/images/design/user_grey.png);
@@ -65,7 +68,7 @@ aside#vertical-toolbar article.option-toolbar.container:hover, article.option-t
 }
 
 .img-icon-plans::before {
-    content: '€';
+    content: '$';
 }
 
 
