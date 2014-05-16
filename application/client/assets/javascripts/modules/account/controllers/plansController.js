@@ -1,8 +1,14 @@
 angular.module('Account').
-	controller('PlansController', ['$scope', 'apiUrl', function($scope, apiUrl){
+	controller('PlansController', ['$scope', 'apiUrl', 'PlanFactory', function($scope, apiUrl, PlanFactory){
 		var $local = $scope.Plans = {};
 
-        $local.selectedPlan = {
+        $local.selectedPlan = {};
+
+        PlanFactory($scope).getAllPlans(function(error, plans) {
+            $local.plans = plans;
+        });
+
+        /*$local.selectedPlan = {
             id: 2,
             price: 5.00,
             name: 'Plan ' + 'yolo',
@@ -12,7 +18,7 @@ angular.module('Account').
             downloadBandwith: 2097152,
             quota: 104857600,
             available: 1
-        };
+        };*/
 
 		$scope.toString = function() {
 			return 'Plans';

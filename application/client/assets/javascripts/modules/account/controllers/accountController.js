@@ -1,5 +1,5 @@
 angular.module('Account').
-    controller('AccountController', ['$scope', 'DataChartFactory', 'FormatSizeService', 'UserFactory', function($scope, DataChartFactory, FormatSizeService, UserFactory) {
+    controller('AccountController', ['$scope', 'PlanFactory', 'FormatSizeService', 'UserFactory', function($scope, PlanFactory, FormatSizeService, UserFactory) {
         var $local = $scope.Account = {};
 
         $local.currentPlan = {};
@@ -7,7 +7,7 @@ angular.module('Account').
         $local.user = UserFactory($scope).get();
 
         $scope.$watch(UserFactory($scope).get(), function() {
-            DataChartFactory($scope).getActualPlan(function(error, plan) {
+            PlanFactory($scope).getActualPlan(function(error, plan) {
                 if (!error && plan) {
                     $local.currentPlan = plan;
                     $scope.$broadcast('plan_updated');
