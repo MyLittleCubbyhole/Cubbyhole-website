@@ -15,6 +15,7 @@ angular.module('Account').
                     if(plan && plan.id) {
                         planToReturn = {
                             id: plan.id,
+                            photo: plan.photo,
                             price: plan.price,
                             name: plan.name,
                             description: plan.description,
@@ -39,6 +40,7 @@ angular.module('Account').
                         for(var i = 0; i < plans.length; i++)
                             plansToReturn.push({
                                 id: plans[i].id,
+                                photo: plans[i].photo,
                                 price: plans[i].price,
                                 name: plans[i].name,
                                 description: plans[i].description,

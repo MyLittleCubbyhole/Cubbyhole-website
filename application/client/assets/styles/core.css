@@ -316,7 +316,7 @@ article#home {
     text-shadow: 0px 0px 1px rgb(83, 83, 83);
 }
 #bloc-container article#discover {
-    height: 850px;
+    min-height: 750px;
 }
 
 .plan-container svg {
@@ -382,7 +382,14 @@ section#copyright {
 
 
 
-
+@media screen and (max-width: 1120px) {
+    #bloc-container .bloc article.discover {
+        display: block;
+        width: 80%;
+        vertical-align: top;
+        margin: auto;
+    }
+}
 
 @media screen and (max-width: 775px) {
     #bloc-container .bloc #schematic {
@@ -391,12 +398,7 @@ section#copyright {
         margin: auto;
     }
 
-    #bloc-container .bloc article.discover {
-        display: block;
-        width: 80%;
-        vertical-align: top;
-        margin: auto;
-    }
+
     #manager section.manager-bloc:first-child {
         width: 100% !important;
     }
@@ -422,12 +424,6 @@ section#copyright {
     #bloc-container .bloc #schematic {
         width: 60%;
         display: block;
-        margin: auto;
-    }
-    #bloc-container .bloc article.discover {
-        display: block;
-        width: 80%;
-        vertical-align: top;
         margin: auto;
     }
     #bloc-container .bloc .discover p {
