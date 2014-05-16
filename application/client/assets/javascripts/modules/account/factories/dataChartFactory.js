@@ -9,28 +9,6 @@ angular.module('Account').
 
             var prototype = {};
 
-            prototype.getActualPlan = function(callback) {
-                restangular.one('users').one(userFactory($scope).get().id + '/plan').get().then(function(plan) {
-                    var planToReturn = null;
-                    if(plan && plan.id) {
-                        planToReturn = {
-                            id: plan.id,
-                            price: plan.price,
-                            name: plan.name,
-                            storage: parseInt(plan.storage, 10),
-                            duration: parseInt(plan.duration, 10),
-                            uploadBandwidth: parseInt(plan.uploadbandwidth, 10),
-                            downloadBandwidth: parseInt(plan.downloadbandwidth, 10),
-                            quota: parseInt(plan.quota, 10),
-                            available: plan.available,
-                            dateStart: plan.datestart,
-                            dateEnd: plan.dateend
-                        }
-                    }
-                    callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
-                }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
-            }
-
             prototype.getSizeUsed = function(callback) {
                 restangular.one('browse').one(userFactory($scope).get().id + '/size').getList().then(function(sizes) {
                     var sizesToReturn = null;

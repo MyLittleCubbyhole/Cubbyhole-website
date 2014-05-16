@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 				"application/client/assets/javascripts/modules/tools/directives/rightClickDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/focusDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/progressBarDirective.js",
+				"application/client/assets/javascripts/modules/tools/directives/progressBarPlanDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/scrollBarDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/modalDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/formFileUploadDirective.js",
@@ -99,7 +100,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/account/controllers/plansController.js",
 					"application/client/assets/javascripts/modules/account/providers/donutChartProvider.js",
 					"application/client/assets/javascripts/modules/account/factories/dataChartFactory.js",
-					"application/client/assets/javascripts/modules/account/factories/dataChartFactory.js",
+					"application/client/assets/javascripts/modules/account/factories/planFactory.js",
 					"application/client/assets/javascripts/modules/account/directives/donutChartDirective.js",
 					"application/client/assets/javascripts/modules/cubbyhole/core.js",
 					"application/client/assets/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js",
@@ -135,7 +136,7 @@ module.exports = function(grunt) {
 					"/javascripts/modules/administration/core.js",
 					"/javascripts/modules/administration/configs/administrationConfig.js",
 					"/javascripts/modules/administration/controllers/administrationController.js",
-					"/javascripts/modules/administration/controllers/administrationNavigationController.js"					
+					"/javascripts/modules/administration/controllers/administrationNavigationController.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/administration.js'
 			}
