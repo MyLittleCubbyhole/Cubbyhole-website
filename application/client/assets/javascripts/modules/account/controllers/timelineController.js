@@ -21,7 +21,7 @@ angular.module('Account').
 					case 'share':
 						data[i].icon = 'icon-link';
 						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" with ';
-						if(data[i].targetOwner == 'You' && data[i].name != 'Public' && data[i].name == '')
+						if(data[i].targetOwner == 'You' && data[i].name != 'Public')
 							data[i].message +=  'you';
 						else
 							data[i].message += '"'+ data[i].name +'"';
