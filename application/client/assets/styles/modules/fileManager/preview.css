@@ -111,11 +111,13 @@
 
 .preview-share {
     text-align: center;
+    margin-top: 10px;
 }
 
 .share-button {
     height: 50px;
     width: 100%;
+    text-align: center;
     line-height: 43px;
     font-size: 17px;
     background-color: #ff5a5a;
@@ -154,16 +156,17 @@
     max-height: 400px;
 }
 section.button-text {
-    width: 230px;
     height: 100%;
     line-height: 50px;
     font-size: 30px;
-    margin: 15px auto;
     cursor: pointer;
     font-weight: 400;
+    display: inline-block;
 }
 .button-text span.share-icon {
-    margin: 10px 0px 0px 0px;
+    float: left;
+    margin-top: 9px;
+    margin-right: 10px;
 }
 
 .preview-sharing-infos {

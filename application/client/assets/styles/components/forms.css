@@ -24,17 +24,17 @@
 .form .user-picture .camera-icon {
     border-radius: 50%;
     background-color: #75c8ef;
-    width: 42px;
-    height: 42px;
+    width: 52px;
+    height: 52px;
     position: absolute;
-    top: -4px;
+    top: 2px;
     left: -2px;
     z-index: 1;
     text-align: center;
-    line-height: 53px;
+    line-height: 68px;
 }
 .form .user-picture .camera-icon i {
-    font-size: 28px;
+    font-size: 36px;
     color: white;
 }
 .form .user-picture .border-circle-blue {
@@ -47,8 +47,8 @@
     cursor: pointer;
 }
 .edit-account-container.form .user-picture .border-circle-blue {
-    width: 155px;
-    height: 155px;
+    width: 185px;
+    height: 185px;
     border: 2px solid #9ad6f2;
 }
 .form .user-picture .img-circle {
@@ -64,8 +64,8 @@
 }
 
 .edit-account-container.form .user-picture .img-circle {
-    width: 150px;
-    height: 151px;
+    width: 180px;
+    height: 181px;
     border: 3px solid white;
 }
 
@@ -394,16 +394,17 @@
 
 
 .form .button {
-    height: 39px;
+    height: 50px;
     overflow: hidden;
     margin: 10px 0 0 20px;
-    padding: 0 25px;
+    text-align: center;
     outline: none;
     border: 0;
     font: 300 15px/39px 'Open Sans', sans-serif;
     text-decoration: none;
     color: #fff;
     cursor: pointer;
+    line-height: 50px;
 }
 
 

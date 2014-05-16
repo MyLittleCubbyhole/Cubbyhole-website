@@ -10,7 +10,7 @@
     <section class="plan-container-body">
         <article class="plan-container-body-header">OTHER OFFERS</article>
         <section class="plan-container">
-            <a ng-repeat="plan in Plans.plans" class="animated" ng-show="!Plans.selectedPlan.id || (Plans.selectedPlan.id && plan.selected)" ng-class="{bounceOutRight: (Plans.selectedPlan.id && !plan.selected), bounceInLeft: (Plans.selectedPlan.id && plan.selected), 'plan-selected': (Plans.selectedPlan.id && plan.selected)}" ng-click="Plans.selectPlan(plan)">
+            <a ng-repeat="plan in Plans.plans" class="animated" ng-show="!Plans.selectedPlan.id || (Plans.selectedPlan.id && plan.selected)" ng-class="{fadeIn: !Plans.selectedPlan.id, bounceOutRight: (Plans.selectedPlan.id && !plan.selected), bounceInLeft: (Plans.selectedPlan.id && plan.selected), 'plan-selected': (Plans.selectedPlan.id && plan.selected)}" ng-click="Plans.selectPlan(plan)">
                 <section class="plan-header google-font big-font">
                     <section class="plan-price">{{plan.price}}$</section>
                     <section class="plan-border-left"></section>

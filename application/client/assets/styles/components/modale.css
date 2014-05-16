@@ -247,11 +247,12 @@
 
 .button {
     border: none;
-    height: 39px;
+    height: 50px;
     width: 204px;
     font-size: 20px !important;
     background-color: #ff5a5a;
-    text-align: left;
+    text-align: center;
+    line-height: 31px;
     -webkit-transition: .02s all linear;
     -moz-transition: .02s all linear;
     -ms-transition: .02s all linear;
@@ -289,16 +290,17 @@
 
 .button img,
 .button i {
-    height: 24px;
+    height: 31px;
     margin-left: 21px;
-    margin-right: 29px;
-    padding-bottom: 2px
+    margin-right: -11px;
+    padding-bottom: 1px;
+    float: left;
 }
 
 .button.unshare i {
-    font-size: 26px;
+    font-size: 28px;
     float: left;
-    margin-right: 20px;
+    margin-right: -16px;
     padding-top: 2px;
 }
 .button.register {
