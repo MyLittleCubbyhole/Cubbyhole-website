@@ -4,7 +4,7 @@
             <section>
                 <section class="users-container" scroll-bar>
                     <section class="users-share">
-                        <article class="user-share" ng-repeat="user in Sharing.users">
+                        <article class="user-share" ng-repeat="user in FileManager.selectedItems[0].usersActualSharing">
                             <article class="user-icon">
                                 <article class="img-circle" style="background-image: url({{user.photo}})" ng-class="{'form-file-preview': user.photo}">
                                     <i class="icon-profile-male form-file-hide"></i>

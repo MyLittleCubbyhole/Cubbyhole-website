@@ -104,15 +104,19 @@
                         </section>
                         <section class="preview-infos-additional google-font big-font">
                             <article class="preview-infos-additional-text">Last update by</article>
-                            <article class="preview-infos-additional-name">{{FileManager.selectedItems[0].lastUpdateName}}</article>
+                            <article class="preview-infos-additional-name limited-width">{{FileManager.selectedItems[0].lastUpdateName}}</article>
                         </section>
                         <section class="preview-infos-additional google-font big-font" ng-show="FileManager.selectedItems[0].category == 'folder'">
                             <article class="preview-infos-additional-text">Shared with</article>
-                            <article class="preview-infos-additional-name"></article>
+                            <article class="preview-infos-additional-photos limited-width">
+                                <article class="img-circle" ng-style="{'background-image': 'url({{user.photo}})'}" ng-class="{'form-file-preview': user.photo && user.photo != 'null'}" ng-repeat="user in FileManager.selectedItems[0].usersActualSharing | limitTo:5">
+                                    <i class="icon-profile-male form-file-hide"></i>
+                                </article>
+                            </article>
                         </section>
                         <section class="preview-infos-additional google-font big-font" ng-show="FileManager.selectedItems[0].category != 'folder'">
                             <article class="preview-infos-additional-text">Downloads</article>
-                            <article class="preview-infos-additional-name">{{FileManager.selectedItems[0].downloads}}</article>
+                            <article class="preview-infos-additional-name limited-width">{{FileManager.selectedItems[0].downloads}}</article>
                         </section>
                     </article>
                 </section>

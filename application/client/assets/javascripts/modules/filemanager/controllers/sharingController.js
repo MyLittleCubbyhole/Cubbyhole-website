@@ -2,38 +2,22 @@ angular.module('FileManager').
     controller('SharingController', ['$scope', 'apiUrl', 'UserFactory', 'SharingFactory', function($scope, apiUrl, UserFactory, SharingFactory) {
         var $local = $scope.Sharing = {};
 
-        $local.usersWebservice = [];
-        $local.users = [];
-        $local.usersToRemove = [];
         $local.email = "";
+        $local.shared = false;
 
-        $scope.$on('enable_overlay_sharing', function() {
-            $local.loadUsers();
-        })
-
-        $local.loadUsers = function() {
-            if($scope.FileManager.selectedItems[0]) {
-                SharingFactory($scope, {local: $local}).getSharedUsers($scope.FileManager.selectedItems[0]._id + '/', function(error, data) {
-                    if(!error && data) {
-                        _.merge($local.usersWebservice, data);
-                        _.merge($local.users, data);
-                        for(var i = 0; i < $local.users.length; i++)
-                            if($local.users[i].photo && $local.users[i].photo != 'null')
-                                $local.users[i].photo = apiUrl + 'download/1/userPhotos/' + $local.users[i].photo + '?token=' + UserFactory($scope).get().token + '&run';
-                    } else {
-                        $local.usersWebservice = [];
-                        $local.users = [];
-                    }
-                    $local.usersToRemove = [];
-                })
+        $scope.$on('hide', function() {
+            if(!$local.shared) {
+                $scope.FileManager.selectedItems[0].usersToRemove = [];
+                $scope.FileManager.selectedItems[0].usersActualSharing = [];
+                _.merge($scope.FileManager.selectedItems[0].usersActualSharing, $scope.FileManager.selectedItems[0].usersWebserviceSharing);
             }
-        }
+        });
 
         $local.addUser = function(event) {
             if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
                 var present = false;
-                for(var i = 0; i < $local.users.length; i++)
-                    if($local.users[i].email == $local.email)
+                for(var i = 0; i < $scope.FileManager.selectedItems[0].usersActualSharing.length; i++)
+                    if($scope.FileManager.selectedItems[0].usersActualSharing[i].email == $local.email)
                         present = true;
 
                 if(!present)
@@ -45,7 +29,7 @@ angular.module('FileManager').
                             };
                             if(user.photo && user.photo != 'null')
                                 userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
-                            $local.users.push(userData);
+                            $scope.FileManager.selectedItems[0].usersActualSharing.push(userData);
                         }
 
                         $local.email = "";
@@ -58,33 +42,37 @@ angular.module('FileManager').
         $local.share = function() {
             if($scope.FileManager.selectedItems[0]) {
                 var path = $scope.FileManager.selectedItems[0]._id + '/'
-                ,   length = $local.usersToRemove.length;
+                ,   length = $scope.FileManager.selectedItems[0].usersToRemove.length;
 
                 var callback = function() {
-                    for(var i = 0; i < $local.users.length; i++) {
+                    for(var i = 0; i < $scope.FileManager.selectedItems[0].usersActualSharing.length; i++) {
                         var updateOrCreate = true;
-                        for(var j = 0; j < $local.usersWebservice.length; j++) {
-                            if($local.users[i].email == $local.usersWebservice[j].email && $local.users[i].right == $local.usersWebservice[j].right)
+                        for(var j = 0; j < $scope.FileManager.selectedItems[0].usersWebserviceSharing.length; j++) {
+                            if($scope.FileManager.selectedItems[0].usersActualSharing[i].email == $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].email && $scope.FileManager.selectedItems[0].usersActualSharing[i].right == $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].right)
                                 updateOrCreate = false;
                         }
 
                         if(updateOrCreate)
-                            SharingFactory($scope, {local: $local}).share(path, $local.users[i].email, $local.users[i].right, function(error, data) {
+                            SharingFactory($scope, {local: $local}).share(path, $scope.FileManager.selectedItems[0].usersActualSharing[i].email, $scope.FileManager.selectedItems[0].usersActualSharing[i].right, function(error, data) {
                                 if(error && !data)
                                     console.error(error);
                             })
                     }
+                    $scope.FileManager.selectedItems[0].usersToRemove = [];
+                    $scope.FileManager.selectedItems[0].usersWebserviceSharing = [];
+                    _.merge($scope.FileManager.selectedItems[0].usersWebserviceSharing, $scope.FileManager.selectedItems[0].usersActualSharing);
+                    $local.shared = true;
                 }
 
                 if(length>0)
-                    for(var i = 0 ; i < $local.usersToRemove.length; i++) {
-                        var userToRevove = $local.usersToRemove[i];
+                    for(var i = 0 ; i < $scope.FileManager.selectedItems[0].usersToRemove.length; i++) {
+                        var userToRevove = $scope.FileManager.selectedItems[0].usersToRemove[i];
                         SharingFactory($scope, {local: $local}).unshare(path, userToRevove.email, function(error, data) {
                             if(error && !data)
                                 console.error(error);
-                            var index = $local.usersWebservice.indexOf(userToRevove);
+                            var index = $scope.FileManager.selectedItems[0].usersWebserviceSharing.indexOf(userToRevove);
                             if(index > -1)
-                                $local.usersWebservice.slice(index, 1);
+                                $scope.FileManager.selectedItems[0].usersWebserviceSharing.slice(index, 1);
                             --length <= 0 && callback();
                         })
                     }
@@ -95,10 +83,10 @@ angular.module('FileManager').
         }
 
         $local.remove = function(user) {
-            $local.usersToRemove.push(user);
-            var index = $local.users.indexOf(user);
+            $scope.FileManager.selectedItems[0].usersToRemove.push(user);
+            var index = $scope.FileManager.selectedItems[0].usersActualSharing.indexOf(user);
             if(index > -1)
-                $local.users.splice(index, 1);
+                $scope.FileManager.selectedItems[0].usersActualSharing.splice(index, 1);
         }
 
         $scope.toString = function() {

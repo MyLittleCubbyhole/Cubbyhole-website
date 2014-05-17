@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$window', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -112,6 +112,28 @@ angular.module('FileManager').
 
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
+
+            if($local.previewActivated && $local.selectedItems && $local.selectedItems[0] && $local.selectedItems[0].category == 'folder') {
+                SharingFactory($scope, {local: $local}).getSharedUsers($local.selectedItems[0]._id + '/', function(error, data) {
+                    if(!error && data) {
+                        $local.selectedItems[0].usersWebserviceSharing = [];
+                        $local.selectedItems[0].usersActualSharing = [];
+                        _.merge($local.selectedItems[0].usersWebserviceSharing, data);
+
+                        for(var i = 0; i < $local.selectedItems[0].usersWebserviceSharing.length; i++)
+                            if($local.selectedItems[0].usersWebserviceSharing[i].photo && $local.selectedItems[0].usersWebserviceSharing[i].photo != 'null')
+                                $local.selectedItems[0].usersWebserviceSharing[i].photo = apiUrl + 'download/1/userPhotos/' + $local.selectedItems[0].usersWebserviceSharing[i].photo + '?token=' + UserFactory($scope).get().token + '&run';
+                            else
+                                $local.selectedItems[0].usersWebserviceSharing[i].photo = '';
+
+                        _.merge($local.selectedItems[0].usersActualSharing, $local.selectedItems[0].usersWebserviceSharing);
+                    } else {
+                        $local.selectedItems[0].usersWebserviceSharing = [];
+                        $local.selectedItems[0].usersActualSharing = [];
+                    }
+                    $local.selectedItems[0].usersToRemove = [];
+                });
+            }
         }
 
         $local.deleteItem = function(itemId) {
