@@ -7,7 +7,7 @@ var path    = require('path')
 ,   developer = ( typeof process.argv[3] != 'undefined' ? process.argv[3] : '')
 ,   link = {'prod':'config-prod.json', 'dev':'config-dev.json', 'marcel': 'config-marcel.json'};
 
-//global.environment = environment;
+global.environment = environment;
 global.configFile = {};
 global.configFile.env = typeof link[environment] != 'undefined' ? link[environment] : link['dev'];
 global.configFile.developer = typeof link[developer] != 'undefined' ? link[developer] : '';
