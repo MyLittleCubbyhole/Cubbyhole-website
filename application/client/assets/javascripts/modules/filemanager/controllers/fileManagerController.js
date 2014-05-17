@@ -107,7 +107,7 @@ angular.module('FileManager').
 
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
-
+            $local.preview(false);
         };
 
         $local.preview = function(force) {
