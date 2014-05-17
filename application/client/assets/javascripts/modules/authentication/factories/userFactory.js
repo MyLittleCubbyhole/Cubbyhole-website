@@ -50,6 +50,23 @@ angular.module('Authentication').
                 });
             };
 
+            prototype.all = function(callback) {
+
+                $http.get(apiUrl + 'users').
+                success(function(data) {
+                    console.log(data)
+                    if(data.length>0) {
+                        console.log(data)
+                    } else {    
+                        callback.call(this, 'authentication failed');
+                    }
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'get users failed');
+                    console.error(data);
+                });
+            }
+
             prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {

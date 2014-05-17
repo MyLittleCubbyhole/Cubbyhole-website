@@ -4,13 +4,13 @@ angular.module('Administration').
         $routeProvider
         .when('/users', {
             templateUrl: '/templates/admin/users',
-            controller: 'ConfigurationController'
+            controller: 'UserAdministrationController'
         })
         .when('/plans', {
             templateUrl: '/templates/admin/plans',
-            controller: 'PlansController'
+            controller: 'PlanAdministrationController'
         })
-        .otherwise({ redirectTo: '/config' });
+        .otherwise({ redirectTo: '/users' });
 
 		$location.html5Mode(false);
 
