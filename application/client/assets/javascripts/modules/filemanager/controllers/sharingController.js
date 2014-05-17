@@ -17,26 +17,41 @@ angular.module('FileManager').
                     if(!error && data) {
                         _.merge($local.usersWebservice, data);
                         _.merge($local.users, data);
+                        for(var i = 0; i < $local.users.length; i++)
+                            if($local.users[i].photo && $local.users[i].photo != 'null')
+                                $local.users[i].photo = apiUrl + 'download/1/userPhotos/' + $local.users[i].photo + '?token=' + UserFactory($scope).get().token + '&run';
+                    } else {
+                        $local.usersWebservice = [];
+                        $local.users = [];
                     }
+                    $local.usersToRemove = [];
                 })
             }
         }
 
         $local.addUser = function(event) {
             if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
-                SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
-                    if(!error && user) {
-                        var userData = {
-                            email: $local.email,
-                            right: 'R'
-                        };
-                        if(user.photo && user.photo != 'null')
-                            userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
-                        $local.users.push(userData);
-                    }
+                var present = false;
+                for(var i = 0; i < $local.users.length; i++)
+                    if($local.users[i].email == $local.email)
+                        present = true;
 
+                if(!present)
+                    SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
+                        if(!error && user) {
+                            var userData = {
+                                email: $local.email,
+                                right: 'R'
+                            };
+                            if(user.photo && user.photo != 'null')
+                                userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
+                            $local.users.push(userData);
+                        }
+
+                        $local.email = "";
+                    });
+                else
                     $local.email = "";
-                });
             }
         }
 
