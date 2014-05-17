@@ -213,6 +213,63 @@ section.button-text {
     font-size: 22px;
 }
 
+.preview-infos-additional {
+    margin-top: 20px;
+    color: #b6b6b6;
+    font-size: 19px;
+    font-weight: 400;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.preview-infos-additional-text {
+    display: inline-block;
+}
+
+.preview-infos-additional-name {
+    float: right;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: auto;
+    height: 27px;
+    word-break: break-all;
+}
+
+@media screen and (max-width: 1760px) {
+    .preview-infos-additional-name {
+        max-width: 240px;
+    }
+}
+@media screen and (max-width: 1540px) {
+    .preview-infos-additional-name {
+        max-width: 210px;
+    }
+}
+@media screen and (max-width: 1440px) {
+    .preview-infos-additional-name {
+        max-width: 160px;
+    }
+}
+@media screen and (max-width: 1230px) {
+    .preview-infos-additional-name {
+        max-width: 100px;
+    }
+}
+@media screen and (max-width: 1030px) {
+    .preview-infos-additional-name {
+        max-width: 100px;
+    }
+    .preview-infos-additional {
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 940px) {
+    .preview-infos-additional-name {
+        max-width: 57px;
+    }
+}
+
 @media screen and (max-width: 570px) {
     .preview-sharing-download .share-button i {
         margin-right: -2px;
