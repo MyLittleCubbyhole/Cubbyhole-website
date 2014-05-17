@@ -10,7 +10,7 @@ angular.module('Navigation').
 			if(path.indexOf("/account") > -1)
 				path = pathView + "?token=" + UserFactory($scope).get().token + pathAngular;
 			// console.log(pathAngular)
-			
+
 			if(path.indexOf("/home") > -1 &&  $window.location.pathname == '/home') {
 
 				$location.path('/'+pathAngular.substring(1));

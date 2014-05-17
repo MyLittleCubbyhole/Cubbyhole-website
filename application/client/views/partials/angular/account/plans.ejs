@@ -12,7 +12,10 @@
         <section class="plan-container">
             <a ng-repeat="plan in Plans.plans" class="animated" ng-show="!Plans.selectedPlan.id || (Plans.selectedPlan.id && plan.selected)" ng-class="{fadeIn: !Plans.selectedPlan.id, bounceOutRight: (Plans.selectedPlan.id && !plan.selected), bounceInLeft: (Plans.selectedPlan.id && plan.selected), 'plan-selected': (Plans.selectedPlan.id && plan.selected)}" ng-click="Plans.selectPlan(plan)">
                 <section class="plan-header google-font big-font">
-                    <section class="plan-price">{{plan.price}}$</section>
+                    <section class="plan-price">
+                        <span ng-if="plan.price != 0">${{plan.price}}</span>
+                        <span ng-if="plan.price == 0">Free</span>
+                    </section>
                     <section class="plan-border-left"></section>
                     <section class="plan-border-right"></section>
                 </section>
@@ -28,7 +31,7 @@
                 <article class="details download-speed">Download speed : {{Plans.selectedPlan.downloadBandwidth | ItemSizeFilter}}/s</article>
                 <article class="details upload-speed">Upload speed : {{Plans.selectedPlan.uploadBandwidth | ItemSizeFilter}}/s</article>
                 <article class="details quota">Daily sharing quota : {{Plans.selectedPlan.quota | ItemSizeFilter}}</article>
-                <article class="details duration form">
+                <article class="details duration form" ng-show="Plans.selectedPlan.id != 1">
                     <article>Duration :</article>
                     <select ui-select2="Plans.select2Options" ng-model="Plans.selectedPlan.duration" ng-change="Plans.changeDuration()">
                         <option value="1">1 month</option>
@@ -55,7 +58,7 @@
                         <input type="hidden" name="item_number" ng-value="Plans.selectedPlan.id">
                         <input type="hidden" name="custom" ng-value="Account.user.id">
 
-                        <button type="submit" class="button green register google-font"><i class="icon-paypal"></i>SUBSCRIBE</button>
+                        <button type="submit" class="button green register google-font" ng-show="Plans.selectedPlan.id != 1"><i class="icon-paypal"></i>SUBSCRIBE</button>
                     </form>
                 </article>
             </section>

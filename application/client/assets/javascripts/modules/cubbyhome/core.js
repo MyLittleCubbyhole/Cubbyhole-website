@@ -1,1 +1,1 @@
-angular.module('CubbyHome', ['Authentication']);
+angular.module('CubbyHome', ['Authentication', 'restangular']);

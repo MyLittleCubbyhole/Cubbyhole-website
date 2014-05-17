@@ -1,5 +1,5 @@
 angular.module('Account').
-	controller('PlansController', ['$scope', 'apiUrl', 'PlanFactory', function($scope, apiUrl, PlanFactory){
+	controller('PlansController', ['$scope', '$location', 'apiUrl', 'PlanFactory', function($scope, $location, apiUrl, PlanFactory){
 		var $local = $scope.Plans = {};
 
         $local.selectedPlan = {};
@@ -10,9 +10,12 @@ angular.module('Account').
         };
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
-            for(var i = 0; i < plans.length; i++)
-                if(plans[i].id != 1)
-                    $local.plans.push(plans[i]);
+            $local.plans = plans;
+
+            if($location.$$search.planId)
+                for(var i = 0; i < $local.plans.length; i++)
+                    if($local.plans[i].id == $location.$$search.planId)
+                        $local.selectPlan($local.plans[i]);
         });
 
         $local.selectPlan = function(plan) {

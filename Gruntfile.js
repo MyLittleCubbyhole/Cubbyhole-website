@@ -25,8 +25,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/zeroClipboard/zeroClipboard.js",
 					"application/client/assets/javascripts/libraries/ng-clip/ng-clip.js",
 					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js",
-					"application/client/assets/javascripts/libraries/shapeHover/snap.svg.js",
-					"application/client/assets/javascripts/libraries/shapeHover/hovers.js",
+					"application/client/assets/javascripts/libraries/shapeOver/snap.svg.js",
 					"application/client/assets/javascripts/libraries/annyang/annyang.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
@@ -35,7 +34,6 @@ module.exports = function(grunt) {
 				src: [
 				"application/client/assets/javascripts/modules/config/core.js",
 				"application/client/assets/javascripts/modules/config/constants/configConstants.js",
-				"application/client/assets/javascripts/modules/config/factories/countryFactory.js",
 				"application/client/assets/javascripts/modules/config/factories/countryFactory.js",
 				"application/client/assets/javascripts/modules/websocket/core.js",
 				"application/client/assets/javascripts/modules/websocket/factories/websocketFactory.js",
@@ -50,6 +48,7 @@ module.exports = function(grunt) {
 				"application/client/assets/javascripts/modules/tools/directives/scrollBarDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/modalDirective.js",
 				"application/client/assets/javascripts/modules/tools/directives/formFileUploadDirective.js",
+				"application/client/assets/javascripts/modules/tools/directives/shapeOverDirective.js",
 				"application/client/assets/javascripts/modules/tools/filters/itemSizeFilter.js",
 				"application/client/assets/javascripts/modules/breadcrumb/core.js",
 				"application/client/assets/javascripts/modules/breadcrumb/controllers/breacrumbController.js",
@@ -100,11 +99,13 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/account/controllers/plansController.js",
 					"application/client/assets/javascripts/modules/account/providers/donutChartProvider.js",
 					"application/client/assets/javascripts/modules/account/factories/dataChartFactory.js",
-					"application/client/assets/javascripts/modules/account/factories/planFactory.js",
 					"application/client/assets/javascripts/modules/account/directives/donutChartDirective.js",
 					"application/client/assets/javascripts/modules/cubbyhole/core.js",
 					"application/client/assets/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js",
-					"application/client/assets/javascripts/modules/cubbyhole/controllers/cubbyholeController.js"
+					"application/client/assets/javascripts/modules/cubbyhole/controllers/cubbyholeController.js",
+					"application/client/assets/javascripts/modules/cubbyhome/core.js",
+					"application/client/assets/javascripts/modules/cubbyhome/controllers/cubbyhomeController.js",
+					"application/client/assets/javascripts/modules/cubbyhome/factories/planFactory.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/account.js'
 			},
@@ -119,7 +120,9 @@ module.exports = function(grunt) {
 			modules_home: {
 				src: [
 					"application/client/assets/javascripts/modules/cubbyhome/core.js",
-					"application/client/assets/javascripts/modules/cubbyhome/controllers/cubbyhomeController.js"
+					"application/client/assets/javascripts/modules/cubbyhome/configs/cubbyhomeConfig.js",
+					"application/client/assets/javascripts/modules/cubbyhome/controllers/cubbyhomeController.js",
+					"application/client/assets/javascripts/modules/cubbyhome/factories/planFactory.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/home.js'
 			},
@@ -156,7 +159,7 @@ module.exports = function(grunt) {
 						"application/client/assets/styles/libraries/highlight/vs.css",
 						"application/client/assets/styles/libraries/modalWindowEffects/component.css",
 						"application/client/assets/styles/libraries/customScrollBar/customScrollBar.css",
-						"application/client/assets/styles/libraries/shapeHover/shapeHover.css",
+						"application/client/assets/styles/libraries/shapeOver/shapeOver.css",
 						"application/client/assets/styles/components/header.css",
 						"application/client/assets/styles/components/forms.css",
 						"application/client/assets/styles/components/userCard.css",

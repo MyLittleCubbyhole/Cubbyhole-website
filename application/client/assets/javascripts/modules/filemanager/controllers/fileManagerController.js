@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -119,7 +119,7 @@ angular.module('FileManager').
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
                     if(!error && token) {
-                        $local.urlSharing = window.location.origin + '/shared/' + token;
+                        $local.urlSharing = $window.location.protocol + '//' + $window.location.host + '/shared/' + token;
                         $local.selectedItems[0].shared = true;
                         $scope.$emit('enable_overlay');
                     } else

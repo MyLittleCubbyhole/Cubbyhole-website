@@ -1,7 +1,6 @@
 /* Common style */
 .plan-container {
 	margin: 40px auto 120px;
-	max-width: 1000px;
 	width: 90%;
 }
 
@@ -9,13 +8,11 @@
 	/* float: left; */
 	max-width: 300px;
 	width: 300px;
+	min-width: 200px;
 	display: inline-block;
 	color: #333;
 	height: 400px;
-}
-
-.plan-container a:nth-child(odd) {
-	margin: 30px 0 -30px 0;
+	margin: 5px 5px;
 }
 
 .plan-container figure {
@@ -161,7 +158,7 @@ body {
 .plan-container figcaption h2 {
 	color: #78C0F0;
 	font-size: 25px;
-	font-family: 'Open Sans', sans-serif;  
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 500;
 }
 
@@ -178,13 +175,6 @@ body {
 		width: 33.333%;
 	}
 
-	.plan-container a:nth-child(odd) {
-		margin: 0;
-	}
-
-	.plan-container a:nth-child(3n-1) {
-		margin: 30px 0 -30px 0;
-	}
 }
 
 @media screen and (max-width: 45em) {
@@ -195,12 +185,6 @@ body {
 	.plan-container a {
 		width: 48%;
 	}
-
-
-	.plan-container a {
-		margin: 30px 0 -30px 0;
-	}
-
 
 	.plan-container figcaption h2 {
 		margin-bottom: 0px;
@@ -214,12 +198,10 @@ body {
 	}
 
 	.plan-container a {
-		/* float: left; */
-		max-width: 48%;
-		width: 300px;
+		width: 240px;
 		display: inline-block;
 		color: #333;
-		height: inherit; 
+		height: inherit;
 	}
 	.plan-container figure {
 		position: relative;
@@ -246,7 +228,4 @@ body {
 		width: inherit;
 	}
 
-	.plan-container a:nth-child(even) {
-		margin: 0;
-	}
 }

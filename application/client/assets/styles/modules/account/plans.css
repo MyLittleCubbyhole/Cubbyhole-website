@@ -114,10 +114,10 @@
 
 .plan-container-body .plan-container .plan-border-right {
     -webkit-transform: rotate(-23deg) translateX(95px) translateY(-21px);
-    -moz-transform: rotate(-23deg) translateX(-95px) translateY(-21px);
-    -ms-transform: rotate(-23deg) translateX(-95px) translateY(-21px);
-    -o-transform: rotate(-23deg) translateX(-95px) translateY(-21px);
-    transform: rotate(-23deg) translateX(-95px) translateY(-21px);
+    -moz-transform: rotate(-23deg) translateX(95px) translateY(-21px);
+    -ms-transform: rotate(-23deg) translateX(95px) translateY(-21px);
+    -o-transform: rotate(-23deg) translateX(95px) translateY(-21px);
+    transform: rotate(-23deg) translateX(95px) translateY(-21px);
 }
 
 .plan-container-body .plan-container .plan-body {
@@ -203,6 +203,9 @@
     background-color: #73c820;
     text-align: center;
 }
+.plan-container-body .plan-container .plan-details .buy button[disabled] {
+    background-color: #97CF60;
+}
 
 .plan-container-body .plan-container .plan-details .buy button i {
     margin-right: 0px;
@@ -221,10 +224,10 @@
 }
 
 @media screen and (max-width: 58em) {
-    .plan-container a:nth-child(odd) {
+    .plan-container-body .plan-container a:nth-child(odd) {
         margin: 30px 0 -30px 0;
     }
-    .plan-container a.plan-selected:nth-child(odd) {
+    .plan-container-body .plan-container a.plan-selected:nth-child(odd) {
         margin-right: 35px;
     }
 }

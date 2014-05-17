@@ -1,10 +1,17 @@
 angular.module('CubbyHome').
-	controller('CubbyHomeController', ['$scope', '$location', function($scope, $location) {
+	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', function($scope, $location, PlanFactory, UserFactory) {
 		var $local = $scope.CubbyHome = {};
+
+        $local.plans = [];
 
         $local.showModalRegister = false;
         $local.showModalLogin = false;
         $local.showModalConfirmation = false;
+
+        $local.planUrl = '/account?token=';
+        $scope.$watch(UserFactory($scope).get(), function() {
+            $local.planUrl += UserFactory($scope).get().token + '#/plans?planId=';
+        });
 
         $scope.$on('hide', function() {
             $local.showModalLogin = false;
@@ -44,6 +51,10 @@ angular.module('CubbyHome').
         if($location.path() == '/confirmation') {
             $local.showConfirmationModal();
         }
+
+        PlanFactory($scope).getAllPlans(function(error, plans) {
+            $local.plans =plans;
+        });
 
 		$scope.toString = function() {
 			return 'CubbyHome';

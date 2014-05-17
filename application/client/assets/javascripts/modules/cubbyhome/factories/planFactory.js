@@ -1,4 +1,4 @@
-angular.module('Account').
+angular.module('CubbyHome').
     factory('PlanFactory', ['Restangular', 'UserFactory', function(restangular, userFactory){
 
         return function($scope, context) {
