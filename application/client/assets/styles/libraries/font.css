@@ -54,11 +54,14 @@
 .icon-switch:before {
     content: "\e603";
 }
+.icon-link:before {
+    content: "\e605";
+}
 .icon-bars:before {
     content: "\e60c";
 }
 .icon-paypal:before {
-    content: "\e605";
+    content: "\e60f";
 }
 .icon-check:before {
     content: "\f00c";

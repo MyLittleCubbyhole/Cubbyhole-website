@@ -29,7 +29,6 @@ section#body {
     top: 0px;
     left: 0px;
     /*padding-top: 46px;*/
-    padding-bottom: 70px;
 }
 
 .pull-left {
@@ -260,10 +259,11 @@ tr.item.uploading::after {
 
 
 #bloc-container .bloc button.button {
-    color: white;  
-    font-size: 25px!important;  
-    height: 50px;  
-    width: 350px;  text-align: center;
+    color: white;
+    font-size: 25px!important;
+    height: 70px;
+    width: 320px;
+    text-align: center;
     margin: auto;
     font-weight: 500;
     /* float: left; */
@@ -311,12 +311,12 @@ article#home {
     margin-left: 100px;
 }
 .bloc .discover p {
-    font-size: 19px;  
-    text-align: justify;  
+    font-size: 19px;
+    text-align: justify;
     text-shadow: 0px 0px 1px rgb(83, 83, 83);
 }
 #bloc-container article#discover {
-    height: 850px;
+    min-height: 750px;
 }
 
 .plan-container svg {
@@ -360,7 +360,7 @@ section#copyright {
     margin: auto;
 }
 #contact article.img-circle.image-target {
-    width: 182px;  
+    width: 182px;
     height: 182px;
     margin: 0px;
     border: 5px solid white;
@@ -382,7 +382,14 @@ section#copyright {
 
 
 
-
+@media screen and (max-width: 1120px) {
+    #bloc-container .bloc article.discover {
+        display: block;
+        width: 80%;
+        vertical-align: top;
+        margin: auto;
+    }
+}
 
 @media screen and (max-width: 775px) {
     #bloc-container .bloc #schematic {
@@ -391,12 +398,7 @@ section#copyright {
         margin: auto;
     }
 
-    #bloc-container .bloc article.discover {
-        display: block;
-        width: 80%;
-        vertical-align: top;
-        margin: auto;
-    }
+
     #manager section.manager-bloc:first-child {
         width: 100% !important;
     }
@@ -404,11 +406,11 @@ section#copyright {
         display: none;
     }
     #bloc-container .bloc button.green.register.google-font,
-    #bloc-container .bloc button.blue.register.google-font { 
+    #bloc-container .bloc button.blue.register.google-font {
         color: white;
         font-size: 19px!important;
-        height: 50px;
-        width: 350px;
+        height: 70px;
+        width: 320px;
         text-align: center;
         margin: auto;
         font-weight: 500;
@@ -422,12 +424,6 @@ section#copyright {
     #bloc-container .bloc #schematic {
         width: 60%;
         display: block;
-        margin: auto;
-    }
-    #bloc-container .bloc article.discover {
-        display: block;
-        width: 80%;
-        vertical-align: top;
         margin: auto;
     }
     #bloc-container .bloc .discover p {

@@ -214,7 +214,7 @@
 			},
 			"properties": {
 				"id": 76,
-				"order": 12,
+				"order": 9,
 				"prevSize": 32,
 				"code": 58907,
 				"name": "bell",
@@ -239,7 +239,7 @@
 			},
 			"properties": {
 				"id": 177,
-				"order": 13,
+				"order": 10,
 				"prevSize": 32,
 				"code": 58883,
 				"name": "switch",
@@ -261,7 +261,7 @@
 			},
 			"properties": {
 				"id": 12,
-				"order": 14,
+				"order": 11,
 				"prevSize": 28,
 				"code": 61452,
 				"name": "check",
@@ -284,7 +284,7 @@
 			},
 			"properties": {
 				"id": 13,
-				"order": 15,
+				"order": 12,
 				"prevSize": 28,
 				"code": 61453,
 				"name": "times",
@@ -306,7 +306,7 @@
 			},
 			"properties": {
 				"id": 327,
-				"order": 16,
+				"order": 13,
 				"prevSize": 28,
 				"code": 61803,
 				"name": "dropbox",
@@ -328,7 +328,7 @@
 			},
 			"properties": {
 				"id": 299,
-				"order": 17,
+				"order": 14,
 				"prevSize": 28,
 				"code": 61773,
 				"name": "share-square",
@@ -350,7 +350,7 @@
 			},
 			"properties": {
 				"id": 296,
-				"order": 18,
+				"order": 15,
 				"prevSize": 28,
 				"code": 61770,
 				"name": "check-square",
@@ -373,7 +373,7 @@
 			},
 			"properties": {
 				"id": 211,
-				"order": 19,
+				"order": 16,
 				"prevSize": 28,
 				"code": 61677,
 				"name": "cloud-download",
@@ -396,7 +396,7 @@
 			},
 			"properties": {
 				"id": 212,
-				"order": 20,
+				"order": 17,
 				"prevSize": 28,
 				"code": 61678,
 				"name": "cloud-upload",
@@ -418,7 +418,7 @@
 			},
 			"properties": {
 				"id": 30,
-				"order": 21,
+				"order": 18,
 				"prevSize": 28,
 				"code": 61473,
 				"name": "refresh",
@@ -426,6 +426,31 @@
 			},
 			"setIdx": 0,
 			"iconIdx": 20
+		},
+		{
+			"icon": {
+				"paths": [
+					"M953.396 74.642l-4.028-4.042c-94.148-94.134-248.194-94.134-342.326 0l-218.106 218.136c-94.134 94.132-94.134 248.176 0 342.31l4.026 4.026c7.832 7.848 16.146 14.924 24.736 21.458l79.848-79.85c-9.302-5.494-18.126-12.072-26.116-20.060l-4.042-4.042c-51.114-51.098-51.114-134.272 0-185.39l218.128-218.112c51.116-51.118 134.274-51.118 185.386 0l4.042 4.024c51.1 51.116 51.1 134.292 0 185.39l-98.686 98.686c17.132 42.308 25.248 87.4 24.538 132.386l152.604-152.604c94.134-94.136 94.134-248.178-0.004-342.316zM631.042 388.934c-7.832-7.832-16.146-14.922-24.736-21.44l-79.848 79.832c9.304 5.496 18.126 12.074 26.116 20.062l4.042 4.040c51.116 51.116 51.116 134.272 0 185.388l-218.13 218.134c-51.118 51.102-134.276 51.102-185.388 0l-4.042-4.042c-51.098-51.12-51.098-134.276 0-185.388l98.688-98.686c-17.134-42.306-25.246-87.402-24.538-132.386l-152.602 152.598c-94.136 94.132-94.136 248.178 0 342.324l4.026 4.032c94.152 94.128 248.192 94.128 342.328 0l218.11-218.118c94.134-94.132 94.134-248.194 0-342.326l-4.026-4.024z"
+				],
+				"tags": [
+					"link",
+					"chain",
+					"url",
+					"uri",
+					"anchor"
+				],
+				"grid": 16
+			},
+			"properties": {
+				"id": 195,
+				"order": 32,
+				"prevSize": 32,
+				"code": 58885,
+				"name": "link",
+				"ligatures": ""
+			},
+			"setIdx": 0,
+			"iconIdx": 21
 		},
 		{
 			"icon": {
@@ -442,7 +467,7 @@
 			},
 			"properties": {
 				"id": 168,
-				"order": 23,
+				"order": 19,
 				"prevSize": 28,
 				"code": 61632,
 				"name": "group",
@@ -465,7 +490,7 @@
 			},
 			"properties": {
 				"id": 29,
-				"order": 24,
+				"order": 20,
 				"prevSize": 32,
 				"code": 58887,
 				"name": "calendar",
@@ -486,7 +511,7 @@
 			},
 			"properties": {
 				"id": 6,
-				"order": 25,
+				"order": 21,
 				"prevSize": 24,
 				"code": 58888,
 				"name": "chevron-right",
@@ -507,7 +532,7 @@
 			},
 			"properties": {
 				"id": 7,
-				"order": 26,
+				"order": 22,
 				"prevSize": 24,
 				"code": 58890,
 				"name": "chevron-left",
@@ -530,7 +555,7 @@
 			},
 			"properties": {
 				"id": 48,
-				"order": 27,
+				"order": 23,
 				"prevSize": 32,
 				"code": 58891,
 				"name": "microphone",
@@ -553,7 +578,7 @@
 			},
 			"properties": {
 				"id": 7,
-				"order": 32,
+				"order": 28,
 				"prevSize": 28,
 				"code": 61447,
 				"name": "user",
@@ -576,7 +601,7 @@
 			},
 			"properties": {
 				"id": 148,
-				"order": 33,
+				"order": 29,
 				"prevSize": 28,
 				"code": 61597,
 				"name": "credit-card",
@@ -601,7 +626,7 @@
 			},
 			"properties": {
 				"id": 151,
-				"order": 31,
+				"order": 27,
 				"prevSize": 32,
 				"code": 58892,
 				"name": "bars",
@@ -626,7 +651,7 @@
 			},
 			"properties": {
 				"id": 120,
-				"order": 29,
+				"order": 25,
 				"prevSize": 20,
 				"code": 58882,
 				"name": "cross",
@@ -654,7 +679,7 @@
 			},
 			"properties": {
 				"id": 64,
-				"order": 30,
+				"order": 26,
 				"prevSize": 32,
 				"code": 57408,
 				"name": "profile-male",
@@ -678,7 +703,7 @@
 			},
 			"properties": {
 				"id": 36,
-				"order": 34,
+				"order": 30,
 				"prevSize": 20,
 				"code": 58894,
 				"name": "search",
@@ -702,7 +727,7 @@
 			},
 			"properties": {
 				"id": 46,
-				"order": 28,
+				"order": 24,
 				"prevSize": 20,
 				"code": 58893,
 				"name": "camera",
@@ -724,9 +749,9 @@
 			},
 			"properties": {
 				"id": 429,
-				"order": 35,
+				"order": 31,
 				"prevSize": 32,
-				"code": 58885,
+				"code": 58895,
 				"name": "paypal",
 				"ligatures": ""
 			},
