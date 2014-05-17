@@ -1,1 +1,16 @@
-user
+
+<section class="user-list">
+	<section class="user-list-container">
+		<article class="url-row row">								
+			<article class="user-email col col-8">
+				{{Administration.user.email}}
+			</article>
+			<article class="user-right col col-4">
+				<select name="select" ng-model="Administration.user.role">
+					<option value="2">Read-only</option>
+					<option value="1">USER</option>
+				</select>
+			</article>
+		</article>
+	</section>
+</section>
