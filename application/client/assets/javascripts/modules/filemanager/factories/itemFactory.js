@@ -70,7 +70,8 @@ angular.module('FileManager').
 								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								lastUpdateName: items[i].lastUpdateName,
-								shared: items[i].shared
+								shared: items[i].shared,
+								downloads: items[i].downloads
 							};
 
 							if(options._id.substring(1) == '/Shared')

@@ -1,4 +1,4 @@
-angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Account').
+angular.module('Account', ['CubbyHole', 'CubbyHome', 'highcharts-ng']);;angular.module('Account').
 	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
 
         $routeProvider
@@ -23,7 +23,7 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 		$location.html5Mode(false);
 
 	}]);;angular.module('Account').
-    controller('AccountController', ['$scope', 'DataChartFactory', 'FormatSizeService', 'UserFactory', function($scope, DataChartFactory, FormatSizeService, UserFactory) {
+    controller('AccountController', ['$scope', 'PlanFactory', 'FormatSizeService', 'UserFactory', function($scope, PlanFactory, FormatSizeService, UserFactory) {
         var $local = $scope.Account = {};
 
         $local.currentPlan = {};
@@ -31,7 +31,7 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
         $local.user = UserFactory($scope).get();
 
         $scope.$watch(UserFactory($scope).get(), function() {
-            DataChartFactory($scope).getActualPlan(function(error, plan) {
+            PlanFactory($scope).getActualPlan(function(error, plan) {
                 if (!error && plan) {
                     $local.currentPlan = plan;
                     $scope.$broadcast('plan_updated');
@@ -67,21 +67,19 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 
         $local.countries = CountryFactory($scope).list();
 
-        var user = UserFactory($scope).get();
-        user.birthdate = new Date(user.birthdate);
-        user.birthdate = user.birthdate.getDate() + '/' + (user.birthdate.getMonth() + 1) + '/' + user.birthdate.getFullYear();
+        var birthdate = new Date($scope.Account.user.birthdate).getDate() + '/' + (new Date($scope.Account.user.birthdate).getMonth() + 1) + '/' + new Date($scope.Account.user.birthdate).getFullYear();
 
         $local.user = {
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            birthdate: user.birthdate,
-            country: user.country,
-            photo: user.photo
+            email: $scope.Account.user.email,
+            firstname: $scope.Account.user.firstname,
+            lastname: $scope.Account.user.lastname,
+            birthdate: birthdate,
+            country: $scope.Account.user.country,
+            photo: $scope.Account.user.photo
         };
 
-        if(user.photo && user.photo != 'null')
-            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + user.token + '&run)'};
+        if($scope.Account.user.photo && $scope.Account.user.photo != 'null')
+            $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + $scope.Account.user.photo + '?token=' + $scope.Account.user.token + '&run)'};
 
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
@@ -148,7 +146,6 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 
                         usedSpace += sizes[i].size;
                     }
-
                     availableSize = $scope.Account.currentPlan.storage - usedSpace;
                 }
 
@@ -278,7 +275,7 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 					case 'share':
 						data[i].icon = 'icon-link';
 						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" with ';
-						if(data[i].targetOwner == 'You' && data[i].name != 'Public' && data[i].name == '')
+						if(data[i].targetOwner == 'You' && data[i].name != 'Public')
 							data[i].message +=  'you';
 						else
 							data[i].message += '"'+ data[i].name +'"';
@@ -304,20 +301,58 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 			return 'Timeline';
 		}
 	}]);angular.module('Account').
-	controller('PlansController', ['$scope', 'apiUrl', function($scope, apiUrl){
+	controller('PlansController', ['$scope', '$location', 'apiUrl', 'PlanFactory', function($scope, $location, apiUrl, PlanFactory){
 		var $local = $scope.Plans = {};
 
-        $local.selectedPlan = {
-            id: 1,
-            price: 0.99,
-            name: 'Plan ' + 'yolo',
-            storage: 10737418240,
-            duration: 1,
-            uploadBandwidth: 2097152,
-            downloadBandwith: 2097152,
-            quota: 104857600,
-            available: 1
+        $local.selectedPlan = {};
+        $local.plans = [];
+
+        $local.select2Options = {
+             minimumResultsForSearch: -1
         };
+
+        PlanFactory($scope).getAllPlans(function(error, plans) {
+            $local.plans = plans;
+
+            if($location.$$search.planId)
+                for(var i = 0; i < $local.plans.length; i++)
+                    if($local.plans[i].id == $location.$$search.planId)
+                        $local.selectPlan($local.plans[i]);
+        });
+
+        $local.selectPlan = function(plan) {
+            plan.selected = true;
+            $local.selectedPlan = {
+                id: plan.id,
+                price: plan.price,
+                name: 'Plan ' + plan.name,
+                description: plan.description,
+                storage: plan.storage,
+                duration: plan.duration,
+                uploadBandwidth: plan.uploadBandwidth,
+                downloadBandwidth: plan.downloadBandwidth,
+                quota: plan.quota
+            };
+        }
+
+        $local.changeDuration = function() {
+            for(var i = 0; i < $local.plans.length; i++) {
+                if($local.plans[i].selected) {
+                    $local.plans[i].price = $local.plans[i].price / $local.plans[i].duration;
+                    $local.plans[i].duration = $local.selectedPlan.duration;
+                    $local.plans[i].price = $local.plans[i].price * $local.plans[i].duration;
+                }
+            }
+        }
+
+        $local.unselect = function() {
+            $local.selectedPlan = {};
+            for(var i = 0; i < $local.plans.length; i++) {
+                $local.plans[i].selected = false;
+                $local.plans[i].price = $local.plans[i].price / $local.plans[i].duration;
+                $local.plans[i].duration = 1;
+            }
+        }
 
 		$scope.toString = function() {
 			return 'Plans';
@@ -421,28 +456,6 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 
             var prototype = {};
 
-            prototype.getActualPlan = function(callback) {
-                restangular.one('users').one(userFactory($scope).get().id + '/plan').get().then(function(plan) {
-                    var planToReturn = null;
-                    if(plan && plan.id) {
-                        planToReturn = {
-                            id: plan.id,
-                            price: plan.price,
-                            name: plan.name,
-                            storage: parseInt(plan.storage, 10),
-                            duration: parseInt(plan.duration, 10),
-                            uploadBandwidth: parseInt(plan.uploadbandwidth, 10),
-                            downloadBandwidth: parseInt(plan.downloadbandwidth, 10),
-                            quota: parseInt(plan.quota, 10),
-                            available: plan.available,
-                            dateStart: plan.datestart,
-                            dateEnd: plan.dateend
-                        }
-                    }
-                    callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
-                }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
-            }
-
             prototype.getSizeUsed = function(callback) {
                 restangular.one('browse').one(userFactory($scope).get().id + '/size').getList().then(function(sizes) {
                     var sizesToReturn = null;
@@ -539,4 +552,124 @@ angular.module('Account', ['CubbyHole', 'highcharts-ng']);;angular.module('Accou
 		$scope.toString = function() {
 			return 'CubbyHole';
 		}
-	}]);
+	}]);;angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('CubbyHome').
+	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', function($scope, $location, PlanFactory, UserFactory) {
+		var $local = $scope.CubbyHome = {};
+
+        $local.plans = [];
+
+        $local.showModalRegister = false;
+        $local.showModalLogin = false;
+        $local.showModalConfirmation = false;
+
+        $local.planUrl = '/account?token=';
+        $scope.$watch(UserFactory($scope).get(), function() {
+            $local.planUrl += UserFactory($scope).get().token + '#/plans?planId=';
+        });
+
+        $scope.$on('hide', function() {
+            $local.showModalLogin = false;
+            $local.showModalRegister = false;
+            $local.showModalConfirmation = false;
+        });
+
+        $local.showRegisterModal = function() {
+            $scope.Overlay.activated = true;
+            $local.showModalLogin = false;
+            $local.showModalRegister = true;
+            $local.showModalConfirmation = false;
+        }
+
+        $local.showLoginModal = function() {
+            $scope.Overlay.activated = true;
+            $local.showModalRegister = false;
+            $local.showModalLogin = true;
+            $local.showModalConfirmation = false;
+        }
+
+        $local.showConfirmationModal = function() {
+            $scope.Overlay.activated = true;
+            $local.showModalRegister = false;
+            $local.showModalLogin = false;
+            $local.showModalConfirmation = true;
+        }
+
+        if($location.path() == '/login') {
+            $local.showLoginModal();
+        }
+
+        if($location.path() == '/register') {
+            $local.showRegisterModal();
+        }
+
+        if($location.path() == '/confirmation') {
+            $local.showConfirmationModal();
+        }
+
+        PlanFactory($scope).getAllPlans(function(error, plans) {
+            $local.plans =plans;
+        });
+
+		$scope.toString = function() {
+			return 'CubbyHome';
+		}
+	}]);;angular.module('CubbyHome').
+    factory('PlanFactory', ['Restangular', 'UserFactory', function(restangular, userFactory){
+
+        return function($scope, context) {
+            context = context || {};
+
+            if(!$scope)
+                throw 'a scope must be defined ';
+
+            var prototype = {};
+
+            prototype.getActualPlan = function(callback) {
+                restangular.one('users').one(userFactory($scope).get().id + '/plan').get().then(function(plan) {
+                    var planToReturn = null;
+                    if(plan && plan.id) {
+                        planToReturn = {
+                            id: plan.id,
+                            photo: plan.photo,
+                            price: plan.price,
+                            name: plan.name,
+                            description: plan.description,
+                            storage: parseInt(plan.storage, 10),
+                            duration: parseInt(plan.duration, 10),
+                            uploadBandwidth: parseInt(plan.uploadbandwidth, 10),
+                            downloadBandwidth: parseInt(plan.downloadbandwidth, 10),
+                            quota: parseInt(plan.quota, 10),
+                            available: plan.available,
+                            dateStart: plan.datestart,
+                            dateEnd: plan.dateend
+                        };
+                    }
+                    callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
+                }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
+            };
+
+            prototype.getAllPlans = function(callback) {
+                restangular.one('plans').getList().then(function(plans) {
+                    var plansToReturn = [];
+                    if(plans)
+                        for(var i = 0; i < plans.length; i++)
+                            plansToReturn.push({
+                                id: plans[i].id,
+                                photo: plans[i].photo,
+                                price: plans[i].price,
+                                name: plans[i].name,
+                                description: plans[i].description,
+                                storage: parseInt(plans[i].storage, 10),
+                                duration: parseInt(plans[i].duration, 10),
+                                uploadBandwidth: parseInt(plans[i].uploadbandwidth, 10),
+                                downloadBandwidth: parseInt(plans[i].downloadbandwidth, 10),
+                                quota: parseInt(plans[i].quota, 10),
+                                available: plans[i].available
+                            });
+                    callback.call(this, (plansToReturn ? null : 'no plan found'), (plansToReturn ? plansToReturn : null));
+                }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
+            };
+
+            return prototype;
+        };
+    }]);
