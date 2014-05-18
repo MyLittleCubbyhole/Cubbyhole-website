@@ -1,6 +1,7 @@
 angular.module('Administration').
-	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
+	config(['apiUrl', 'RestangularProvider','$locationProvider', '$routeProvider', '$httpProvider', function(apiUrl, restangular, $location, $routeProvider, $httpProvider) {
 
+        restangular.setBaseUrl(apiUrl);
         $routeProvider
         .when('/users', {
             templateUrl: '/templates/admin/users',

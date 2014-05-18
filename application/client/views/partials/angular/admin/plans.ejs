@@ -37,7 +37,102 @@
 						<section class="plan-details animated" ng-show="PlanAdministration.selectedPlan.id" ng-class="{bounceInDown: PlanAdministration.selectedPlan.id}">
 							<i class="close-icon icon-cross" ng-click="PlanAdministration.unselect()"></i>
 							
-							<!-- TODO -->
+							<article class="user-picture">
+								<article class="border-circle-blue" form-file-upload=".image-plan-target" form-file-model="PlanAdministration.selectedPlan.image" form-file-name="photo" form-file-active-upload>
+									<article class="camera-icon"><i class="icon-camera"></i></article>
+									<article class="img-circle image-plan-target">
+										<i class="icon-profile-male form-file-hide"></i>
+									</article>
+								</article>
+							</article>
+
+							<article class="edit-account-form">
+								<form name="form" class="form" ng-submit="PlanAdministration.save(form.$valid)" novalidate>
+									<fieldset>
+										<section>
+											<article class="row">
+												<label for="input-name-plans-administration" class="label col col-xs-3 col-sm-4">Name</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.name" id="input-name-plans-administration" type="text" name="name" class="form-control" />
+														<i class="icon-append icon-user"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-price-plans-administration" class="label col col-xs-3 col-sm-4">Price</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.price" id="input-price-plans-administration" type="text" name="price" class="form-control" />
+														<i class="icon-append icon-credit-card"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-description-plans-administration" class="label col col-xs-3 col-sm-4">Description</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.description" id="input-description-plans-administration" type="text" name="description" class="form-control" />
+														<i class="icon-append icon-newspaper"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-storage-plans-administration" class="label col col-xs-3 col-sm-4">Storage</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.storage" id="input-storage-plans-administration" type="text" name="storage" class="form-control" />
+														<i class="icon-append icon-archive"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-uploadbandwidth-plans-administration" class="label col col-xs-3 col-sm-4">Upload bandwidth</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.uploadBandwidth" id="input-uploadbandwidth-plans-administration" type="text" name="uploadbandwidth" class="form-control" />
+														<i class="icon-append icon-cloud-upload"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-downloadbandwidth-plans-administration" class="label col col-xs-3 col-sm-4">Download bandwidth</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.downloadBandwidth" id="input-downloadbandwidth-plans-administration" type="text" name="downloadBandwidth" class="form-control" />
+														<i class="icon-append icon-cloud-download"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+										<section>
+											<article class="row">
+												<label for="input-quota-plans-administration" class="label col col-xs-3 col-sm-4">Quota</label>
+												<article class="col col-xs-9 col-sm-8">
+													<label class="input state-disabled">
+														<input ng-model="PlanAdministration.selectedPlan.quota" id="input-quota-plans-administration" type="text" name="quota" class="form-control" />
+														<i class="icon-append icon-calendar"></i>
+													</label>
+												</article>
+											</article>
+										</section>
+									</fieldset>
+									<section class="buttons">
+										<button class="button green register google-font pull-right" type="submit">{{PlanAdministration.selectedPlan.new ? 'CREATE' : 'UPDATE'}}</button>
+									</section>
+								</form>
+							</article>
+
 
 						</section>
 					</section>

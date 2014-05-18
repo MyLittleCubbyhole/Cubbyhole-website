@@ -535,6 +535,71 @@ section#configuration-view {
 
 
 
+
+.plan-details form {
+    position: relative!important;
+    top: 20px!important;
+}
+.plan-details .buttons {
+    padding-top: 0px;
+    padding-right: 35px;
+}
+
+.plan-details article.user-picture {
+    width: 220px;
+    height: 280px;
+    position: relative;
+    float: left;
+    margin-right: 30px;
+    margin-top: 30px;
+}
+.plan-details .user-picture article.border-circle-blue.ng-scope {
+    width: 100%;  
+    height: 100%;  border: 2px solid #9ad6f2;
+    background: rgb(248, 248, 248);
+}
+.plan-details .user-picture article.camera-icon {
+    border-radius: 50%;  background-color: #75c8ef;  width: 52px;  height: 52px;  position: absolute;  
+    top: 3px;  
+    right: 165px;  z-index: 1;  text-align: center;  line-height: 68px;
+}
+.plan-details {}
+.plan-details  i.icon-camera {}
+.plan-details .user-picture .camera-icon i {
+    font-size: 36px;  color: white;
+}
+.plan-details .user-picture .img-circle {
+    border-radius: 0;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    line-height: 276px;
+}
+.plan-details .user-picture .img-circle i.icon-profile-male {
+    margin-top: 0px!important;
+    display: inline!important;
+}
+.plan-details form.form input {
+    cursor: text!important;
+    border: 1px solid #B1B1B1;
+    background-color: white;
+}
+.plan-details form.form fieldset {
+    padding: 8px 35px 0px 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 1120px) {
     #bloc-container .bloc article.discover {
         display: block;
@@ -545,6 +610,11 @@ section#configuration-view {
 }
 
 @media screen and (max-width: 775px) {
+    .plan-details article.user-picture {
+        margin: auto;
+        clear: both;
+        float: none;
+    }
     .input-search .input {
         padding-left: 7px;
     }
