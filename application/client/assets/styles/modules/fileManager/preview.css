@@ -221,6 +221,19 @@ section.button-text {
     padding-bottom: 6px;
     border-bottom: 1px solid #D3D3D3;
 }
+.preview-infos-additional.shared-more {
+    position: relative;
+}
+.preview-infos-additional.shared-more:after {
+    content: '...';
+    position: absolute;
+    right: -17px;
+    bottom: 12px;
+    display: none;
+}
+.preview-infos-additional.shared-more-5:after {
+    display: block;
+}
 
 .preview-infos-additional .limited-width {
     max-width: 300px;
@@ -247,19 +260,19 @@ section.button-text {
 .preview-infos-additional-photos .img-circle {
     width: 40px;
     height: 40px;
-    overflow: hidden;
     float: right;
     display: block;
     text-align: center;
     margin-top: 2px;
     margin-left: 5px;
     margin-bottom: 3px;
+    position: relative;
 }
 
 .preview-infos-additional-photos .img-circle i {
     font-size: 33px;
     position: relative;
-    top: 7px;
+    top: 3px;
 }
 
 @media screen and (max-width: 1760px) {
@@ -282,6 +295,10 @@ section.button-text {
     .preview-infos-additional-photos.limited-width {
         max-width: 210px;
     }
+    .preview-infos-additional.shared-more-4:after {
+        display: block;
+    }
+
 }
 @media screen and (max-width: 1290px) {
     .preview-infos-additional-photos.limited-width {
@@ -295,10 +312,16 @@ section.button-text {
     .preview-infos-additional-photos.limited-width {
         max-width: 160px;
     }
+    .preview-infos-additional.shared-more-3:after {
+        display: block;
+    }
 }
 @media screen and (max-width: 1130px) {
     .preview-infos-additional-photos.limited-width {
         max-width: 100px;
+    }
+    .preview-infos-additional.shared-more-2:after {
+        display: block;
     }
 }
 @media screen and (max-width: 1030px) {
@@ -320,7 +343,16 @@ section.button-text {
     }
     .preview-infos-additional-photos .img-circle i {
         font-size: 27px;
-        top: 3px;
+        top: 2px;
+    }
+
+    .preview-infos-additional.shared-more-2:after {
+        display: none;
+    }
+    .preview-infos-additional.shared-more-5:after,
+    .preview-infos-additional.shared-more-4:after,
+    .preview-infos-additional.shared-more-3:after {
+        display: block;
     }
 }
 @media screen and (max-width: 940px) {
@@ -328,7 +360,11 @@ section.button-text {
         max-width: 57px;
     }
     .preview-infos-additional-photos.limited-width {
-        max-width: 80px;
+        max-width: 73px;
+    }
+
+    .preview-infos-additional.shared-more-2:after {
+        display: block;
     }
 }
 

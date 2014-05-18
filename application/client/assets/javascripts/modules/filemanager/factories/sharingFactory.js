@@ -23,7 +23,9 @@ angular.module('FileManager').
                             users.push({
                                 email: data[i].email,
                                 right: data[i].right,
-                                photo: data[i].photo
+                                photo: data[i].photo,
+                                firstname: data[i].firstname,
+                                lastname: data[i].lastname
                             })
                         callback.call(this, null, users);
                     } else

@@ -503,7 +503,8 @@
 }
 
 
-.form .tooltip {
+.form .tooltip,
+.img-circle .tooltip {
     position: absolute;
     z-index: 1;
     left: -9999px;
@@ -520,20 +521,28 @@
     -moz-transition: margin 0.3s, opacity 0.3s;
     -webkit-transition: margin 0.3s, opacity 0.3s;
 }
-.form .tooltip:after {
+.img-circle .tooltip {
+    font-size: 12px;
+    padding: 0px 8px 17px;
+}
+.form .tooltip:after,
+.img-circle .tooltip:after {
     content: '';
     position: absolute;
 }
 .form .input input:focus ~ .tooltip,
-.form .textarea textarea:focus ~ .tooltip {
+.form .textarea textarea:focus ~ .tooltip,
+.img-circle:hover .tooltip {
     opacity: 1;
 }
 
-.form .tooltip-top-right {
+.form .tooltip-top-right,
+.img-circle .tooltip-top-right {
     bottom: 100%;
     margin-bottom: 15px;
 }
-.form .tooltip-top-right:after {
+.form .tooltip-top-right:after,
+.img-circle .tooltip-top-right:after {
     top: 100%;
     right: 16px;
     border-top: 4px solid #75c8ef;
@@ -541,36 +550,42 @@
     border-left: 4px solid transparent;
 }
 .form .input input:focus ~ .tooltip-top-right,
-.form .textarea textarea:focus ~ .tooltip-top-right {
+.form .textarea textarea:focus ~ .tooltip-top-right,
+.img-circle:hover .tooltip {
     right: 0;
     left: auto;
     margin-bottom: 5px;
 }
 
-.form .tooltip-top-left {
+.form .tooltip-top-left,
+.img-circle .tooltip-top-left {
     bottom: 100%;
     margin-bottom: 15px;
 }
-.form .tooltip-top-left:after {
+.form .tooltip-top-left:after,
+.img-circle .tooltip-top-left:after {
     top: 100%;
     left: 16px;
-    border-top: 4px solid rgba(0,0,0,0.9);
+    border-top: 4px solid #75c8ef;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
 .form .input input:focus + .tooltip-top-left,
-.form .textarea textarea:focus + .tooltip-top-left {
+.form .textarea textarea:focus + .tooltip-top-left,
+.img-circle:hover .tooltip-top-left {
     right: auto;
     left: 0;
     margin-bottom: 5px;
 }
 
-.form .tooltip-right {
+.form .tooltip-right,
+.img-circle .tooltip-right {
     top: 9px;
     white-space: nowrap;
     margin-left: 15px;
 }
-.form .tooltip-right:after {
+.form .tooltip-right:after,
+.img-circle .tooltip-right:after {
     top: 6px;
     right: 100%;
     border-top: 4px solid transparent;
@@ -578,17 +593,20 @@
     border-bottom: 4px solid transparent;
 }
 .form .input input:focus + .tooltip-right,
-.form .textarea textarea:focus + .tooltip-right {
+.form .textarea textarea:focus + .tooltip-right,
+.img-circle:hover .tooltip-right {
     left: 100%;
     margin-left: 5px;
 }
 
-.form .tooltip-left {
+.form .tooltip-left,
+.img-circle:hover .tooltip {
     top: 9px;
     white-space: nowrap;
     margin-right: 15px;
 }
-.form .tooltip-left:after {
+.form .tooltip-left:after,
+.img-circle .tooltip-left:after {
     top: 6px;
     left: 100%;
     border-top: 4px solid transparent;
@@ -596,17 +614,20 @@
     border-left: 4px solid rgba(0,0,0,0.9);
 }
 .form .input input:focus + .tooltip-left,
-.form .textarea textarea:focus + .tooltip-left {
+.form .textarea textarea:focus + .tooltip-left,
+.img-circle:hover .tooltip-left {
     right: 100%;
     left: auto;
     margin-right: 5px;
 }
 
-.form .tooltip-bottom-right {
+.form .tooltip-bottom-right,
+.img-circle .tooltip-bottom-right {
     top: 100%;
     margin-top: 15px;
 }
-.form .tooltip-bottom-right:after {
+.form .tooltip-bottom-right:after,
+.img-circle .tooltip-bottom-right:after {
     bottom: 100%;
     right: 16px;
     border-right: 4px solid transparent;
@@ -614,17 +635,20 @@
     border-left: 4px solid transparent;
 }
 .form .input input:focus + .tooltip-bottom-right,
-.form .textarea textarea:focus + .tooltip-bottom-right {
+.form .textarea textarea:focus + .tooltip-bottom-right,
+.img-circle:hover .tooltip-bottom-right {
     right: 0;
     left: auto;
     margin-top: 5px;
 }
 
-.form .tooltip-bottom-left {
+.form .tooltip-bottom-left,
+.img-circle .tooltip-bottom-left {
     top: 100%;
     margin-top: 15px;
 }
-.form .tooltip-bottom-left:after {
+.form .tooltip-bottom-left:after,
+.img-circle .tooltip-bottom-left:after {
     bottom: 100%;
     left: 16px;
     border-right: 4px solid transparent;
@@ -632,7 +656,8 @@
     border-left: 4px solid transparent;
 }
 .form .input input:focus + .tooltip-bottom-left,
-.form .textarea textarea:focus + .tooltip-bottom-left {
+.form .textarea textarea:focus + .tooltip-bottom-left,
+.img-circle:hover .tooltip-bottom-left {
     right: auto;
     left: 0;
     margin-top: 5px;
