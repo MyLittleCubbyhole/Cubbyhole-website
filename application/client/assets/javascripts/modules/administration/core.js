@@ -1,1 +1,1 @@
-angular.module('Administration', ['ngRoute', 'Authentication']);
+angular.module('Administration', ['ngRoute', 'Authentication', 'Tools']);

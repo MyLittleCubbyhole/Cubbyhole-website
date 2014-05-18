@@ -4,7 +4,7 @@
 
 	<aside id="vertical-toolbar" ng-controller="AdministrationController">
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container" ng-click="AdminNavigation.goto('config');">
+			<article class="option-toolbar container" ng-click="Administration.goto('users');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-user"></span>
 				</article>
@@ -14,7 +14,7 @@
 			</article>
 		</article>
 		<article class="option-toolbar google-font big-font">
-			<article class="option-toolbar container" ng-click="AdminNavigation.goto('plans');">
+			<article class="option-toolbar container" ng-click="Administration.goto('plans');">
 				<article class="icon-option-toolbar">
 					<span class="img-icon img-icon-plans"></span>
 				</article>
@@ -24,8 +24,8 @@
 			</article>
 		</article>
 	</aside>
-	<section scroll-bar theme="dark">
-		<section id="configuration-view" ng-view></section>
+	<section id="configuration-container" class="administration">
+		<section id="configuration-view" ng-view scroll-bar></section>
 	</section>
 
 </section> 

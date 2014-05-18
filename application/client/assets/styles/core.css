@@ -344,6 +344,126 @@ section#copyright {
 
 
 
+
+
+
+
+
+.role .form {
+ margin-right: 0; 
+ margin-left: 0; 
+}
+section.user-management-card {
+    margin: 5px;        
+    margin-top: 0px;
+    overflow: hidden;
+    width: 200px;  
+    display: inline-block;
+    height: 240px;
+    background: #FCFCFC;
+    border: 1px solid rgba(0,0,0,0.15);
+    color: #000;
+    text-align: center;
+    pointer-events: auto;
+    -webkit-animation-duration: 0.6s;
+    -moz-animation-duration: 0.6s; 
+    -o-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+section.user-management-card .select2-container .select2-choice > .select2-chosen {
+    margin-right: 0;
+}
+#user-management-container article.user-firstname.google-font.ng-binding {
+    height: 40px;  line-height: 40px;  font-size: 19px;  text-align: center;  display: inline-block;
+}
+#user-management-container article.user-lastname.google-font.ng-binding {
+    text-align: center;  font-size: 19px;  display: inline-block;
+}
+.user-management-card article.border-circle-blue {
+    width: 144px;  
+    height: 144px;  margin-left: 25px;  margin-top: 20px;  border: 3px solid #9ad6f2;  position: relative;  border-radius: 50%;
+}
+.user-management-card article.img-circle.image-target {
+    width: 138px;  
+    height: 138px;  margin: 0px;  border: 5px solid white;
+}
+#user-management-container .img-circle i.icon-profile-male.form-file-hide {
+    font-size: 90px;
+    color: #8A8A8A;
+    display: block;
+    margin-top: 11px;
+}
+#user-management-listing {
+    text-align: center;
+}
+#configuration-container.administration {
+    width: 100%;
+    padding-right: 75px; 
+    margin-left: 95px;
+    padding-top: 0px;
+}
+
+
+#user-management-listing {
+text-align: center;
+padding-right: 20px;
+}
+section#user-management-container {
+    min-height: 120px;
+}
+section#user-management-filter-box {
+    padding-top: 20px;
+    width: 100%;  
+    height: 130px;
+    width: 600px;
+    margin: auto;
+}
+.filter-box span {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    padding: 8px;
+    width: 70px;
+    text-align: center;
+    -webkit-animation-duration: 0.4;
+    -moz-animation-duration: 0.4;
+    -o-animation-duration: 0.4;
+    animation-duration: 0.4;
+}
+
+.filter-box span.active {
+    background-color: #4DBBEE;
+    color: white;
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+.filter-box span:hover {
+    background-color: #4DBBEE;
+    color: white;
+}
+
+section#box-white {
+    background-color: white;
+    margin-bottom: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
 #contact section.team-container {
     width: 260px;
     position: relative;
