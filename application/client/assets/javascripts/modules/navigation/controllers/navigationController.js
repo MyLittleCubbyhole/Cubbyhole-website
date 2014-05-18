@@ -7,7 +7,7 @@ angular.module('Navigation').
 			var pathView = path.slice(0, path.indexOf("#"));
 			var pathAngular = path.slice(path.indexOf("#"));
 			// console.log(path)
-			if(path.indexOf("/account") > -1)
+			if(path.indexOf("/account") > -1 || path.indexOf("/admin") > -1)
 				path = pathView + "?token=" + UserFactory($scope).get().token + pathAngular;
 			// console.log(pathAngular)
 

@@ -30,9 +30,6 @@
 .icon-folder:before {
     content: "\e606";
 }
-.icon-cog:before {
-    content: "\e601";
-}
 .icon-lock:before {
     content: "\e604";
 }
@@ -62,6 +59,9 @@
 }
 .icon-paypal:before {
     content: "\e60f";
+}
+.icon-equalizer:before {
+    content: "\e601";
 }
 .icon-check:before {
     content: "\f00c";
