@@ -69,7 +69,9 @@ angular.module('FileManager').
 	                			creator: items[i].creator,
 								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
-								shared: items[i].shared
+								lastUpdateName: items[i].lastUpdateName,
+								shared: items[i].shared,
+								downloads: items[i].downloads
 							};
 
 							if(options._id.substring(1) == '/Shared')
@@ -237,7 +239,7 @@ angular.module('FileManager').
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
-					
+
 					if(path != '/Shared/')
 						prototype.add({
 							_id: '. .',

@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$window', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -66,7 +66,10 @@ angular.module('FileManager').
 
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
-            console.log(name)
+
+            if($local.currentPath == '/Shared/')
+                return true;
+
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
                     if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
@@ -80,6 +83,10 @@ angular.module('FileManager').
 		}
 
         $local.rename = function() {
+
+            if($local.currentPath == '/Shared/')
+                return true;
+
             var canceled = false;
             for(var i = 0; i < $local.selectedItems.length; i++)
                 if($local.selectedItems[i].editMode) {
@@ -100,11 +107,33 @@ angular.module('FileManager').
 
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
-
+            $local.preview(false);
         };
 
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
+
+            if($local.previewActivated && $local.selectedItems && $local.selectedItems[0] && $local.selectedItems[0].category == 'folder') {
+                SharingFactory($scope, {local: $local}).getSharedUsers($local.selectedItems[0]._id + '/', function(error, data) {
+                    if(!error && data) {
+                        $local.selectedItems[0].usersWebserviceSharing = [];
+                        $local.selectedItems[0].usersActualSharing = [];
+                        _.merge($local.selectedItems[0].usersWebserviceSharing, data);
+
+                        for(var i = 0; i < $local.selectedItems[0].usersWebserviceSharing.length; i++)
+                            if($local.selectedItems[0].usersWebserviceSharing[i].photo && $local.selectedItems[0].usersWebserviceSharing[i].photo != 'null')
+                                $local.selectedItems[0].usersWebserviceSharing[i].photo = apiUrl + 'download/1/userPhotos/' + $local.selectedItems[0].usersWebserviceSharing[i].photo + '?token=' + UserFactory($scope).get().token + '&run';
+                            else
+                                $local.selectedItems[0].usersWebserviceSharing[i].photo = '';
+
+                        _.merge($local.selectedItems[0].usersActualSharing, $local.selectedItems[0].usersWebserviceSharing);
+                    } else {
+                        $local.selectedItems[0].usersWebserviceSharing = [];
+                        $local.selectedItems[0].usersActualSharing = [];
+                    }
+                    $local.selectedItems[0].usersToRemove = [];
+                });
+            }
         }
 
         $local.deleteItem = function(itemId) {

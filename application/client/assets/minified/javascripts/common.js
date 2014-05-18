@@ -138,7 +138,7 @@ angular.module('Config', []);;angular.module('Config').
 
             if(isNaN(size)) return "";
 
-            var unit = ["oct","Ko","Mo","Go","To"];
+            var unit = ["B","KB","MB","GB","TB"];
             var i = 0;
             while (size >= 1024) {
                 i++;
@@ -216,6 +216,75 @@ angular.module('Config', []);;angular.module('Config').
 					});
 				})
 
+
+				$scope.toString = function() {
+					return '_loadingBar';
+				}
+			}
+		};
+	}]);;angular.module('Tools').
+	directive('progressBarPlan', ['$parse', function($parse){
+		return {
+			scope: true,
+			restrict: 'E',
+			replace: true,
+			template: 	'<section class="progress-bar">'
+					+	'<section class="value">{{_loadingBar.value}}</section>'
+					+	'<section class="progress-bar-value"></section>'
+					+	'</section>',
+			link: function($scope, $node, attributes) {
+				var $local = $scope._loadingBar = {};
+
+				var dateStart = new Date($scope.Account.currentPlan.dateStart).getTime();
+				var dateEnd = new Date($scope.Account.currentPlan.dateEnd).getTime();
+
+				var total = dateEnd - dateStart
+				,	remaining = dateEnd - new Date().getTime()
+				,	percent = Math.round(remaining)*100 / Math.round(total)
+				,	bgColor = attributes.bgColor || '#919191'
+				,	barColor = attributes.bgColor || '#73c820'
+				,	color = attributes.color || '#4B4B4B';
+
+				var date = new Date(remaining);
+				$local.value = '';
+				if(date.getMonth() || date.getYear() - 70)
+					$local.value += (date.getMonth() + (date.getYear() - 70) * 12) + 'M - ';
+				if(date.getDate() - 1)
+					$local.value += (date.getDate() - 1) + 'D - ';
+				$local.value += new Date(remaining).getHours() + 'h'
+
+				$node.css('background-color', bgColor);
+				$node.find('.value').css('color', color);
+
+				$scope.$watch('Account.currentPlan', function() {
+					if($scope.Account.currentPlan.id != 1) {
+						var dateStart = new Date($scope.Account.currentPlan.dateStart).getTime();
+						var dateEnd = new Date($scope.Account.currentPlan.dateEnd).getTime();
+						total = dateEnd - dateStart;
+						remaining = dateEnd - new Date().getTime();
+						percent = Math.round(remaining)*100 / Math.round(total);
+
+						var date = new Date(remaining);
+						$local.value = '';
+						if(date.getMonth() || date.getYear() - 70)
+							$local.value += (date.getMonth() + (date.getYear() - 70) * 12) + 'M - ';
+						if(date.getDate() - 1)
+							$local.value += (date.getDate() - 1) + 'D - ';
+						$local.value += new Date(remaining).getHours() + 'h'
+
+						$node.find('.progress-bar-value').css({
+							'width': percent+'%',
+							'background-color': barColor
+						});
+					} else {
+						$node.find('.progress-bar-value').css({
+							'width': '100%',
+							'background-color': barColor
+						});
+						$local.value = 'unlimited';
+					}
+
+				})
 
 				$scope.toString = function() {
 					return '_loadingBar';
@@ -370,7 +439,34 @@ angular.module('Config', []);;angular.module('Config').
 				});
 			}
 		};
-	}]);;angular.module('Tools').
+	}]);;
+angular.module('Tools').
+    directive('shapeOver', function(){
+        return {
+            scope: {},
+            restrict: 'A',
+            link: function($scope, $node) {
+                var speed = 300
+                ,   easing = mina.backout;
+
+                var s = Snap( $node.find( 'svg' )[0] )
+                ,   path = s.select( 'path' )
+                ,   pathConfig = {
+                        from : path.attr( 'd' ),
+                        to : $node.data()['pathHover']
+                    };
+
+
+                $node.bind( 'mouseenter', function() {
+                    path.animate( { 'path' : pathConfig.to }, speed, easing );
+                } );
+
+                $node.bind( 'mouseleave', function() {
+                    path.animate( { 'path' : pathConfig.from }, speed, easing );
+                } );
+            }
+        };
+    });;angular.module('Tools').
     filter('ItemSizeFilter', ['FormatSizeService', function(FormatSizeService) {
         return function(input) {
             return FormatSizeService.format(input);
@@ -552,6 +648,23 @@ angular.module('Config', []);;angular.module('Config').
                 });
             };
 
+            prototype.all = function(callback) {
+
+                $http.get(apiUrl + 'users').
+                success(function(data) {
+                    console.log(data)
+                    if(data.length>0) {
+                        console.log(data)
+                    } else {    
+                        callback.call(this, 'authentication failed');
+                    }
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'get users failed');
+                    console.error(data);
+                });
+            }
+
             prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
@@ -710,6 +823,7 @@ angular.module('Config', []);;angular.module('Config').
 				this._node = null;
 				this.node = this.options.node;
 				this.lastUpdate = this.options.lastUpdate;
+				this.lastUpdateName = this.options.lastUpdateName;
 				this.size = this.options.size;
 				this.creator = this.options.creator;
 				this.ownerId = this.options.ownerId;
@@ -1012,9 +1126,9 @@ angular.module('Config', []);;angular.module('Config').
 
 			prototype.load = function(item) {
 
-				var ownerId = typeof item == 'object' ? item.ownerId : false
-				,	path = typeof item == 'object' ? item.getFullPath() : item ? item : '';
-				if(typeof item == 'object' && item._id != '.') {
+				var ownerId = item && typeof item == 'object' ? item.ownerId : false
+				,	path = item && typeof item == 'object' ? item.getFullPath() : item ? item : '';
+				if(item && typeof item == 'object' && item._id != '.') {
 					if(item._id != '. .')
 						$scope.FileManager.pathItems.push({
 							name: item.name,
@@ -1065,6 +1179,7 @@ angular.module('Config', []);;angular.module('Config').
 	                			creator: items[i].creator,
 								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
+								lastUpdateName: items[i].lastUpdateName,
 								shared: items[i].shared
 							};
 
@@ -1233,7 +1348,7 @@ angular.module('Config', []);;angular.module('Config').
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
-					
+
 					if(path != '/Shared/')
 						prototype.add({
 							_id: '. .',
@@ -1274,7 +1389,8 @@ angular.module('Config', []);;angular.module('Config').
                         for(var i = 0; i < data.length; i++)
                             users.push({
                                 email: data[i].email,
-                                right: data[i].right
+                                right: data[i].right,
+                                photo: data[i].photo
                             })
                         callback.call(this, null, users);
                     } else
@@ -1324,7 +1440,7 @@ angular.module('Config', []);;angular.module('Config').
             return prototype;
         };
     }]);angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'ItemFactory', 'UserFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, ItemFactory, UserFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -1391,7 +1507,10 @@ angular.module('Config', []);;angular.module('Config').
 
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
-            console.log(name)
+
+            if($local.currentPath == '/Shared/')
+                return true;
+
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
                     if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
@@ -1405,6 +1524,10 @@ angular.module('Config', []);;angular.module('Config').
 		}
 
         $local.rename = function() {
+
+            if($local.currentPath == '/Shared/')
+                return true;
+
             var canceled = false;
             for(var i = 0; i < $local.selectedItems.length; i++)
                 if($local.selectedItems[i].editMode) {
@@ -1424,7 +1547,8 @@ angular.module('Config', []);;angular.module('Config').
         };
 
         $local.refresh = function() {
-            ItemFactory($scope, {local: $local}).load( $local.currentPath );
+            ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
+
         };
 
         $local.preview = function(force) {
@@ -1443,7 +1567,7 @@ angular.module('Config', []);;angular.module('Config').
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
                     if(!error && token) {
-                        $local.urlSharing = window.location.origin + '/shared/' + token;
+                        $local.urlSharing = $window.location.protocol + '//' + $window.location.host + '/shared/' + token;
                         $local.selectedItems[0].shared = true;
                         $scope.$emit('enable_overlay');
                     } else
@@ -1609,26 +1733,41 @@ angular.module('Config', []);;angular.module('Config').
                     if(!error && data) {
                         _.merge($local.usersWebservice, data);
                         _.merge($local.users, data);
+                        for(var i = 0; i < $local.users.length; i++)
+                            if($local.users[i].photo && $local.users[i].photo != 'null')
+                                $local.users[i].photo = apiUrl + 'download/1/userPhotos/' + $local.users[i].photo + '?token=' + UserFactory($scope).get().token + '&run';
+                    } else {
+                        $local.usersWebservice = [];
+                        $local.users = [];
                     }
+                    $local.usersToRemove = [];
                 })
             }
         }
 
         $local.addUser = function(event) {
             if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
-                SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
-                    if(!error && user) {
-                        var userData = {
-                            email: $local.email,
-                            right: 'R'
-                        };
-                        if(user.photo && user.photo != 'null')
-                            userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
-                        $local.users.push(userData);
-                    }
+                var present = false;
+                for(var i = 0; i < $local.users.length; i++)
+                    if($local.users[i].email == $local.email)
+                        present = true;
 
+                if(!present)
+                    SharingFactory($scope, {local: $local}).getByEmail($local.email, function(error, user) {
+                        if(!error && user) {
+                            var userData = {
+                                email: $local.email,
+                                right: 'R'
+                            };
+                            if(user.photo && user.photo != 'null')
+                                userData.photo = apiUrl + 'download/1/userPhotos/' + user.photo + '?token=' + UserFactory($scope).get().token + '&run';
+                            $local.users.push(userData);
+                        }
+
+                        $local.email = "";
+                    });
+                else
                     $local.email = "";
-                });
             }
         }
 
@@ -1730,8 +1869,8 @@ angular.module('Config', []);;angular.module('Config').
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
 
-					// if($scope._item.item._id.substring(1) == '/Shared')
-						// return true;
+					if($scope._item.item._id.substring(1) == '/Shared')
+						return true;
 
 					if(target
 					&& source
@@ -1760,10 +1899,11 @@ angular.module('Config', []);;angular.module('Config').
 					self.files[id] = file;
 					self.files[id].sizeAdded = 0;
 
+					var ownerId = $scope._item.item.toString() == 'Folder' ? $scope._item.item.ownerId : $scope.FileManager.folderOwner;
 					var newItem = self.path == $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-						ownerId: UserFactory($scope).get().id,
+						ownerId: ownerId,
 						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',
@@ -1782,7 +1922,7 @@ angular.module('Config', []);;angular.module('Config').
 
 					socket.emit('upload_init', {
 						id: id,
-						owner: UserFactory($scope).get().id,
+						owner: ownerId,
 						name : self.files[id].name,
 						size : self.files[id].size,
 						type: self.files[id].type,
@@ -2064,7 +2204,7 @@ angular.module('Config', []);;angular.module('Config').
 			if(path.indexOf("/account") > -1)
 				path = pathView + "?token=" + UserFactory($scope).get().token + pathAngular;
 			// console.log(pathAngular)
-			
+
 			if(path.indexOf("/home") > -1 &&  $window.location.pathname == '/home') {
 
 				$location.path('/'+pathAngular.substring(1));

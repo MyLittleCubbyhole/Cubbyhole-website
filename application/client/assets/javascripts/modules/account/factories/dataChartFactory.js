@@ -10,7 +10,7 @@ angular.module('Account').
             var prototype = {};
 
             prototype.getSizeUsed = function(callback) {
-                restangular.one('browse').one(userFactory($scope).get().id + '/size').getList().then(function(sizes) {
+                restangular.one('browse').one(userFactory($scope).get().id + '/size').get().then(function(sizes) {
                     var sizesToReturn = null;
                     if(sizes && sizes.length > 0) {
                         sizesToReturn = [];

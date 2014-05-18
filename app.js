@@ -4,10 +4,13 @@ var path    = require('path')
 ,   app     = express()
 ,   server  = http.createServer(app)
 ,   environment = ( typeof process.argv[2] != 'undefined' ? process.argv[2] : 'dev')
-,   link = {'prod':'config-prod.json', 'dev':'config-dev.json'};
+,   developer = ( typeof process.argv[3] != 'undefined' ? process.argv[3] : '')
+,   link = {'prod':'config-prod.json', 'dev':'config-dev.json', 'marcel': 'config-marcel.json'};
 
 global.environment = environment;
-global.configFile = typeof link[environment] != 'undefined' ? link[environment] : link['dev'];
+global.configFile = {};
+global.configFile.env = typeof link[environment] != 'undefined' ? link[environment] : link['dev'];
+global.configFile.developer = typeof link[developer] != 'undefined' ? link[developer] : '';
 global.paths = { app: __dirname, server: __dirname + '/application/server', views: __dirname + '/application/client/views/' };
 
 module.exports = { app: app, server: server };
