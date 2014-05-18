@@ -11,6 +11,7 @@ angular.module('Administration').
             controller: 'PlanAdministrationController'
         })
         .otherwise({ redirectTo: '/users' });
+        $httpProvider.interceptors.push('AuthenticationFactory');
 
 		$location.html5Mode(false);
 

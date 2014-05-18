@@ -54,9 +54,8 @@ angular.module('Authentication').
 
                 $http.get(apiUrl + 'users').
                 success(function(data) {
-                    console.log(data)
                     if(data.length>0) {
-                        console.log(data)
+                        callback.call(this, '', data);
                     } else {    
                         callback.call(this, 'authentication failed');
                     }
@@ -89,6 +88,29 @@ angular.module('Authentication').
                     console.error(data);
                 });
             };
+
+            prototype.promote = function(user) {
+                $http.put(apiUrl + 'users/'+ user.id + '/promote').
+                success(function(data) {
+                    console.log(data)
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'authentication failed');
+                    console.error(data);
+                });
+            }
+
+            prototype.demote = function(user) {
+                $http.put(apiUrl + 'users/'+ user.id + '/demote').
+                success(function(data) {
+                    console.log(data)
+                }).
+                error(function(data, status, headers, config) {
+                    callback.call(this, 'authentication failed');
+                    console.error(data);
+                });
+            }
+
 
             prototype.logout = function() {
                 var user = prototype.get();

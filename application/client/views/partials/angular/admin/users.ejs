@@ -1,16 +1,42 @@
 
-<section class="user-list">
-	<section class="user-list-container">
-		<article class="url-row row">								
-			<article class="user-email col col-8">
-				{{Administration.user.email}}
+<section id="user-management-container">
+	<section id="box-white">
+		<section id="user-management-filter-box">
+			<section id="user-management-filter-box" class="form">
+				<section class="input-search col-xs-8 ">
+					<label class="input col-xs-11">
+						<input type="text" placeholder="E-MAIL" ng-model="UserAdministration.filter.search">
+					</label>
+				</section>
+				<section class="filter-box col-xs-4">
+					<span ng-click="UserAdministration.filter.admin = !UserAdministration.filter.admin" ng-class="{active: UserAdministration.filter.admin}">ADMIN</span>
+					<span ng-click="UserAdministration.filter.user = !UserAdministration.filter.user" ng-class="{active: UserAdministration.filter.user}">USER</span>
+				</section>
+			</section>	
+		</section>		
+	</section>
+	<section id="user-management-listing">
+		<section class="user-management-card" ng-repeat="user in UserAdministration.users | filter: {email: UserAdministration.filter.search, roleid: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}">
+			<article class="user-picture">
+				<article class="border-circle-blue">
+					<article class="img-circle image-target"  ng-style="{'background-image': 'url({{user.image}})'}" ng-class="{'form-file-preview': user.photo && user.photo != 'null'}">
+						<i class="icon-profile-male form-file-hide"></i>
+					</article>
+				</article>
 			</article>
-			<article class="user-right col col-4">
-				<select name="select" ng-model="Administration.user.role">
-					<option value="2">Read-only</option>
-					<option value="1">USER</option>
-				</select>
+			<article class="user-info">
+				<article class="user-firstname google-font">{{user.firstname}}</article>
+				<article class="user-lastname google-font">{{user.lastname}}</article>
 			</article>
-		</article>
+			<section class="role">
+				<label class="form">
+					<select ng-model="user.roleid" ui-select2="{minimumResultsForSearch: -1}" ng-change="UserAdministration.applyRole(user);">
+						<option value="2">ADMINISTRATOR</option>
+						<option value="1">USER</option>
+					</select>
+				</label>
+			</section>
+		</section>
+
 	</section>
 </section>
