@@ -20,7 +20,7 @@
 
 				<section class="plan-container-body">
 					<section class="plan-container">
-						<a ng-repeat="plan in PlanAdministration.plans | filter: search" class="animated" ng-show="!PlanAdministration.selectedPlan.id || (PlanAdministration.selectedPlan.id && plan.selected)" ng-class="{fadeIn: !PlanAdministration.selectedPlan.id, bounceOutRight: (PlanAdministration.selectedPlan.id && !plan.selected), bounceInLeft: (PlanAdministration.selectedPlan.id && plan.selected), 'plan-selected': (PlanAdministration.selectedPlan.id && plan.selected)}" ng-click="PlanAdministration.selectPlan(plan)">
+						<a ng-repeat="(index, plan) in PlanAdministration.plans | filter: search" class="animated" ng-show="!PlanAdministration.selectedPlan.id || (PlanAdministration.selectedPlan.id && plan.selected)" ng-class="{fadeIn: !PlanAdministration.selectedPlan.id, bounceOutRight: (PlanAdministration.selectedPlan.id && !plan.selected), bounceInLeft: (PlanAdministration.selectedPlan.id && plan.selected), 'plan-selected': (PlanAdministration.selectedPlan.id && plan.selected)}" ng-click="PlanAdministration.selectPlan(plan)">
 							<section class="plan-header google-font big-font">
 								<section class="plan-price">
 									<span ng-if="plan.price != 0">${{plan.price}}</span>
@@ -32,6 +32,9 @@
 							<section class="plan-body google-font">
 								<article class="plan-name">{{plan.name}}</article>
 								<article class="plan-storage">{{plan.storage | ItemSizeFilter}} storage</article>
+							</section>
+							<section class="plan-footer google-font">
+								<article class="soft-button" ng-click="PlanAdministration.delete($event, index)">DELETE</article>
 							</section>
 						</a>
 						<section class="plan-details animated" ng-show="PlanAdministration.selectedPlan.id" ng-class="{bounceInDown: PlanAdministration.selectedPlan.id}">

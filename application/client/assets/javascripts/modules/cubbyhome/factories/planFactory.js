@@ -1,5 +1,5 @@
 angular.module('CubbyHome').
-    factory('PlanFactory', ['Restangular', 'UserFactory', function(restangular, userFactory){
+    factory('PlanFactory', ['Restangular', 'UserFactory', '$http', 'apiUrl', function(restangular, userFactory, $http, apiUrl){
 
         return function($scope, context) {
             context = context || {};
@@ -7,7 +7,8 @@ angular.module('CubbyHome').
             if(!$scope)
                 throw 'a scope must be defined ';
 
-            var prototype = {};
+            var prototype = {}
+            ,   $local = context.local || {}
 
             prototype.getActualPlan = function(callback) {
                 restangular.one('users').one(userFactory($scope).get().id + '/plan').get().then(function(plan) {
@@ -54,6 +55,42 @@ angular.module('CubbyHome').
                     callback.call(this, (plansToReturn ? null : 'no plan found'), (plansToReturn ? plansToReturn : null));
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
             };
+
+            prototype.create = function(plan) {
+
+                plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
+                plan.downloadBandwidth = parseInt(plan.downloadBandwidth, 10);
+                $http.post(apiUrl + 'plans', plan).
+                success(function(data, status, headers, config) {
+                    $local.unselect();
+                    $local.plans.push(data.plan)
+                }).
+                error(function(data, status, headers, config) {
+                    console.error(data);
+                });
+            }
+
+            prototype.edit = function(plan, callback) {
+
+                plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
+                plan.downloadBandwidth = parseInt(plan.downloadBandwidth, 10);
+                $http.put(apiUrl + 'plans/'+plan.id, plan).
+                success(function(data, status, headers, config) {
+                    $local.unselect(); 
+                    callback && callback();
+                }).
+                error(function(data, status, headers, config) {
+                    console.error(data);
+                });
+            }
+
+            prototype.delete = function(id, callback) {
+                $http.delete(apiUrl + 'plans/'+id).
+                success(function(data, status, headers, config) { 
+                    callback && callback();
+                }).
+                error(function(data, status, headers, config) {});
+            }
 
             return prototype;
         };

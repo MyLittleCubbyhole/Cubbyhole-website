@@ -31,6 +31,10 @@ section#body {
     /*padding-top: 46px;*/
 }
 
+section#body[ng-controller="CubbyHomeController"] {
+    padding-bottom: 70px; 
+}
+
 .pull-left {
     float: left;
     text-align: left;
@@ -530,7 +534,10 @@ section#configuration-view {
 
 
 
-
+#configuration-view .plan-container-body .plan-container .plan-body {
+    text-align: center;
+    height: 130px;
+}
 
 
 

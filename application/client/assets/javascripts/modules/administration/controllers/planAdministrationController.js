@@ -2,9 +2,9 @@ angular.module('Administration').
 	controller('PlanAdministrationController', ['$scope', 'PlanFactory', function($scope, PlanFactory) {
 		var $local = $scope.PlanAdministration = {};
 		$local.selectedPlan = {};
-		
+		$local.plans = [];
+
         PlanFactory($scope).getAllPlans(function(error, plans) {
-            console.log(plans)
             $local.plans = plans;
         });
 
@@ -40,11 +40,35 @@ angular.module('Administration').
                 name: 'NEW',
                 description: 'DESCRIPTION',
                 storage: 0,
+                duration: 1,
                 downloadBandwidth: 0,
                 uploadBandwidth: 0,
                 quota: 0,
                 new: true
             };
+        }
+
+        $local.delete = function($event, index) {
+            $event.stopPropagation();
+            $event.preventDefault();
+            PlanFactory($scope, {local: $local}).delete($local.plans[index].id, function() {
+                PlanFactory($scope).getAllPlans(function(error, plans) {
+                    $local.plans = plans;
+                });
+            });
+            // $local.plans.splice(index, 1)
+        }
+
+        $local.save = function(isValid) {
+            if(isValid)
+                if($local.selectedPlan.new)
+                    PlanFactory($scope, {local: $local}).create($local.selectedPlan)
+                else
+                    PlanFactory($scope, {local: $local}).edit($local.selectedPlan, function() {
+                        PlanFactory($scope).getAllPlans(function(error, plans) {
+                            $local.plans = plans;
+                        });
+                    })
         }
 
 		$scope.toString = function() {
