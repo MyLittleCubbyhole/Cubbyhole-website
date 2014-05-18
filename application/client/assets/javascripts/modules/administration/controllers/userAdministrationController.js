@@ -1,14 +1,15 @@
 angular.module('Administration').
 	controller('UserAdministrationController', ['$scope', 'UserFactory', 'apiUrl', function($scope, UserFactory, apiUrl) {
 		var $local = $scope.UserAdministration = {};
-		var user = UserFactory($scope).get();
+		$local.user = UserFactory($scope).get();
+		$local.user.role = $local.user.roleid == 2? 'ADMINISTRATOR': 'USER';
 		$local.users = new Array();
 		UserFactory($scope).all(function(error, data) {
 			if(!error)
 				$local.users = data;
 
 			for(var i = 0; i<$local.users.length; i++)
-				$local.users[i].image = apiUrl + 'download/1/userPhotos/' + $local.users[i].photo + '?token=' + user.token + '&run';
+				$local.users[i].image = apiUrl + 'download/1/userPhotos/' + $local.users[i].photo + '?token=' + $local.user.token + '&run';
 		});
 
 		$local.filter = {

@@ -30,10 +30,11 @@
 			</article>
 			<section class="role">
 				<label class="form">
-					<select ng-model="user.roleid" ui-select2="{minimumResultsForSearch: -1}" ng-change="UserAdministration.applyRole(user);">
+					<select ng-if="UserAdministration.user.id != user.id" ng-model="user.roleid" ui-select2="{minimumResultsForSearch: -1}" ng-change="UserAdministration.applyRole(user);">
 						<option value="2">ADMINISTRATOR</option>
 						<option value="1">USER</option>
 					</select>
+					<label class="label-role" ng-if="UserAdministration.user.id == user.id">{{UserAdministration.user.role}}</label>
 				</label>
 			</section>
 		</section>
