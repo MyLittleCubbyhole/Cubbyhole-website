@@ -20,6 +20,16 @@ angular.module('Config').
                 return results[0];
             };
 
+            prototype.getByName = function(name) {
+                var results;
+
+                name = name.toUpperCase();
+                results = countries.filter(function(entry) {
+                    return entry.name.toUpperCase().indexOf(name) !== -1;
+                });
+                return results[0];
+            };
+
             prototype.list = function() {
                 return countries;
             };

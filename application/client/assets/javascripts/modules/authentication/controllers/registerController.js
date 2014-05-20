@@ -5,7 +5,7 @@ angular.module('Authentication').
         $local.isFormSubmited = false;
         $local.errorPasswordMatch = false;
 
-        $local.user = {};
+        $local.user = {countryCode: "0"};
 
         $local.urlRegister = apiUrl + 'users';
 
@@ -18,6 +18,9 @@ angular.module('Authentication').
             if(isValid) {
                 if($local.user.password === $local.user.password2) {
                     $local.errorPasswordMatch = false;
+
+                    angular.element('[name=countryCode]').val(CountryFactory($scope).getByName($local.user.country).code);
+
                     angular.element('#form-register').submit();
                 } else
                     $local.errorPasswordMatch = true;

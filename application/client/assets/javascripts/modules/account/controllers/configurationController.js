@@ -34,6 +34,8 @@ angular.module('Account').
 
                     delete($local.user.newPassword2);
 
+                    $local.user.countryCode = CountryFactory($scope).getByName($local.user.country).code;
+
                     UserFactory($scope).updateUser($local.user, function(error) {
                         if(error)
                             $local.errorUpdate = true;

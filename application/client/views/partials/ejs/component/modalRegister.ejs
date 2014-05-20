@@ -125,6 +125,7 @@
                                             <select id="input-country-register" ui-select2 name="country" ng-model="Register.user.country" required>
                                                 <option ng-repeat="country in Register.countries" value="{{country.name}}">{{country.name}}</option>
                                             </select>
+                                            <input type="hidden" name="countryCode" />
                                         </label>
                                         <section ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid" class="error-form">
                                             <article class="note note-error" ng-show="form.country.$error.required">Fill your country.</article>
