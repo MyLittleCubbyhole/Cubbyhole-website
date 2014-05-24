@@ -216,6 +216,15 @@ angular.module('FileManager').
 				return item;
 			}
 
+			prototype.clean = function() {
+				for(var i = _items.length -1; i>= 0; i--) {
+					if(_items[i].todelete) {
+						_items.splice(i, 1);
+						$local && $local.items && $local.items.splice(i, 1);
+					}
+				}
+			}
+
 			function addFileNavigation() {
 				var index = $scope.FileManager.pathItems.length-1
 				,	path

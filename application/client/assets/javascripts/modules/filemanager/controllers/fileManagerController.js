@@ -21,8 +21,12 @@ angular.module('FileManager').
     		ItemFactory($scope, {local: $local}).load();
         }
 
-        var socket = WebsocketFactory()
+        var socket = WebsocketFactory();
         socket.on('create_folder', function(data) {
+            console.log(data);
+        })
+
+        socket.on('create_file', function(data) {
             console.log(data);
         })
 

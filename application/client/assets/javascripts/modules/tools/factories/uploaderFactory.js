@@ -33,8 +33,10 @@ angular.module('Tools').
 
 		socket.on('upload_stopped', function(data){
 			console.error("upload stopped - " + data.error);
-			if(files[data.id].context.entity.toString() == 'File')
+			if(files[data.id].context.entity.toString() == 'File') {
+				files[data.id].context.entity.todelete = true
 				files[data.id].context.entity.remove();
+			}
 			else
 				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
 
