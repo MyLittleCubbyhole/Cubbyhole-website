@@ -6,7 +6,7 @@ angular.module('FileManager').
         $local.shared = false;
 
         $scope.$on('hide', function() {
-            if(!$local.shared) {
+            if(!$local.shared && $scope.FileManager.selectedItems[0]) {
                 $scope.FileManager.selectedItems[0].usersToRemove = [];
                 $scope.FileManager.selectedItems[0].usersActualSharing = [];
                 _.merge($scope.FileManager.selectedItems[0].usersActualSharing, $scope.FileManager.selectedItems[0].usersWebserviceSharing);
