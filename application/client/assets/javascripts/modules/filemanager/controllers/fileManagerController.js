@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$window', '$location', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', function($scope, $window, $location, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', function($scope, $window, $location, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -17,10 +17,15 @@ angular.module('FileManager').
         $local.urlSharing = null;
         $local.folderSharing = false;
 
-
         if($location.$$absUrl.indexOf('/shared/') == -1) {
     		ItemFactory($scope, {local: $local}).load();
         }
+
+        var socket = WebsocketFactory()
+        socket.on('create_folder', function(data) {
+            console.log(data);
+        })
+
 
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
