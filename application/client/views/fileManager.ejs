@@ -63,7 +63,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr id="{{item.getFullPath()}}" class="item item-file-manager big-font google-font" ng-class="{selected: _item.selected, special: _item.item.unselectable}" item item-id={{index}} ng-dblclick="_item.open();" ng-click="_item.select($event);" ng-right-click="_item.preview($event);" file-uploader file-path={{item.getPath()}} ng-repeat="(index, item) in FileManager.items | orderBy:predicate:reverse" draggable="{{!_item.item.unselectable}}" dropzone="move" ng-show="!item.todelete">
+                                        <tr id="{{item.getFullPath()}}" class="item item-file-manager big-font google-font" ng-class="{selected: _item.selected, special: _item.item.special, inupload: _item.item.inupload}" item item-id={{index}} ng-dblclick="_item.open();" ng-click="_item.select($event);" ng-right-click="_item.preview($event);" file-uploader file-path={{item.getPath()}} ng-repeat="(index, item) in FileManager.items | orderBy:predicate:reverse" draggable="{{!_item.item.unselectable}}" dropzone="move" ng-show="!item.todelete">
                                             <td class="item-label" ng-class="_item.item.category"></td>
                                             <td ng-class="{bold: _item.item.category == 'folder'}" class="limit-text">
                                                 <article>
@@ -77,7 +77,7 @@
                                             </td>
                                             <td class="information">{{_item.item.category}}</td>
                                             <td class="information">{{_item.item.creator}}</td>
-                                            <td class="information hidden-xs">{{_item.item.size | ItemSizeFilter}}</td>
+                                            <td class="information hidden-xs size">{{_item.item.size | ItemSizeFilter}}</td>
                                             <td class="information hidden-xs">{{_item.item.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                     </tbody>

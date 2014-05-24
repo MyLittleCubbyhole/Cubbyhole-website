@@ -8,10 +8,10 @@ angular.module('Tools').
 			files[data.id].context.entity.size += data['chunkSize'];
 			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
 			files[data.id].context.$scope.$apply();
-			// var chunk = data['chunk'] * 524288
-			// ,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
-			var chunk = data['chunk'] * 1572864
-			,	part = files[data.id].data.slice(chunk, chunk + Math.min(1572864, (files[data.id].data.size - chunk)));
+			var chunk = data['chunk'] * 524288
+			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
+			// var chunk = data['chunk'] * 1572864
+			// ,	part = files[data.id].data.slice(chunk, chunk + Math.min(1572864, (files[data.id].data.size - chunk)));
 
 			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
 		});
@@ -23,6 +23,7 @@ angular.module('Tools').
 			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
 			file.context.entity._id = data._id;
 			file.context.entity.unselectable = false;
+			file.context.entity.inupload = false;
 			file.context.$scope.$apply();
 
 			if(data.name)

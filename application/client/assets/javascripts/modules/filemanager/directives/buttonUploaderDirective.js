@@ -45,10 +45,11 @@ angular.module('FileManager').
 						path: self.path,
 						lastUpdate: new Date(),
 						unselectable: true,
-						todelete: false
+						todelete: false,
+						inupload: true
 					}, function() { $scope.$apply(); })
 
-					ItemFactory($scope, {local: $scope.FileManager}).clean();
+					ItemFactory($scope, {local: $scope.FileManager}).cleanToDelete();
 
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
 

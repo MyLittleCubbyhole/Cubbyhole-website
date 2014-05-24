@@ -74,8 +74,10 @@ angular.module('FileManager').
 								downloads: items[i].downloads
 							};
 
-							if(options._id.substring(1) == '/Shared')
+							if(options._id.substring(1) == '/Shared') {
 								options.unselectable = true;
+								options.special = true;
+							}
 
 							prototype.add(options);
 						}
@@ -216,7 +218,7 @@ angular.module('FileManager').
 				return item;
 			}
 
-			prototype.clean = function() {
+			prototype.cleanToDelete = function() {
 				for(var i = _items.length -1; i>= 0; i--) {
 					if(_items[i].todelete) {
 						_items.splice(i, 1);
@@ -241,7 +243,8 @@ angular.module('FileManager').
 					owner: '',
 					ownerId: ownerId,
 					size: '',
-					unselectable: true
+					unselectable: true,
+					special: true
 				});
 
 				if($scope.FileManager.currentPath != '/' && $scope.FileManager.currentPath != '/Shared/') {
@@ -258,7 +261,8 @@ angular.module('FileManager').
 							owner: '',
 							ownerId: ownerId,
 							size: '',
-							unselectable: true
+							unselectable: true,
+							special: true
 						});
 				}
 			}

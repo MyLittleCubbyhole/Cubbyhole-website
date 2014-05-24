@@ -42,6 +42,8 @@ angular.module('FileManager').
 				this.newItem = typeof this.options.newItem !== 'undefined' && this.options.newItem === true;
 				this._id = this.options._id || -1;
 				this.unselectable = typeof this.options.unselectable !== 'undefined' && this.options.unselectable === true;
+				this.special = typeof this.options.special !== 'undefined' && this.options.special === true;
+				this.inupload = typeof this.options.inupload !== 'undefined' && this.options.inupload === true;
 
 				options && this.init();
 			};
