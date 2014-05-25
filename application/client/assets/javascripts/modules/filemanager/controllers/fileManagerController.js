@@ -23,7 +23,31 @@ angular.module('FileManager').
 
         var socket = WebsocketFactory();
         socket.on('create_folder', function(data) {
-            console.log('create folder',data);
+            var lastItem = $local.pathItems[$local.pathItems.length-1].item
+            ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
+            , witness = false;
+            if(lastItem == data.path || lastItem._id == path) {
+                for(var i = 0; i<$local.items.length; i++)
+                    if(parseInt(data.ownerId, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
+                        witness = true;
+                        break;
+                    }
+                if(!witness)
+                ItemFactory($scope, {local: $local}).add({
+                    _id: data.fullPath,
+                    name: data.name,
+                    owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
+                    ownerId: parseInt(data.ownerId,10),
+                    creator: data.creatorName,
+                    size : 0,
+                    type: 'folder',
+                    path: path + '/',
+                    lastUpdate: new Date(),
+                    unselectable: false,
+                    todelete: false,
+                    inupload: false
+                }, function() { $scope.$apply(); })
+            }
         })
 
         socket.on('create_file', function(data) {

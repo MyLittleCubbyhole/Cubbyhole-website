@@ -11,9 +11,7 @@ angular.module('Websocket').
 				socket = socketIO.socket.of(socketRoom);
 				console.info('socket connected at ' + url);
 
-				authenticate();
-				socket.on('socket-authentication', function() { 
-					console.log('passage')
+				socket.on('socket-authentication', function() {
 					authenticate(); 
 				})
 			}
