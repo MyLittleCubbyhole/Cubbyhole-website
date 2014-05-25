@@ -24,11 +24,21 @@ angular.module('FileManager').
 
         var socket = WebsocketFactory();
         socket.on('create_folder', function(data) {
-            console.log(data);
+            console.log('create folder',data);
         })
 
         socket.on('create_file', function(data) {
-            console.log(data);
+            console.log('create file', data);
+        })
+
+        socket.on('delete', function(data) {
+            console.log('delete',data);
+        })
+        socket.on('rename', function(data) {
+            console.log('rename',data);
+        })
+        socket.on('copy', function(data) {
+            console.log('copy',data);
         })
 
 
