@@ -123,6 +123,32 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			prototype.copy = function(source, target) {
+
+				var copy = restangular.one('copy').one(target.ownerId.toString());
+
+				copy.post(source.getFullPath().substring(1), { path: target.path }).then(function(data) {
+					if(data.information && data.information.indexOf('error') == -1) {
+						options = {
+							_id : data.params.fullPath,
+							name: data.params.newName,
+							path: target.options.path,
+							type: target.options.type,
+							ownerId: data.params.creatorId,
+							creator: data.params.creator,
+							size: target.options.size,
+							lastUpdate: new Date(),
+							lastUpdateName: data.params.creator,
+							shared: false,
+							downloads: 0
+						};
+
+						prototype.add(options);
+					}
+
+				}, function(error) { console.error(error); });
+			}
+
 			prototype.move = function(source, target) {
 
 				var move = restangular.one('move').one(target.ownerId.toString());

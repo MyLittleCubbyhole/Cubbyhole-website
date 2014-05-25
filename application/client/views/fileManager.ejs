@@ -46,6 +46,16 @@
                                     <article class="tb-icon small"><i class="icon-pencil"></i></article>
                                 </article>
                             </article>
+                            <article class="tb-option" ng-class="{disabled: FileManager.itemsToCopy.length == 0}">
+                                <article class="tb-option-container" ng-click="FileManager.paste();">
+                                    <article class="tb-icon big"><i class="icon-paste"></i></article>
+                                </article>
+                            </article>
+                            <article class="tb-option" ng-class="{disabled: FileManager.selectedItems.length == 0}">
+                                <article class="tb-option-container" ng-click="FileManager.copy();">
+                                    <article class="tb-icon big"><i class="icon-copy"></i></article>
+                                </article>
+                            </article>
                         </section>
                     </section>
                     <article class="manager-bloc-container" scroll-bar>
