@@ -12,6 +12,10 @@ angular.module('Websocket').
 				console.info('socket connected at ' + url);
 
 				authenticate();
+				socket.on('socket-authentication', function() { 
+					console.log('passage')
+					authenticate(); 
+				})
 			}
 			else {
 				console.error('io not defined - problem with webservice');
