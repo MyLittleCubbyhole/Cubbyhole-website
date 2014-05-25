@@ -1,5 +1,5 @@
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$window', '$location', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', function($scope, $window, $location, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'FileProvider', 'FolderProvider', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', function($scope, $window, $location, File, Folder, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -10,6 +10,7 @@ angular.module('FileManager').
 		$local.previewItem = null;
         $local.pathItems = [];
 
+        $local.itemsToCopy = [];
 
 		$local.selectedItems = [];
 		$local.items = [];
@@ -152,6 +153,35 @@ angular.module('FileManager').
             ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
             $local.preview(false);
         };
+
+        $local.copy = function() {
+            if($local.selectedItems.length >= 1) {
+                $local.itemsToCopy.slice(0);
+                $local.itemsToCopy = [];
+                $local.itemsToCopy = $local.selectedItems;
+            }
+        };
+
+        $local.paste = function() {
+
+            if($local.currentPath == '/Shared/')
+                return true;
+
+            if($local.itemsToCopy.length >= 1) {
+                for(var i = 0; i < $local.itemsToCopy.length; i++) {
+                    var newItem = null;
+                    if($local.itemsToCopy[i].toString() == 'Folder')
+                        newItem = new Folder($local.itemsToCopy[i].options);
+                    else
+                        newItem = new File($local.itemsToCopy[i].options);
+                    newItem.path = $local.currentPath;
+                    ItemFactory($scope, {local: $local}).copy($local.itemsToCopy[i], newItem);
+                }
+                $local.itemsToCopy.slice(0);
+                $local.itemsToCopy = [];
+            }
+        };
+
 
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;

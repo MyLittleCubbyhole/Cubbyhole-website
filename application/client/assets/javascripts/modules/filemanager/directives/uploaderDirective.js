@@ -47,7 +47,7 @@ angular.module('FileManager').
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
 
-					if($scope._item.item._id.substring(1) == '/Shared')
+					if($scope._item.item._id.substring($scope._item.item._id.indexOf('/')) == '/Shared')
 						return true;
 
 					if(target
@@ -98,9 +98,7 @@ angular.module('FileManager').
 
 					self.fileReaders[id].onload = function(event){
 						var data = event.target.result
-						console.log(data)
 						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
-
 					}
 
 					socket.emit('upload_init', {

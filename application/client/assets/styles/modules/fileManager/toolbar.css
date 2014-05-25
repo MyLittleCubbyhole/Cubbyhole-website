@@ -40,6 +40,9 @@ section#toolbar {
 #toolbar article.tb-icon.small {
     font-size: 21px;
 }
+#toolbar article.tb-icon.big {
+    text-shadow: 1px 0px 0px;
+}
 #toolbar article.tb-icon.download {
     margin-top: 2px;
 }
@@ -58,4 +61,10 @@ section#toolbar {
 }
 #toolbar article.tb-option:hover {
     color: #46B5EA;
+}
+#toolbar article.tb-option.disabled {
+    cursor: default;
+}
+#toolbar article.tb-option.disabled:hover {
+    color: #2c2c2c;
 }

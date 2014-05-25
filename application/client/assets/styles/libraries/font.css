@@ -63,6 +63,12 @@
 .icon-equalizer:before {
     content: "\e601";
 }
+.icon-copy:before {
+    content: "\e610";
+}
+.icon-paste:before {
+    content: "\e611";
+}
 .icon-check:before {
     content: "\f00c";
 }
