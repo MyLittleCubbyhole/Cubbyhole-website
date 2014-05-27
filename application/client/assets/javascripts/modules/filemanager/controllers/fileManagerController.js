@@ -26,7 +26,7 @@ angular.module('FileManager').
         socket.on('create_folder', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
-            , witness = false;
+            ,   witness = false;
             if(lastItem == data.path || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.ownerId, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
@@ -34,35 +34,97 @@ angular.module('FileManager').
                         break;
                     }
                 if(!witness)
-                ItemFactory($scope, {local: $local}).add({
-                    _id: data.fullPath,
-                    name: data.name,
-                    owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-                    ownerId: parseInt(data.ownerId,10),
-                    creator: data.creatorName,
-                    size : 0,
-                    type: 'folder',
-                    path: path + '/',
-                    lastUpdate: new Date(),
-                    unselectable: false,
-                    todelete: false,
-                    inupload: false
-                }, function() { $scope.$apply(); })
+                    ItemFactory($scope, {local: $local}).add({
+                        _id: data.fullPath,
+                        name: data.name,
+                        owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
+                        ownerId: parseInt(data.ownerId,10),
+                        creator: data.creatorName,
+                        size : 0,
+                        type: 'folder',
+                        path: path + '/',
+                        lastUpdate: new Date(),
+                        unselectable: false,
+                        todelete: false,
+                        inupload: false
+                    }, function() { $scope.$apply(); })
             }
         })
 
         socket.on('create_file', function(data) {
-            console.log('create file', data);
+            var lastItem = $local.pathItems[$local.pathItems.length-1].item
+            ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
+            ,   witness = false;
+            if(lastItem == data.logicPath || lastItem._id == path) {
+                for(var i = 0; i<$local.items.length; i++)
+                    if(parseInt(data.owner, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
+                        witness = true;
+                        break;
+                    }
+                if(!witness)
+                    ItemFactory($scope, {local: $local}).add({
+                        _id: data.fullPath,
+                        name: data.name,
+                        owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
+                        ownerId: parseInt(data.owner,10),
+                        creator: data.creatorName,
+                        size : data.size,
+                        type: 'file',
+                        path: path + '/',
+                        lastUpdate: new Date(),
+                        unselectable: false,
+                        todelete: false,
+                        inupload: false
+                    }, function() { $scope.$apply(); })
+            }
         })
 
         socket.on('delete', function(data) {
-            console.log('delete',data);
+            ItemFactory($scope, {local: $local}).clean(data.fullPath);
+            $scope.$apply();
         })
         socket.on('rename', function(data) {
-            console.log('rename',data);
+            var items = ItemFactory($scope, {local: $local}).getAll();
+            for(var i=0; i<items.length; i++)
+                if(items[i]._id == data.fullPath) {
+                    items[i].name = data.newName;
+                    ItemFactory($scope, {local: $local}).synchronize();
+                    break;
+                }
+
+            $scope.$apply();
         })
         socket.on('copy', function(data) {
-            console.log('copy',data);
+            console.log('copy', data);
+            var lastItem = $local.pathItems[$local.pathItems.length-1].item
+            ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
+            ,   witness = false;
+            if(lastItem == data.targetPath || lastItem._id == path) {
+                for(var i = 0; i<$local.items.length; i++)
+                    if(data.fullPath == $local.items[i]._id) {
+                        witness = true;
+                        break;
+                    }
+                if(!witness)
+                    ItemFactory($scope, {local: $local}).add({
+                        _id: data.fullPath,
+                        name: data.newName,
+                        owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
+                        ownerId: parseInt(data.ownerId,10),
+                        creator: data.creator,
+                        size : data.size,
+                        type: data.type,
+                        path: path + '/',
+                        lastUpdate: new Date(),
+                        unselectable: false,
+                        todelete: false,
+                        inupload: false
+                    }, function() { $scope.$apply(); })
+            }
+            if(data.move) {
+                ItemFactory($scope, {local: $local}).clean(data.baseFullPath);
+                $scope.$apply();
+            }
         })
 
 
