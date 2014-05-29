@@ -87,6 +87,7 @@ angular.module('FileManager').
             var items = ItemFactory($scope, {local: $local}).getAll();
             for(var i=0; i<items.length; i++)
                 if(items[i]._id == data.fullPath) {
+                    items[i]._id = items[i]._id.substring(0, items[i]._id.lastIndexOf('/') + 1) + data.newName;
                     items[i].name = data.newName;
                     ItemFactory($scope, {local: $local}).synchronize();
                     break;
