@@ -33,7 +33,7 @@ section#body {
 }
 
 section#body[ng-controller="CubbyHomeController"] {
-    padding-bottom: 70px; 
+    padding-bottom: 70px;
 }
 
 .pull-left {
@@ -276,18 +276,24 @@ tr.item.uploading::after {
     display: inline-block;
     margin-top: 90px;
 }
+#bloc-container .bloc button.button a,
+#bloc-container .bloc button.button a:hover {
+    color: white;
+    text-decoration: none;
+}
 #bloc-container .bloc button.button.green {
     margin-left: 60px;
 }
 article#home {
-    height: 550px;
+    height: 480px;
     text-align: center;
     font-size: 20px;
 }
 #bloc-container .bloc h1.title {
-    font-size: 70px;
+    font-size: 50px;
     text-align: center;
     text-shadow: 0px 0px 1px rgb(58, 58, 58);
+    margin-top: 50px;
 }
 #bloc-container .bloc h2.title {
     font-size: 50px;
@@ -304,7 +310,7 @@ article#home {
     -o-background-size:cover;
     background-size:cover;
     width: 30%;
-    max-width: 565px;
+    max-width: 505px;
     display: inline-block;
 }
 
@@ -362,14 +368,14 @@ label.label-role.ng-scope.ng-binding {
 
 
 .role .form {
- margin-right: 0; 
- margin-left: 0; 
+ margin-right: 0;
+ margin-left: 0;
 }
 section.user-management-card {
-    margin: 5px;        
+    margin: 5px;
     margin-top: 0px;
     overflow: hidden;
-    width: 200px;  
+    width: 200px;
     display: inline-block;
     height: 240px;
     background: #FCFCFC;
@@ -378,7 +384,7 @@ section.user-management-card {
     text-align: center;
     pointer-events: auto;
     -webkit-animation-duration: 0.6s;
-    -moz-animation-duration: 0.6s; 
+    -moz-animation-duration: 0.6s;
     -o-animation-duration: 0.6s;
     animation-duration: 0.6s;
     -webkit-animation-fill-mode: both;
@@ -396,11 +402,11 @@ section.user-management-card .select2-container .select2-choice > .select2-chose
     text-align: center;  font-size: 19px;  display: inline-block;
 }
 .user-management-card article.border-circle-blue {
-    width: 144px;  
+    width: 144px;
     height: 144px;  margin-left: 25px;  margin-top: 20px;  border: 3px solid #9ad6f2;  position: relative;  border-radius: 50%;
 }
 .user-management-card article.img-circle.image-target {
-    width: 138px;  
+    width: 138px;
     height: 138px;  margin: 0px;  border: 5px solid white;
 }
 #user-management-container .img-circle i.icon-profile-male.form-file-hide {
@@ -414,7 +420,7 @@ section.user-management-card .select2-container .select2-choice > .select2-chose
 }
 #configuration-container.administration {
     width: 100%;
-    padding-right: 75px; 
+    padding-right: 75px;
     margin-left: 95px;
     padding-top: 0px;
     overflow: hidden;
@@ -446,7 +452,7 @@ section#user-management-container {
 }
 section#user-management-filter-box {
     padding-top: 20px;
-    width: 100%;  
+    width: 100%;
     height: 130px;
     max-width: 600px;
     margin: auto;
@@ -562,13 +568,13 @@ section#configuration-view {
     margin-top: 30px;
 }
 .plan-details .user-picture article.border-circle-blue.ng-scope {
-    width: 100%;  
+    width: 100%;
     height: 100%;  border: 2px solid #9ad6f2;
     background: rgb(248, 248, 248);
 }
 .plan-details .user-picture article.camera-icon {
-    border-radius: 50%;  background-color: #75c8ef;  width: 52px;  height: 52px;  position: absolute;  
-    top: 3px;  
+    border-radius: 50%;  background-color: #75c8ef;  width: 52px;  height: 52px;  position: absolute;
+    top: 3px;
     right: 165px;  z-index: 1;  text-align: center;  line-height: 68px;
 }
 .plan-details {}
