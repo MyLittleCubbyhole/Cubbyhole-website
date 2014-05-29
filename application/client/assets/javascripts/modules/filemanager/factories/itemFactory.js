@@ -125,9 +125,9 @@ angular.module('FileManager').
 
 			prototype.copy = function(source, target) {
 
-				var copy = restangular.one('copy').one(target.ownerId.toString());
+				var copy = restangular.one('copy').one(source.ownerId.toString());
 
-				copy.post(source.getFullPath().substring(1), { path: target.path }).then(function(data) {
+				copy.post(source.getFullPath().substring(1), { path: target.ownerId + target.path }).then(function(data) {
 					if(data.information && data.information.indexOf('error') == -1) {
 						var witness = false;
 						for(var i=0; i<_items.length; i++)
@@ -140,7 +140,7 @@ angular.module('FileManager').
 							options = {
 								_id : data.params.fullPath,
 								name: data.params.newName,
-								path: target.options.path,
+								path: target.path,
 								type: target.options.type,
 								ownerId: data.params.creatorId,
 								creator: data.params.creator,
@@ -161,7 +161,7 @@ angular.module('FileManager').
 
 				var move = restangular.one('move').one(target.ownerId.toString());
 
-				move.post(source.getFullPath().substring(1), { path: target.getFullPath() }).then(function() {
+				move.post(source.getFullPath().substring(1), { path: target.ownerId + target.getFullPath() }).then(function() {
 					prototype.clean(source._id);
 				}, function(error) { console.error(error); });
 			}

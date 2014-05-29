@@ -96,7 +96,6 @@ angular.module('FileManager').
             $scope.$apply();
         })
         socket.on('copy', function(data) {
-            console.log('copy', data);
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
@@ -230,6 +229,8 @@ angular.module('FileManager').
             if($local.currentPath == '/Shared/')
                 return true;
 
+            var lastItem = $local.pathItems[$local.pathItems.length-1].item;
+
             if($local.itemsToCopy.length >= 1) {
                 for(var i = 0; i < $local.itemsToCopy.length; i++) {
                     var newItem = null;
@@ -237,7 +238,16 @@ angular.module('FileManager').
                         newItem = new Folder($local.itemsToCopy[i].options);
                     else
                         newItem = new File($local.itemsToCopy[i].options);
-                    newItem.path = $local.currentPath;
+
+                    if(lastItem != "/") {
+                        newItem.path = lastItem._id.substring(lastItem._id.indexOf('/')) + '/';
+                        newItem.ownerId = lastItem.ownerId;
+                    }
+                    else {
+                        newItem.path = lastItem;
+                        newItem.ownerId = UserFactory($scope).get().id;
+                    }
+
                     ItemFactory($scope, {local: $local}).copy($local.itemsToCopy[i], newItem);
                 }
                 $local.itemsToCopy.slice(0);
