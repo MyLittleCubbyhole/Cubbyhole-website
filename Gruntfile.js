@@ -137,11 +137,13 @@ module.exports = function(grunt) {
 			},
 			modules_administration: {
 				src: [
-					"/javascripts/modules/administration/core.js",
-					"/javascripts/modules/administration/configs/administrationConfig.js",
-					"/javascripts/modules/administration/controllers/administrationController.js",
-					"/javascripts/modules/administration/controllers/planAdministrationController.js",
-					"/javascripts/modules/administration/controllers/userAdministrationController.js"
+					"application/client/assets/javascripts/modules/cubbyhome/core.js",
+					"application/client/assets/javascripts/modules/cubbyhome/factories/planFactory.js",
+					"application/client/assets/javascripts/modules/administration/core.js",
+					"application/client/assets/javascripts/modules/administration/configs/administrationConfig.js",
+					"application/client/assets/javascripts/modules/administration/controllers/administrationController.js",
+					"application/client/assets/javascripts/modules/administration/controllers/planAdministrationController.js",
+					"application/client/assets/javascripts/modules/administration/controllers/userAdministrationController.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/administration.js'
 			}
