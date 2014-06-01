@@ -13,7 +13,8 @@ var fs = require('fs')
 		}
 	}
 ,   webUrl = config['web'].protocol + '//' + config['web'].host + ':' + config['web'].port + '/'
-,   webserviceUrl = config['webservice'].protocol + '//' + config['webservice'].host + ':' + config['webservice'].port + '/';
+,   webserviceUrl = config['webservice'].protocol + '//' + config['webservice'].host + ':' + config['webservice'].port + '/'
+,   webserviceUrlLocal = config['webservice_local'].protocol + '//' + config['webservice_local'].host + ':' + config['webservice_local'].port + '/';
 
 var formRegisterUrl = webserviceUrl
     + 'api/users?redirectSuccess='
@@ -93,7 +94,7 @@ navigation.get.template = function(request, response) {
     if(request.params[0] == 'account/plans')
         options.paypal = {
             paypalUrl: config['paypal_url'],
-            notifyUrl: webserviceUrl + 'api/paypalNotify',
+            notifyUrl: webserviceUrlLocal + 'api/paypalNotify',
             returnUrl: webUrl + 'account?token=',
             cancelUrl: webUrl + 'account?token=',
             paypalBusinessEmail: config['paypal_business_email']
