@@ -5,8 +5,8 @@ var http = {}
 http.checkToken = function(token, callback) {
 
     var options = {
-        host: config['webservice'].host,
-        port: config['webservice'].port,
+        host: config['webservice_local'].host,
+        port: config['webservice_local'].port,
         path: '/api/checkToken?token=' + token,
         method: 'GET'
     };
@@ -25,8 +25,8 @@ http.checkToken = function(token, callback) {
 http.checkAdminToken = function(token, callback) {
 
     var options = {
-        host: config['webservice'].host,
-        port: config['webservice'].port,
+        host: config['webservice_local'].host,
+        port: config['webservice_local'].port,
         path: '/api/checkAdminToken?token=' + token,
         method: 'GET'
     };
@@ -45,8 +45,8 @@ http.checkAdminToken = function(token, callback) {
 http.activation = function(token, callback) {
 
     var options = {
-        host: config['webservice'].host,
-        port: config['webservice'].port,
+        host: config['webservice_local'].host,
+        port: config['webservice_local'].port,
         path: '/api/activation?token=' + token,
         method: 'GET'
     };
