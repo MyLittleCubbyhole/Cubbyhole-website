@@ -3,7 +3,7 @@
 <section id="container" class="preview-sharing" ng-controller="FileManagerController" ng-cloak>
     <section class="preview-sharing-infos google-font">
         <article class="preview-sharing-name">{{Sharing.file.name}}</article>
-        <article class="preview-sharing-size">{{Sharing.file.size | ItemSizeFilter}}</article>
+        <article class="preview-sharing-size">{{Sharing.file.size | numeraljs:'0.00 b'}}</article>
     </section>
 
     <section class="manager-bloc preview-bloc" ng-if="Sharing.showPreview" ng-controller="PreviewController">

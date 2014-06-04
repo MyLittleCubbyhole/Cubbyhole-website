@@ -87,7 +87,7 @@
                                             </td>
                                             <td class="information">{{_item.item.category}}</td>
                                             <td class="information">{{_item.item.creator}}</td>
-                                            <td class="information hidden-xs size">{{_item.item.size | ItemSizeFilter}}</td>
+                                            <td class="information hidden-xs size">{{_item.item.size | numeraljs:'0.00 b'}}</td>
                                             <td class="information hidden-xs">{{_item.item.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                     </tbody>

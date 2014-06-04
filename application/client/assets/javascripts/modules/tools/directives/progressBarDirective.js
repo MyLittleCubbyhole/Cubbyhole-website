@@ -5,7 +5,7 @@ angular.module('Tools').
 			restrict: 'E',
 			replace: true,
 			template: 	'<section class="progress-bar">'
-					+	'<section class="value">{{_loadingBar.value | ItemSizeFilter}}</section>'
+					+	'<section class="value">{{_loadingBar.value | numeraljs:"0.00 b"}}</section>'
 					+	'<section class="progress-bar-value"></section>'
 					+	'</section>',
 			link: function($scope, $node, attributes) {

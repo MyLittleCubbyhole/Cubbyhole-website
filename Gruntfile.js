@@ -24,6 +24,8 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/customScrollBar/customScrollBar.js",
 					"application/client/assets/javascripts/libraries/zeroClipboard/zeroClipboard.js",
 					"application/client/assets/javascripts/libraries/ng-clip/ng-clip.js",
+					"application/client/assets/javascripts/libraries/numeral/numeral.min.js",
+					"application/client/assets/javascripts/libraries/numeral/languages.min.js",
 					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js",
 					"application/client/assets/javascripts/libraries/shapeOver/snap.svg.js",
 					"application/client/assets/javascripts/libraries/annyang/annyang.js"
@@ -49,7 +51,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/tools/directives/modalDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/formFileUploadDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/shapeOverDirective.js",
-					"application/client/assets/javascripts/modules/tools/filters/itemSizeFilter.js",
+					"application/client/assets/javascripts/modules/tools/filters/numeraljsFilter.js",
 					"application/client/assets/javascripts/modules/tools/filters/orMultipleFilter.js",
 					"application/client/assets/javascripts/modules/breadcrumb/core.js",
 					"application/client/assets/javascripts/modules/breadcrumb/controllers/breacrumbController.js",
