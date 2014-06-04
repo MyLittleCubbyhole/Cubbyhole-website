@@ -10,12 +10,12 @@
 				<section class="filter-box col-xs-12 col-sm-4">
 					<span ng-click="PlanAdministration.createPlan()">CREATE</span>
 				</section>
-			</section>	
-		</section>		
+			</section>
+		</section>
 	</section>
 	<section id="user-management-listing" scroll-bar>
 		<section id="user-management-listing-content">
-			
+
 			<section class="plan-container-account">
 
 				<section class="plan-container-body">
@@ -31,7 +31,7 @@
 							</section>
 							<section class="plan-body google-font">
 								<article class="plan-name">{{plan.name}}</article>
-								<article class="plan-storage">{{plan.storage | ItemSizeFilter}} storage</article>
+								<article class="plan-storage">{{plan.storage | numeraljs:"0.00 b"}} storage</article>
 							</section>
 							<section class="plan-footer google-font">
 								<article class="soft-button" ng-click="PlanAdministration.delete($event, index)">DELETE</article>
@@ -39,7 +39,7 @@
 						</a>
 						<section class="plan-details animated" ng-show="PlanAdministration.selectedPlan.id" ng-class="{bounceInDown: PlanAdministration.selectedPlan.id}">
 							<i class="close-icon icon-cross" ng-click="PlanAdministration.unselect()"></i>
-							
+
 							<article class="user-picture">
 								<article class="border-circle-blue" form-file-upload=".image-plan-target" form-file-model="PlanAdministration.selectedPlan.image" form-file-name="photo" form-file-active-upload>
 									<article class="camera-icon"><i class="icon-camera"></i></article>

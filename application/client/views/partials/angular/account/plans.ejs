@@ -21,16 +21,16 @@
                 </section>
                 <section class="plan-body google-font">
                     <article class="plan-name">{{plan.name}}</article>
-                    <article class="plan-storage">{{plan.storage | ItemSizeFilter}} storage</article>
+                    <article class="plan-storage">{{plan.storage | numeraljs:"0 b"}} storage</article>
                 </section>
             </a>
             <section class="plan-details animated" ng-show="Plans.selectedPlan.id" ng-class="{bounceInDown: Plans.selectedPlan.id}">
                 <i class="close-icon icon-cross" ng-click="Plans.unselect()"></i>
                 <article class="details description">Description :</article>
                 <article class="details description-content">{{Plans.selectedPlan.description}}</article>
-                <article class="details download-speed">Download speed : {{Plans.selectedPlan.downloadBandwidth | ItemSizeFilter}}/s</article>
-                <article class="details upload-speed">Upload speed : {{Plans.selectedPlan.uploadBandwidth | ItemSizeFilter}}/s</article>
-                <article class="details quota">Daily sharing quota : {{Plans.selectedPlan.quota | ItemSizeFilter}}</article>
+                <article class="details download-speed">Download speed : {{Plans.selectedPlan.downloadBandwidth | numeraljs:"0 b"}}/s</article>
+                <article class="details upload-speed">Upload speed : {{Plans.selectedPlan.uploadBandwidth | numeraljs:"0 b"}}/s</article>
+                <article class="details quota">Daily sharing quota : {{Plans.selectedPlan.quota | numeraljs:"0 b"}}</article>
                 <article class="details duration form" ng-show="Plans.selectedPlan.id != 1">
                     <article>Duration :</article>
                     <select ui-select2="Plans.select2Options" ng-model="Plans.selectedPlan.duration" ng-change="Plans.changeDuration()">

@@ -1,7 +1,7 @@
 angular.module('Tools').
     filter('numeraljs', function () {
         return function (input, format) {
-            if (input == null || format == null)
+            if (input == null || input == 0 || format == null)
                 return input;
             if (format === '')
                 return '';
