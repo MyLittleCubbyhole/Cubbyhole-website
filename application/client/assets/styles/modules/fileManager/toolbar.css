@@ -1,9 +1,9 @@
 section#toolbar {
-    height: 47px;
     width: 100%;
     background-color: #e3e3e3;
     z-index: 5;
     background-image: url(/images/design/toolbar-background.png);
+    overflow: auto;
 }
 #toolbar article.tb-option {
     position: relative;
