@@ -7,13 +7,12 @@ angular.module('Websocket').
 		function init() {
 			console.info('connection to websocket server...');
 			if(typeof io != 'undefined') {
-				socket = io.connect(url + socketRoom);
-				console.log(socket)
-				//socket = socketIO.of(socketRoom);
-				console.info('socket connected at ' + url + socketRoom);
+				socketIO = io.connect(url);
+				socket = socketIO.socket.of(socketRoom);
+				console.info('socket connected at ' + url);
 
 				socket.on('socket-authentication', function() {
-					authenticate();
+					authenticate(); 
 				})
 			}
 			else {
