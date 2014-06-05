@@ -31,6 +31,7 @@ angular.module('Websocket').
 
 		return function() {
 			!socket && init();
+			console.log(socket)
 			return socket;
 		};
 	}]);
