@@ -38,7 +38,7 @@ angular.module('Tools').
 
 				$parse(attributes.boxalert).assign($scope, function(alert) {
 					var index = ++i;
-					
+
 					alert = _.extend(alert, { promise: null, index: index });
 
 					$local.alerts[index] = alert;
