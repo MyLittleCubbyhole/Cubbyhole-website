@@ -577,8 +577,6 @@ section#configuration-view {
     top: 3px;
     right: 165px;  z-index: 1;  text-align: center;  line-height: 68px;
 }
-.plan-details {}
-.plan-details  i.icon-camera {}
 .plan-details .user-picture .camera-icon i {
     font-size: 36px;  color: white;
 }
@@ -715,4 +713,56 @@ section#configuration-view {
     .chart-container {
         width: 100%;
     }
+}
+
+
+
+/** BOX ALERTE **/
+section[boxalert] article.alert {
+    pointer-events: auto;
+    position: relative;
+    border-radius: 3px;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+section[boxalert] article.alert.error {
+    background: #222;
+}
+section[boxalert] article.alert.info {
+    background-color: #fff;
+}
+section[boxalert] {
+    pointer-events: none;
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    width: 300px;  
+    font-family: lato;
+    z-index: 1001;
+}
+article.alert h1 {
+    font-size: 23px;
+    font-weight: 300;
+    margin: 10px 0 0 0;
+}
+article.alert h5 {
+    font-size: 13px;
+    font-weight: 300;
+    margin: 0 0 10px 0;
+}
+article.alert i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+article.alert.error h1 {
+    color: #b23629;
+}
+article.alert.error h5 {
+    color: #fff;
+}
+article.alert.error i {
+    color: #666;
 }

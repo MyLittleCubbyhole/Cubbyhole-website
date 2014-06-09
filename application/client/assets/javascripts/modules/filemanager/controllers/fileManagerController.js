@@ -1,14 +1,37 @@
+var toto;
 angular.module('FileManager').
 	controller('FileManagerController', ['$scope', '$window', '$location', 'FileProvider', 'FolderProvider', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', function($scope, $window, $location, File, Folder, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
 
+        $local.user = {};
+
+        $scope.$watch(UserFactory($scope).get(), function() {
+            $local.user = UserFactory($scope).get();
+        })
+
         $local.currentPath = '/';
 		$local.folderOwner = -1;
 		$local.previewActivated = false;
 		$local.previewItem = null;
         $local.pathItems = [];
+
+        $local.alert = function() { /*overriden by boxalert directive*/ }
+        $local.addInfo = function(title, subtitle) {
+            $local.alert({
+                type: 'info',
+                title: title,
+                subtitle: subtitle
+            });
+        }
+        $local.addError = function(title, subtitle) {
+            $local.alert({
+                type: 'error',
+                title: title,
+                subtitle: subtitle
+            });
+        }
 
         $local.itemsToCopy = [];
 
@@ -148,6 +171,7 @@ angular.module('FileManager').
             var options = {
                 owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
                 ownerId: $local.folderOwner,
+                creatorId: UserFactory($scope).get().id,
                 size : 0,
                 type: 'folder',
                 path: $local.currentPath,

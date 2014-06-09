@@ -66,6 +66,7 @@ angular.module('FileManager').
 								path: items[i].path,
 								type: items[i].type,
 								ownerId: items[i].ownerId,
+								creatorId: items[i].creatorId || items[i].ownerId,
 	                			creator: items[i].creator,
 								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
@@ -111,16 +112,34 @@ angular.module('FileManager').
 
 				path = path.indexOf('Shared') != 0 ? path : path.slice(7);
 
-				browse.post(path, { name: item.name }).then(function() {
+				browse.post(path, { name: item.name }).then(function(data) {
 					item.newItem = false;
 					item._id = item.ownerId + item.path + item.name;
-				}, function(error) { console.error(error); });
+
+					if(!!data.information && data.information.indexOf('error') > -1)
+					  	$local.addError('Folder not created', error);
+            		else
+            			$local.addInfo('Folder created', 'The folder ' + item.name + ' was created');
+				}, function(error) { 
+
+					console.error(error); 
+				});
 			}
 
 			prototype.delete = function(item) {
-				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function() {
-					prototype.clean(item._id);
-				}, function(error) { console.error(error); });
+				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function(data) {
+
+					if(!!data.information && data.information.indexOf('error') > -1)
+            			$local.addError('Item not deleted', data.information);
+            		else {
+            			$local.addInfo('Item deleted', 'The item ' + item.name + ' was deleted');
+						prototype.clean(item._id);
+            		}
+
+				}, function(error) { 
+
+					console.error(error);
+				});
 			}
 
 			prototype.copy = function(source, target) {

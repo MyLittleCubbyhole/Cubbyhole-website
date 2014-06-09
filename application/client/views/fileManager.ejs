@@ -3,6 +3,7 @@
 <section id="container">
 
     <section id="container" ng-controller="FileManagerController" ng-cloak>
+        <section boxalert="FileManager.alert"></section>
         <section id="manager">
             <section id="manager-container" ng-class="{ preview: FileManager.previewActivated }">
                 <section class="manager-bloc">
@@ -105,7 +106,7 @@
                             </article>
                         </section>
                         <%- include partials/ejs/component/preview.ejs %>
-                        <section class="preview-share">
+                        <section class="preview-share" ng-show="FileManager.selectedItems[0].creatorId == FileManager.user.id">
                             <article class="share-button" ng-click="FileManager.shareItem()">
                                 <section class="button-text">
                                     <span class="share-icon"></span>SHARE

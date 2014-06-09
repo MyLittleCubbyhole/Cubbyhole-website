@@ -16,7 +16,7 @@
 	</section>
 	<section id="user-management-listing" scroll-bar>
 		<section id="user-management-listing-content">
-			<section class="user-management-card animated fadeIn" ng-repeat="user in UserAdministration.users | filter: {email: UserAdministration.filter.search, roleid: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}">
+			<section class="user-management-card animated fadeIn" ng-repeat="user in UserAdministration.users track by $index | filter: {email: UserAdministration.filter.search, roleid: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}">
 				<article class="user-picture">
 					<article class="border-circle-blue">
 						<article class="img-circle image-target"  ng-style="{'background-image': 'url({{user.image}})'}" ng-class="{'form-file-preview': user.photo && user.photo != 'null'}">

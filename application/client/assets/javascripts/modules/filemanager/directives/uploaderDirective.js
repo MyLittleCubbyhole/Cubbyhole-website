@@ -82,6 +82,7 @@ angular.module('FileManager').
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						ownerId: ownerId,
+                		creatorId: UserFactory($scope).get().id,
 						creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						size : 0,
 						type: 'file',

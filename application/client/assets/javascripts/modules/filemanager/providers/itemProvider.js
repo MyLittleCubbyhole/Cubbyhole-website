@@ -18,7 +18,7 @@ angular.module('FileManager').
 			_id: -1
 		};
 
-		this.$get = function() {
+		this.$get = ['UserFactory', function(UserFactory) {
 
 			var Item = function(options) {
 
@@ -35,6 +35,7 @@ angular.module('FileManager').
 				this.lastUpdateName = this.options.lastUpdateName;
 				this.size = this.options.size;
 				this.creator = this.options.creator;
+				this.creatorId = this.options.creatorId;
 				this.ownerId = this.options.ownerId;
 				this.downloads = this.options.downloads || 0;
 				this.shared = typeof this.options.shared !== 'undefined' && this.options.shared === true;
@@ -65,5 +66,5 @@ angular.module('FileManager').
 			});
 
 			return Item;
-		};
+		}];
 	})
