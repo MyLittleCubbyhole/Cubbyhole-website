@@ -13,7 +13,7 @@ angular.module('Authentication').
             require: 'datePicker',
             restrict: 'A',
             link: function($scope, $node, attributes, self) {
-                var $local = $scope._buttonUploader;
+                var $local = $scope._datePicker;
 
                 $node.datepicker({
                     dateFormat: 'dd/mm/yy',
