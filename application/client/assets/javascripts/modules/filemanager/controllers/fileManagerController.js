@@ -79,7 +79,8 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
-            $local.addInfo('File created', 'The file ' + data.name + ' has been created');
+            if(UserFactory($scope).get().id != data.creatorId)
+                $local.addInfo('File created', 'The file ' + data.name + ' has been created');
             if(lastItem == data.logicPath || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.owner, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
