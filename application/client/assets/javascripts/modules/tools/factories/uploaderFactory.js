@@ -20,7 +20,8 @@ angular.module('Tools').
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
 
-			file.context.$scope.FileManager.addInfo('File uploaded', 'The file ' + file.data.name + ' has been uploaded');
+			if(file.context.$scope.FileManager)
+				file.context.$scope.FileManager.addInfo('File uploaded', 'The file ' + file.data.name + ' has been uploaded');
 
 			file.context.entity.size += data['chunkSize'];
 			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
@@ -44,7 +45,8 @@ angular.module('Tools').
 			else
 				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
 
-			files[data.id].context.$scope.FileManager.addError('File not uploaded', data.error);
+			if(file.context.$scope.FileManager)
+				files[data.id].context.$scope.FileManager.addError('File not uploaded', data.error);
 
 			files[data.id].context.$scope.$apply();
 		});

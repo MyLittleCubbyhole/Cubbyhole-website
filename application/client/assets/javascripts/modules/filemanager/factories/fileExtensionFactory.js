@@ -83,14 +83,9 @@ angular.module('FileManager').
 						case "cpp": case "h": case "hpp": case "cs": case "xaml":
 						case "py": case "asm": case "asp": case "aspx": case "lua":
 						case "pl": case "ps1": case "rb": case "vbs": case "lisp":
-						case "vb":
+						case "vb":case "json":
 							file.icon = "icon-file-xml";
 							file.category = "text";
-						break;
-						// JSON
-						case "json":
-							file.icon = "icon-file-xml";
-							file.category = "json";
 						break;
 						// DISKS
 						case "iso": case "dmg": case "img": case "cdi": case "c2d":
