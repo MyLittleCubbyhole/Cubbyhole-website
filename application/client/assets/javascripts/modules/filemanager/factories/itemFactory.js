@@ -116,27 +116,23 @@ angular.module('FileManager').
 					item.newItem = false;
 					item._id = item.ownerId + item.path + item.name;
 
-					if(!!data.information && data.information.indexOf('error') > -1)
-					  	$local.addError('Folder not created', error);
-            		else
-            			$local.addInfo('Folder created', 'The folder ' + item.name + ' was created');
-				}, function(error) { 
-
-					console.error(error); 
+					if(!!data.information && data.information.indexOf('error') > -1) {
+						prototype.clean(item._id);
+					  	$local.addError('Folder not created', data.information);
+					}
+				}, function(error) {
+					prototype.clean(item._id);
+					console.error(error);
 				});
 			}
 
 			prototype.delete = function(item) {
 				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function(data) {
-
+					prototype.clean(item._id);
 					if(!!data.information && data.information.indexOf('error') > -1)
             			$local.addError('Item not deleted', data.information);
-            		else {
-            			$local.addInfo('Item deleted', 'The item ' + item.name + ' was deleted');
-						prototype.clean(item._id);
-            		}
 
-				}, function(error) { 
+				}, function(error) {
 
 					console.error(error);
 				});
@@ -171,7 +167,9 @@ angular.module('FileManager').
 							};
 							prototype.add(options);
 						}
-					}
+            			//$local.addInfo(target.options.type[0].toUpperCase() + target.options.type.slice(1) + ' pasted', 'The ' + target.options.type + ' ' + data.params.newName + ' has been pasted');
+					} else
+						$local.addError(target.options.type[0].toUpperCase() + target.options.type.slice(1) + ' not copied', data.information);
 
 				}, function(error) { console.error(error); });
 			}
@@ -180,14 +178,19 @@ angular.module('FileManager').
 
 				var move = restangular.one('move').one(target.ownerId.toString());
 
-				move.post(source.getFullPath().substring(1), { path: target.ownerId + target.getFullPath() }).then(function() {
+				move.post(source.getFullPath().substring(1), { path: target.ownerId + target.getFullPath() }).then(function(data) {
 					prototype.clean(source._id);
+
+					if(!data.information || data.information.indexOf('error') > -1)
+						$local.addError(data.params.type[0].toUpperCase() + data.params.type.slice(1) + ' not moved', data.information);
 				}, function(error) { console.error(error); });
 			}
 
 			prototype.rename = function(fullpath, newName, callback) {
 
-				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function() {
+				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function(data) {
+					if(!data.information || data.information.indexOf('error') > -1)
+						$local.addError('Item not renamed', data.information);
 				}, function(error) { console.error(error); });
 			}
 

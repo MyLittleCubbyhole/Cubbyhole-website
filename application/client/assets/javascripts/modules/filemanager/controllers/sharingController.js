@@ -54,8 +54,12 @@ angular.module('FileManager').
 
                         if(updateOrCreate)
                             SharingFactory($scope, {local: $local}).share(path, $scope.FileManager.selectedItems[0].usersActualSharing[i].email, $scope.FileManager.selectedItems[0].usersActualSharing[i].right, function(error, data) {
-                                if(error && !data)
+                                if(error && !data) {
                                     console.error(error);
+                                    $scope.FileManager.addError('Folder not shared', error);
+                                }
+                                else
+                                    $scope.FileManager.addInfo('Folder shared', 'Folder shared with ' + data.targetEmail);
                             })
                     }
                     $scope.FileManager.selectedItems[0].usersToRemove = [];
@@ -68,8 +72,13 @@ angular.module('FileManager').
                     for(var i = 0 ; i < $scope.FileManager.selectedItems[0].usersToRemove.length; i++) {
                         var userToRevove = $scope.FileManager.selectedItems[0].usersToRemove[i];
                         SharingFactory($scope, {local: $local}).unshare(path, userToRevove.email, function(error, data) {
-                            if(error && !data)
+                            if(error && !data) {
                                 console.error(error);
+                                $scope.FileManager.addError('Folder not unshared', error);
+                            }
+                            else
+                                $scope.FileManager.addInfo('Folder unshared', 'Folder unshared with ' + data.targetEmail);
+
                             var index = $scope.FileManager.selectedItems[0].usersWebserviceSharing.indexOf(userToRevove);
                             if(index > -1)
                                 $scope.FileManager.selectedItems[0].usersWebserviceSharing.slice(index, 1);
