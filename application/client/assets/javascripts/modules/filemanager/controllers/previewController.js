@@ -1,14 +1,22 @@
 angular.module('FileManager').
-    controller('PreviewController', ['$scope', '$location', 'apiUrl', 'AuthenticationFactory', 'UserFactory', 'Restangular', function($scope, $location, apiUrl, AuthenticationFactory, UserFactory, restangular) {
+    controller('PreviewController', ['$scope', '$location', 'apiUrl', 'AuthenticationFactory', 'UserFactory', 'Restangular', '$http', '$sce', function($scope, $location, apiUrl, AuthenticationFactory, UserFactory, restangular, $http, $sce) {
         var $local = $scope.Preview = {};
         $local.totalSize = 0;
+
+        $local.resourceContent = '';
 
         if($location.$$absUrl.indexOf('/shared/') == -1) {
             UserFactory($scope).getUsedSizeStorage(function(error, data) {
                 $local.totalSize = data;
             });
         }
-        $local.getRessourceUrl = function() {
+
+        $scope.$watch('FileManager.selectedItems', function() {
+            $local.resourceContent = '';
+            $local.getresourceContent();
+        });
+
+        $local.getResourceUrl = function() {
 
             var url = "";
 
@@ -17,7 +25,7 @@ angular.module('FileManager').
                     url = apiUrl + 'download/shared/' + $scope.FileManager.selectedItems[0].token + '?run';
                 }
                 else {
-                    url = ($scope.FileManager.selectedItems[0].category != 'text' ? $scope.FileManager.selectedItems[0].download(true) + "&run" : $scope.FileManager.selectedItems[0].download(true, true) + '?run');
+                    url = $scope.FileManager.selectedItems[0].category != 'text' ? $scope.FileManager.selectedItems[0].download(true) + '&run' : $scope.FileManager.selectedItems[0].download(true, true) + '?run';
                 }
 
                 if($scope.FileManager.selectedItems[0].category == 'pdf')
@@ -25,6 +33,14 @@ angular.module('FileManager').
             }
 
             return url;
+        };
+
+        $local.getresourceContent = function() {
+            var url = $local.getResourceUrl();
+            if(url && url.length > 0)
+                $http.get(url, {headers: {'Content-Type': undefined}}).success(function(content) {
+                    $local.resourceContent = content;
+                });
         };
 
         $scope.toString = function() {

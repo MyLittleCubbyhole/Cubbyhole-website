@@ -50,6 +50,7 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
+            $local.addInfo('Folder created', 'The folder ' + data.name + ' has been created');
             if(lastItem == data.path || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.ownerId, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
@@ -78,6 +79,8 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
+            if(UserFactory($scope).get().id != data.creatorId)
+                $local.addInfo('File created', 'The file ' + data.name + ' has been created');
             if(lastItem == data.logicPath || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.owner, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
@@ -103,10 +106,12 @@ angular.module('FileManager').
         })
 
         socket.on('delete', function(data) {
+            $local.addInfo('Item deleted', 'The item ' + data.fullPath.substring(data.fullPath.lastIndexOf('/') + 1) + ' has been deleted');
             ItemFactory($scope, {local: $local}).clean(data.fullPath);
             $scope.$apply();
         })
         socket.on('rename', function(data) {
+            $local.addInfo('Item renamed', 'The item ' + data.currentName + ' has been renamed');
             var items = ItemFactory($scope, {local: $local}).getAll();
             for(var i=0; i<items.length; i++)
                 if(items[i]._id == data.fullPath) {
@@ -122,6 +127,7 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
+            $local.addInfo('Item ' + (data.move ? 'moved' : 'copied'), 'The item ' + data.newName + ' has been ' + (data.move ? 'moved' : 'copied'));
             if(lastItem == data.targetPath || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(data.fullPath == $local.items[i]._id) {
@@ -197,8 +203,10 @@ angular.module('FileManager').
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
 
-            if($local.currentPath == '/Shared/')
+            if($local.currentPath == '/Shared/') {
+                $local.addError('Folder not deleted', 'You can\'t delete a shared folder');
                 return true;
+            }
 
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
@@ -245,6 +253,10 @@ angular.module('FileManager').
                 $local.itemsToCopy.slice(0);
                 $local.itemsToCopy = [];
                 $local.itemsToCopy = $local.selectedItems;
+                if($local.selectedItems.length == 1)
+                    $local.addInfo($local.itemsToCopy[0].options.type[0].toUpperCase() + $local.itemsToCopy[0].options.type.slice(1) + ' copied', 'The ' + $local.itemsToCopy[0].options.type + ' ' + $local.itemsToCopy[0].name + ' has been copied');
+                else
+                    $local.addInfo('Items copied', 'Some items have been copied');
             }
         };
 
@@ -336,8 +348,11 @@ angular.module('FileManager').
                 ItemFactory($scope, {local: $local}).unshareFile($local.selectedItems[0], function(error, information) {
                     if(!error && information) {
                         $local.selectedItems[0].shared = false;
-                    } else
+                        $local.addInfo('File unshared', 'The file ' + $local.selectedItems[0].name + ' has been unshared');
+                    } else {
                         console.error(error);
+                        $local.addError('File unshared', 'The file has not been unshared');
+                    }
                 });
             }
         }

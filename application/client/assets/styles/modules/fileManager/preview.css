@@ -80,7 +80,12 @@
 .preview-element.code {
     text-align: left;
     height: 340px;
+    background-color: white;
 }
+.preview-element.code pre {
+    margin: 0;
+}
+
 .preview-element video,
 .preview-element audio,
 .preview-element pre,
@@ -243,6 +248,7 @@ section.button-text {
     word-break: break-all;
     height: 46px;
     margin-top: -14px;
+    white-space: nowrap;
 }
 .preview-infos-additional-text {
     display: inline-block;

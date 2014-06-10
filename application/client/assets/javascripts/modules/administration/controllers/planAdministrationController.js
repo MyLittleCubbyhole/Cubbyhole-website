@@ -13,7 +13,7 @@ angular.module('Administration').
             $local.selectedPlan = {
                 id: plan.id,
                 price: plan.price,
-                name: 'Plan ' + plan.name,
+                name: plan.name,
                 description: plan.description,
                 storage: plan.storage,
                 duration: plan.duration,
