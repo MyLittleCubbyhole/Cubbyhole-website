@@ -179,10 +179,10 @@ angular.module('FileManager').
 				var move = restangular.one('move').one(target.ownerId.toString());
 
 				move.post(source.getFullPath().substring(1), { path: target.ownerId + target.getFullPath() }).then(function(data) {
-					prototype.clean(source._id);
-
 					if(!data.information || data.information.indexOf('error') > -1)
-						$local.addError(data.params.type[0].toUpperCase() + data.params.type.slice(1) + ' not moved', data.information);
+						$local.addError('Item not moved', data.information);
+					else
+						prototype.clean(source._id);
 				}, function(error) { console.error(error); });
 			}
 
@@ -302,20 +302,19 @@ angular.module('FileManager').
 					unselectable: true,
 					special: true
 				});
-
-				if($scope.FileManager.currentPath != '/' && $scope.FileManager.currentPath != '/Shared/') {
+				if($scope.FileManager.currentPath != '/' /*&& $scope.FileManager.currentPath != '/Shared/'*/) {
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
 
-					if(path != '/Shared/')
+					//if(path != '/Shared/')
 						prototype.add({
 							_id: '. .',
 							name: '. .',
 							path: path,
 							type: 'folder',
 							owner: '',
-							ownerId: ownerId,
+							ownerId: path == '/Shared/' ? UserFactory($scope).get().id : ownerId,
 							size: '',
 							unselectable: true,
 							special: true
