@@ -45,7 +45,7 @@ angular.module('Tools').
 			else
 				files[data.id].context.entity.size -= files[data.id].data.sizeAdded;
 
-			if(file.context.$scope.FileManager)
+			if(files[data.id].context.$scope.FileManager)
 				files[data.id].context.$scope.FileManager.addError('File not uploaded', data.error);
 
 			files[data.id].context.$scope.$apply();
