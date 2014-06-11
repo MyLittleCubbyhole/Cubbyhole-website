@@ -3,10 +3,21 @@ angular.module('Administration').
 		var $local = $scope.PlanAdministration = {};
 		$local.selectedPlan = {};
 		$local.plans = [];
+        $local.planImages = [];
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
             $local.plans = plans;
         });
+
+        PlanFactory($scope).getAllimages(function(error, images) {
+            $local.planImages = [];
+            if(!error)
+            for(var i in images)
+                $local.planImages.push({
+                    style:{'background-image': 'url(' +  images[i].url + ')'},
+                    name: images[i].name
+                });
+        })
 
         $local.selectPlan = function(plan) {
             plan.selected = true;
@@ -14,8 +25,11 @@ angular.module('Administration').
                 id: plan.id,
                 price: plan.price,
                 name: plan.name,
+                photoUrl: plan.photoUrl,
+                style: {'background-image': 'url(' +  plan.photoUrl + ')'},
                 description: plan.description,
                 storage: plan.storage,
+                photo: plan.photo,
                 duration: plan.duration,
                 downloadBandwidth: plan.downloadBandwidth,
                 uploadBandwidth: plan.uploadBandwidth,
@@ -38,6 +52,8 @@ angular.module('Administration').
                 id: Math.round(Math.random()*1000000),
                 price: 0,
                 name: 'NEW',
+                photo: $local.planImages[0].name,
+                photoUrl: $local.planImages[0].photoUrl,
                 description: 'DESCRIPTION',
                 storage: 0,
                 duration: 1,

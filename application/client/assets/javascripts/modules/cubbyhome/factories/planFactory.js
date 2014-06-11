@@ -1,5 +1,5 @@
 angular.module('CubbyHome').
-    factory('PlanFactory', ['Restangular', 'UserFactory', '$http', 'apiUrl', function(restangular, userFactory, $http, apiUrl){
+    factory('PlanFactory', ['Restangular', 'UserFactory', '$http', 'apiUrl', function(restangular, UserFactory, $http, apiUrl){
 
         return function($scope, context) {
             context = context || {};
@@ -11,7 +11,7 @@ angular.module('CubbyHome').
             ,   $local = context.local || {}
 
             prototype.getActualPlan = function(callback) {
-                restangular.one('users').one(userFactory($scope).get().id + '/plan').get().then(function(plan) {
+                restangular.one('users').one(UserFactory($scope).get().id + '/plan').get().then(function(plan) {
                     var planToReturn = null;
                     if(plan && plan.id) {
                         planToReturn = {
@@ -27,7 +27,9 @@ angular.module('CubbyHome').
                             quota: parseInt(plan.quota, 10),
                             available: plan.available,
                             dateStart: plan.datestart,
-                            dateEnd: plan.dateend
+                            dateEnd: plan.dateend,
+                            photoUrl: apiUrl + 'download/1/admin/' + plans[i].photo + '?token=' + UserFactory($scope).get().token + '&run',
+                            photo: plans[i].photo
                         };
                     }
                     callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
@@ -50,7 +52,9 @@ angular.module('CubbyHome').
                                 uploadBandwidth: parseInt(plans[i].uploadbandwidth, 10),
                                 downloadBandwidth: parseInt(plans[i].downloadbandwidth, 10),
                                 quota: parseInt(plans[i].quota, 10),
-                                available: plans[i].available
+                                available: plans[i].available,
+                                photoUrl: apiUrl + 'download/1/admin/' + plans[i].photo + '?token=' + UserFactory($scope).get().token + '&run',
+                                photo: plans[i].photo
                             });
                     callback.call(this, (plansToReturn ? null : 'no plan found'), (plansToReturn ? plansToReturn : null));
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
@@ -63,6 +67,8 @@ angular.module('CubbyHome').
                 $http.post(apiUrl + 'plans', plan).
                 success(function(data, status, headers, config) {
                     $local.unselect();
+                    data.photoUrl = apiUrl + 'download/1/admin/' + data.photo + '?token=' + UserFactory($scope).get().token + '&run',
+                    data.photo = data.photo
                     $local.plans.push(data.plan)
                 }).
                 error(function(data, status, headers, config) {
@@ -90,6 +96,20 @@ angular.module('CubbyHome').
                     callback && callback();
                 }).
                 error(function(data, status, headers, config) {});
+            }
+
+            prototype.getAllimages = function(callback) {
+                $http.get(apiUrl + 'plans/images').
+                success(function(data, status, headers, config) {
+
+                    for(var i in data) 
+                        data[i] = { url: apiUrl + 'download/1/admin/' + data[i] + '?token=' + UserFactory($scope).get().token + '&run', name: data[i] };
+
+                    callback && callback(null,data);
+                }).
+                error(function(data, status, headers, config) {
+                    callback && callback(data);
+                });
             }
 
             return prototype;

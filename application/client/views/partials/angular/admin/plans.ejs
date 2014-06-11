@@ -40,12 +40,16 @@
 						<section class="plan-details animated" ng-show="PlanAdministration.selectedPlan.id" ng-class="{bounceInDown: PlanAdministration.selectedPlan.id}">
 							<i class="close-icon icon-cross" ng-click="PlanAdministration.unselect()"></i>
 
-							<article class="user-picture">
-								<article class="border-circle-blue" form-file-upload=".image-plan-target" form-file-model="PlanAdministration.selectedPlan.image" form-file-name="photo" form-file-active-upload>
-									<article class="camera-icon"><i class="icon-camera"></i></article>
-									<article class="img-circle image-plan-target">
-										<i class="icon-profile-male form-file-hide"></i>
-									</article>
+							<article class="user-picture" ng-cloak>
+								<article class="border-circle-blue form-file-preview" grumpy-ui grumpy-position="right" grumpy-align="top" ng-style="PlanAdministration.selectedPlan.style">
+									<grumpy-virgin class="bounceIn forceMarginSIXPIXELS">
+										<section id="plan-image-choice" >
+											<section class="plan-image-choice-title"> CHOOSE THE IMAGE </section>
+											<section class="plan-image-content" scroll-bar>
+												<article class="plan-image" ng-style="image.style" ng-click="PlanAdministration.selectedPlan.photo = image.name; PlanAdministration.selectedPlan.style=image.style;_grumpyUi.close();" ng-repeat="image in PlanAdministration.planImages"></article>
+											</section>
+										</section>
+									</grumpy-virgin>
 								</article>
 							</article>
 

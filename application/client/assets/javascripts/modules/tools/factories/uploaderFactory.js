@@ -5,8 +5,9 @@ angular.module('Tools').
 		,	socket = WebsocketFactory();
 
 		socket.on('upload_next', function(data) {
-			files[data.id].context.entity.size += data['chunkSize'];
+			files[data.id].context.entity.size = Number(data.percent);
 			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
+
 			files[data.id].context.$scope.$apply();
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
@@ -23,8 +24,8 @@ angular.module('Tools').
 			if(file.context.$scope.FileManager)
 				file.context.$scope.FileManager.addInfo('File uploaded', 'The file ' + file.data.name + ' has been uploaded');
 
-			file.context.entity.size += data['chunkSize'];
 			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
+			file.context.entity.size = file.data.sizeAdded;
 			file.context.entity._id = data._id;
 			file.context.entity.unselectable = false;
 			file.context.entity.inupload = false;

@@ -1,1 +1,1 @@
-angular.module('Administration', ['ngRoute', 'Tools', 'CubbyHome']);
+angular.module('Administration', ['ngRoute', 'Tools', 'CubbyHome', 'Grumpy-ui']);
