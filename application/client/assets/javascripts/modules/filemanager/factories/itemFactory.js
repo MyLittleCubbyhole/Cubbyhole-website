@@ -128,9 +128,10 @@ angular.module('FileManager').
 
 			prototype.delete = function(item) {
 				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function(data) {
-					prototype.clean(item._id);
 					if(!!data.information && data.information.indexOf('error') > -1)
             			$local.addError('Item not deleted', data.information);
+            		else
+						prototype.clean(item._id);
 
 				}, function(error) {
 

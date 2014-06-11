@@ -4,7 +4,7 @@ angular.module('Annyang').
 
         $local.started = false;
 
-        $local.activated = false;
+        $local.activated = true;
 
         $local.startStop = function() {
             if($local.started)
