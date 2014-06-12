@@ -19,5 +19,7 @@ angular.module('Tools').
 				for(var i in actions)
 					angular.element(this).removeClass(actions[i]);
 			})
-		};	
+		};
+
+		return prototype;
 	})
