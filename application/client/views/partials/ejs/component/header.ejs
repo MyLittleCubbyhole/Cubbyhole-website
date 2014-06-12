@@ -1,6 +1,6 @@
 <header ng-class="{ preventClick: Overlay.activated }">
 	<section id="global-nav" ng-controller="NavigationController" du-scroll-container="bloc-container">
-		<section id="logo-container" class="pull-left" ng-click="Navigation.goto('/home')">
+		<section id="logo-container" class="pull-left first-harlem mw-harlem_shake_me" ng-click="Navigation.goto('/home')">
 			<article id="logo"><img src="/images/design/logo.png" alt="logo"></article>
 			<article id="logo-title" class="google-font hidden-xs">Cubbyhole</article>
 		</section>
@@ -13,7 +13,7 @@
 					<article class="img-circle image-target" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}">
 	                    <i class="icon-profile-male form-file-hide"></i>
 	                </article>
-					<article class="label hidden-xs">{{Authentication.user.firstname}}</article>
+					<article class="label hidden-xs mw-harlem_shake_me">{{Authentication.user.firstname}}</article>
 				</section>
 
 				<section id="user-card" class="bounceIn animated" ng-class="{ open: Authentication.opened }">
@@ -52,26 +52,26 @@
 
 
 		<nav class="navigation pull-left hidden-xs hidden-sm">
-			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home', '#bloc-container')">
+			<article class="option nav google-font big-font mw-harlem_shake_me" ng-class="{ selected: Navigation.isSelected('/home', '') }" ng-click="Navigation.goto('/home', '#bloc-container')">
 				<!-- <i class="icon icon-home"></i> -->
 				<span class="label">HOME</span>
 			</article>
-			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover', '#bloc-container')">
+			<article class="option nav google-font big-font mw-harlem_shake_me" ng-class="{ selected: Navigation.isSelected('/home', '/discover') }" ng-click="Navigation.goto('/home#discover', '#bloc-container')">
 				<!-- <i class="icon icon-newspaper"></i> -->
 				<span class="label">DISCOVER</span>
 			</article>
-			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan', '#bloc-container')">
+			<article class="option nav google-font big-font mw-harlem_shake_me" ng-class="{ selected: Navigation.isSelected('/home', '/plan') }" ng-click="Navigation.goto('/home#plan', '#bloc-container')">
 				<!-- <i class="icon icon-gift"></i> -->
 				<span class="label">PLANS</span>
 			</article>
-			<article class="option nav google-font big-font" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact', '#bloc-container')">
+			<article class="option nav google-font big-font mw-harlem_shake_me" ng-class="{ selected: Navigation.isSelected('/home', '/contact') }" ng-click="Navigation.goto('/home#contact', '#bloc-container')">
 				<!-- <i class="icon icon-address-book"></i> -->
 				<span class="label">TEAM</span>
 			</article>
 		</nav>
 
 		<section class="redirect-zone pull-left">
-			<article class="option nav" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
+			<article class="option nav mw-harlem_shake_me" ng-class="{ selected: Navigation.isSelected('/manager', '') }" ng-click="Navigation.goto('/manager')">
 				<!-- <i class="icon icon-dropbox"></i> -->
 				<span class="label">FILE MANAGER</span>
 			</article>
