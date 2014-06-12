@@ -188,7 +188,6 @@ angular.module('FileManager').
 			}
 
 			prototype.rename = function(fullpath, newName, callback) {
-
 				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function(data) {
 					if(!data.information || data.information.indexOf('error') > -1)
 						$local.addError('Item not renamed', data.information);

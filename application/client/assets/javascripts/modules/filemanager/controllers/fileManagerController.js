@@ -367,7 +367,7 @@ angular.module('FileManager').
                     }
 
                 if(item) {
-                    ItemFactory($scope, {local: $local}).rename(item.getFullPath(), newName);
+                    ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), newName);
                     item.name = newName;
                 }
             }
@@ -375,7 +375,7 @@ angular.module('FileManager').
 
         $local.downloadVocal = function(name) {
             for(var i = 0; i < $local.items.length; i++)
-                if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
+                if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat(name)))
                     $local.selectedItems.push($local.items[i]);
 
             $scope.$apply();
@@ -383,17 +383,24 @@ angular.module('FileManager').
             $local.download();
         }
 
-        AnnyangService.set('open_item', function(name) {
+        AnnyangService.set('open_folder_like', function(name) {
+            $scope.$broadcast('open_folder', name, true);
+        });
+
+        AnnyangService.set('open_folder', function(name) {
             $scope.$broadcast('open_folder', name);
         });
 
-        AnnyangService.set('open_parent_item', function() {
+        AnnyangService.set('open_parent_folder', function() {
             $scope.$broadcast('open_parent_folder');
         });
-        AnnyangService.set('open_parent_item_alternative', function() {
+        AnnyangService.set('open_parent_folder_alternative', function() {
             $scope.$broadcast('open_parent_folder');
         });
-        AnnyangService.set('open_parent_item_alternative2', function() {
+        AnnyangService.set('open_parent_folder_alternative2', function() {
+            $scope.$broadcast('open_parent_folder');
+        });
+        AnnyangService.set('open_parent_folder_alternative3', function() {
             $scope.$broadcast('open_parent_folder');
         });
 
@@ -408,6 +415,15 @@ angular.module('FileManager').
         });
 
         AnnyangService.set('preview_file', function(name) {
+            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_file_alternative', function(name) {
+            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_file_alternative2', function(name) {
+            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_file_alternative3', function(name) {
             $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
         });
 
@@ -440,6 +456,12 @@ angular.module('FileManager').
         AnnyangService.set('delete_item', function(name) {
             $local.delete(name);
         });
+        AnnyangService.set('delete_item_alternative', function(name) {
+            $local.delete(name);
+        });
+        AnnyangService.set('delete_item_alternative2', function(name) {
+            $local.delete(name);
+        });
 
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
@@ -447,5 +469,5 @@ angular.module('FileManager').
 
 		$scope.toString = function() {
 			return 'FileManager';
-		}
+		};
 	}])
