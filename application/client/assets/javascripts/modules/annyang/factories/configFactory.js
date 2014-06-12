@@ -2,10 +2,12 @@ angular.module('Annyang').
     factory('ConfigFactory', function() {
 
         return {
-            'open_item': 'ouvrir (le) (dossier) *term',
-            'open_parent_item': 'ouvrir le dossier parent',
-            'open_parent_item_alternative': 'précédent',
-            'open_parent_item_alternative2': 'revenir en arrière',
+            'open_folder_like': 'ouvrir un dossier qui ressemble à *term',
+            'open_folder': 'ouvrir (le) (dossier) *term',
+            'open_parent_folder': 'ouvrir le dossier parent',
+            'open_parent_folder_alternative': 'précédent',
+            'open_parent_folder_alternative2': 'revenir en arrière',
+            'open_parent_folder_alternative3': 'retour',
 
             'download_file': 'télécharger (le) (dossier) (fichier) *term',
             'download_file_alternative': 'téléchargé (le) (dossier) (fichier) *term',
@@ -21,6 +23,8 @@ angular.module('Annyang').
             'create_folder_alternative2': 'cree (le) (un) (dossier) *term',
             'create_folder_alternative3': 'créez (le) (un) (dossier) *term',
             'delete_item': 'supprimer (le) (dossier) (fichier) *term',
+            'delete_item_alternative': 'supprimé (le) (dossier) (fichier) *term',
+            'delete_item_alternative2': 'supprimez (le) (dossier) (fichier) *term',
             'rename_item': 'renommer (le) (dossier) (fichier) *term en *term',
             'rename_item_alternative': 'éditer (le) (dossier) (fichier) *term en *term',
             'rename_item_alternative2': 'édité (le) (dossier) (fichier) *term en *term',

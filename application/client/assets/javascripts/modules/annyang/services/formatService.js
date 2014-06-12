@@ -10,26 +10,30 @@ angular.module('Annyang').
         prototype.purals = function(string) {
         	if(string.slice(-1) == 's')
         		string = string.slice(0, -1);
-        	return string;
-        }
+        	return string;        }
+
 
         prototype.accents = function(string) {
             return prototype.base(string)
-            .replace(/\s/g,"")
-            .replace(/[àáâãäå]/g,"a")
-            .replace(/æ/g,"ae")
-            .replace(/ç/g,"c")
-            .replace(/[èéêë]/g,"e")
-            .replace(/[ìíîï]/g,"i")
-            .replace(/ñ/g,"n")
-            .replace(/[òóôõö]/g,"o")
-            .replace(/œ/g,"oe")
-            .replace(/[ùúûü]/g,"u")
-            .replace(/[ýÿ]/g,"y");
+            .replace(/\s/g,'')
+            .replace(/[àáâãäå]/g,'a')
+            .replace(/æ/g,'ae')
+            .replace(/ç/g,'c')
+            .replace(/[èéêë]/g,'e')
+            .replace(/[ìíîï]/g,'i')
+            .replace(/ñ/g,'n')
+            .replace(/[òóôõö]/g,'o')
+            .replace(/œ/g,'oe')
+            .replace(/[ùúûü]/g,'u')
+            .replace(/[ýÿ]/g,'y');
         }
 
-        prototype.baseFormat = function(string) {
-            return prototype.accents(prototype.purals(prototype.base(string)));
+        prototype.specialChars = function(string) {
+            return prototype.base(string)
+            .replace(/-/g,'')
+            .replace(/_/g,'')
+            .replace(/'/g,'')
+            .replace(/"/g,'');
         }
 
         prototype.removeExtension = function(string) {
@@ -40,6 +44,10 @@ angular.module('Annyang').
                 extension = itemName.pop();
 
             return nameOnly = itemName.join('.');
+        }
+
+        prototype.baseFormat = function(string) {
+            return prototype.specialChars(prototype.accents(prototype.purals(prototype.base(string))));
         }
 
         prototype.email = function(string) {

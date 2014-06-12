@@ -34,8 +34,8 @@ angular.module('FileManager').
 					$local.cancelEdit();
 				})
 
-				$scope.$on('open_folder', function(scope, name) {
-					if(name && AnnyangFormatService.baseFormat($local.item.name) == AnnyangFormatService.baseFormat(name))
+				$scope.$on('open_folder', function(scope, name, like) {
+					if(name && ((!like && AnnyangFormatService.baseFormat($local.item.name) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.baseFormat($local.item.name).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
 						$local.open();
 				});
 
