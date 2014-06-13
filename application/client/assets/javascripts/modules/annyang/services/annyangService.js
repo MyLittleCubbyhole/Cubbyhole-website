@@ -4,6 +4,11 @@ angular.module('Annyang').
         var commands = {}
         ,   prototype = {};
 
+        prototype.addCallback = function(type, callback, context) {
+            if(annyang)
+                annyang.addCallback(type, callback, context);
+        }
+
         prototype.set = function(commandName, callback) {
             commands[ConfigFactory[commandName]] = callback;
         };

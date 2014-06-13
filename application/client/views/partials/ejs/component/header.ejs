@@ -44,9 +44,9 @@
 			</article>
 		</section>
 
-		<section class="navigation pull-right" ng-controller="AnnyangController" ng-cloak>
-			<article class="option nav" ng-click="Annyang.startStop()" ng-if="Annyang.activated">
-				<i class="icon-microphone"></i>
+		<section class="navigation pull-right" ng-controller="AnnyangController" ng-if="Navigation.isOnManager()" ng-cloak>
+			<article class="option nav mic animated" ng-class="{listening: Annyang.start, error: Annyang.error, shake: Annyang.error, success: Annyang.success}" ng-click="Annyang.startStop()" ng-if="Annyang.activated" >
+				<i class="icon-microphone" ></i>
 			</article>
 		</section>
 

@@ -10,8 +10,9 @@ angular.module('FileManager').
 				$local.oldName = "";
 				$local.selected = false;
 
-				$scope.$on('unselect', function() {
+				$scope.$on('unselect', function(scope, callback) {
 					$local.selected = false;
+					callback && callback.call(this);
 				})
 
 				$scope.$on('preview_item', function(scope, name, like, callback) {
@@ -23,6 +24,11 @@ angular.module('FileManager').
 
 				$scope.$on('rename_item', function() {
 					$local.rename();
+				})
+
+				$scope.$on('select', function(scope, callback) {
+					$local.select({ctrlKey : true});
+					callback && callback.call(this);
 				})
 
 				$scope.$on('select_item', function(scope, name, like, callback) {

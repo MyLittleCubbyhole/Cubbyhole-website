@@ -1,6 +1,6 @@
 var toto;
 angular.module('FileManager').
-	controller('FileManagerController', ['$scope', '$window', '$location', 'FileProvider', 'FolderProvider', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', function($scope, $window, $location, File, Folder, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory) {
+	controller('FileManagerController', ['$scope', '$window', '$location', 'FileProvider', 'FolderProvider', 'apiUrl', 'ItemFactory', 'UserFactory', 'SharingFactory', 'FileExtensionFactory', 'AnnyangService', 'AnnyangFormatService', 'WebsocketFactory', 'HarlemService', function($scope, $window, $location, File, Folder, apiUrl, ItemFactory, UserFactory, SharingFactory, ExtensionFactory, AnnyangService, AnnyangFormatService, WebsocketFactory, HarlemService) {
 		var $local = $scope.FileManager = {};
 
         $local.draggedItem = null;
@@ -395,11 +395,11 @@ angular.module('FileManager').
         AnnyangService.set('open_folder_like', function(name) {
             $scope.$broadcast('open_folder', name, true);
         });
-        AnnyangService.set('open_folder_like_alternative', function(name) {
-            $scope.$broadcast('open_folder', name, true);
-        });
 
         AnnyangService.set('open_folder', function(name) {
+            $scope.$broadcast('open_folder', name);
+        });
+        AnnyangService.set('open_folder_alternative', function(name) {
             $scope.$broadcast('open_folder', name);
         });
 
@@ -409,190 +409,90 @@ angular.module('FileManager').
         AnnyangService.set('open_parent_folder_alternative', function() {
             $scope.$broadcast('open_parent_folder');
         });
-        AnnyangService.set('open_parent_folder_alternative2', function() {
-            $scope.$broadcast('open_parent_folder');
-        });
-        AnnyangService.set('open_parent_folder_alternative3', function() {
-            $scope.$broadcast('open_parent_folder');
-        });
 
         AnnyangService.set('download_file_like', function(name) {
-            $local.downloadVocal(name, true, true);
-        });
-        AnnyangService.set('download_file_like_alternative', function(name) {
-            $local.downloadVocal(name, true, true);
-        });
-        AnnyangService.set('download_file_like_alternative2', function(name) {
-            $local.downloadVocal(name, true, true);
-        });
-        AnnyangService.set('download_file_like_alternative3', function(name) {
-            $local.downloadVocal(name, true, true);
-        });
-        AnnyangService.set('download_file_like_alternative4', function(name) {
-            $local.downloadVocal(name, true, true);
-        });
-        AnnyangService.set('download_file_like_alternative5', function(name) {
             $local.downloadVocal(name, true, true);
         });
         AnnyangService.set('download_file', function(name) {
             $local.downloadVocal(name, true);
         });
-        AnnyangService.set('download_file_alternative', function(name) {
-            $local.downloadVocal(name, true);
-        });
-        AnnyangService.set('download_file_alternative2', function(name) {
-            $local.downloadVocal(name, true);
-        });
+
 
         AnnyangService.set('preview_item_like', function(name) {
-            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_like_alternative', function(name) {
-            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_like_alternative2', function(name) {
-            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_like_alternative3', function(name) {
-            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_like_alternative4', function(name) {
-            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_like_alternative5', function(name) {
             $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
         AnnyangService.set('preview_item', function(name) {
             $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
         });
-        AnnyangService.set('preview_item_alternative', function(name) {
-            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_alternative2', function(name) {
-            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('preview_item_alternative3', function(name) {
-            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
-        });
+
 
         AnnyangService.set('select_file_like', function(name) {
              $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
         });
-        AnnyangService.set('select_file_like_alternative', function(name) {
-             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_like_alternative2', function(name) {
-             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_like_alternative3', function(name) {
-             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_like_alternative4', function(name) {
-             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_like_alternative5', function(name) {
-             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        AnnyangService.set('select_all', function(name) {
+             $scope.$broadcast('select', function() { $scope.$apply(); });
         });
         AnnyangService.set('select_file', function(name) {
-             $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_alternative', function(name) {
-             $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('select_file_alternative2', function(name) {
              $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
         });
 
         AnnyangService.set('unselect_file_like', function(name) {
              $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
         });
-        AnnyangService.set('unselect_file_like_alternative', function(name) {
-             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_like_alternative2', function(name) {
-             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_like_alternative3', function(name) {
-             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_like_alternative4', function(name) {
-             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_like_alternative5', function(name) {
-             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        AnnyangService.set('unselect_all', function() {
+            $scope.$broadcast('unselect', function() { $scope.$apply(); });
         });
         AnnyangService.set('unselect_file', function(name) {
-             $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_alternative', function(name) {
-             $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('unselect_file_alternative2', function(name) {
              $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
         });
 
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
         });
-        AnnyangService.set('create_folder_alternative', function(name) {
-            $local.createFolder(name, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('create_folder_alternative2', function(name) {
-            $local.createFolder(name, function() { $scope.$apply(); });
-        });
-        AnnyangService.set('create_folder_alternative3', function(name) {
-            $local.createFolder(name, function() { $scope.$apply(); });
+
+        AnnyangService.set('delete_item', function(name) {
+            $local.delete(name);
         });
 
+
         AnnyangService.set('rename_item_like', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative2', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative3', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative4', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative5', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative6', function(oldName, newName) {
-            $local.renameVocal(oldName, newName, true);
-        });
-        AnnyangService.set('rename_item_like_alternative7', function(oldName, newName) {
             $local.renameVocal(oldName, newName, true);
         });
         AnnyangService.set('rename_item', function(oldName, newName) {
             $local.renameVocal(oldName, newName);
         });
-        AnnyangService.set('rename_item_alternative', function(oldName, newName) {
-            $local.renameVocal(oldName, newName);
-        });
-        AnnyangService.set('rename_item_alternative2', function(oldName, newName) {
-            $local.renameVocal(oldName, newName);
-        });
-        AnnyangService.set('rename_item_alternative3', function(oldName, newName) {
-            $local.renameVocal(oldName, newName);
-        });
 
-        AnnyangService.set('delete_item', function(name) {
-            $local.delete(name);
+        AnnyangService.set('copy', function(oldName, newName) {
+            $local.copy();
+            $local.selectedItems = [];
+            $scope.$apply();
         });
-        AnnyangService.set('delete_item_alternative', function(name) {
-            $local.delete(name);
-        });
-        AnnyangService.set('delete_item_alternative2', function(name) {
-            $local.delete(name);
+        AnnyangService.set('paste', function(oldName, newName) {
+            $local.paste();
         });
 
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
+        });
+
+        AnnyangService.set('harlem_shake_full', function(name) {
+            HarlemService.doFull();
+            setTimeout(function(){
+                HarlemService.stop();
+            }, 15000);
+        });
+        AnnyangService.set('harlem_shake_full_alternative', function(name) {
+            HarlemService.doFull();
+            setTimeout(function(){
+                HarlemService.stop();
+            }, 15000);
+        });
+
+        AnnyangService.set('harlem_shake_first', function(name) {
+            HarlemService.doFirst();
+        });
+        AnnyangService.set('harlem_shake_first_alternative', function(name) {
+            HarlemService.doFirst();
         });
 
 		$scope.toString = function() {

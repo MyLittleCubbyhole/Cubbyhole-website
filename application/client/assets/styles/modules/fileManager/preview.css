@@ -236,6 +236,9 @@ section.button-text {
     padding-bottom: 6px;
     border-bottom: 1px solid #D3D3D3;
 }
+.preview-infos-additional.hidden {
+    overflow: hidden;
+}
 .preview-infos-additional.shared-more {
     position: relative;
 }
