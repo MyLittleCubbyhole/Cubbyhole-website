@@ -4,12 +4,12 @@
 			<section id="user-management-filter-box" class="form">
 				<section class="input-search col-xs-12 col-sm-8 ">
 					<label class="input col-xs-11">
-						<input type="text" placeholder="E-MAIL" ng-model="UserAdministration.filter.search">
+						<input type="text" placeholder="E-MAIL" ng-change="UserAdministration.apply();" ng-model="UserAdministration.filter.search">
 					</label>
 				</section>
 				<section class="filter-box col-xs-12 col-sm-4">
-					<span ng-click="UserAdministration.filter.admin = !UserAdministration.filter.admin" ng-class="{active: UserAdministration.filter.admin}">ADMIN</span>
-					<span ng-click="UserAdministration.filter.user = !UserAdministration.filter.user" ng-class="{active: UserAdministration.filter.user}">USER</span>
+					<span ng-click="UserAdministration.filter.admin = !UserAdministration.filter.admin; UserAdministration.apply();" ng-class="{active: UserAdministration.filter.admin}">ADMIN</span>
+					<span ng-click="UserAdministration.filter.user = !UserAdministration.filter.user; UserAdministration.apply();" ng-class="{active: UserAdministration.filter.user}">USER</span>
 				</section>
 			</section>	
 		</section>		

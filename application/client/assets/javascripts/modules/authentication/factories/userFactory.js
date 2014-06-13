@@ -53,9 +53,13 @@ angular.module('Authentication').
             prototype.all = function(callback, options) {
                 options = options || {};
                 var limit = options.limit || 100
-                ,   offset = options.offset || 0;
-                console.log(apiUrl + 'users?offset=' + offset + '&limit=' + limit)
-                $http.get(apiUrl + 'users?offset=' + offset + '&limit=' + limit).
+                ,   offset = options.offset || 0
+                ,   filters = '';
+
+                filters +=  !!options.role ? '&role=' + options.role : '';
+                filters +=  !!options.email ? '&email=' + options.email : '';
+
+                $http.get(apiUrl + 'users?offset=' + offset + '&limit=' + limit + filters).
                 success(function(data) {
                     if(data.length>0) {
                         callback.call(this, '', data);
