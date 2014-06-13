@@ -727,7 +727,7 @@ section[boxalert] article.alert {
     border-radius: 3px;
     padding: 5px 20px;
     margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(123, 123, 123, 0.4);
 }
 section[boxalert] article.alert.error {
     background: #222;

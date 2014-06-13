@@ -50,9 +50,12 @@ angular.module('Authentication').
                 });
             };
 
-            prototype.all = function(callback) {
-
-                $http.get(apiUrl + 'users').
+            prototype.all = function(callback, options) {
+                options = options || {};
+                var limit = options.limit || 100
+                ,   offset = options.offset || 0;
+                console.log(apiUrl + 'users?offset=' + offset + '&limit=' + limit)
+                $http.get(apiUrl + 'users?offset=' + offset + '&limit=' + limit).
                 success(function(data) {
                     if(data.length>0) {
                         callback.call(this, '', data);

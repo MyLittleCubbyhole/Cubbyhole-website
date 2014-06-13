@@ -33,11 +33,29 @@ angular.module('Tools').
 
 				var $local = $scope._boxalert
 				,	i = 0
+				,	older = 1
+				,	length = 0
 				,	timer = attributes.boxtimer || 3000;
 
 
 				$parse(attributes.boxalert).assign($scope, function(alert) {
 					var index = ++i;
+					length++;
+
+
+					if(length>3) {
+						var nbCondamned = length - 3
+						,	k = older;
+
+						while(--nbCondamned>=0) {
+							$timeout.cancel($local.alerts[k].promise);
+							delete $local.alerts[k];
+							k++;
+							older = older < k ? k : older;
+							length--;
+						}
+
+					}
 
 					alert = _.extend(alert, { promise: null, index: index });
 
@@ -48,7 +66,11 @@ angular.module('Tools').
 				})
 
 				function pop(index) {
-					$local.alerts[index].promise = $timeout(function() { delete $local.alerts[index]; }, timer);
+					$local.alerts[index].promise = $timeout(function() { 
+						older = older < index+1 ? index+1 : older;
+						delete $local.alerts[index];
+						length--;
+					}, timer);
 				}
 
 			}
