@@ -43,6 +43,10 @@ angular.module('Navigation').
 			return ($location.$$absUrl.indexOf("/shared/") > -1);
 		}
 
+		$local.isOnManager = function() {
+			return ($location.$$absUrl.indexOf("/manager") > -1);
+		}
+
 		if($window.location.pathname == '/home' && $location.$$path.length>0)
 			$local.goto('/home#' + $location.$$path.substring(1), '#bloc-container')
 

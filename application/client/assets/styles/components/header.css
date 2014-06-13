@@ -69,6 +69,24 @@ section#global-nav article.option {
 	        transition: all .25s linear;
 }
 
+section#global-nav article.option.mic.listening {
+	color: #75c8ef;
+}
+
+section#global-nav article.option.mic.error {
+	color: #e74c3c;
+}
+section#global-nav article.option.mic.success {
+	color: #2ecc71;
+}
+
+section#global-nav article.option.mic i {
+	font-size: 26px;
+	position: absolute;
+	left: -2px;
+	top: 24px;
+}
+
 section#global-nav article.option.selected {
 	border-bottom-color: #75c8ef;
 	color: #FFF;
@@ -77,6 +95,10 @@ section#global-nav article.option.selected {
 section#global-nav article.option:hover {
 	border-bottom-color: #75c8ef;
 	color: #FFF;
+}
+
+section#global-nav article.option.mic:hover {
+	border-bottom-color: transparent;
 }
 
 section#global-nav span.label {

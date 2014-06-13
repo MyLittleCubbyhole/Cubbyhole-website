@@ -14,7 +14,7 @@ angular.module('FileManager').
         });
 
         $local.addUser = function(event) {
-            if(event.keyCode == 13 && $local.email !== undefined && $local.email !== '') {
+            if((!event || event.keyCode == 13) && ($local.email !== undefined && $local.email !== '')) {
                 var present = false;
                 for(var i = 0; i < $scope.FileManager.selectedItems[0].usersActualSharing.length; i++)
                     if($scope.FileManager.selectedItems[0].usersActualSharing[i].email == $local.email)

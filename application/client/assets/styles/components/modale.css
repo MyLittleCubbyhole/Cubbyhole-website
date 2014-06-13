@@ -142,6 +142,18 @@
     outline: none;
 }
 
+.input-share article {
+    color: #8B8B8B;
+    position: absolute;
+    right: 20px;
+    bottom: 80px;
+    background-color: transparent;
+    font-size: 32px !important;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
 .users-container {
     height: 370px;
     padding-left: 3px;
