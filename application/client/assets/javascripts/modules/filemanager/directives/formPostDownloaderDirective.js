@@ -21,7 +21,7 @@ angular.module('FileManager').
 			}],
 			template:
 				'<form target={{_formPostDownloader.target}} action="{{_formPostDownloader.url}}" method="POST" form-post-downloader >'
-			+		'<input type="text" name={{index}} value={{item.getFullPath()}} ng-repeat="(index, item) in FileManager.selectedItems">'
+			+		'<input type="text" name={{index}} value={{item.getFullPath()}} ng-repeat="(index, item) in FileManager.selectedItems track by $index">'
 			+	'</form>',
 			replace: true,
 			link: function($scope, $node, attributes) {

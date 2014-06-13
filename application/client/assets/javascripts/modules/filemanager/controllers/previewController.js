@@ -12,8 +12,10 @@ angular.module('FileManager').
         }
 
         $scope.$watch('FileManager.selectedItems', function() {
-            $local.resourceContent = '';
-            $local.getresourceContent();
+            if($scope.FileManager.selectedItems.length > 0 && $scope.FileManager.selectedItems[0].category == 'text') {
+                $local.resourceContent = '';
+                $local.getResourceContent();
+            }
         });
 
         $local.getResourceUrl = function() {
@@ -35,7 +37,7 @@ angular.module('FileManager').
             return url;
         };
 
-        $local.getresourceContent = function() {
+        $local.getResourceContent = function() {
             var url = $local.getResourceUrl();
             if(url && url.length > 0)
                 $http.get(url, {headers: {'Content-Type': undefined}}).success(function(content) {
