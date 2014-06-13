@@ -46,9 +46,16 @@ angular.module('FileManager').
 
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
-
-					if($scope._item.item._id.substring($scope._item.item._id.indexOf('/')) == '/Shared')
+					if($scope._item.item._id.substring($scope._item.item._id.indexOf('/')) == '/Shared') {
+						$scope.FileManager.addError('Item not moved', 'You can\'t move an item into the Shared folder');
+						$scope.$apply();
 						return true;
+					}
+					if($scope.FileManager.currentPath.substring(1) == 'Shared/') {
+						$scope.FileManager.addError('File not uploaded', 'You can\'t upload a file into the Shared folder');
+						$scope.$apply();
+						return true;
+					}
 
 					if(target
 					&& source

@@ -50,7 +50,10 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
+
             $local.addInfo('Folder created', 'The folder ' + data.name + ' has been created');
+            $scope.$apply();
+
             if(lastItem == data.path || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.ownerId, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
@@ -79,8 +82,10 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
-            if(UserFactory($scope).get().id != data.creatorId)
-                $local.addInfo('File created', 'The file ' + data.name + ' has been created');
+
+            $local.addInfo('File created', 'The file ' + data.name + ' has been created');
+            $scope.$apply();
+
             if(lastItem == data.logicPath || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(parseInt(data.owner, 10) == parseInt($local.items[i].ownerId, 10) && $local.items[i].name == data.name) {
@@ -112,6 +117,8 @@ angular.module('FileManager').
         })
         socket.on('rename', function(data) {
             $local.addInfo('Item renamed', 'The item ' + data.currentName + ' has been renamed');
+            $scope.$apply();
+
             var items = ItemFactory($scope, {local: $local}).getAll();
             for(var i=0; i<items.length; i++)
                 if(items[i]._id == data.fullPath) {
@@ -127,7 +134,10 @@ angular.module('FileManager').
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
             ,   witness = false;
+
             $local.addInfo('Item ' + (data.move ? 'moved' : 'copied'), 'The item ' + data.newName + ' has been ' + (data.move ? 'moved' : 'copied'));
+            $scope.$apply();
+
             if(lastItem == data.targetPath || lastItem._id == path) {
                 for(var i = 0; i<$local.items.length; i++)
                     if(data.fullPath == $local.items[i]._id) {
@@ -186,8 +196,10 @@ angular.module('FileManager').
                 creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname
             }
 
-            if($local.currentPath == '/Shared/')
+            if($local.currentPath == '/Shared/') {
+                $local.addError('Folder not created', 'You can\'t create a folder into the Shared folder');
                 return true;
+            }
 
             options.name = name ? name : ''
             options.editMode = name ? false : true;
@@ -222,8 +234,10 @@ angular.module('FileManager').
 
         $local.rename = function() {
 
-            if($local.currentPath == '/Shared/')
+            if($local.currentPath == '/Shared/') {
+                $local.addError('Item not renamed', 'You can\'t rename an item into the Shared folder');
                 return true;
+            }
 
             var canceled = false;
             for(var i = 0; i < $local.selectedItems.length; i++)
@@ -262,8 +276,10 @@ angular.module('FileManager').
 
         $local.paste = function() {
 
-            if($local.currentPath == '/Shared/')
+            if($local.currentPath == '/Shared/') {
+                $local.addError('Items not copied', 'You can\'t paste items into the Shared folder');
                 return true;
+            }
 
             var lastItem = $local.pathItems[$local.pathItems.length-1].item;
 

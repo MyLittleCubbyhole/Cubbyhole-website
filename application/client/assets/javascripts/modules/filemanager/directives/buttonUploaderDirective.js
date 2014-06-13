@@ -32,9 +32,11 @@ angular.module('FileManager').
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
-
-					if(self.path.substring(1) == '/Shared')
+					if(self.path.substring(1) == 'Shared/') {
+						$scope.FileManager.addError('File not uploaded', 'You can\'t upload a file into the Shared folder');
+						$scope.$apply();
 						return true;
+					}
 					var newItem = ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,

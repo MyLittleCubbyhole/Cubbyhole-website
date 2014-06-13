@@ -21,9 +21,6 @@ angular.module('Tools').
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
 
-			if(file.context.$scope.FileManager)
-				file.context.$scope.FileManager.addInfo('File uploaded', 'The file ' + file.data.name + ' has been uploaded');
-
 			file.data.sizeAdded += parseInt(data['chunkSize'], 10);
 			file.context.entity.size = file.data.sizeAdded;
 			file.context.entity._id = data._id;
