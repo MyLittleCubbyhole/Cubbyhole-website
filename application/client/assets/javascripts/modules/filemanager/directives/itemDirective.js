@@ -14,9 +14,9 @@ angular.module('FileManager').
 					$local.selected = false;
 				})
 
-				$scope.$on('preview_item', function(scope, name, callback) {
-					if(name && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name))
-						$local.preview({ctrlKey : true});
+				$scope.$on('preview_item', function(scope, name, like, callback) {
+					if(name && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
+						$local.preview({ctrlKey : false});
 
 					callback && callback.call(this);
 				})
@@ -25,9 +25,18 @@ angular.module('FileManager').
 					$local.rename();
 				})
 
-				$scope.$on('download_item', function(scope, name) {
-					if(name && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat(nameOnly)) == AnnyangFormatService.baseFormat(name))
-						$local.download(name);
+				$scope.$on('select_item', function(scope, name, like, callback) {
+					if(name && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
+						$local.select({ctrlKey : true});
+
+					callback && callback.call(this);
+				})
+
+				$scope.$on('unselect_item', function(scope, name, like, callback) {
+					if(name && $local.selected && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
+						$local.select({ctrlKey : true});
+
+					callback && callback.call(this);
 				})
 
 				$scope.$on('cancel_edit', function() {

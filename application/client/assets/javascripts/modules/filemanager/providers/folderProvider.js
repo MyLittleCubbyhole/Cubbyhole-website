@@ -11,7 +11,7 @@ angular.module('FileManager').
 			unselectable: false
 		};
 
-		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', function(Class, Item, $window, apiUrl, userFactory) {
+		this.$get = ['ClassService', 'ItemProvider', '$window', 'apiUrl', 'UserFactory', 'AuthenticationFactory', function(Class, Item, $window, apiUrl, userFactory, AuthenticationFactory) {
 
 			var Folder = function(options) {
 				var params = {};
@@ -42,7 +42,7 @@ angular.module('FileManager').
 				// 	for(var i = 0; i < paths.length - 2; i++)
 				// 		path += paths[i] + '/';
 				// }
-				// else 
+				// else
 				if(this._id != '.' && this._id != '. .') {
 					path += this.name + '/';
 				}

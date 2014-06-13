@@ -42,7 +42,6 @@ angular.module('Annyang').
             var extension = '';
             if(itemName.length !== 1 && (itemName[0] !== "" || itemName.length !== 2) )
                 extension = itemName.pop();
-
             return nameOnly = itemName.join('.');
         }
 

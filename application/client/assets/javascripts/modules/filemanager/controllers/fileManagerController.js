@@ -210,7 +210,7 @@ angular.module('FileManager').
 
             if(name)
                 for(var i = 0; i<$local.items.length; i++)
-                    if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(name))
+                    if(AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)) == AnnyangFormatService.baseFormat(name))
                         items.push($local.items[i]);
 
             for(var i = 0; i<items.length; i++)
@@ -357,33 +357,45 @@ angular.module('FileManager').
             }
         }
 
-        $local.renameVocal = function(oldName, newName) {
+        $local.renameVocal = function(oldName, newName, like) {
             if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
                 var item = null
                 for(var i = 0; i < $local.items.length; i++)
-                    if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.baseFormat(oldName)) {
+                    if((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)) == AnnyangFormatService.baseFormat(oldName)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)).indexOf(AnnyangFormatService.baseFormat(oldName)) > -1)) {
                         item = $local.items[i];
                         break;
                     }
 
                 if(item) {
-                    ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), newName);
-                    item.name = newName;
+                    var extension = (/(?:\.([^.]+))?$/).exec(item.name)[1];
+                    extension = extension || '';
+                    ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), newName + '.' + extension);
+                    item.name = newName + '.' + extension;
                 }
             }
         }
 
-        $local.downloadVocal = function(name) {
+        $local.downloadVocal = function(name, like) {
+            var found = false;
             for(var i = 0; i < $local.items.length; i++)
-                if(AnnyangFormatService.baseFormat($local.items[i].name) == AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat(name)))
+                if((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)) == AnnyangFormatService.baseFormat(name)) || (like && name != '' && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)) {
                     $local.selectedItems.push($local.items[i]);
+                    found = true;
+                }
 
             $scope.$apply();
-
             $local.download();
+
+            if(found) {
+                $local.selectedItems = [];
+                $scope.$apply();
+            }
         }
 
         AnnyangService.set('open_folder_like', function(name) {
+            $scope.$broadcast('open_folder', name, true);
+        });
+        AnnyangService.set('open_folder_like_alternative', function(name) {
             $scope.$broadcast('open_folder', name, true);
         });
 
@@ -404,27 +416,119 @@ angular.module('FileManager').
             $scope.$broadcast('open_parent_folder');
         });
 
+        AnnyangService.set('download_file_like', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
+        AnnyangService.set('download_file_like_alternative', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
+        AnnyangService.set('download_file_like_alternative2', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
+        AnnyangService.set('download_file_like_alternative3', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
+        AnnyangService.set('download_file_like_alternative4', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
+        AnnyangService.set('download_file_like_alternative5', function(name) {
+            $local.downloadVocal(name, true, true);
+        });
         AnnyangService.set('download_file', function(name) {
-            $local.downloadVocal(name);
+            $local.downloadVocal(name, true);
         });
         AnnyangService.set('download_file_alternative', function(name) {
-            $local.downloadVocal(name);
+            $local.downloadVocal(name, true);
         });
         AnnyangService.set('download_file_alternative2', function(name) {
-            $local.downloadVocal(name);
+            $local.downloadVocal(name, true);
         });
 
-        AnnyangService.set('preview_file', function(name) {
-            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        AnnyangService.set('preview_item_like', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
-        AnnyangService.set('preview_file_alternative', function(name) {
-            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        AnnyangService.set('preview_item_like_alternative', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
-        AnnyangService.set('preview_file_alternative2', function(name) {
-            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        AnnyangService.set('preview_item_like_alternative2', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
-        AnnyangService.set('preview_file_alternative3', function(name) {
-            $scope.$broadcast('preview_item', name, function() { $scope.$apply(); });
+        AnnyangService.set('preview_item_like_alternative3', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item_like_alternative4', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item_like_alternative5', function(name) {
+            $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item', function(name) {
+            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item_alternative', function(name) {
+            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item_alternative2', function(name) {
+            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('preview_item_alternative3', function(name) {
+            $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
+        });
+
+        AnnyangService.set('select_file_like', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_like_alternative', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_like_alternative2', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_like_alternative3', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_like_alternative4', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_like_alternative5', function(name) {
+             $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file', function(name) {
+             $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_alternative', function(name) {
+             $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('select_file_alternative2', function(name) {
+             $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
+        });
+
+        AnnyangService.set('unselect_file_like', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_like_alternative', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_like_alternative2', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_like_alternative3', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_like_alternative4', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_like_alternative5', function(name) {
+             $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file', function(name) {
+             $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_alternative', function(name) {
+             $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
+        });
+        AnnyangService.set('unselect_file_alternative2', function(name) {
+             $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
         });
 
         AnnyangService.set('create_folder', function(name) {
@@ -440,6 +544,30 @@ angular.module('FileManager').
             $local.createFolder(name, function() { $scope.$apply(); });
         });
 
+        AnnyangService.set('rename_item_like', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative2', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative3', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative4', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative5', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative6', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
+        AnnyangService.set('rename_item_like_alternative7', function(oldName, newName) {
+            $local.renameVocal(oldName, newName, true);
+        });
         AnnyangService.set('rename_item', function(oldName, newName) {
             $local.renameVocal(oldName, newName);
         });

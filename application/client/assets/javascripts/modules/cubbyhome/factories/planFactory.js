@@ -28,8 +28,8 @@ angular.module('CubbyHome').
                             available: plan.available,
                             dateStart: plan.datestart,
                             dateEnd: plan.dateend,
-                            photoUrl: apiUrl + 'download/1/admin/' + plans[i].photo + '?token=' + UserFactory($scope).get().token + '&run',
-                            photo: plans[i].photo
+                            photoUrl: apiUrl + 'download/1/admin/' + plan.photo + '?token=' + UserFactory($scope).get().token + '&run',
+                            photo: plan.photo
                         };
                     }
                     callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
@@ -82,7 +82,7 @@ angular.module('CubbyHome').
                 plan.downloadBandwidth = parseInt(plan.downloadBandwidth, 10);
                 $http.put(apiUrl + 'plans/'+plan.id, plan).
                 success(function(data, status, headers, config) {
-                    $local.unselect(); 
+                    $local.unselect();
                     callback && callback();
                 }).
                 error(function(data, status, headers, config) {
@@ -92,7 +92,7 @@ angular.module('CubbyHome').
 
             prototype.delete = function(id, callback) {
                 $http.delete(apiUrl + 'plans/'+id).
-                success(function(data, status, headers, config) { 
+                success(function(data, status, headers, config) {
                     callback && callback();
                 }).
                 error(function(data, status, headers, config) {});
@@ -102,7 +102,7 @@ angular.module('CubbyHome').
                 $http.get(apiUrl + 'plans/images').
                 success(function(data, status, headers, config) {
 
-                    for(var i in data) 
+                    for(var i in data)
                         data[i] = { url: apiUrl + 'download/1/admin/' + data[i] + '?token=' + UserFactory($scope).get().token + '&run', name: data[i] };
 
                     callback && callback(null,data);
