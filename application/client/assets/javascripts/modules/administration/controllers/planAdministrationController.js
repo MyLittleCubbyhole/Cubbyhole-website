@@ -48,12 +48,18 @@ angular.module('Administration').
 
         $local.createPlan = function() {
             $local.unselect();
+            var photoName = ''
+            ,   photoUrl = '';
+            if($local.planImages[0]) {
+                photoName = $local.planImages[0].name;
+                photoUrl = $local.planImages[0].photoUrl;
+            }
             $local.selectedPlan = {
                 id: Math.round(Math.random()*1000000),
                 price: 0,
                 name: 'NEW',
-                photo: $local.planImages[0].name,
-                photoUrl: $local.planImages[0].photoUrl,
+                photo: photoName,
+                photoUrl: photoUrl,
                 description: 'DESCRIPTION',
                 storage: 0,
                 duration: 1,
