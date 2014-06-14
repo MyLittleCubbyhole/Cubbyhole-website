@@ -28,7 +28,14 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/numeral/languages.min.js",
 					"application/client/assets/javascripts/libraries/scrollTo/scrollTo.js",
 					"application/client/assets/javascripts/libraries/shapeOver/snap.svg.js",
-					"application/client/assets/javascripts/libraries/annyang/annyang.js"
+					"application/client/assets/javascripts/libraries/annyang/annyang.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/core.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/constants/grumpyConfigConstants.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/directives/grumpyAccordionDirective.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/directives/grumpyUiDirective.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/directives/grumpyVirginDirective.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/services/grumpyPositionService.js",
+					"application/client/assets/javascripts/libraries/grumpy-ui/services/grumpyScrollingService.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
 			},
@@ -44,6 +51,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/tools/services/classService.js",
 					"application/client/assets/javascripts/modules/tools/services/formatSizeService.js",
 					"application/client/assets/javascripts/modules/tools/directives/rightClickDirective.js",
+					"application/client/assets/javascripts/modules/tools/directives/boxalertDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/focusDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/progressBarDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/progressBarPlanDirective.js",
@@ -116,7 +124,8 @@ module.exports = function(grunt) {
 				src: [
 					"application/client/assets/javascripts/modules/cubbyhole/core.js",
 					"application/client/assets/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js",
-					"application/client/assets/javascripts/modules/cubbyhole/controllers/cubbyholeController.js"
+					"application/client/assets/javascripts/modules/cubbyhole/controllers/cubbyholeController.js",
+					"application/client/assets/javascripts/modules/tools/services/harlemService.js"
 				],
 				dest: 'application/client/assets/minified/javascripts/filemanager.js'
 			},
@@ -166,6 +175,9 @@ module.exports = function(grunt) {
 						"application/client/assets/styles/libraries/modalWindowEffects/component.css",
 						"application/client/assets/styles/libraries/shapeOver/shapeOver.css",
 						"application/client/assets/styles/libraries/customScrollBar/customScrollBar.css",
+						"application/client/assets/styles/libraries/grumpy-ui/grumpy-ui.css",
+						"application/client/assets/styles/libraries/grumpy-ui/grumpy-accordion.css",
+						"application/client/assets/styles/libraries/harlemshake/harlemshake.css",
 						"application/client/assets/styles/components/header.css",
 						"application/client/assets/styles/components/forms.css",
 						"application/client/assets/styles/components/userCard.css",
