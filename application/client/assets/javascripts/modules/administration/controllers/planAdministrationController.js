@@ -14,7 +14,7 @@ angular.module('Administration').
             if(!error)
             for(var i in images)
                 $local.planImages.push({
-                    style:{'background-image': 'url(' +  images[i].url + ')'},
+                    style:{'background-image': 'url("' +  images[i].url + '")'},
                     name: images[i].name
                 });
         })
@@ -26,7 +26,7 @@ angular.module('Administration').
                 price: plan.price,
                 name: plan.name,
                 photoUrl: plan.photoUrl,
-                style: {'background-image': 'url(' +  plan.photoUrl + ')'},
+                style: {'background-image': 'url("' +  plan.photoUrl + '")'},
                 description: plan.description,
                 storage: plan.storage,
                 photo: plan.photo,
