@@ -26,6 +26,13 @@ angular.module('Administration').
 				UserFactory($scope).all(init, options);
 			}, 200);
 		}
+		
+		$local.applyRole = function(user) {
+			if(user.roleid == 2)
+				UserFactory($scope).promote(user);
+			else
+				UserFactory($scope).demote(user);
+		}
 
 		function init(error, data) {
 			if(!error)
