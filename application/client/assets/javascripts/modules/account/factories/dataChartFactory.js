@@ -9,6 +9,10 @@ angular.module('Account').
 
             var prototype = {};
 
+            /**
+             * return the current used storage size
+             * @param  {Function} callback 
+             */
             prototype.getSizeUsed = function(callback) {
                 restangular.one('browse').one(userFactory($scope).get().id + '/size').get().then(function(sizes) {
                     var sizesToReturn = null;
@@ -25,6 +29,10 @@ angular.module('Account').
                 }, function(error) { callback.call(this, 'no sizes', null); console.error(error); });
             }
 
+            /**
+             * return the current quota used
+             * @param  {Function} callback 
+             */
             prototype.getCurrentQuota = function(callback) {
                 restangular.one('users').one(userFactory($scope).get().id + '/quota').get().then(function(quota) {
                     var quotaToReturn = null;

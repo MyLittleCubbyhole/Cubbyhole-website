@@ -2,6 +2,9 @@ angular.module('Account').
 	controller('TimelineController', ['$scope', 'UserFactory', function($scope, UserFactory){
 		var $local = $scope.Timeline = {};
 
+		/**
+		 * generate the displayed historic
+		 */
 		UserFactory($scope).historic(function(data) {
 			var witness = true;
 			for(var i = 0; i<data.length; i++) {

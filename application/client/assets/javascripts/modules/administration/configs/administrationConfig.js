@@ -1,6 +1,7 @@
 angular.module('Administration').
 	config(['apiUrl', 'RestangularProvider','$locationProvider', '$routeProvider', '$httpProvider', function(apiUrl, restangular, $location, $routeProvider, $httpProvider) {
 
+        //angular navigation
         restangular.setBaseUrl(apiUrl);
         $routeProvider
         .when('/users', {
