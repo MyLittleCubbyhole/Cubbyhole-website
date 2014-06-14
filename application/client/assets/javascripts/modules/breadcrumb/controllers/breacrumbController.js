@@ -9,6 +9,10 @@ angular.module('Breadcrumb').
 			$local.path = $scope.FileManager.pathItems;
 		})
 
+		/**
+		 * update breadcrumb and load the folder
+		 * @param  {integer} index item index
+		 */
 		$local.load = function(index) {
 			var item = $local.path[index].item;
 			

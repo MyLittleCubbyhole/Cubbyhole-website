@@ -12,6 +12,10 @@ angular.module('Authentication').
 
         $local.errorLogin = false;
 
+        /**
+         * authenticate the user 
+         * @param  {Boolean} isValid form validity
+         */
         $local.authenticate = function(isValid) {
             localStorage.removeItem("user");
             sessionStorage.removeItem("user");

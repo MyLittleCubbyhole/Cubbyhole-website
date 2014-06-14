@@ -10,6 +10,11 @@ angular.module('Config').
 
             var prototype = {};
 
+            /**
+             * get a country thank to it id
+             * @param  {integer} id country id
+             * @return {object}    Country
+             */
             prototype.get = function(id) {
                 var results;
 
@@ -20,6 +25,11 @@ angular.module('Config').
                 return results[0];
             };
 
+            /**
+             * get a country thank to it name
+             * @param  {string} name country name
+             * @return {object}    Country
+             */
             prototype.getByName = function(name) {
                 var results;
 
@@ -30,6 +40,10 @@ angular.module('Config').
                 return results[0];
             };
 
+            /**
+             * list all countries
+             * @return {array} countries
+             */
             prototype.list = function() {
                 return countries;
             };

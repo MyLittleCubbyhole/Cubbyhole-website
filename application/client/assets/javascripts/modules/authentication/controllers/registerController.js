@@ -13,6 +13,10 @@ angular.module('Authentication').
 
         $local.countries = CountryFactory($scope).list();
 
+        /**
+         * save the new user in database
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {

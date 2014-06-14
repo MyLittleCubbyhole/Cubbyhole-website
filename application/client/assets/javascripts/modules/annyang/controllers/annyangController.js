@@ -44,6 +44,12 @@ angular.module('Annyang').
             }, 1500);
         });
 
+        /**
+         * Annyang managment
+         * start if stopped 
+         * stop if started
+         * @return {[type]} [description]
+         */
         $local.startStop = function() {
             if($local.started)
                 AnnyangService.stop();

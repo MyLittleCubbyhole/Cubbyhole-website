@@ -12,6 +12,9 @@ angular.module('Administration').
 			admin: false
 		}
 
+		/**
+		 * apply filter and searh in the database
+		 */
 		$local.apply = function() {
 			$timeout.cancel(timer);
 
@@ -27,6 +30,10 @@ angular.module('Administration').
 			}, 200);
 		}
 		
+		/**
+		 * update role of an user
+		 * @param  {Object} user User
+		 */
 		$local.applyRole = function(user) {
 			if(user.roleid == 2)
 				UserFactory($scope).promote(user);
@@ -34,6 +41,11 @@ angular.module('Administration').
 				UserFactory($scope).demote(user);
 		}
 
+		/**
+		 * initialize the user list
+		 * @param  {Function} error	callback
+		 * @param  {Function} data  callback
+		 */
 		function init(error, data) {
 			if(!error)
 				$local.users = data;

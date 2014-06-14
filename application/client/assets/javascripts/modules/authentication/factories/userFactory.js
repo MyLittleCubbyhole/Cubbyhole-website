@@ -10,14 +10,27 @@ angular.module('Authentication').
 
             var prototype = {};
 
+            /**
+             * get the current setted user
+             * @return {Object} User
+             */
             prototype.get = function() {
                 return _user;
             };
 
+            /**
+             * set the current User
+             * @param {Object} user user
+             */
             prototype.set = function(user) {
                 angular.extend(_user, user);
             };
 
+            /**
+             * create a new User
+             * @param  {Object}   user     User
+             * @param  {Function} callback 
+             */
             prototype.createUser = function(user, callback) {
                 $http.post(apiUrl + 'users', user).
                 success(function(data, status, headers, config) {
@@ -34,6 +47,11 @@ angular.module('Authentication').
                 });
             };
 
+            /**
+             * update the user
+             * @param  {Object}   user     User
+             * @param  {Function} callback 
+             */
             prototype.updateUser = function(user, callback) {
                 var userLocal = prototype.get();
                 $http.put(apiUrl + 'users/' + userLocal.id, user).
@@ -50,6 +68,11 @@ angular.module('Authentication').
                 });
             };
 
+            /**
+             * get all user from database
+             * @param  {Function} callback 
+             * @param  {Object}   options  filters
+             */
             prototype.all = function(callback, options) {
                 options = options || {};
                 var limit = options.limit || 100
@@ -73,6 +96,12 @@ angular.module('Authentication').
                 });
             }
 
+            /**
+             * authenticate the user and save it in session/local storage
+             * @param  {Object}   user       User
+             * @param  {Boolean}   rememberMe 
+             * @param  {Function} callback   
+             */
             prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
@@ -96,6 +125,10 @@ angular.module('Authentication').
                 });
             };
 
+            /**
+             * promote a user as an administrator
+             * @param  {Object} user User
+             */
             prototype.promote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/promote').
                 success(function(data) {
@@ -107,6 +140,10 @@ angular.module('Authentication').
                 });
             }
 
+            /**
+             * demote an administrator as a simple user
+             * @param  {Object} user User
+             */
             prototype.demote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/demote').
                 success(function(data) {
@@ -118,7 +155,9 @@ angular.module('Authentication').
                 });
             }
 
-
+            /**
+             * disconnect the user and remove it from the local/session storage
+             */
             prototype.logout = function() {
                 var user = prototype.get();
                 if(user.token) {
@@ -137,6 +176,10 @@ angular.module('Authentication').
                 }
             };
 
+            /**
+             * get the user historic
+             * @param  {Function} callback 
+             */
             prototype.historic = function(callback) {
                 var user = prototype.get();
                 $http.get(apiUrl + 'users/'+user.id+'/historic').
@@ -146,6 +189,10 @@ angular.module('Authentication').
                 });
             }
 
+            /**
+             * get the used storage size
+             * @param  {Function} callback 
+             */
             prototype.getUsedSizeStorage = function(callback) {
                 var user = prototype.get();
                 if(user !== undefined && user.id) {

@@ -7,12 +7,21 @@ angular.module('Annyang').
             return string.toLowerCase();
         };
 
-        prototype.purals = function(string) {
+
+        /**
+         * remove the last char of the string when it's a "s"
+         * @param  {string} string string
+         */
+        prototype.plurals = function(string) {
         	if(string.slice(-1) == 's')
         		string = string.slice(0, -1);
-        	return string;        }
+        	return string;
+        }
 
-
+        /**
+         * remove all accent in a string
+         * @param  {string} string string
+         */
         prototype.accents = function(string) {
             return prototype.base(string)
             .replace(/\s/g,'')
@@ -28,6 +37,10 @@ angular.module('Annyang').
             .replace(/[ýÿ]/g,'y');
         }
 
+        /**
+         * remove all special character from a string
+         * @param  {string} string string
+         */
         prototype.specialChars = function(string) {
             return prototype.base(string)
             .replace(/-/g,'')
@@ -36,6 +49,10 @@ angular.module('Annyang').
             .replace(/"/g,'');
         }
 
+        /**
+         * remove the extension of the string
+         * @param  {string} string string
+         */
         prototype.removeExtension = function(string) {
 
             var itemName = string.split(".");
@@ -45,12 +62,12 @@ angular.module('Annyang').
             return nameOnly = itemName.join('.');
         }
 
+        /**
+         * call all formatting method
+         * @param  {string} string string
+         */
         prototype.baseFormat = function(string) {
-            return prototype.specialChars(prototype.accents(prototype.purals(prototype.base(string))));
-        }
-
-        prototype.email = function(string) {
-
+            return prototype.specialChars(prototype.accents(prototype.plurals(prototype.base(string))));
         }
 
         return prototype;

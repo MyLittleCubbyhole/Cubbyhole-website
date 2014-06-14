@@ -27,11 +27,17 @@ angular.module('Authentication').
 			$local.opened = false;
 		});
 
+		/**
+		 * open the user modal
+		 */
 		$local.open = function() {
 			$local.opened = !$local.opened;
 			$scope.Overlay.activated = true;
 		};
 
+		/**
+		 * disconnect the current user
+		 */
 		$local.logout = function() {
 			UserFactory($scope).logout();
 		};

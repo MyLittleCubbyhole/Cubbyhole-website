@@ -19,6 +19,10 @@ angular.module('Administration').
                 });
         })
 
+        /**
+         * select a plan
+         * @param  {Object} plan Plan
+         */
         $local.selectPlan = function(plan) {
             plan.selected = true;
             $local.selectedPlan = {
@@ -37,6 +41,9 @@ angular.module('Administration').
             };
         }
 
+        /**
+         * unselect a plan
+         */
         $local.unselect = function() {
             $local.selectedPlan = {};
             for(var i = 0; i < $local.plans.length; i++) {
@@ -46,6 +53,9 @@ angular.module('Administration').
             }
         }
 
+        /**
+         * create a new plan
+         */
         $local.createPlan = function() {
             $local.unselect();
             var photoName = ''
@@ -70,6 +80,11 @@ angular.module('Administration').
             };
         }
 
+        /**
+         * delete a plan
+         * @param  {Object} $event Angular event
+         * @param  {integer} index  index
+         */
         $local.delete = function($event, index) {
             $event.stopPropagation();
             $event.preventDefault();
@@ -78,9 +93,12 @@ angular.module('Administration').
                     $local.plans = plans;
                 });
             });
-            // $local.plans.splice(index, 1)
         }
 
+        /**
+         * create or update the current plan in database
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             if(isValid)
                 if($local.selectedPlan.new)
