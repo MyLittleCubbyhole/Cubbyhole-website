@@ -13,6 +13,10 @@ angular.module('Tools').
 				self.files = {};
 				self.path;
 
+				/**
+				 * read image and add it as a background image
+				 * @param  {Object} file File
+				 */
 				self.readImage = function(file) {
 					var fileReaders = new FileReader();
 					fileReaders.onload = function(event){
@@ -22,6 +26,10 @@ angular.module('Tools').
                     fileReaders.readAsDataURL(file);
 				}
 
+				/**
+				 * update the user photo
+				 * @param  {string} photo photo name
+				 */
 				self.updatePhoto = function(photo) {
 					var user = UserFactory($scope).get();
 					user.photo = photo;
@@ -67,6 +75,10 @@ angular.module('Tools').
 					self.$input.click();
 				});
 
+				/**
+				 * upload the loaded image
+				 * @param  {Object} event Event
+				 */
 				self.$input.bind('change', function(event) {
 					self.$target && self.readImage(event.target.files[0]);
 

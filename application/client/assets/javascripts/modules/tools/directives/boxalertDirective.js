@@ -15,6 +15,10 @@ angular.module('Tools').
 				,	self = this;
 				$local.alerts = {};
 
+				/**
+				 * close the selected alert
+				 * @param  {integer} index index alert
+				 */
 				$local.close = function(index) {
 					if(!$local.alerts[index])
 						return false;
@@ -37,7 +41,10 @@ angular.module('Tools').
 				,	length = 0
 				,	timer = attributes.boxtimer || 3000;
 
-
+				/**
+				 * add a new alert to the array
+				 * @param  {Object} alert Alert
+				 */
 				$parse(attributes.boxalert).assign($scope, function(alert) {
 					var index = ++i;
 					length++;
@@ -60,11 +67,13 @@ angular.module('Tools').
 					alert = _.extend(alert, { promise: null, index: index });
 
 					$local.alerts[index] = alert;
-
-					// $scope.$apply();
 					pop(index);
 				})
 
+				/**
+				 * start the alert deletion
+				 * @param  {integer} index alert index
+				 */
 				function pop(index) {
 					$local.alerts[index].promise = $timeout(function() { 
 						older = older < index+1 ? index+1 : older;

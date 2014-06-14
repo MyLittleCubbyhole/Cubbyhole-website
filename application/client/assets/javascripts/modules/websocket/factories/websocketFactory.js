@@ -4,6 +4,9 @@ angular.module('Websocket').
 		var socketIO = {}
 		,	socket;
 
+		/**
+		 * initialize the websocket connection
+		 */
 		function init() {
 			console.info('connection to websocket server...');
 			if(typeof io != 'undefined') {
@@ -20,6 +23,9 @@ angular.module('Websocket').
 			}
 		};
 
+		/**
+		 * authenticate the user to the websocket rooms
+		 */
         function authenticate() {
 			var user = localStorage.getItem('user');
 			if(!user)

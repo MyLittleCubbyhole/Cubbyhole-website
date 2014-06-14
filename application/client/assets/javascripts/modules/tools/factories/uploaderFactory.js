@@ -4,6 +4,11 @@ angular.module('Tools').
 		var files = {}
 		,	socket = WebsocketFactory();
 
+		/**
+		 * [description]
+		 * @param  {[type]} data [description]
+		 * @return {[type]}      [description]
+		 */
 		socket.on('upload_next', function(data) {
 			files[data.id].context.entity.size = Number(data.percent);
 			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);

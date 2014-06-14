@@ -6,6 +6,9 @@ angular.module('Tools').
                 var $local = $scope._modal = {}
                 ,   self = this;
 
+                /**
+                 * close the current modal
+                 */
                 $local.close = function() {
                     $scope.Overlay.clickout();
                     if($scope.FileManager) {

@@ -32,6 +32,9 @@ angular.module('Tools').
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
 
+				/**
+				 * LISTENER - triggered when a plan is loaded
+				 */
 				$scope.$watch('Account.currentPlan', function() {
 					if($scope.Account.currentPlan.id != 1) {
 						var dateStart = new Date($scope.Account.currentPlan.dateStart).getTime();

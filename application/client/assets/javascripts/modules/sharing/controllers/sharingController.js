@@ -8,6 +8,9 @@ angular.module('Sharing').
 
         $local.showPreview = false;
 
+        /**
+         * get a file from the webservice
+         */
         $local.getFile = function() {
             if(!$local.file.name && $local.token) {
                 var shared = restangular.one('shared');
@@ -29,12 +32,18 @@ angular.module('Sharing').
 
         $local.getFile();
 
+        /**
+         * download
+         */
         $local.download = function() {
             if($local.file && $local.token) {
                 $window.location = apiUrl + 'download/shared/' + $local.token;
             }
         }
 
+        /**
+         * unable or disable that's a question
+         */
         $local.preview = function() {
             $local.showPreview = !$local.showPreview;
         }

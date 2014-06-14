@@ -2,6 +2,11 @@ angular.module('Navigation').
 	controller('NavigationController', ['$scope', '$window', '$location', 'UserFactory', '$document', function($scope, $window, $location, UserFactory, $document){
 		var $local = $scope.Navigation = {};
 
+		/**
+		 * navigate to the selected path
+		 * @param  {string} path      
+		 * @param  {Object} container node
+		 */
 		$local.goto = function(path, container) {
 			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().token : "";
 			var pathView = path.slice(0, path.indexOf("#"));
@@ -32,12 +37,18 @@ angular.module('Navigation').
 			return $location.$$path == anchor && $window.location.pathname == pathname;
 		}
 
+		/**
+		 * scroll to the anchor
+		 * @param  {Object} $node      angular node
+		 * @param  {node} $container angular node
+		 */
 		$local.scrollTo = function($node, $container) {
 			$container = $container || $document
 			$container.scrollToElement($node, 0, 1000).then(function() {
 				console && console.log('You just scrolled to the top!');
 			});
 		}
+
 
 		$local.isOnShared = function() {
 			return ($location.$$absUrl.indexOf("/shared/") > -1);

@@ -22,9 +22,16 @@ angular.module('Tools').
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
 
+				/**
+				 * update the total size
+				 */
 				$scope.$watch('Preview.totalSize', function() {
 					total = $scope.Preview.totalSize;
 				})
+
+				/**
+				 * update the current value of the progress bar
+				 */
 				$scope.$watch('FileManager.selectedItems', function() {
 					$local.value = $scope.FileManager.selectedItems[0].size;
 					percent = Math.round($local.value)*100 / Math.round(total);

@@ -10,6 +10,10 @@ angular.module('CubbyHome').
             var prototype = {}
             ,   $local = context.local || {}
 
+            /**
+             * get the current active plan from the database
+             * @param  {Function} callback 
+             */
             prototype.getActualPlan = function(callback) {
                 restangular.one('users').one(UserFactory($scope).get().id + '/plan').get().then(function(plan) {
                     var planToReturn = null;
@@ -36,6 +40,10 @@ angular.module('CubbyHome').
                 }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
             };
 
+            /**
+             * get all plan from database
+             * @param  {Function} callback 
+             */
             prototype.getAllPlans = function(callback) {
                 restangular.one('plans').getList().then(function(plans) {
                     var plansToReturn = [];
@@ -60,6 +68,10 @@ angular.module('CubbyHome').
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
             };
 
+            /**
+             * create a new plan in database
+             * @param  {Object} plan Plan
+             */
             prototype.create = function(plan) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -76,6 +88,11 @@ angular.module('CubbyHome').
                 });
             }
 
+            /**
+             * update the current plan
+             * @param  {Object}   plan     Plan
+             * @param  {Function} callback 
+             */
             prototype.edit = function(plan, callback) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -90,6 +107,11 @@ angular.module('CubbyHome').
                 });
             }
 
+            /**
+             * remove the plan
+             * @param  {integer}   id       plan id
+             * @param  {Function} callback 
+             */
             prototype.delete = function(id, callback) {
                 $http.delete(apiUrl + 'plans/'+id).
                 success(function(data, status, headers, config) {
@@ -98,6 +120,10 @@ angular.module('CubbyHome').
                 error(function(data, status, headers, config) {});
             }
 
+            /**
+             * get all plan images
+             * @param  {Function} callback 
+             */
             prototype.getAllimages = function(callback) {
                 $http.get(apiUrl + 'plans/images').
                 success(function(data, status, headers, config) {

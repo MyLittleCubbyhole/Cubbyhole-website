@@ -56,20 +56,17 @@ angular.module('CubbyHome').
             $local.showModalConfirmation = true;
         }
 
-        if($location.path() == '/login') {
+        if($location.path() == '/login')
             $local.showLoginModal();
-        }
 
-        if($location.path() == '/register') {
+        if($location.path() == '/register')
             $local.showRegisterModal();
-        }
 
-        if($location.path() == '/confirmation') {
+        if($location.path() == '/confirmation')
             $local.showConfirmationModal();
-        }
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
-            $local.plans =plans;
+            $local.plans = plans;
         });
 
 		$scope.toString = function() {
