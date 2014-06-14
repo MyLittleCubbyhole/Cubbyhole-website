@@ -18,6 +18,11 @@ angular.module('Account').
                         $local.selectPlan($local.plans[i]);
         });
 
+        /**
+         * select plan
+         * update the view with the plan informations
+         * @param  {Object} plan plan definition
+         */
         $local.selectPlan = function(plan) {
             plan.selected = true;
             $local.selectedPlan = {
@@ -33,6 +38,10 @@ angular.module('Account').
             };
         }
 
+        /**
+         * change tu plan duration and update the plan price
+         * @return {[type]} [description]
+         */
         $local.changeDuration = function() {
             for(var i = 0; i < $local.plans.length; i++) {
                 if($local.plans[i].selected) {
@@ -43,6 +52,9 @@ angular.module('Account').
             }
         }
 
+        /**
+         * unselect a plan
+         */
         $local.unselect = function() {
             $local.selectedPlan = {};
             for(var i = 0; i < $local.plans.length; i++) {

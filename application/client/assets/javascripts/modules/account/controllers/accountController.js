@@ -6,6 +6,9 @@ angular.module('Account').
 
         $local.user = UserFactory($scope).get();
 
+        /**
+         * LISTENER - triggered when the User is loaded
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             PlanFactory($scope).getActualPlan(function(error, plan) {
                 if (!error && plan) {

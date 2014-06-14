@@ -4,6 +4,9 @@ angular.module('Account').
 
         $local.charts = [];
 
+        /**
+         * update account chart
+         */
         function updateElements() {
             $local.charts = [];
 

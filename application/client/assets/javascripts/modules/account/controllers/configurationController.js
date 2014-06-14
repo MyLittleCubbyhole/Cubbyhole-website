@@ -26,6 +26,11 @@ angular.module('Account').
         if($scope.Account.user.photo && $scope.Account.user.photo != 'null')
             $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + $scope.Account.user.photo + '?token=' + $scope.Account.user.token + '&run)'};
 
+        /**
+         * called when the form submitting
+         * update user information
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {

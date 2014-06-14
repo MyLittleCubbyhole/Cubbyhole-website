@@ -1,6 +1,7 @@
 angular.module('Account').
 	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
 
+        //angular routing
         $routeProvider
         .when('/config', {
             templateUrl: '/templates/account/configuration',
