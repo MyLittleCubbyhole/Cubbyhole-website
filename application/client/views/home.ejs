@@ -28,7 +28,7 @@
 		<section class="plan-container">
 			<a ng-href="{{CubbyHome.planUrl}}{{plan.id}}" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z" shape-over ng-repeat="plan in CubbyHome.plans">
 				<figure>
-					<svg class="form-file-preview" style="background-image: url({{plan.photoUrl}});" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
+					<svg class="form-file-preview" style="background-image: url('{{plan.photoUrl}}');" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
 					<figcaption>
 						<h2>{{plan.name}}</h2>
 						<p>
