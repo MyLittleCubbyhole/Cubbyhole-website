@@ -7,6 +7,9 @@ angular.module('FileManager').
 
         $local.user = {};
 
+        /**
+         * LISTNER - update the local user when a new user is loaded
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             $local.user = UserFactory($scope).get();
         })
@@ -17,7 +20,16 @@ angular.module('FileManager').
 		$local.previewItem = null;
         $local.pathItems = [];
 
+        /**
+         * OVERRIDE BY THE BOXALERT DIRECTIVE
+         */
         $local.alert = function() { /*overriden by boxalert directive*/ }
+
+        /**
+         * call the alert method in order to create an info alert
+         * @param {string} title    
+         * @param {string} subtitle 
+         */
         $local.addInfo = function(title, subtitle) {
             $local.alert({
                 type: 'info',
@@ -25,6 +37,12 @@ angular.module('FileManager').
                 subtitle: subtitle
             });
         }
+
+        /**
+         * call the alert method in order to create an error alert
+         * @param {string} title    
+         * @param {string} subtitle 
+         */
         $local.addError = function(title, subtitle) {
             $local.alert({
                 type: 'error',
@@ -46,6 +64,11 @@ angular.module('FileManager').
         }
 
         var socket = WebsocketFactory();
+
+        /**
+         * LISTENER - create an item when a new folder is created by someone in the current directory
+         * @param  {Object} data folder information
+         */
         socket.on('create_folder', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -78,6 +101,10 @@ angular.module('FileManager').
             }
         })
 
+        /**
+         * LISTENER - create an item when a new file is created by someone in the current directory
+         * @param  {Object} data file information
+         */
         socket.on('create_file', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -110,11 +137,20 @@ angular.module('FileManager').
             }
         })
 
+        /**
+         * LISTENER - delete an item when someone delete it in the current directory
+         * @param  {Object} data item information
+         */
         socket.on('delete', function(data) {
             $local.addInfo('Item deleted', 'The item ' + data.fullPath.substring(data.fullPath.lastIndexOf('/') + 1) + ' has been deleted');
             ItemFactory($scope, {local: $local}).clean(data.fullPath);
             $scope.$apply();
         })
+
+        /**
+         * LISTENER - rename an item when someone rename it
+         * @param  {Object} data item information
+         */
         socket.on('rename', function(data) {
             $local.addInfo('Item renamed', 'The item ' + data.currentName + ' has been renamed');
             $scope.$apply();
@@ -130,6 +166,12 @@ angular.module('FileManager').
 
             $scope.$apply();
         })
+
+        /**
+         * LISTENER - create an alert when someont copy/paste an item 
+         * remove the source and create the item into the new position
+         * @param  {Object} data item information
+         */
         socket.on('copy', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -166,23 +208,39 @@ angular.module('FileManager').
             }
         })
 
-
+        /**
+         * LISTENER - call all items and unselect them
+         */
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
 			$scope.$broadcast('unselect');
 		})
 
+        /**
+         * LISTENER - add the selected file to the selected item array
+         * active the preview
+         * @param  {Object} scope Angular scope
+         * @param  {Object} file  file informations
+         */
         $scope.$on('select_file', function(scope, file) {
             ExtensionFactory($scope).detection(file);
             $local.selectedItems.push(file);
             $local.previewActivated = true;
         })
 
+        /**
+         * LISTENER - hide the sharing modal when called
+         */
         $scope.$on('hide', function() {
             $local.urlSharing = null;
             $local.folderSharing = false;
         });
 
+        /**
+         * create a new folder
+         * @param  {string}   name     folder name
+         * @param  {Function} callback 
+         */
 		$local.createFolder = function(name, callback) {
             var options = {
                 owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
@@ -212,6 +270,10 @@ angular.module('FileManager').
             }
 		};
 
+        /**
+         * delete an item from the current directory
+         * @param  {string} name 
+         */
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
 
@@ -232,6 +294,9 @@ angular.module('FileManager').
 
 		}
 
+        /**
+         * rename an item
+         */
         $local.rename = function() {
 
             if($local.currentPath == '/Shared/') {
@@ -250,6 +315,9 @@ angular.module('FileManager').
             !canceled && $scope.$broadcast('rename_item');
         }
 
+        /**
+         * download an item
+         */
 		$local.download = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
                 $local.selectedItems[0].download();
@@ -257,11 +325,17 @@ angular.module('FileManager').
                 $scope.$broadcast('start_post_download');
         };
 
+        /**
+         * refresh the current directory
+         */
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
             $local.preview(false);
         };
 
+        /**
+         * copy the selected items
+         */
         $local.copy = function() {
             if($local.selectedItems.length >= 1) {
                 $local.itemsToCopy.slice(0);
@@ -274,6 +348,9 @@ angular.module('FileManager').
             }
         };
 
+        /**
+         * paste the copied item
+         */
         $local.paste = function() {
 
             if($local.currentPath == '/Shared/') {
@@ -307,7 +384,10 @@ angular.module('FileManager').
             }
         };
 
-
+        /**
+         * active the preview item
+         * @param  {Boolean} force force the preview activation
+         */
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
 
@@ -334,14 +414,26 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * delete an item from the items array
+         * @param  {integer} itemId item id
+         */
         $local.deleteItem = function(itemId) {
             $local.items.splice(itemId, 1);
         }
 
+        /**
+         * disable the preview
+         */
         $local.cancelPreview = function() {
             $local.previewActivated = false;
         }
 
+        /**
+         * share an item
+         * case file: create a public link
+         * case folder: share to the selected users the selected folder
+         */
         $local.shareItem = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
@@ -359,6 +451,9 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * unshare a public file
+         */
         $local.unshareFile = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).unshareFile($local.selectedItems[0], function(error, information) {
@@ -373,6 +468,12 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - rename callback
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         * @param  {Boolean} like
+         */
         $local.renameVocal = function(oldName, newName, like) {
             if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
                 var item = null
@@ -391,6 +492,11 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - download callback
+         * @param  {string} name 
+         * @param  {Boolean} like 
+         */
         $local.downloadVocal = function(name, like) {
             var found = false;
             for(var i = 0; i < $local.items.length; i++)
@@ -408,95 +514,200 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - set the open folder like method
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder_like', function(name) {
             $scope.$broadcast('open_folder', name, true);
         });
 
+        /**
+         * VOCAL - set the open folder method 
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder', function(name) {
             $scope.$broadcast('open_folder', name);
         });
+
+        /**
+         * VOCAL - set an alternative open folder method
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder_alternative', function(name) {
             $scope.$broadcast('open_folder', name);
         });
 
+        /**
+         * VOCAL - set the open parent folder method
+         */
         AnnyangService.set('open_parent_folder', function() {
             $scope.$broadcast('open_parent_folder');
         });
+
+        /**
+         * VOCAL - set an alternative of the open parent folder method
+         */
         AnnyangService.set('open_parent_folder_alternative', function() {
             $scope.$broadcast('open_parent_folder');
         });
 
+        /**
+         * VOCAL - set the download file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('download_file_like', function(name) {
             $local.downloadVocal(name, true, true);
         });
+
+        /**
+         * VOCAL - set the download file method
+         * @param  {string} name 
+         */
         AnnyangService.set('download_file', function(name) {
             $local.downloadVocal(name, true);
         });
 
-
+        /**
+         * VOCAL - set the preview item like method
+         * @param  {string} name 
+         */
         AnnyangService.set('preview_item_like', function(name) {
             $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the preview item method
+         * @param  {string} name 
+         */
         AnnyangService.set('preview_item', function(name) {
             $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
         });
 
-
+        /**
+         * VOCAL - set the select file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_file_like', function(name) {
              $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the select all method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_all', function(name) {
              $scope.$broadcast('select', function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the select file method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_file', function(name) {
              $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the unselect file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('unselect_file_like', function(name) {
              $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the unselect all method
+         */
         AnnyangService.set('unselect_all', function() {
             $scope.$broadcast('unselect', function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the unselect file method
+         * @param  {string} name 
+         */
         AnnyangService.set('unselect_file', function(name) {
              $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the create folder method
+         * @param  {string} name 
+         */
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the delete item method
+         * @param  {string} name 
+         */
         AnnyangService.set('delete_item', function(name) {
             $local.delete(name);
         });
 
-
+        /**
+         * VOCAL - set the rename item like mthod
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('rename_item_like', function(oldName, newName) {
             $local.renameVocal(oldName, newName, true);
         });
+
+        /**
+         * VOCAL - set the rename method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('rename_item', function(oldName, newName) {
             $local.renameVocal(oldName, newName);
         });
 
+        /**
+         * VOCAL - set the copy method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('copy', function(oldName, newName) {
             $local.copy();
             $local.selectedItems = [];
             $scope.$apply();
         });
+
+        /**
+         * VOCAL - set the paste method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('paste', function(oldName, newName) {
             $local.paste();
         });
 
+        /**
+         * VOCAL - set the refresh method
+         * @param  {string} name 
+         */
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
         });
 
+        /**
+         * VOCAL - set the harlem shake full method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_full', function(name) {
             HarlemService.doFull();
             setTimeout(function(){
                 HarlemService.stop();
             }, 15000);
         });
+
+        /**
+         * VOCAL - set an alternative of the harlem shake full method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_full_alternative', function(name) {
             HarlemService.doFull();
             setTimeout(function(){
@@ -504,9 +715,18 @@ angular.module('FileManager').
             }, 15000);
         });
 
+        /**
+         * VOCAL - set the harlem shake first method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_first', function(name) {
             HarlemService.doFirst();
         });
+
+        /**
+         * VOCAL - sert an alternative of the harlem shake first method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_first_alternative', function(name) {
             HarlemService.doFirst();
         });

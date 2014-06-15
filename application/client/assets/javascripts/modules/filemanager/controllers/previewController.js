@@ -11,6 +11,9 @@ angular.module('FileManager').
             });
         }
 
+        /**
+         * LISTENER - get information of the selected item in order to display them in the preview view
+         */
         $scope.$watch('FileManager.selectedItems', function() {
             if($scope.FileManager.selectedItems.length > 0 && $scope.FileManager.selectedItems[0].category == 'text') {
                 $local.resourceContent = '';
@@ -18,6 +21,10 @@ angular.module('FileManager').
             }
         });
 
+        /**
+         * generate the resource url
+         * @return {string} url
+         */
         $local.getResourceUrl = function() {
 
             var url = "";
@@ -37,6 +44,9 @@ angular.module('FileManager').
             return url;
         };
 
+        /**
+         * get the informations item thanks to the resource url
+         */
         $local.getResourceContent = function() {
             var url = $local.getResourceUrl();
             if(url && url.length > 0)

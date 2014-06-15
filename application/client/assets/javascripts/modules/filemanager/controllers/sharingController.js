@@ -5,6 +5,9 @@ angular.module('FileManager').
         $local.email = "";
         $local.shared = false;
 
+        /**
+         * LISTENER - hide the sharing modal
+         */
         $scope.$on('hide', function() {
             if(!$local.shared && $scope.FileManager.selectedItems[0]) {
                 $scope.FileManager.selectedItems[0].usersToRemove = [];
@@ -13,6 +16,10 @@ angular.module('FileManager').
             }
         });
 
+        /**
+         * add a user to the sharing list
+         * @param {Object} event Event
+         */
         $local.addUser = function(event) {
             if((!event || event.keyCode == 13) && ($local.email !== undefined && $local.email !== '')) {
                 var present = false;
@@ -39,6 +46,9 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * update the sharing of the selected item
+         */
         $local.share = function() {
             if($scope.FileManager.selectedItems[0]) {
                 var path = $scope.FileManager.selectedItems[0]._id + '/'
@@ -91,6 +101,10 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * remove a user from the current sharing item
+         * @param  {Object} user User
+         */
         $local.remove = function(user) {
             $scope.FileManager.selectedItems[0].usersToRemove.push(user);
             var index = $scope.FileManager.selectedItems[0].usersActualSharing.indexOf(user);

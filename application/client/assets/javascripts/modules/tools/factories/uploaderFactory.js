@@ -5,9 +5,8 @@ angular.module('Tools').
 		,	socket = WebsocketFactory();
 
 		/**
-		 * [description]
-		 * @param  {[type]} data [description]
-		 * @return {[type]}      [description]
+		 * LISTENER - send the next packet to the webservice
+		 * @param  {Object} data upload item information
 		 */
 		socket.on('upload_next', function(data) {
 			files[data.id].context.entity.size = Number(data.percent);
@@ -22,7 +21,11 @@ angular.module('Tools').
 			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
 		});
 
-
+		/**
+		 * LISTENER - called when the upload is done
+		 * update the linked item informations
+		 * @param  {Object} data information
+		 */
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
 
@@ -39,6 +42,11 @@ angular.module('Tools').
 			delete files[data.id];
 		});
 
+		/**
+		 * LISTENER - called when the upload is stopped
+		 * undo all action in order to cancel the download
+		 * @param  {Object} data item informations
+		 */
 		socket.on('upload_stopped', function(data){
 			console.error("upload stopped - " + data.error);
 			if(files[data.id].context.entity.toString() == 'File') {
@@ -68,6 +76,11 @@ angular.module('Tools').
 
 			var prototype = {};
 
+			/**
+			 * add a new upload action
+			 * @param {integer} id   upload id
+			 * @param {Object} file File
+			 */
 			prototype.add = function(id, file) {
 				files[id] = { data: file, context: { $local: $local, $scope: $scope, controller: controller, entity: entity } };
 			}

@@ -14,6 +14,10 @@ angular.module('FileManager').
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
 
+			/**
+			 * load data item
+			 * @param  {Object} item Item
+			 */
 			prototype.load = function(item) {
 
 				var ownerId = item && typeof item == 'object' ? item.ownerId : false
@@ -87,14 +91,26 @@ angular.module('FileManager').
 				}
 			}
 
+			/**
+			 * get the id by its id
+			 * @param  {integer} id 
+			 */
 			prototype.get = function(id) {
 				return _items[id];
 			}
 
+			/**
+			 * get all loaded items
+			 */
 			prototype.getAll = function() {
 				return _items;
 			}
 
+			/**
+			 * delete an item and re synchronize
+			 * @param  {integer}   itemId   
+			 * @param  {Function} callback 
+			 */
 			prototype.clean = function(itemId, callback) {
 				for(var i=0; i<_items.length; i++)
 					if(_items[i]._id == itemId) {
@@ -105,6 +121,10 @@ angular.module('FileManager').
 				prototype.synchronize();
 			}
 
+			/**
+			 * create a new folder in database
+			 * @param  {Object} item folder informations
+			 */
 			prototype.createFolder = function(item) {
 
 				var browse = restangular.one('browse').one($scope.FileManager.folderOwner + '/')
@@ -126,6 +146,10 @@ angular.module('FileManager').
 				});
 			}
 
+			/**
+			 * delete the selected item
+			 * @param  {Object} item Item
+			 */
 			prototype.delete = function(item) {
 				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function(data) {
 					if(!!data.information && data.information.indexOf('error') > -1)
@@ -139,6 +163,11 @@ angular.module('FileManager').
 				});
 			}
 
+			/**
+			 * copy & paste the selected item
+			 * @param  {Object} source 
+			 * @param  {Object} target 
+			 */
 			prototype.copy = function(source, target) {
 
 				var copy = restangular.one('copy').one(source.ownerId.toString());
@@ -175,6 +204,11 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * move an item into the selected target
+			 * @param  {Object} source 
+			 * @param  {Object} target 
+			 */
 			prototype.move = function(source, target) {
 
 				var move = restangular.one('move').one(target.ownerId.toString());
@@ -187,6 +221,12 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * rename an item
+			 * @param  {string}   fullpath 
+			 * @param  {string}   newName  
+			 * @param  {Function} callback 
+			 */
 			prototype.rename = function(fullpath, newName, callback) {
 				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function(data) {
 					if(!data.information || data.information.indexOf('error') > -1)
@@ -194,6 +234,11 @@ angular.module('FileManager').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * check if a name already exist
+			 * @param  {string} name      
+			 * @param  {boolean} vocalMode 
+			 */
 			prototype.checkNameExists = function(name, vocalMode) {
 				vocalMode = typeof vocalMode !== 'undefined' && vocalMode === true;
 				var exists = false;
@@ -214,6 +259,11 @@ angular.module('FileManager').
 				return exists;
 			}
 
+			/**
+			 * share publicly an item
+			 * @param  {Object}   item     
+			 * @param  {Function} callback 
+			 */
 			prototype.shareFile = function(item, callback) {
 				var share = restangular.one('share');
 
@@ -228,6 +278,11 @@ angular.module('FileManager').
 				});
 			}
 
+			/**
+			 * unshare an item
+			 * @param  {Object}   item     
+			 * @param  {Function} callback 
+			 */
 			prototype.unshareFile = function(item, callback) {
 				var unshare = restangular.one('unshare');
 
@@ -242,6 +297,9 @@ angular.module('FileManager').
 				});
 			}
 
+			/**
+			 * synchronize the filemanager items array and the local item
+			 */
 			prototype.synchronize = function() {
 				$local.items.splice(0);
 				$local.items = [];
@@ -251,6 +309,11 @@ angular.module('FileManager').
 				}
 			}
 
+			/**
+			 * add a new item to the items array
+			 * @param {Object}   options  
+			 * @param {Function} callback 
+			 */
 			prototype.add = function(options, callback) {
 				var item;
 				ExtensionFactory($scope).detection(options);
@@ -274,6 +337,9 @@ angular.module('FileManager').
 				return item;
 			}
 
+			/**
+			 * remove all items to delete
+			 */
 			prototype.cleanToDelete = function() {
 				for(var i = _items.length -1; i>= 0; i--) {
 					if(_items[i].todelete) {
@@ -283,6 +349,9 @@ angular.module('FileManager').
 				}
 			}
 
+			/**
+			 * add . and .. files
+			 */
 			function addFileNavigation() {
 				var index = $scope.FileManager.pathItems.length-1
 				,	path

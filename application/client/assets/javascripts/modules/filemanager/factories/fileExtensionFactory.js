@@ -2,14 +2,14 @@ angular.module('FileManager').
 	factory('FileExtensionFactory', function() {
 
 		/**
-		 * mutualisation de service
-		 * les parametres de context sont placés dans le premier appel
-		 * on peut ainsi attaquer un scope annexe a partir d'un appel local
+		 * service mutualizing
+		 * the context paramters are placed in the first calling
+		 * in this way, we can use a distant scope from a local calling
 		 *
 		 * ex: fileExtension($scope, {local: $local, controller: self}).maMethode('parameters', {une config})
 		 *
 		 * @param  {$scope} scope   angular scope
-		 * @param  {object} context [OPTIONAL] specification du context - peut contenir refs vers $local, $node et controller
+		 * @param  {object} context [OPTIONAL] context specification - can contains refs to $local, $node and controller
 		 */
 		return function($scope, context) {
 			context = context || {};
@@ -22,12 +22,20 @@ angular.module('FileManager').
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
 
+			/**
+			 * get the file extension
+			 * @param  {string} filename 
+			 */
 			prototype.getExtension = function(filename) {
 				var extension = (/(?:\.([^.]+))?$/).exec(filename)[1];
 				extension = extension || '';
 				return extension.toLowerCase();
 			}
 
+			/**
+			 * detect the file type and return it
+			 * @param  {Object} file 
+			 */
 			prototype.detection = function(file) {
 
 				file.icon = "icon-file-css";

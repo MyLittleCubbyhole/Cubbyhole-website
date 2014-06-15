@@ -14,6 +14,11 @@ angular.module('FileManager').
 				self.files = {};
 				self.path;
 
+				/**
+				 * no operation function
+				 * similar to angular.noop
+				 * @param  {Object} event Event
+				 */
 				self.noop = function(event) {
 					event.preventDefault();
 					event.stopPropagation();
@@ -33,15 +38,21 @@ angular.module('FileManager').
 				$node.on('dragleave', self.noop);
 				$node.on('dragover', self.noop);
 
+				/**
+				 * LISTENER - store the dragged item in order to use it later
+				 * @param  {Object} event 
+				 */
 				$node.on('dragstart', function(event) {
 					$scope.FileManager.draggedItem = null;
 					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')// && $scope._item.item._id.substring(1) != '/Shared')
 						$scope.FileManager.draggedItem = $scope._item.item;
 				});
 
+				/**
+				 * LISTENER - start the upload or move of the dragged item
+				 * @param  {Object} event 
+				 */
 				$node.on('drop', function(event){
-
-
 					event.originalEvent.preventDefault();
 
 					var source = $scope.FileManager.draggedItem
@@ -77,6 +88,10 @@ angular.module('FileManager').
 
 				});
 
+				/**
+				 * init a new upload
+				 * @param  {Object} file 
+				 */
 				function init(file) {
 					var id = Math.random().toString().replace('0.', '');
 

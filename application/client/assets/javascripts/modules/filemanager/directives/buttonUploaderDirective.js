@@ -10,6 +10,9 @@ angular.module('FileManager').
 				self.fileReaders = {};
 				self.files = {};
 
+				/**
+				 * select a file in order to upload it later
+				 */
 				$local.selectFile = function() {
 					self.$template.click();
 				}
@@ -26,6 +29,10 @@ angular.module('FileManager').
 
 				self.$template = $node.parent().find('[type=file]');
 
+				/**
+				 * load the selected file
+				 * @param  {Event} event 
+				 */
 				self.$template[0].addEventListener('change', function(event){
 					var id = (Math.random() + '').replace('0.', '');
 					self.path = $scope.FileManager.currentPath;
@@ -62,6 +69,9 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
 					}
 
+					/**
+					 * LISTENER - init the current upload
+					 */
 					socket.emit('upload_init', {
 						id: id,
 						owner: $scope.FileManager.folderOwner,

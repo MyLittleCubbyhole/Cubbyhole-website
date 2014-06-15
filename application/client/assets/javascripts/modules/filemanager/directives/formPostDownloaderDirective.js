@@ -11,6 +11,9 @@ angular.module('FileManager').
 				$local.url = apiUrl + 'download/' +UserFactory($scope).get().id+ '/?token=' + UserFactory($scope).get().token;
 				$local.target = iOS || android ? '_blank' : 'downloadFrame';
 
+				/**
+				 * LISTENER - start the downloads
+				 */
 				$scope.$on('start_post_download', function() {
 					$local.download();
 				})
@@ -28,6 +31,9 @@ angular.module('FileManager').
 				var $local = $scope._formPostDownloader
 				,	template = '<iframe name="downloadFrame" id="downloadIFrame" style="display: none;" src="" />';
 
+				/**
+				 * download items thanks to the form post download
+				 */
 				$local.download = function() {
 					angular.element('#downloadIFrame').remove();
 					angular.element('body').append(template);

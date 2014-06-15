@@ -15,6 +15,10 @@ angular.module('FileManager').
                 if(!attributes.highlight)
                     throw 'An highlight resource must be defined';
 
+                /**
+                 * LISTENER - called when the highlight method is updated
+                 * @param  {Object} data 
+                 */
                 $scope.$watch(attributes.highlight, function(data) {
                     var pre = angular.element('<pre>');
                     if(typeof data == 'object')
