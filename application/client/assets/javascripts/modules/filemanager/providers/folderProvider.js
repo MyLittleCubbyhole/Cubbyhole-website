@@ -23,7 +23,14 @@ angular.module('FileManager').
 
 			Class.extend(Item, Folder);
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.init = function() {};
+			
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.download = function(dumpOnly) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
 				url = AuthenticationFactory.request({ url: url }).url;
@@ -34,6 +41,9 @@ angular.module('FileManager').
 				return url;
 			};
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.getPath = function() {
 				var path = this.path;
 				// if(this._id == '. .') {
@@ -50,6 +60,9 @@ angular.module('FileManager').
 				return path;
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.getFullPath = function() {
 				return this.getPath();
 			}

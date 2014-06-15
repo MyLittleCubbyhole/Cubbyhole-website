@@ -21,6 +21,10 @@ angular.module('FileManager').
 			Class.extend(Item, File);
 
 			File.prototype.init = function() {};
+
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.download = function(dumpOnly, withoutToken) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
 
@@ -33,14 +37,23 @@ angular.module('FileManager').
 				return url;
 			};
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.remove = function() {
 				this.node.remove();
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.getPath = function() {
 				return this.path;
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.getFullPath = function() {
 				return this.path + this.name;
 			}

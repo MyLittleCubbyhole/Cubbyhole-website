@@ -49,9 +49,31 @@ angular.module('FileManager').
 				options && this.init();
 			};
 
+			/**
+			 * Must be overriden
+			 * initialize the item
+			 */
 			Item.prototype.init = function() { throw 'init method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * download the current item
+			 */
 			Item.prototype.download = function() { throw 'download method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * get the path of the current item
+			 */
 			Item.prototype.getPath = function() { throw 'getPath method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * get the full path of the current item
+			 */
 			Item.prototype.getFullPath = function() { throw 'getFullPath method must be overrided'; };
 
 			Object.defineProperties(Item.prototype, {

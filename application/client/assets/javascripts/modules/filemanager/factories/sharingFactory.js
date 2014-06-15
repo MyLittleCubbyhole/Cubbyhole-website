@@ -15,6 +15,11 @@ angular.module('FileManager').
 
             var prototype = {};
 
+            /**
+             * get shared users
+             * @param  {string}   path     
+             * @param  {Function} callback 
+             */
             prototype.getSharedUsers = function(path, callback) {
                 restangular.one('users').one('shared').one(path).get().then(function(data) {
                     if(data && !data.information) {
@@ -36,6 +41,11 @@ angular.module('FileManager').
                 });
             }
 
+            /**
+             * get shared user by mail
+             * @param  {string}   email    
+             * @param  {Function} callback 
+             */
             prototype.getByEmail = function(email, callback) {
                 restangular.one('users').one(email).get().then(function(data) {
                     if(data && data.id)
@@ -48,6 +58,13 @@ angular.module('FileManager').
                 });
             }
 
+            /**
+             * share something
+             * @param  {string}   path     
+             * @param  {string}   target   
+             * @param  {string}   right    
+             * @param  {Function} callback 
+             */
             prototype.share = function(path, target, right, callback) {
                 restangular.one('share').post(path, {'target': target, 'right': right}).then(function(data) {
                     if(data.information == 'folder shared')
@@ -60,6 +77,12 @@ angular.module('FileManager').
                 });
             }
 
+            /**
+             * unshare something
+             * @param  {string}   path     
+             * @param  {string}   target   
+             * @param  {Function} callback 
+             */
             prototype.unshare = function(path, target, callback) {
                 restangular.one('unshare').post(path, {'target': target}).then(function(data) {
                     if(data.information == 'folder unshared')
