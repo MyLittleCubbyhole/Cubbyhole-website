@@ -1,8 +1,11 @@
 angular.module('CubbyHome').
-	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', function($scope, $location, PlanFactory, UserFactory) {
+	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', 'apiUrl', function($scope, $location, PlanFactory, UserFactory, apiUrl) {
 		var $local = $scope.CubbyHome = {};
 
         $local.plans = [];
+        $local.adminPhotos = [];
+        for(var i = 1; i <= 5; i++)
+            $local.adminPhotos.push({'background-image': 'url("' + apiUrl + 'download/1/userPhotos/adminPhoto' + i +'.jpg")'});
 
         $local.showModalRegister = false;
         $local.showModalLogin = false;
@@ -67,6 +70,8 @@ angular.module('CubbyHome').
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
             $local.plans = plans;
+            for(var i = 0; i < $local.plans.length; i++)
+                $local.plans[i].photoUrl = {'background-image': 'url("' + $local.plans[i].photoUrl + '")'};
         });
 
 		$scope.toString = function() {

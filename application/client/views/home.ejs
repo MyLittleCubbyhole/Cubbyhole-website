@@ -26,9 +26,9 @@
 		<h2 class="title google-font">CUBBY-OFFERS</h2>
 
 		<section class="plan-container">
-			<a ng-href="{{CubbyHome.planUrl}}{{plan.id}}" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z" shape-over ng-repeat="plan in CubbyHome.plans">
+			<a ng-href="{{CubbyHome.planUrl}}{{plan.id}}" data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z" shape-over ng-repeat="plan in CubbyHome.plans" ng-cloak>
 				<figure>
-					<svg class="form-file-preview" style="background-image: url('{{plan.photoUrl}}');" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
+					<svg class="form-file-preview" ng-style="plan.photoUrl" viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z "/></svg>
 					<figcaption>
 						<h2>{{plan.name}}</h2>
 						<p>
@@ -44,35 +44,13 @@
 	</article>
 	<article class="bloc" id="contact">
 		<h2 class="title google-font">OUR TEAM</h2>
-		<section class="team-container">
+		<section class="team-container" ng-repeat="adminPhotos in CubbyHome.adminPhotos">
 			<article class="border-circle-blue">
-				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url();">
+				<article class="img-circle image-target form-file-preview" ng-style="adminPhotos" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}">
 					<i class="icon-profile-male form-file-hide"></i>
 				</article>
 			</article>
 		</section>
-		<section class="team-container">
-			<article class="border-circle-blue">
-				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url();">
-					<i class="icon-profile-male form-file-hide"></i>
-				</article>
-			</article>
-		</section>
-		<section class="team-container">
-			<article class="border-circle-blue">
-				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url();">
-					<i class="icon-profile-male form-file-hide"></i>
-				</article>
-			</article>
-		</section>
-		<section class="team-container">
-			<article class="border-circle-blue">
-				<article class="img-circle image-target form-file-preview" ng-style="Authentication.stylePhoto" ng-class="{'form-file-preview': Authentication.user.photo &amp;&amp; Authentication.user.photo != 'null'}" style="background-image: url();">
-					<i class="icon-profile-male form-file-hide"></i>
-				</article>
-			</article>
-		</section>
-
 
 		<section id="copyright">© CubbyHole 2014</section>
 	</article>
