@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/modules/tools/factories/uploaderFactory.js",
 					"application/client/assets/javascripts/modules/tools/services/classService.js",
 					"application/client/assets/javascripts/modules/tools/services/formatSizeService.js",
-					"application/client/assets/javascripts/modules/tools/services/harlemService.js"
+					"application/client/assets/javascripts/modules/tools/services/harlemService.js",
 					"application/client/assets/javascripts/modules/tools/directives/rightClickDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/boxalertDirective.js",
 					"application/client/assets/javascripts/modules/tools/directives/focusDirective.js",
