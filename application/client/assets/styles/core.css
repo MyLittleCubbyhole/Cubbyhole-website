@@ -738,10 +738,10 @@ section[boxalert] article.alert.info {
 section[boxalert] {
     pointer-events: none;
     position: fixed;
-    top: 20px;
+    bottom: 15px;
     right: 30px;
     width: 300px;  
-    font-family: lato;
+    font-family: Lato;
     z-index: 1001;
 }
 article.alert h1 {
