@@ -40,7 +40,7 @@ angular.module('FileManager').
 
 				/**
 				 * LISTENER - store the dragged item in order to use it later
-				 * @param  {Object} event 
+				 * @param  {Object} event
 				 */
 				$node.on('dragstart', function(event) {
 					$scope.FileManager.draggedItem = null;
@@ -50,7 +50,7 @@ angular.module('FileManager').
 
 				/**
 				 * LISTENER - start the upload or move of the dragged item
-				 * @param  {Object} event 
+				 * @param  {Object} event
 				 */
 				$node.on('drop', function(event){
 					event.originalEvent.preventDefault();
@@ -73,6 +73,8 @@ angular.module('FileManager').
 					&& target.getFullPath() != source.getFullPath()
 					&& target.toString('Folder')
 					&& target._id != '.') {
+						$scope.FileManager.selectedItems = [];
+						$scope.FileManager.preview(false);
 						ItemFactory($scope, {local: $scope.FileManager}).move(source, target);
 						if(target._id != '. .')
 							target.size += parseInt(source.size, 10);
@@ -90,7 +92,7 @@ angular.module('FileManager').
 
 				/**
 				 * init a new upload
-				 * @param  {Object} file 
+				 * @param  {Object} file
 				 */
 				function init(file) {
 					var id = Math.random().toString().replace('0.', '');
