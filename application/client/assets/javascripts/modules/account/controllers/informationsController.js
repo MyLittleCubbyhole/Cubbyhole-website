@@ -22,7 +22,9 @@ angular.module('Account').
 
                 if(!error && sizes) {
                     for(var i = 0; i < sizes.length; i++) {
-                        if(sizes[i]._id.indexOf("video") > -1)
+                        if(sizes[i]._id == null)
+                            others += sizes[i].size;
+                        else if(sizes[i]._id.indexOf("video") > -1)
                             videos += sizes[i].size;
                         else if(sizes[i]._id.indexOf("image") > -1)
                              images += sizes[i].size;
