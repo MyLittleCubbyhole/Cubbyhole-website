@@ -36,6 +36,7 @@ module.exports = function(grunt) {
 					"application/client/assets/javascripts/libraries/grumpy-ui/directives/grumpyVirginDirective.js",
 					"application/client/assets/javascripts/libraries/grumpy-ui/services/grumpyPositionService.js",
 					"application/client/assets/javascripts/libraries/grumpy-ui/services/grumpyScrollingService.js"
+
 				],
 				dest: 'application/client/assets/minified/javascripts/libraries.js'
 			},
