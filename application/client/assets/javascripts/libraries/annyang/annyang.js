@@ -87,7 +87,7 @@
       recognition = new SpeechRecognition();
 
       // Set the max number of alternative transcripts to try and match with a command
-      recognition.maxAlternatives = 5;
+      recognition.maxAlternatives = 10;
       recognition.continuous = true;
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
