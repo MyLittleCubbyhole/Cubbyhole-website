@@ -184,8 +184,9 @@
     margin: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     position: absolute;
-    bottom: 80px;
+    bottom: 130px;
     right: 0px;
+    width: 199px;
 }
 .plan-container-body .plan-container .plan-details .form a {
     margin: 0;
@@ -243,7 +244,7 @@
         padding-left: 0;
     }
     .plan-container-body .plan-container .plan-details {
-        height: 321px;
+        height: 345px;
     }
     .plan-container a.plan-selected:nth-child(odd) {
         margin-right: 0;
