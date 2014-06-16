@@ -8,26 +8,39 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
            apiUrl + '**'
         ]);
     }]);;angular.module('CubbyHome').
-	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', function($scope, $location, PlanFactory, UserFactory) {
+	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', 'apiUrl', function($scope, $location, PlanFactory, UserFactory, apiUrl) {
 		var $local = $scope.CubbyHome = {};
 
         $local.plans = [];
+        $local.adminPhotos = [];
+        for(var i = 1; i <= 5; i++)
+            $local.adminPhotos.push({'background-image': 'url("' + apiUrl + 'download/1/userPhotos/adminPhoto' + i +'.jpg")'});
 
         $local.showModalRegister = false;
         $local.showModalLogin = false;
         $local.showModalConfirmation = false;
 
         $local.planUrl = '/account?token=';
+
+        /**
+         * LISTENER - triggered when the user is updated
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             $local.planUrl += UserFactory($scope).get().token + '#/plans?planId=';
         });
 
+        /**
+         * LISTENER - hide modal when called
+         */
         $scope.$on('hide', function() {
             $local.showModalLogin = false;
             $local.showModalRegister = false;
             $local.showModalConfirmation = false;
         });
 
+        /**
+         * show the register modal
+         */
         $local.showRegisterModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalLogin = false;
@@ -35,6 +48,9 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             $local.showModalConfirmation = false;
         }
 
+        /**
+         * show login modal
+         */
         $local.showLoginModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalRegister = false;
@@ -42,6 +58,9 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             $local.showModalConfirmation = false;
         }
 
+        /**
+         * show confirmation modal
+         */
         $local.showConfirmationModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalRegister = false;
@@ -49,20 +68,19 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             $local.showModalConfirmation = true;
         }
 
-        if($location.path() == '/login') {
+        if($location.path() == '/login')
             $local.showLoginModal();
-        }
 
-        if($location.path() == '/register') {
+        if($location.path() == '/register')
             $local.showRegisterModal();
-        }
 
-        if($location.path() == '/confirmation') {
+        if($location.path() == '/confirmation')
             $local.showConfirmationModal();
-        }
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
-            $local.plans =plans;
+            $local.plans = plans;
+            for(var i = 0; i < $local.plans.length; i++)
+                $local.plans[i].photoUrl = {'background-image': 'url("' + $local.plans[i].photoUrl + '")'};
         });
 
 		$scope.toString = function() {
@@ -80,6 +98,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             var prototype = {}
             ,   $local = context.local || {}
 
+            /**
+             * get the current active plan from the database
+             * @param  {Function} callback 
+             */
             prototype.getActualPlan = function(callback) {
                 restangular.one('users').one(UserFactory($scope).get().id + '/plan').get().then(function(plan) {
                     var planToReturn = null;
@@ -106,6 +128,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
             };
 
+            /**
+             * get all plan from database
+             * @param  {Function} callback 
+             */
             prototype.getAllPlans = function(callback) {
                 restangular.one('plans').getList().then(function(plans) {
                     var plansToReturn = [];
@@ -130,6 +156,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
             };
 
+            /**
+             * create a new plan in database
+             * @param  {Object} plan Plan
+             */
             prototype.create = function(plan) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -146,6 +176,11 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 });
             }
 
+            /**
+             * update the current plan
+             * @param  {Object}   plan     Plan
+             * @param  {Function} callback 
+             */
             prototype.edit = function(plan, callback) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -160,6 +195,11 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 });
             }
 
+            /**
+             * remove the plan
+             * @param  {integer}   id       plan id
+             * @param  {Function} callback 
+             */
             prototype.delete = function(id, callback) {
                 $http.delete(apiUrl + 'plans/'+id).
                 success(function(data, status, headers, config) {
@@ -168,6 +208,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 error(function(data, status, headers, config) {});
             }
 
+            /**
+             * get all plan images
+             * @param  {Function} callback 
+             */
             prototype.getAllimages = function(callback) {
                 $http.get(apiUrl + 'plans/images').
                 success(function(data, status, headers, config) {

@@ -20,26 +20,39 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 			return 'CubbyHole';
 		}
 	}]);;angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('CubbyHome').
-	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', function($scope, $location, PlanFactory, UserFactory) {
+	controller('CubbyHomeController', ['$scope', '$location', 'PlanFactory', 'UserFactory', 'apiUrl', function($scope, $location, PlanFactory, UserFactory, apiUrl) {
 		var $local = $scope.CubbyHome = {};
 
         $local.plans = [];
+        $local.adminPhotos = [];
+        for(var i = 1; i <= 5; i++)
+            $local.adminPhotos.push({'background-image': 'url("' + apiUrl + 'download/1/userPhotos/adminPhoto' + i +'.jpg")'});
 
         $local.showModalRegister = false;
         $local.showModalLogin = false;
         $local.showModalConfirmation = false;
 
         $local.planUrl = '/account?token=';
+
+        /**
+         * LISTENER - triggered when the user is updated
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             $local.planUrl += UserFactory($scope).get().token + '#/plans?planId=';
         });
 
+        /**
+         * LISTENER - hide modal when called
+         */
         $scope.$on('hide', function() {
             $local.showModalLogin = false;
             $local.showModalRegister = false;
             $local.showModalConfirmation = false;
         });
 
+        /**
+         * show the register modal
+         */
         $local.showRegisterModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalLogin = false;
@@ -47,6 +60,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             $local.showModalConfirmation = false;
         }
 
+        /**
+         * show login modal
+         */
         $local.showLoginModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalRegister = false;
@@ -54,6 +70,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             $local.showModalConfirmation = false;
         }
 
+        /**
+         * show confirmation modal
+         */
         $local.showConfirmationModal = function() {
             $scope.Overlay.activated = true;
             $local.showModalRegister = false;
@@ -61,20 +80,19 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             $local.showModalConfirmation = true;
         }
 
-        if($location.path() == '/login') {
+        if($location.path() == '/login')
             $local.showLoginModal();
-        }
 
-        if($location.path() == '/register') {
+        if($location.path() == '/register')
             $local.showRegisterModal();
-        }
 
-        if($location.path() == '/confirmation') {
+        if($location.path() == '/confirmation')
             $local.showConfirmationModal();
-        }
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
-            $local.plans =plans;
+            $local.plans = plans;
+            for(var i = 0; i < $local.plans.length; i++)
+                $local.plans[i].photoUrl = {'background-image': 'url("' + $local.plans[i].photoUrl + '")'};
         });
 
 		$scope.toString = function() {
@@ -92,6 +110,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             var prototype = {}
             ,   $local = context.local || {}
 
+            /**
+             * get the current active plan from the database
+             * @param  {Function} callback 
+             */
             prototype.getActualPlan = function(callback) {
                 restangular.one('users').one(UserFactory($scope).get().id + '/plan').get().then(function(plan) {
                     var planToReturn = null;
@@ -118,6 +140,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
             };
 
+            /**
+             * get all plan from database
+             * @param  {Function} callback 
+             */
             prototype.getAllPlans = function(callback) {
                 restangular.one('plans').getList().then(function(plans) {
                     var plansToReturn = [];
@@ -142,6 +168,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
             };
 
+            /**
+             * create a new plan in database
+             * @param  {Object} plan Plan
+             */
             prototype.create = function(plan) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -158,6 +188,11 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 });
             }
 
+            /**
+             * update the current plan
+             * @param  {Object}   plan     Plan
+             * @param  {Function} callback 
+             */
             prototype.edit = function(plan, callback) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -172,6 +207,11 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 });
             }
 
+            /**
+             * remove the plan
+             * @param  {integer}   id       plan id
+             * @param  {Function} callback 
+             */
             prototype.delete = function(id, callback) {
                 $http.delete(apiUrl + 'plans/'+id).
                 success(function(data, status, headers, config) {
@@ -180,6 +220,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 error(function(data, status, headers, config) {});
             }
 
+            /**
+             * get all plan images
+             * @param  {Function} callback 
+             */
             prototype.getAllimages = function(callback) {
                 $http.get(apiUrl + 'plans/images').
                 success(function(data, status, headers, config) {
@@ -199,6 +243,7 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
     }]);;angular.module('Account', ['CubbyHole', 'CubbyHome', 'highcharts-ng']);;angular.module('Account').
 	config(['$locationProvider', '$routeProvider', '$httpProvider', function($location, $routeProvider, $httpProvider) {
 
+        //angular routing
         $routeProvider
         .when('/config', {
             templateUrl: '/templates/account/configuration',
@@ -228,6 +273,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 
         $local.user = UserFactory($scope).get();
 
+        /**
+         * LISTENER - triggered when the User is loaded
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             PlanFactory($scope).getActualPlan(function(error, plan) {
                 if (!error && plan) {
@@ -244,6 +292,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 	controller('AccountNavigationController', ['$scope', '$location', function($scope, $location){
 		var $local = $scope.AccountNavigation = {};
 
+		/**
+		 * navigate to the selected path
+		 * @param  {string} target target path
+		 */
 		$local.goto = function(target) {
 			$location.path('/' + target);
 		}
@@ -279,6 +331,11 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
         if($scope.Account.user.photo && $scope.Account.user.photo != 'null')
             $local.stylePhoto = {'background-image': 'url(' + apiUrl + 'download/1/userPhotos/' + $scope.Account.user.photo + '?token=' + $scope.Account.user.token + '&run)'};
 
+        /**
+         * called when the form submitting
+         * update user information
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {
@@ -318,6 +375,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 
         $local.charts = [];
 
+        /**
+         * update account chart
+         */
         function updateElements() {
             $local.charts = [];
 
@@ -333,7 +393,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 
                 if(!error && sizes) {
                     for(var i = 0; i < sizes.length; i++) {
-                        if(sizes[i]._id.indexOf("video") > -1)
+                        if(sizes[i]._id == null)
+                            others += sizes[i].size;
+                        else if(sizes[i]._id.indexOf("video") > -1)
                             videos += sizes[i].size;
                         else if(sizes[i]._id.indexOf("image") > -1)
                              images += sizes[i].size;
@@ -456,6 +518,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 	controller('TimelineController', ['$scope', 'UserFactory', function($scope, UserFactory){
 		var $local = $scope.Timeline = {};
 
+		/**
+		 * generate the displayed historic
+		 */
 		UserFactory($scope).historic(function(data) {
 			var witness = true;
 			for(var i = 0; i<data.length; i++) {
@@ -520,6 +585,11 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                         $local.selectPlan($local.plans[i]);
         });
 
+        /**
+         * select plan
+         * update the view with the plan informations
+         * @param  {Object} plan plan definition
+         */
         $local.selectPlan = function(plan) {
             plan.selected = true;
             $local.selectedPlan = {
@@ -535,6 +605,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             };
         }
 
+        /**
+         * change tu plan duration and update the plan price
+         * @return {[type]} [description]
+         */
         $local.changeDuration = function() {
             for(var i = 0; i < $local.plans.length; i++) {
                 if($local.plans[i].selected) {
@@ -545,6 +619,9 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
             }
         }
 
+        /**
+         * unselect a plan
+         */
         $local.unselect = function() {
             $local.selectedPlan = {};
             for(var i = 0; i < $local.plans.length; i++) {
@@ -656,6 +733,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
 
             var prototype = {};
 
+            /**
+             * return the current used storage size
+             * @param  {Function} callback 
+             */
             prototype.getSizeUsed = function(callback) {
                 restangular.one('browse').one(userFactory($scope).get().id + '/size').get().then(function(sizes) {
                     var sizesToReturn = null;
@@ -672,6 +753,10 @@ angular.module('CubbyHole', ['FileManager', 'Authentication', 'restangular', 'Br
                 }, function(error) { callback.call(this, 'no sizes', null); console.error(error); });
             }
 
+            /**
+             * return the current quota used
+             * @param  {Function} callback 
+             */
             prototype.getCurrentQuota = function(callback) {
                 restangular.one('users').one(userFactory($scope).get().id + '/quota').get().then(function(quota) {
                     var quotaToReturn = null;

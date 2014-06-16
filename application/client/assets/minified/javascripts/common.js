@@ -21,6 +21,11 @@ angular.module('Config', []);;angular.module('Config').
 
             var prototype = {};
 
+            /**
+             * get a country thank to it id
+             * @param  {integer} id country id
+             * @return {object}    Country
+             */
             prototype.get = function(id) {
                 var results;
 
@@ -31,6 +36,11 @@ angular.module('Config', []);;angular.module('Config').
                 return results[0];
             };
 
+            /**
+             * get a country thank to it name
+             * @param  {string} name country name
+             * @return {object}    Country
+             */
             prototype.getByName = function(name) {
                 var results;
 
@@ -41,6 +51,10 @@ angular.module('Config', []);;angular.module('Config').
                 return results[0];
             };
 
+            /**
+             * list all countries
+             * @return {array} countries
+             */
             prototype.list = function() {
                 return countries;
             };
@@ -55,6 +69,9 @@ angular.module('Config', []);;angular.module('Config').
 		var socketIO = {}
 		,	socket;
 
+		/**
+		 * initialize the websocket connection
+		 */
 		function init() {
 			console.info('connection to websocket server...');
 			if(typeof io != 'undefined') {
@@ -71,6 +88,9 @@ angular.module('Config', []);;angular.module('Config').
 			}
 		};
 
+		/**
+		 * authenticate the user to the websocket rooms
+		 */
         function authenticate() {
 			var user = localStorage.getItem('user');
 			if(!user)
@@ -90,6 +110,10 @@ angular.module('Config', []);;angular.module('Config').
 		var files = {}
 		,	socket = WebsocketFactory();
 
+		/**
+		 * LISTENER - send the next packet to the webservice
+		 * @param  {Object} data upload item information
+		 */
 		socket.on('upload_next', function(data) {
 			files[data.id].context.entity.size = Number(data.percent);
 			files[data.id].data.sizeAdded += parseInt(data['chunkSize'], 10);
@@ -97,13 +121,15 @@ angular.module('Config', []);;angular.module('Config').
 			files[data.id].context.$scope.$apply();
 			var chunk = data['chunk'] * 524288
 			,	part = files[data.id].data.slice(chunk, chunk + Math.min(524288, (files[data.id].data.size - chunk)));
-			// var chunk = data['chunk'] * 1572864
-			// ,	part = files[data.id].data.slice(chunk, chunk + Math.min(1572864, (files[data.id].data.size - chunk)));
 
 			files[data.id].context.controller.fileReaders[data.id].readAsBinaryString(part);
 		});
 
-
+		/**
+		 * LISTENER - called when the upload is done
+		 * update the linked item informations
+		 * @param  {Object} data information
+		 */
 		socket.on('upload_done', function(data){
 			var file = files[data.id];
 
@@ -120,6 +146,11 @@ angular.module('Config', []);;angular.module('Config').
 			delete files[data.id];
 		});
 
+		/**
+		 * LISTENER - called when the upload is stopped
+		 * undo all action in order to cancel the download
+		 * @param  {Object} data item informations
+		 */
 		socket.on('upload_stopped', function(data){
 			console.error("upload stopped - " + data.error);
 			if(files[data.id].context.entity.toString() == 'File') {
@@ -149,6 +180,11 @@ angular.module('Config', []);;angular.module('Config').
 
 			var prototype = {};
 
+			/**
+			 * add a new upload action
+			 * @param {integer} id   upload id
+			 * @param {Object} file File
+			 */
 			prototype.add = function(id, file) {
 				files[id] = { data: file, context: { $local: $local, $scope: $scope, controller: controller, entity: entity } };
 			}
@@ -157,6 +193,11 @@ angular.module('Config', []);;angular.module('Config').
 		};
 	}]);angular.module('Tools').
 	service('ClassService', function(){
+		/**
+		 * Prototypal inheritence
+		 * @param  {Object} parent 
+		 * @param  {Object} child  
+		 */
 		this.extend = 	function(parent, child){
 			child.prototype = new parent();
 			child.constructor = child;
@@ -192,6 +233,33 @@ angular.module('Config', []);;angular.module('Config').
         };
 
     });;angular.module('Tools').
+	service('HarlemService', function(){
+
+		var prototype = {}
+		,	actions = ['im_drunk','im_baked', '', 'im_trippin','im_blown', 'im_first'];
+
+
+		prototype.doFirst = function() {
+			angular.element('.first-harlem').addClass(actions[5]);
+		};
+
+		prototype.doFull = function() {
+			var nodes = angular.element('.mw-harlem_shake_me');
+			nodes.each(function() {
+				angular.element(this).addClass(actions[Math.floor(Math.random()*5)]);
+			})
+		};
+		
+		prototype.stop = function() {
+			var nodes = angular.element('.mw-harlem_shake_me');
+			nodes.each(function() {
+				for(var i in actions)
+					angular.element(this).removeClass(actions[i]);
+			})
+		};
+
+		return prototype;
+	});angular.module('Tools').
 	directive('ngRightClick', function($parse) {
 		return function(scope, element, attrs) {
 			var fn = $parse(attrs.ngRightClick);
@@ -219,6 +287,10 @@ angular.module('Config', []);;angular.module('Config').
 				,	self = this;
 				$local.alerts = {};
 
+				/**
+				 * close the selected alert
+				 * @param  {integer} index index alert
+				 */
 				$local.close = function(index) {
 					if(!$local.alerts[index])
 						return false;
@@ -241,7 +313,10 @@ angular.module('Config', []);;angular.module('Config').
 				,	length = 0
 				,	timer = attributes.boxtimer || 3000;
 
-
+				/**
+				 * add a new alert to the array
+				 * @param  {Object} alert Alert
+				 */
 				$parse(attributes.boxalert).assign($scope, function(alert) {
 					var index = ++i;
 					length++;
@@ -264,11 +339,13 @@ angular.module('Config', []);;angular.module('Config').
 					alert = _.extend(alert, { promise: null, index: index });
 
 					$local.alerts[index] = alert;
-
-					// $scope.$apply();
 					pop(index);
 				})
 
+				/**
+				 * start the alert deletion
+				 * @param  {integer} index alert index
+				 */
 				function pop(index) {
 					$local.alerts[index].promise = $timeout(function() { 
 						older = older < index+1 ? index+1 : older;
@@ -312,9 +389,16 @@ angular.module('Config', []);;angular.module('Config').
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
 
+				/**
+				 * update the total size
+				 */
 				$scope.$watch('Preview.totalSize', function() {
 					total = $scope.Preview.totalSize;
 				})
+
+				/**
+				 * update the current value of the progress bar
+				 */
 				$scope.$watch('FileManager.selectedItems', function() {
 					$local.value = $scope.FileManager.selectedItems[0].size;
 					percent = Math.round($local.value)*100 / Math.round(total);
@@ -364,6 +448,9 @@ angular.module('Config', []);;angular.module('Config').
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
 
+				/**
+				 * LISTENER - triggered when a plan is loaded
+				 */
 				$scope.$watch('Account.currentPlan', function() {
 					if($scope.Account.currentPlan.id != 1) {
 						var dateStart = new Date($scope.Account.currentPlan.dateStart).getTime();
@@ -425,6 +512,9 @@ angular.module('Config', []);;angular.module('Config').
                 var $local = $scope._modal = {}
                 ,   self = this;
 
+                /**
+                 * close the current modal
+                 */
                 $local.close = function() {
                     $scope.Overlay.clickout();
                     if($scope.FileManager) {
@@ -462,6 +552,10 @@ angular.module('Config', []);;angular.module('Config').
 				self.files = {};
 				self.path;
 
+				/**
+				 * read image and add it as a background image
+				 * @param  {Object} file File
+				 */
 				self.readImage = function(file) {
 					var fileReaders = new FileReader();
 					fileReaders.onload = function(event){
@@ -471,6 +565,10 @@ angular.module('Config', []);;angular.module('Config').
                     fileReaders.readAsDataURL(file);
 				}
 
+				/**
+				 * update the user photo
+				 * @param  {string} photo photo name
+				 */
 				self.updatePhoto = function(photo) {
 					var user = UserFactory($scope).get();
 					user.photo = photo;
@@ -516,6 +614,10 @@ angular.module('Config', []);;angular.module('Config').
 					self.$input.click();
 				});
 
+				/**
+				 * upload the loaded image
+				 * @param  {Object} event Event
+				 */
 				self.$input.bind('change', function(event) {
 					self.$target && self.readImage(event.target.files[0]);
 
@@ -588,34 +690,34 @@ angular.module('Tools').
 		filter('orMultiple',['$filter',function ($filter) {
 		return function (items, keyObj) {
 			var filterObj = {
-								data:items,
-								filteredData:[],
-								applyFilter : function(obj,key){
-									var fData = [];
-									if(this.filteredData.length == 0)
-										this.filteredData = this.data;
-									if(obj){
-										var fObj = {};
-										if(!angular.isArray(obj)){
-											fObj[key] = obj;
-											fData = fData.concat($filter('filter')(this.filteredData,fObj));
-										}else if(angular.isArray(obj)){
-											if(obj.length > 0){	
-												for(var i=0;i<obj.length;i++){
-													if(angular.isDefined(obj[i])){
-														fObj[key] = obj[i];
-														fData = fData.concat($filter('filter')(this.filteredData,fObj));	
-													}
-												}
-												
-											}										
-										}									
-										if(fData.length > 0){
-											this.filteredData = fData;
-										}
+				data:items,
+				filteredData:[],
+				applyFilter : function(obj,key){
+					var fData = [];
+					if(this.filteredData.length == 0)
+						this.filteredData = this.data;
+					if(obj){
+						var fObj = {};
+						if(!angular.isArray(obj)){
+							fObj[key] = obj;
+							fData = fData.concat($filter('filter')(this.filteredData,fObj));
+						}else if(angular.isArray(obj)){
+							if(obj.length > 0){	
+								for(var i=0;i<obj.length;i++){
+									if(angular.isDefined(obj[i])){
+										fObj[key] = obj[i];
+										fData = fData.concat($filter('filter')(this.filteredData,fObj));	
 									}
 								}
-					};
+								
+							}										
+						}									
+						if(fData.length > 0){
+							this.filteredData = fData;
+						}
+					}
+				}
+			};
 
 			if(keyObj){
 				angular.forEach(keyObj,function(obj,key){
@@ -636,6 +738,10 @@ angular.module('Tools').
 			$local.path = $scope.FileManager.pathItems;
 		})
 
+		/**
+		 * update breadcrumb and load the folder
+		 * @param  {integer} index item index
+		 */
 		$local.load = function(index) {
 			var item = $local.path[index].item;
 			
@@ -678,11 +784,17 @@ angular.module('Tools').
 			$local.opened = false;
 		});
 
+		/**
+		 * open the user modal
+		 */
 		$local.open = function() {
 			$local.opened = !$local.opened;
 			$scope.Overlay.activated = true;
 		};
 
+		/**
+		 * disconnect the current user
+		 */
 		$local.logout = function() {
 			UserFactory($scope).logout();
 		};
@@ -704,6 +816,10 @@ angular.module('Tools').
 
         $local.errorLogin = false;
 
+        /**
+         * authenticate the user 
+         * @param  {Boolean} isValid form validity
+         */
         $local.authenticate = function(isValid) {
             localStorage.removeItem("user");
             sessionStorage.removeItem("user");
@@ -736,6 +852,10 @@ angular.module('Tools').
 
         $local.countries = CountryFactory($scope).list();
 
+        /**
+         * save the new user in database
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {
@@ -765,14 +885,27 @@ angular.module('Tools').
 
             var prototype = {};
 
+            /**
+             * get the current setted user
+             * @return {Object} User
+             */
             prototype.get = function() {
                 return _user;
             };
 
+            /**
+             * set the current User
+             * @param {Object} user user
+             */
             prototype.set = function(user) {
                 angular.extend(_user, user);
             };
 
+            /**
+             * create a new User
+             * @param  {Object}   user     User
+             * @param  {Function} callback 
+             */
             prototype.createUser = function(user, callback) {
                 $http.post(apiUrl + 'users', user).
                 success(function(data, status, headers, config) {
@@ -789,6 +922,11 @@ angular.module('Tools').
                 });
             };
 
+            /**
+             * update the user
+             * @param  {Object}   user     User
+             * @param  {Function} callback 
+             */
             prototype.updateUser = function(user, callback) {
                 var userLocal = prototype.get();
                 $http.put(apiUrl + 'users/' + userLocal.id, user).
@@ -805,6 +943,11 @@ angular.module('Tools').
                 });
             };
 
+            /**
+             * get all user from database
+             * @param  {Function} callback 
+             * @param  {Object}   options  filters
+             */
             prototype.all = function(callback, options) {
                 options = options || {};
                 var limit = options.limit || 100
@@ -828,6 +971,12 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * authenticate the user and save it in session/local storage
+             * @param  {Object}   user       User
+             * @param  {Boolean}   rememberMe 
+             * @param  {Function} callback   
+             */
             prototype.login = function(user, rememberMe, callback) {
                 $http.post(apiUrl + 'auth', user).
                 success(function(data, status, headers, config) {
@@ -851,6 +1000,10 @@ angular.module('Tools').
                 });
             };
 
+            /**
+             * promote a user as an administrator
+             * @param  {Object} user User
+             */
             prototype.promote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/promote').
                 success(function(data) {
@@ -862,6 +1015,10 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * demote an administrator as a simple user
+             * @param  {Object} user User
+             */
             prototype.demote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/demote').
                 success(function(data) {
@@ -873,7 +1030,9 @@ angular.module('Tools').
                 });
             }
 
-
+            /**
+             * disconnect the user and remove it from the local/session storage
+             */
             prototype.logout = function() {
                 var user = prototype.get();
                 if(user.token) {
@@ -892,6 +1051,10 @@ angular.module('Tools').
                 }
             };
 
+            /**
+             * get the user historic
+             * @param  {Function} callback 
+             */
             prototype.historic = function(callback) {
                 var user = prototype.get();
                 $http.get(apiUrl + 'users/'+user.id+'/historic').
@@ -901,6 +1064,10 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * get the used storage size
+             * @param  {Function} callback 
+             */
             prototype.getUsedSizeStorage = function(callback) {
                 var user = prototype.get();
                 if(user !== undefined && user.id) {
@@ -1026,9 +1193,31 @@ angular.module('Tools').
 				options && this.init();
 			};
 
+			/**
+			 * Must be overriden
+			 * initialize the item
+			 */
 			Item.prototype.init = function() { throw 'init method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * download the current item
+			 */
 			Item.prototype.download = function() { throw 'download method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * get the path of the current item
+			 */
 			Item.prototype.getPath = function() { throw 'getPath method must be overrided'; };
+
+
+			/**
+			 * Must be overriden
+			 * get the full path of the current item
+			 */
 			Item.prototype.getFullPath = function() { throw 'getFullPath method must be overrided'; };
 
 			Object.defineProperties(Item.prototype, {
@@ -1069,7 +1258,14 @@ angular.module('Tools').
 
 			Class.extend(Item, Folder);
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.init = function() {};
+			
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.download = function(dumpOnly) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
 				url = AuthenticationFactory.request({ url: url }).url;
@@ -1080,6 +1276,9 @@ angular.module('Tools').
 				return url;
 			};
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.getPath = function() {
 				var path = this.path;
 				// if(this._id == '. .') {
@@ -1096,6 +1295,9 @@ angular.module('Tools').
 				return path;
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			Folder.prototype.getFullPath = function() {
 				return this.getPath();
 			}
@@ -1129,6 +1331,10 @@ angular.module('Tools').
 			Class.extend(Item, File);
 
 			File.prototype.init = function() {};
+
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.download = function(dumpOnly, withoutToken) {
 				var url = apiUrl + 'download/' + this.ownerId + this.getFullPath();
 
@@ -1141,14 +1347,23 @@ angular.module('Tools').
 				return url;
 			};
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.remove = function() {
 				this.node.remove();
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.getPath = function() {
 				return this.path;
 			}
 
+			/**
+			 * OVERRIDEN
+			 */
 			File.prototype.getFullPath = function() {
 				return this.path + this.name;
 			}
@@ -1163,14 +1378,14 @@ angular.module('Tools').
 	factory('FileExtensionFactory', function() {
 
 		/**
-		 * mutualisation de service
-		 * les parametres de context sont placés dans le premier appel
-		 * on peut ainsi attaquer un scope annexe a partir d'un appel local
+		 * service mutualizing
+		 * the context paramters are placed in the first calling
+		 * in this way, we can use a distant scope from a local calling
 		 *
 		 * ex: fileExtension($scope, {local: $local, controller: self}).maMethode('parameters', {une config})
 		 *
 		 * @param  {$scope} scope   angular scope
-		 * @param  {object} context [OPTIONAL] specification du context - peut contenir refs vers $local, $node et controller
+		 * @param  {object} context [OPTIONAL] context specification - can contains refs to $local, $node and controller
 		 */
 		return function($scope, context) {
 			context = context || {};
@@ -1183,12 +1398,20 @@ angular.module('Tools').
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
 
+			/**
+			 * get the file extension
+			 * @param  {string} filename 
+			 */
 			prototype.getExtension = function(filename) {
 				var extension = (/(?:\.([^.]+))?$/).exec(filename)[1];
 				extension = extension || '';
 				return extension.toLowerCase();
 			}
 
+			/**
+			 * detect the file type and return it
+			 * @param  {Object} file 
+			 */
 			prototype.detection = function(file) {
 
 				file.icon = "icon-file-css";
@@ -1309,6 +1532,10 @@ angular.module('Tools').
 			,	$local = context.local || {}
 			,	controller = context.controller || {};
 
+			/**
+			 * load data item
+			 * @param  {Object} item Item
+			 */
 			prototype.load = function(item) {
 
 				var ownerId = item && typeof item == 'object' ? item.ownerId : false
@@ -1382,14 +1609,26 @@ angular.module('Tools').
 				}
 			}
 
+			/**
+			 * get the id by its id
+			 * @param  {integer} id 
+			 */
 			prototype.get = function(id) {
 				return _items[id];
 			}
 
+			/**
+			 * get all loaded items
+			 */
 			prototype.getAll = function() {
 				return _items;
 			}
 
+			/**
+			 * delete an item and re synchronize
+			 * @param  {integer}   itemId   
+			 * @param  {Function} callback 
+			 */
 			prototype.clean = function(itemId, callback) {
 				for(var i=0; i<_items.length; i++)
 					if(_items[i]._id == itemId) {
@@ -1400,6 +1639,10 @@ angular.module('Tools').
 				prototype.synchronize();
 			}
 
+			/**
+			 * create a new folder in database
+			 * @param  {Object} item folder informations
+			 */
 			prototype.createFolder = function(item) {
 
 				var browse = restangular.one('browse').one($scope.FileManager.folderOwner + '/')
@@ -1421,6 +1664,10 @@ angular.module('Tools').
 				});
 			}
 
+			/**
+			 * delete the selected item
+			 * @param  {Object} item Item
+			 */
 			prototype.delete = function(item) {
 				var browse = restangular.one('browse').one(item.ownerId.toString()+item.getFullPath()).remove().then(function(data) {
 					if(!!data.information && data.information.indexOf('error') > -1)
@@ -1434,6 +1681,11 @@ angular.module('Tools').
 				});
 			}
 
+			/**
+			 * copy & paste the selected item
+			 * @param  {Object} source 
+			 * @param  {Object} target 
+			 */
 			prototype.copy = function(source, target) {
 
 				var copy = restangular.one('copy').one(source.ownerId.toString());
@@ -1470,6 +1722,11 @@ angular.module('Tools').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * move an item into the selected target
+			 * @param  {Object} source 
+			 * @param  {Object} target 
+			 */
 			prototype.move = function(source, target) {
 
 				var move = restangular.one('move').one(target.ownerId.toString());
@@ -1482,6 +1739,12 @@ angular.module('Tools').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * rename an item
+			 * @param  {string}   fullpath 
+			 * @param  {string}   newName  
+			 * @param  {Function} callback 
+			 */
 			prototype.rename = function(fullpath, newName, callback) {
 				restangular.one('browse').one(fullpath).customPUT({name: newName}).then(function(data) {
 					if(!data.information || data.information.indexOf('error') > -1)
@@ -1489,6 +1752,11 @@ angular.module('Tools').
 				}, function(error) { console.error(error); });
 			}
 
+			/**
+			 * check if a name already exist
+			 * @param  {string} name      
+			 * @param  {boolean} vocalMode 
+			 */
 			prototype.checkNameExists = function(name, vocalMode) {
 				vocalMode = typeof vocalMode !== 'undefined' && vocalMode === true;
 				var exists = false;
@@ -1509,6 +1777,11 @@ angular.module('Tools').
 				return exists;
 			}
 
+			/**
+			 * share publicly an item
+			 * @param  {Object}   item     
+			 * @param  {Function} callback 
+			 */
 			prototype.shareFile = function(item, callback) {
 				var share = restangular.one('share');
 
@@ -1523,6 +1796,11 @@ angular.module('Tools').
 				});
 			}
 
+			/**
+			 * unshare an item
+			 * @param  {Object}   item     
+			 * @param  {Function} callback 
+			 */
 			prototype.unshareFile = function(item, callback) {
 				var unshare = restangular.one('unshare');
 
@@ -1537,6 +1815,9 @@ angular.module('Tools').
 				});
 			}
 
+			/**
+			 * synchronize the filemanager items array and the local item
+			 */
 			prototype.synchronize = function() {
 				$local.items.splice(0);
 				$local.items = [];
@@ -1546,6 +1827,11 @@ angular.module('Tools').
 				}
 			}
 
+			/**
+			 * add a new item to the items array
+			 * @param {Object}   options  
+			 * @param {Function} callback 
+			 */
 			prototype.add = function(options, callback) {
 				var item;
 				ExtensionFactory($scope).detection(options);
@@ -1569,6 +1855,9 @@ angular.module('Tools').
 				return item;
 			}
 
+			/**
+			 * remove all items to delete
+			 */
 			prototype.cleanToDelete = function() {
 				for(var i = _items.length -1; i>= 0; i--) {
 					if(_items[i].todelete) {
@@ -1578,6 +1867,9 @@ angular.module('Tools').
 				}
 			}
 
+			/**
+			 * add . and .. files
+			 */
 			function addFileNavigation() {
 				var index = $scope.FileManager.pathItems.length-1
 				,	path
@@ -1636,6 +1928,11 @@ angular.module('Tools').
 
             var prototype = {};
 
+            /**
+             * get shared users
+             * @param  {string}   path     
+             * @param  {Function} callback 
+             */
             prototype.getSharedUsers = function(path, callback) {
                 restangular.one('users').one('shared').one(path).get().then(function(data) {
                     if(data && !data.information) {
@@ -1657,6 +1954,11 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * get shared user by mail
+             * @param  {string}   email    
+             * @param  {Function} callback 
+             */
             prototype.getByEmail = function(email, callback) {
                 restangular.one('users').one(email).get().then(function(data) {
                     if(data && data.id)
@@ -1669,6 +1971,13 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * share something
+             * @param  {string}   path     
+             * @param  {string}   target   
+             * @param  {string}   right    
+             * @param  {Function} callback 
+             */
             prototype.share = function(path, target, right, callback) {
                 restangular.one('share').post(path, {'target': target, 'right': right}).then(function(data) {
                     if(data.information == 'folder shared')
@@ -1681,6 +1990,12 @@ angular.module('Tools').
                 });
             }
 
+            /**
+             * unshare something
+             * @param  {string}   path     
+             * @param  {string}   target   
+             * @param  {Function} callback 
+             */
             prototype.unshare = function(path, target, callback) {
                 restangular.one('unshare').post(path, {'target': target}).then(function(data) {
                     if(data.information == 'folder unshared')
@@ -1704,6 +2019,9 @@ angular.module('FileManager').
 
         $local.user = {};
 
+        /**
+         * LISTNER - update the local user when a new user is loaded
+         */
         $scope.$watch(UserFactory($scope).get(), function() {
             $local.user = UserFactory($scope).get();
         })
@@ -1714,7 +2032,16 @@ angular.module('FileManager').
 		$local.previewItem = null;
         $local.pathItems = [];
 
+        /**
+         * OVERRIDE BY THE BOXALERT DIRECTIVE
+         */
         $local.alert = function() { /*overriden by boxalert directive*/ }
+
+        /**
+         * call the alert method in order to create an info alert
+         * @param {string} title    
+         * @param {string} subtitle 
+         */
         $local.addInfo = function(title, subtitle) {
             $local.alert({
                 type: 'info',
@@ -1722,6 +2049,12 @@ angular.module('FileManager').
                 subtitle: subtitle
             });
         }
+
+        /**
+         * call the alert method in order to create an error alert
+         * @param {string} title    
+         * @param {string} subtitle 
+         */
         $local.addError = function(title, subtitle) {
             $local.alert({
                 type: 'error',
@@ -1743,6 +2076,11 @@ angular.module('FileManager').
         }
 
         var socket = WebsocketFactory();
+
+        /**
+         * LISTENER - create an item when a new folder is created by someone in the current directory
+         * @param  {Object} data folder information
+         */
         socket.on('create_folder', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.path ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -1775,6 +2113,10 @@ angular.module('FileManager').
             }
         })
 
+        /**
+         * LISTENER - create an item when a new file is created by someone in the current directory
+         * @param  {Object} data file information
+         */
         socket.on('create_file', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.logicPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -1807,11 +2149,20 @@ angular.module('FileManager').
             }
         })
 
+        /**
+         * LISTENER - delete an item when someone delete it in the current directory
+         * @param  {Object} data item information
+         */
         socket.on('delete', function(data) {
             $local.addInfo('Item deleted', 'The item ' + data.fullPath.substring(data.fullPath.lastIndexOf('/') + 1) + ' has been deleted');
             ItemFactory($scope, {local: $local}).clean(data.fullPath);
             $scope.$apply();
         })
+
+        /**
+         * LISTENER - rename an item when someone rename it
+         * @param  {Object} data item information
+         */
         socket.on('rename', function(data) {
             $local.addInfo('Item renamed', 'The item ' + data.currentName + ' has been renamed');
             $scope.$apply();
@@ -1827,6 +2178,12 @@ angular.module('FileManager').
 
             $scope.$apply();
         })
+
+        /**
+         * LISTENER - create an alert when someont copy/paste an item 
+         * remove the source and create the item into the new position
+         * @param  {Object} data item information
+         */
         socket.on('copy', function(data) {
             var lastItem = $local.pathItems[$local.pathItems.length-1].item
             ,   path = lastItem == data.targetPath ? '' : data.fullPath.slice(0, data.fullPath.lastIndexOf('/'))
@@ -1863,23 +2220,39 @@ angular.module('FileManager').
             }
         })
 
-
+        /**
+         * LISTENER - call all items and unselect them
+         */
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
 			$scope.$broadcast('unselect');
 		})
 
+        /**
+         * LISTENER - add the selected file to the selected item array
+         * active the preview
+         * @param  {Object} scope Angular scope
+         * @param  {Object} file  file informations
+         */
         $scope.$on('select_file', function(scope, file) {
             ExtensionFactory($scope).detection(file);
             $local.selectedItems.push(file);
             $local.previewActivated = true;
         })
 
+        /**
+         * LISTENER - hide the sharing modal when called
+         */
         $scope.$on('hide', function() {
             $local.urlSharing = null;
             $local.folderSharing = false;
         });
 
+        /**
+         * create a new folder
+         * @param  {string}   name     folder name
+         * @param  {Function} callback 
+         */
 		$local.createFolder = function(name, callback) {
             var options = {
                 owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
@@ -1909,6 +2282,10 @@ angular.module('FileManager').
             }
 		};
 
+        /**
+         * delete an item from the current directory
+         * @param  {string} name 
+         */
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
 
@@ -1929,6 +2306,9 @@ angular.module('FileManager').
 
 		}
 
+        /**
+         * rename an item
+         */
         $local.rename = function() {
 
             if($local.currentPath == '/Shared/') {
@@ -1947,6 +2327,9 @@ angular.module('FileManager').
             !canceled && $scope.$broadcast('rename_item');
         }
 
+        /**
+         * download an item
+         */
 		$local.download = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
                 $local.selectedItems[0].download();
@@ -1954,11 +2337,17 @@ angular.module('FileManager').
                 $scope.$broadcast('start_post_download');
         };
 
+        /**
+         * refresh the current directory
+         */
         $local.refresh = function() {
             ItemFactory($scope, {local: $local}).load( $local.pathItems.length>1 ? $local.pathItems.pop().item : null );
             $local.preview(false);
         };
 
+        /**
+         * copy the selected items
+         */
         $local.copy = function() {
             if($local.selectedItems.length >= 1) {
                 $local.itemsToCopy.slice(0);
@@ -1971,6 +2360,9 @@ angular.module('FileManager').
             }
         };
 
+        /**
+         * paste the copied item
+         */
         $local.paste = function() {
 
             if($local.currentPath == '/Shared/') {
@@ -2004,7 +2396,10 @@ angular.module('FileManager').
             }
         };
 
-
+        /**
+         * active the preview item
+         * @param  {Boolean} force force the preview activation
+         */
         $local.preview = function(force) {
             $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
 
@@ -2031,14 +2426,26 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * delete an item from the items array
+         * @param  {integer} itemId item id
+         */
         $local.deleteItem = function(itemId) {
             $local.items.splice(itemId, 1);
         }
 
+        /**
+         * disable the preview
+         */
         $local.cancelPreview = function() {
             $local.previewActivated = false;
         }
 
+        /**
+         * share an item
+         * case file: create a public link
+         * case folder: share to the selected users the selected folder
+         */
         $local.shareItem = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
@@ -2056,6 +2463,9 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * unshare a public file
+         */
         $local.unshareFile = function() {
             if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
                 ItemFactory($scope, {local: $local}).unshareFile($local.selectedItems[0], function(error, information) {
@@ -2070,6 +2480,12 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - rename callback
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         * @param  {Boolean} like
+         */
         $local.renameVocal = function(oldName, newName, like) {
             if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
                 var item = null
@@ -2088,6 +2504,11 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - download callback
+         * @param  {string} name 
+         * @param  {Boolean} like 
+         */
         $local.downloadVocal = function(name, like) {
             var found = false;
             for(var i = 0; i < $local.items.length; i++)
@@ -2105,95 +2526,200 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * VOCAL - set the open folder like method
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder_like', function(name) {
             $scope.$broadcast('open_folder', name, true);
         });
 
+        /**
+         * VOCAL - set the open folder method 
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder', function(name) {
             $scope.$broadcast('open_folder', name);
         });
+
+        /**
+         * VOCAL - set an alternative open folder method
+         * @param  {string} name 
+         */
         AnnyangService.set('open_folder_alternative', function(name) {
             $scope.$broadcast('open_folder', name);
         });
 
+        /**
+         * VOCAL - set the open parent folder method
+         */
         AnnyangService.set('open_parent_folder', function() {
             $scope.$broadcast('open_parent_folder');
         });
+
+        /**
+         * VOCAL - set an alternative of the open parent folder method
+         */
         AnnyangService.set('open_parent_folder_alternative', function() {
             $scope.$broadcast('open_parent_folder');
         });
 
+        /**
+         * VOCAL - set the download file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('download_file_like', function(name) {
             $local.downloadVocal(name, true, true);
         });
+
+        /**
+         * VOCAL - set the download file method
+         * @param  {string} name 
+         */
         AnnyangService.set('download_file', function(name) {
             $local.downloadVocal(name, true);
         });
 
-
+        /**
+         * VOCAL - set the preview item like method
+         * @param  {string} name 
+         */
         AnnyangService.set('preview_item_like', function(name) {
             $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the preview item method
+         * @param  {string} name 
+         */
         AnnyangService.set('preview_item', function(name) {
             $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
         });
 
-
+        /**
+         * VOCAL - set the select file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_file_like', function(name) {
              $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the select all method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_all', function(name) {
              $scope.$broadcast('select', function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the select file method
+         * @param  {string} name 
+         */
         AnnyangService.set('select_file', function(name) {
              $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the unselect file like method
+         * @param  {string} name 
+         */
         AnnyangService.set('unselect_file_like', function(name) {
              $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the unselect all method
+         */
         AnnyangService.set('unselect_all', function() {
             $scope.$broadcast('unselect', function() { $scope.$apply(); });
         });
+
+        /**
+         * VOCAL - set the unselect file method
+         * @param  {string} name 
+         */
         AnnyangService.set('unselect_file', function(name) {
              $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the create folder method
+         * @param  {string} name 
+         */
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
         });
 
+        /**
+         * VOCAL - set the delete item method
+         * @param  {string} name 
+         */
         AnnyangService.set('delete_item', function(name) {
             $local.delete(name);
         });
 
-
+        /**
+         * VOCAL - set the rename item like mthod
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('rename_item_like', function(oldName, newName) {
             $local.renameVocal(oldName, newName, true);
         });
+
+        /**
+         * VOCAL - set the rename method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('rename_item', function(oldName, newName) {
             $local.renameVocal(oldName, newName);
         });
 
+        /**
+         * VOCAL - set the copy method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('copy', function(oldName, newName) {
             $local.copy();
             $local.selectedItems = [];
             $scope.$apply();
         });
+
+        /**
+         * VOCAL - set the paste method
+         * @param  {string} oldName 
+         * @param  {string} newName 
+         */
         AnnyangService.set('paste', function(oldName, newName) {
             $local.paste();
         });
 
+        /**
+         * VOCAL - set the refresh method
+         * @param  {string} name 
+         */
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
         });
 
+        /**
+         * VOCAL - set the harlem shake full method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_full', function(name) {
             HarlemService.doFull();
             setTimeout(function(){
                 HarlemService.stop();
             }, 15000);
         });
+
+        /**
+         * VOCAL - set an alternative of the harlem shake full method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_full_alternative', function(name) {
             HarlemService.doFull();
             setTimeout(function(){
@@ -2201,9 +2727,18 @@ angular.module('FileManager').
             }, 15000);
         });
 
+        /**
+         * VOCAL - set the harlem shake first method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_first', function(name) {
             HarlemService.doFirst();
         });
+
+        /**
+         * VOCAL - sert an alternative of the harlem shake first method
+         * @param  {string} name 
+         */
         AnnyangService.set('harlem_shake_first_alternative', function(name) {
             HarlemService.doFirst();
         });
@@ -2224,6 +2759,9 @@ angular.module('FileManager').
             });
         }
 
+        /**
+         * LISTENER - get information of the selected item in order to display them in the preview view
+         */
         $scope.$watch('FileManager.selectedItems', function() {
             if($scope.FileManager.selectedItems.length > 0 && $scope.FileManager.selectedItems[0].category == 'text') {
                 $local.resourceContent = '';
@@ -2231,6 +2769,10 @@ angular.module('FileManager').
             }
         });
 
+        /**
+         * generate the resource url
+         * @return {string} url
+         */
         $local.getResourceUrl = function() {
 
             var url = "";
@@ -2250,6 +2792,9 @@ angular.module('FileManager').
             return url;
         };
 
+        /**
+         * get the informations item thanks to the resource url
+         */
         $local.getResourceContent = function() {
             var url = $local.getResourceUrl();
             if(url && url.length > 0)
@@ -2268,6 +2813,9 @@ angular.module('FileManager').
         $local.email = "";
         $local.shared = false;
 
+        /**
+         * LISTENER - hide the sharing modal
+         */
         $scope.$on('hide', function() {
             if(!$local.shared && $scope.FileManager.selectedItems[0]) {
                 $scope.FileManager.selectedItems[0].usersToRemove = [];
@@ -2276,6 +2824,10 @@ angular.module('FileManager').
             }
         });
 
+        /**
+         * add a user to the sharing list
+         * @param {Object} event Event
+         */
         $local.addUser = function(event) {
             if((!event || event.keyCode == 13) && ($local.email !== undefined && $local.email !== '')) {
                 var present = false;
@@ -2302,6 +2854,9 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * update the sharing of the selected item
+         */
         $local.share = function() {
             if($scope.FileManager.selectedItems[0]) {
                 var path = $scope.FileManager.selectedItems[0]._id + '/'
@@ -2354,6 +2909,10 @@ angular.module('FileManager').
             }
         }
 
+        /**
+         * remove a user from the current sharing item
+         * @param  {Object} user User
+         */
         $local.remove = function(user) {
             $scope.FileManager.selectedItems[0].usersToRemove.push(user);
             var index = $scope.FileManager.selectedItems[0].usersActualSharing.indexOf(user);
@@ -2380,6 +2939,11 @@ angular.module('FileManager').
 				self.files = {};
 				self.path;
 
+				/**
+				 * no operation function
+				 * similar to angular.noop
+				 * @param  {Object} event Event
+				 */
 				self.noop = function(event) {
 					event.preventDefault();
 					event.stopPropagation();
@@ -2399,15 +2963,21 @@ angular.module('FileManager').
 				$node.on('dragleave', self.noop);
 				$node.on('dragover', self.noop);
 
+				/**
+				 * LISTENER - store the dragged item in order to use it later
+				 * @param  {Object} event
+				 */
 				$node.on('dragstart', function(event) {
 					$scope.FileManager.draggedItem = null;
 					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')// && $scope._item.item._id.substring(1) != '/Shared')
 						$scope.FileManager.draggedItem = $scope._item.item;
 				});
 
+				/**
+				 * LISTENER - start the upload or move of the dragged item
+				 * @param  {Object} event
+				 */
 				$node.on('drop', function(event){
-
-
 					event.originalEvent.preventDefault();
 
 					var source = $scope.FileManager.draggedItem
@@ -2428,6 +2998,8 @@ angular.module('FileManager').
 					&& target.getFullPath() != source.getFullPath()
 					&& target.toString('Folder')
 					&& target._id != '.') {
+						$scope.FileManager.selectedItems = [];
+						$scope.FileManager.preview(false);
 						ItemFactory($scope, {local: $scope.FileManager}).move(source, target);
 						if(target._id != '. .')
 							target.size += parseInt(source.size, 10);
@@ -2443,6 +3015,10 @@ angular.module('FileManager').
 
 				});
 
+				/**
+				 * init a new upload
+				 * @param  {Object} file
+				 */
 				function init(file) {
 					var id = Math.random().toString().replace('0.', '');
 
@@ -2499,11 +3075,23 @@ angular.module('FileManager').
 				$local.oldName = "";
 				$local.selected = false;
 
+				/**
+				 * LISTENER - unselect the current item
+				 * @param  {Object}   scope    Angular scope
+				 * @param  {Function} callback 
+				 */
 				$scope.$on('unselect', function(scope, callback) {
 					$local.selected = false;
 					callback && callback.call(this);
 				})
 
+				/**
+				 * LISTENER - VOCAL - start the preview item 
+				 * @param  {Object}   scope    Angular scope
+				 * @param  {string}   name     
+				 * @param  {Boolean}   like     
+				 * @param  {Function} callback 
+				 */
 				$scope.$on('preview_item', function(scope, name, like, callback) {
 					if(name && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
 						$local.preview({ctrlKey : false});
@@ -2511,15 +3099,30 @@ angular.module('FileManager').
 					callback && callback.call(this);
 				})
 
+				/**
+				 * LISTENER - rename the current item
+				 */
 				$scope.$on('rename_item', function() {
 					$local.rename();
 				})
 
+				/**
+				 * LISTENER - select the current item
+				 * @param  {Object}   scope    Angular scope
+				 * @param  {Function} callback 
+				 */
 				$scope.$on('select', function(scope, callback) {
 					$local.select({ctrlKey : true});
 					callback && callback.call(this);
 				})
 
+				/**
+				 * LISTENER - VOCAL - select the current item
+				 * @param  {Object}   scope    Angular scope
+				 * @param  {string}   name     
+				 * @param  {Boolean}   like     
+				 * @param  {Function} callback 
+				 */
 				$scope.$on('select_item', function(scope, name, like, callback) {
 					if(name && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
 						$local.select({ctrlKey : true});
@@ -2527,6 +3130,13 @@ angular.module('FileManager').
 					callback && callback.call(this);
 				})
 
+				/**
+				 * LISTENER - unselect the current item
+				 * @param  {Object}   scope    Angular scope
+				 * @param  {string}   name     
+				 * @param  {boolean}   like     
+				 * @param  {Function} callback 
+				 */
 				$scope.$on('unselect_item', function(scope, name, like, callback) {
 					if(name && $local.selected && ((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.item.name)).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
 						$local.select({ctrlKey : true});
@@ -2534,20 +3144,38 @@ angular.module('FileManager').
 					callback && callback.call(this);
 				})
 
+				/**
+				 * LISTENER - cancel the edit mode
+				 */
 				$scope.$on('cancel_edit', function() {
 					$local.cancelEdit();
 				})
 
+				/**
+				 * LISTENER - open the selected folder
+				 * @param  {Object} scope Angular scope
+				 * @param  {string} name  
+				 * @param  {boolean} like  
+				 */
 				$scope.$on('open_folder', function(scope, name, like) {
 					if(name && ((!like && AnnyangFormatService.baseFormat($local.item.name) == AnnyangFormatService.baseFormat(name)) || (like && AnnyangFormatService.baseFormat($local.item.name).indexOf(AnnyangFormatService.baseFormat(name)) > -1)))
 						$local.open();
 				});
 
+				/**
+				 * LISTENER - open the selected parent folder
+				 * @param  {Object} scope Angular scope
+				 * @param  {string} name  
+				 * @param  {boolean} like  
+				 */
 				$scope.$on('open_parent_folder', function() {
 					if($local.item._id == '. .')
 						$local.open();
 				});
 
+				/**
+				 * open the current item
+				 */
 				$local.open = function() {
 					if($local.item.category != 'folder')
 						$local.download()
@@ -2558,6 +3186,9 @@ angular.module('FileManager').
 					}
 				};
 
+				/**
+				 * rename the current item
+				 */
 				$local.rename = function() {
 					if($local.selected) {
 						$scope.FileManager.cancelPreview();
@@ -2566,6 +3197,9 @@ angular.module('FileManager').
 					}
 				};
 
+				/**
+				 * cancel the edit mode
+				 */
 				$local.cancelEdit = function() {
 					$local.item.editMode = false;
 					$local.item.name = $local.oldName;
@@ -2574,6 +3208,10 @@ angular.module('FileManager').
 						ItemFactory($scope, {local: $scope.FileManager}).clean(-1);
 				};
 
+				/**
+				 * check the name validity before update or create folder
+				 * @param  {Object} event Event
+				 */
 				$local.validEdit = function(event) {
 					var keyCode = event ? event.keyCode : -1;
 					if(keyCode == 13 || keyCode == -1) {
@@ -2597,6 +3235,10 @@ angular.module('FileManager').
 					}
 				};
 
+				/**
+				 * select the current event
+				 * @param  {Object} $event Angular event
+				 */
 				$local.select = function($event) {
 					if($local.item.unselectable === true)
 						return true;
@@ -2619,12 +3261,20 @@ angular.module('FileManager').
 							}
 				};
 
+				/**
+				 * start the preview of the current item
+				 * @param  {Object} $event Angular event
+				 */
 				$local.preview = function($event) {
 					$local.select($event);
 					if(!$local.item.editMode)
 						$scope.FileManager.preview();
 				};
 
+				/**
+				 * download the current item
+				 * @param  {string} name 
+				 */
 				$local.download = function(name) {
 					$local.item.download();
 				};
@@ -2655,6 +3305,9 @@ angular.module('FileManager').
 				self.fileReaders = {};
 				self.files = {};
 
+				/**
+				 * select a file in order to upload it later
+				 */
 				$local.selectFile = function() {
 					self.$template.click();
 				}
@@ -2671,6 +3324,10 @@ angular.module('FileManager').
 
 				self.$template = $node.parent().find('[type=file]');
 
+				/**
+				 * load the selected file
+				 * @param  {Event} event 
+				 */
 				self.$template[0].addEventListener('change', function(event){
 					var id = (Math.random() + '').replace('0.', '');
 					self.path = $scope.FileManager.currentPath;
@@ -2707,6 +3364,9 @@ angular.module('FileManager').
 						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
 					}
 
+					/**
+					 * LISTENER - init the current upload
+					 */
 					socket.emit('upload_init', {
 						id: id,
 						owner: $scope.FileManager.folderOwner,
@@ -2736,6 +3396,10 @@ angular.module('FileManager').
                 if(!attributes.highlight)
                     throw 'An highlight resource must be defined';
 
+                /**
+                 * LISTENER - called when the highlight method is updated
+                 * @param  {Object} data 
+                 */
                 $scope.$watch(attributes.highlight, function(data) {
                     var pre = angular.element('<pre>');
                     if(typeof data == 'object')
@@ -2761,6 +3425,9 @@ angular.module('FileManager').
 				$local.url = apiUrl + 'download/' +UserFactory($scope).get().id+ '/?token=' + UserFactory($scope).get().token;
 				$local.target = iOS || android ? '_blank' : 'downloadFrame';
 
+				/**
+				 * LISTENER - start the downloads
+				 */
 				$scope.$on('start_post_download', function() {
 					$local.download();
 				})
@@ -2778,6 +3445,9 @@ angular.module('FileManager').
 				var $local = $scope._formPostDownloader
 				,	template = '<iframe name="downloadFrame" id="downloadIFrame" style="display: none;" src="" />';
 
+				/**
+				 * download items thanks to the form post download
+				 */
 				$local.download = function() {
 					angular.element('#downloadIFrame').remove();
 					angular.element('body').append(template);
@@ -2789,6 +3459,11 @@ angular.module('FileManager').
 	controller('NavigationController', ['$scope', '$window', '$location', 'UserFactory', '$document', function($scope, $window, $location, UserFactory, $document){
 		var $local = $scope.Navigation = {};
 
+		/**
+		 * navigate to the selected path
+		 * @param  {string} path      
+		 * @param  {Object} container node
+		 */
 		$local.goto = function(path, container) {
 			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().token : "";
 			var pathView = path.slice(0, path.indexOf("#"));
@@ -2819,12 +3494,18 @@ angular.module('FileManager').
 			return $location.$$path == anchor && $window.location.pathname == pathname;
 		}
 
+		/**
+		 * scroll to the anchor
+		 * @param  {Object} $node      angular node
+		 * @param  {node} $container angular node
+		 */
 		$local.scrollTo = function($node, $container) {
 			$container = $container || $document
 			$container.scrollToElement($node, 0, 1000).then(function() {
 				console && console.log('You just scrolled to the top!');
 			});
 		}
+
 
 		$local.isOnShared = function() {
 			return ($location.$$absUrl.indexOf("/shared/") > -1);
@@ -2846,8 +3527,14 @@ angular.module('FileManager').
 
 		$local.activated = false;
 
+		/**
+		 * LISTENER - active the overlay
+		 */
 		$scope.$on('enable_overlay', function() { $local.activated = true; });
 
+		/**
+		 * disabled the overlay and all the modals
+		 */
 		$local.clickout = function() {
 			$local.activated = false;
 			$scope.$broadcast('hide');
@@ -2908,6 +3595,12 @@ angular.module('FileManager').
             }, 1500);
         });
 
+        /**
+         * Annyang managment
+         * start if stopped 
+         * stop if started
+         * @return {[type]} [description]
+         */
         $local.startStop = function() {
             if($local.started)
                 AnnyangService.stop();
@@ -3088,15 +3781,29 @@ angular.module('FileManager').
         var commands = {}
         ,   prototype = {};
 
+        /**
+         * add a new callback to the annyang command
+         * @param {string}   type     method
+         * @param {Function} callback 
+         * @param {string}   context  annyang context
+         */
         prototype.addCallback = function(type, callback, context) {
             if(annyang)
                 annyang.addCallback(type, callback, context);
         }
 
+        /**
+         * set a specific command and add to it a new callback
+         * @param {string}   commandName command
+         * @param {Function} callback    
+         */
         prototype.set = function(commandName, callback) {
             commands[ConfigFactory[commandName]] = callback;
         };
 
+        /**
+         * submit all commands
+         */
         prototype.submitCommands = function() {
             if(annyang) {
                 annyang.removeAll();
@@ -3105,12 +3812,18 @@ angular.module('FileManager').
             }
         };
 
+        /**
+         * start annyang service
+         */
         prototype.start = function() {
             prototype.submitCommands();
             if(annyang)
                 annyang.start();
         };
 
+        /**
+         * stop annyang service
+         */
         prototype.stop = function() {
             if(annyang)
                 annyang.abort();
@@ -3126,12 +3839,21 @@ angular.module('FileManager').
             return string.toLowerCase();
         };
 
-        prototype.purals = function(string) {
+
+        /**
+         * remove the last char of the string when it's a "s"
+         * @param  {string} string string
+         */
+        prototype.plurals = function(string) {
         	if(string.slice(-1) == 's')
         		string = string.slice(0, -1);
-        	return string;        }
+        	return string;
+        }
 
-
+        /**
+         * remove all accent in a string
+         * @param  {string} string string
+         */
         prototype.accents = function(string) {
             return prototype.base(string)
             .replace(/\s/g,'')
@@ -3147,6 +3869,10 @@ angular.module('FileManager').
             .replace(/[ýÿ]/g,'y');
         }
 
+        /**
+         * remove all special character from a string
+         * @param  {string} string string
+         */
         prototype.specialChars = function(string) {
             return prototype.base(string)
             .replace(/-/g,'')
@@ -3155,6 +3881,10 @@ angular.module('FileManager').
             .replace(/"/g,'');
         }
 
+        /**
+         * remove the extension of the string
+         * @param  {string} string string
+         */
         prototype.removeExtension = function(string) {
 
             var itemName = string.split(".");
@@ -3164,12 +3894,12 @@ angular.module('FileManager').
             return nameOnly = itemName.join('.');
         }
 
+        /**
+         * call all formatting method
+         * @param  {string} string string
+         */
         prototype.baseFormat = function(string) {
-            return prototype.specialChars(prototype.accents(prototype.purals(prototype.base(string))));
-        }
-
-        prototype.email = function(string) {
-
+            return prototype.specialChars(prototype.accents(prototype.plurals(prototype.base(string))));
         }
 
         return prototype;

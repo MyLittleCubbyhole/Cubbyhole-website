@@ -10,6 +10,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             var prototype = {}
             ,   $local = context.local || {}
 
+            /**
+             * get the current active plan from the database
+             * @param  {Function} callback 
+             */
             prototype.getActualPlan = function(callback) {
                 restangular.one('users').one(UserFactory($scope).get().id + '/plan').get().then(function(plan) {
                     var planToReturn = null;
@@ -36,6 +40,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 }, function(error) { callback.call(this, 'no current plan', null); console.error(error); });
             };
 
+            /**
+             * get all plan from database
+             * @param  {Function} callback 
+             */
             prototype.getAllPlans = function(callback) {
                 restangular.one('plans').getList().then(function(plans) {
                     var plansToReturn = [];
@@ -60,6 +68,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
             };
 
+            /**
+             * create a new plan in database
+             * @param  {Object} plan Plan
+             */
             prototype.create = function(plan) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -76,6 +88,11 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 });
             }
 
+            /**
+             * update the current plan
+             * @param  {Object}   plan     Plan
+             * @param  {Function} callback 
+             */
             prototype.edit = function(plan, callback) {
 
                 plan.uploadBandwidth = parseInt(plan.uploadBandwidth, 10);
@@ -90,6 +107,11 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 });
             }
 
+            /**
+             * remove the plan
+             * @param  {integer}   id       plan id
+             * @param  {Function} callback 
+             */
             prototype.delete = function(id, callback) {
                 $http.delete(apiUrl + 'plans/'+id).
                 success(function(data, status, headers, config) {
@@ -98,6 +120,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 error(function(data, status, headers, config) {});
             }
 
+            /**
+             * get all plan images
+             * @param  {Function} callback 
+             */
             prototype.getAllimages = function(callback) {
                 $http.get(apiUrl + 'plans/images').
                 success(function(data, status, headers, config) {
@@ -117,6 +143,7 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
     }]);;angular.module('Administration', ['ngRoute', 'Tools', 'CubbyHome', 'Grumpy-ui']);;angular.module('Administration').
 	config(['apiUrl', 'RestangularProvider','$locationProvider', '$routeProvider', '$httpProvider', function(apiUrl, restangular, $location, $routeProvider, $httpProvider) {
 
+        //angular navigation
         restangular.setBaseUrl(apiUrl);
         $routeProvider
         .when('/users', {
@@ -136,6 +163,10 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
 	controller('AdministrationController', ['$scope', '$location', function($scope, $location){
 		var $local = $scope.Administration = {};
 
+		/**
+		 * navigate to the targeted path
+		 * @param  {string} target path
+		 */
 		$local.goto = function(target) {
 			$location.path('/' + target);
 			console.log(target)
@@ -160,11 +191,15 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             if(!error)
             for(var i in images)
                 $local.planImages.push({
-                    style:{'background-image': 'url(' +  images[i].url + ')'},
+                    style:{'background-image': 'url("' +  images[i].url + '")'},
                     name: images[i].name
                 });
         })
 
+        /**
+         * select a plan
+         * @param  {Object} plan Plan
+         */
         $local.selectPlan = function(plan) {
             plan.selected = true;
             $local.selectedPlan = {
@@ -172,7 +207,7 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                 price: plan.price,
                 name: plan.name,
                 photoUrl: plan.photoUrl,
-                style: {'background-image': 'url(' +  plan.photoUrl + ')'},
+                style: {'background-image': 'url("' +  plan.photoUrl + '")'},
                 description: plan.description,
                 storage: plan.storage,
                 photo: plan.photo,
@@ -183,6 +218,9 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             };
         }
 
+        /**
+         * unselect a plan
+         */
         $local.unselect = function() {
             $local.selectedPlan = {};
             for(var i = 0; i < $local.plans.length; i++) {
@@ -192,14 +230,23 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             }
         }
 
+        /**
+         * create a new plan
+         */
         $local.createPlan = function() {
             $local.unselect();
+            var photoName = ''
+            ,   photoUrl = '';
+            if($local.planImages[0]) {
+                photoName = $local.planImages[0].name;
+                photoUrl = $local.planImages[0].photoUrl;
+            }
             $local.selectedPlan = {
                 id: Math.round(Math.random()*1000000),
                 price: 0,
                 name: 'NEW',
-                photo: $local.planImages[0].name,
-                photoUrl: $local.planImages[0].photoUrl,
+                photo: photoName,
+                photoUrl: photoUrl,
                 description: 'DESCRIPTION',
                 storage: 0,
                 duration: 1,
@@ -210,6 +257,11 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
             };
         }
 
+        /**
+         * delete a plan
+         * @param  {Object} $event Angular event
+         * @param  {integer} index  index
+         */
         $local.delete = function($event, index) {
             $event.stopPropagation();
             $event.preventDefault();
@@ -218,9 +270,12 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
                     $local.plans = plans;
                 });
             });
-            // $local.plans.splice(index, 1)
         }
 
+        /**
+         * create or update the current plan in database
+         * @param  {Boolean} isValid form validity
+         */
         $local.save = function(isValid) {
             if(isValid)
                 if($local.selectedPlan.new)
@@ -250,6 +305,9 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
 			admin: false
 		}
 
+		/**
+		 * apply filter and searh in the database
+		 */
 		$local.apply = function() {
 			$timeout.cancel(timer);
 
@@ -264,7 +322,23 @@ angular.module('CubbyHome', ['Authentication', 'restangular']);;angular.module('
 				UserFactory($scope).all(init, options);
 			}, 200);
 		}
+		
+		/**
+		 * update role of an user
+		 * @param  {Object} user User
+		 */
+		$local.applyRole = function(user) {
+			if(user.roleid == 2)
+				UserFactory($scope).promote(user);
+			else
+				UserFactory($scope).demote(user);
+		}
 
+		/**
+		 * initialize the user list
+		 * @param  {Function} error	callback
+		 * @param  {Function} data  callback
+		 */
 		function init(error, data) {
 			if(!error)
 				$local.users = data;
