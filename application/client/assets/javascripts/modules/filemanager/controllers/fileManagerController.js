@@ -124,7 +124,7 @@ angular.module('FileManager').
                         _id: data.fullPath,
                         name: data.name,
                         owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
-                        ownerId: parseInt(data.owner,10),
+                        ownerId: parseInt(data.ownerId,10),
                         creator: data.creatorName,
                         size : data.size,
                         type: 'file',
