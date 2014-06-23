@@ -27,8 +27,8 @@ angular.module('FileManager').
 
         /**
          * call the alert method in order to create an info alert
-         * @param {string} title    
-         * @param {string} subtitle 
+         * @param {string} title
+         * @param {string} subtitle
          */
         $local.addInfo = function(title, subtitle) {
             $local.alert({
@@ -40,8 +40,8 @@ angular.module('FileManager').
 
         /**
          * call the alert method in order to create an error alert
-         * @param {string} title    
-         * @param {string} subtitle 
+         * @param {string} title
+         * @param {string} subtitle
          */
         $local.addError = function(title, subtitle) {
             $local.alert({
@@ -168,7 +168,7 @@ angular.module('FileManager').
         })
 
         /**
-         * LISTENER - create an alert when someont copy/paste an item 
+         * LISTENER - create an alert when someont copy/paste an item
          * remove the source and create the item into the new position
          * @param  {Object} data item information
          */
@@ -239,7 +239,7 @@ angular.module('FileManager').
         /**
          * create a new folder
          * @param  {string}   name     folder name
-         * @param  {Function} callback 
+         * @param  {Function} callback
          */
 		$local.createFolder = function(name, callback) {
             var options = {
@@ -272,7 +272,7 @@ angular.module('FileManager').
 
         /**
          * delete an item from the current directory
-         * @param  {string} name 
+         * @param  {string} name
          */
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
@@ -470,8 +470,8 @@ angular.module('FileManager').
 
         /**
          * VOCAL - rename callback
-         * @param  {string} oldName 
-         * @param  {string} newName 
+         * @param  {string} oldName
+         * @param  {string} newName
          * @param  {Boolean} like
          */
         $local.renameVocal = function(oldName, newName, like) {
@@ -486,16 +486,17 @@ angular.module('FileManager').
                 if(item) {
                     var extension = (/(?:\.([^.]+))?$/).exec(item.name)[1];
                     extension = extension || '';
-                    ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), newName + '.' + extension);
-                    item.name = newName + '.' + extension;
+                    var name = extension == '' ? newName : newName + '.' + extension;
+                    ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), name);
+                    item.name = name;
                 }
             }
         }
 
         /**
          * VOCAL - download callback
-         * @param  {string} name 
-         * @param  {Boolean} like 
+         * @param  {string} name
+         * @param  {Boolean} like
          */
         $local.downloadVocal = function(name, like) {
             var found = false;
@@ -516,15 +517,15 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the open folder like method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('open_folder_like', function(name) {
             $scope.$broadcast('open_folder', name, true);
         });
 
         /**
-         * VOCAL - set the open folder method 
-         * @param  {string} name 
+         * VOCAL - set the open folder method
+         * @param  {string} name
          */
         AnnyangService.set('open_folder', function(name) {
             $scope.$broadcast('open_folder', name);
@@ -532,7 +533,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set an alternative open folder method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('open_folder_alternative', function(name) {
             $scope.$broadcast('open_folder', name);
@@ -554,7 +555,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the download file like method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('download_file_like', function(name) {
             $local.downloadVocal(name, true, true);
@@ -562,7 +563,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the download file method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('download_file', function(name) {
             $local.downloadVocal(name, true);
@@ -570,7 +571,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the preview item like method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('preview_item_like', function(name) {
             $scope.$broadcast('preview_item', name, true, function() { $scope.$apply(); });
@@ -578,7 +579,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the preview item method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('preview_item', function(name) {
             $scope.$broadcast('preview_item', name, false, function() { $scope.$apply(); });
@@ -586,7 +587,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the select file like method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('select_file_like', function(name) {
              $scope.$broadcast('select_item', name, true, function() { $scope.$apply(); });
@@ -594,7 +595,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the select all method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('select_all', function(name) {
              $scope.$broadcast('select', function() { $scope.$apply(); });
@@ -602,7 +603,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the select file method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('select_file', function(name) {
              $scope.$broadcast('select_item', name, false, function() { $scope.$apply(); });
@@ -610,7 +611,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the unselect file like method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('unselect_file_like', function(name) {
              $scope.$broadcast('unselect_item', name, true, function() { $scope.$apply(); });
@@ -625,7 +626,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the unselect file method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('unselect_file', function(name) {
              $scope.$broadcast('unselect_item', name, false, function() { $scope.$apply(); });
@@ -633,7 +634,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the create folder method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('create_folder', function(name) {
             $local.createFolder(name, function() { $scope.$apply(); });
@@ -641,7 +642,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the delete item method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('delete_item', function(name) {
             $local.delete(name);
@@ -649,8 +650,8 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the rename item like mthod
-         * @param  {string} oldName 
-         * @param  {string} newName 
+         * @param  {string} oldName
+         * @param  {string} newName
          */
         AnnyangService.set('rename_item_like', function(oldName, newName) {
             $local.renameVocal(oldName, newName, true);
@@ -658,8 +659,8 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the rename method
-         * @param  {string} oldName 
-         * @param  {string} newName 
+         * @param  {string} oldName
+         * @param  {string} newName
          */
         AnnyangService.set('rename_item', function(oldName, newName) {
             $local.renameVocal(oldName, newName);
@@ -667,8 +668,8 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the copy method
-         * @param  {string} oldName 
-         * @param  {string} newName 
+         * @param  {string} oldName
+         * @param  {string} newName
          */
         AnnyangService.set('copy', function(oldName, newName) {
             $local.copy();
@@ -678,8 +679,8 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the paste method
-         * @param  {string} oldName 
-         * @param  {string} newName 
+         * @param  {string} oldName
+         * @param  {string} newName
          */
         AnnyangService.set('paste', function(oldName, newName) {
             $local.paste();
@@ -687,7 +688,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the refresh method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('refresh', function(name) {
             $local.refresh();
@@ -695,7 +696,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the harlem shake full method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('harlem_shake_full', function(name) {
             HarlemService.doFull();
@@ -706,7 +707,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set an alternative of the harlem shake full method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('harlem_shake_full_alternative', function(name) {
             HarlemService.doFull();
@@ -717,7 +718,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - set the harlem shake first method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('harlem_shake_first', function(name) {
             HarlemService.doFirst();
@@ -725,7 +726,7 @@ angular.module('FileManager').
 
         /**
          * VOCAL - sert an alternative of the harlem shake first method
-         * @param  {string} name 
+         * @param  {string} name
          */
         AnnyangService.set('harlem_shake_first_alternative', function(name) {
             HarlemService.doFirst();
