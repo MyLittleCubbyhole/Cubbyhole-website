@@ -43,6 +43,6 @@ var config = require(global.paths.server + '/config/core').init();
 require(global.paths.server + '/dependencies')(server, app);
 
 if (!module.parent)
-    server.listen(config['node_config'].port, function () {
+    server.listen(config['node_config'].port, '127.0.0.1', function () {
         console.log('WebApp server listening on port %d in %s mode - [%s]', this.address().port, app.settings.env, environment);
     });
