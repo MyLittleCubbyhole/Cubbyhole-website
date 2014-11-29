@@ -1,0 +1,288 @@
+section#manager ::selection {
+    background-color: transparent;
+}
+section#manager {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: default;
+}
+section#manager-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+section.manager-bloc {
+    height: 100%;
+    padding-bottom: 30px;
+    float: left;
+    -webkit-transition: .2s all linear;
+    -moz-transition: .2s all linear;
+    -ms-transition: .2s all linear;
+    -o-transition: .2s all linear;
+    transition: .2s all linear;
+}
+section.manager-bloc:first-child {
+    width: 100%;
+}
+section.manager-bloc:last-child {
+    background-color: #1A1A1A;
+    width: 0%;
+}
+#manager article.manager-bloc-container {
+    padding-top: 5px;
+    width: 100%;
+    height: 100%;
+    padding-left: 30px;
+    padding-bottom: 100px;
+    padding-right: 0;
+}
+#manager article.manager-bloc-container.preview-container {
+    padding-right: 30px;
+}
+#manager section.manager-bloc:last-child article.manager-bloc-container {
+    padding-top: 20px;
+}
+.preview-container {
+    background-color: #f5f5f5;
+}
+section#list-file-container {
+    height: 100%;
+    width: 100%;
+    /*overflow-x: auto;*/
+}
+#manager table.listing {
+    width: 100%;
+    text-align: left;
+}
+#manager thead {
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+#manager  td.item-label {
+    width: 41px;
+    position: relative;
+    vertical-align: top;
+}
+#manager tr.item {
+    color: #808080;
+    background-color: white;
+    height: 40px;
+    font-size: 1.3em;
+    line-height: 40px;
+    border-bottom: 1px solid #e3e3e3;
+    position: relative;
+    -webkit-transition: .08s all linear;
+    -moz-transition: .08s all linear;
+    -ms-transition: .08s all linear;
+    -o-transition: .08s all linear;
+    transition: .08s all linear;
+}
+
+#manager tr.item.selected {
+    background-color: #F1F1F1;
+}
+#manager tr.item:hover {
+    background-color: #f5f5f5;
+}
+
+#manager th.checkbox, #manager td.checkbox {
+    height: 40px;
+    line-height: 40px;
+}
+#manager tr.list-head {
+    height: 40px;
+}
+#manager .list-header {
+    font-size: 18px;
+}
+#manager .list-header th {
+    padding-bottom: 5px;
+    cursor: pointer;
+    -webkit-transition: .08s all linear;
+    -moz-transition: .08s all linear;
+    -ms-transition: .08s all linear;
+    -o-transition: .08s all linear;
+    transition: .08s all linear;
+}
+#manager .list-header th:hover {
+    color: #46B5EA;
+}
+#manager section.manager-bloc:first-child {
+    height: 100%;
+}
+#manager section.manager-bloc:first-child article.manager-bloc-container {
+    padding-left: 18px;
+    background-color: white;
+}
+#manager td.item-label::before {
+    content: "";
+    background-color: #B175EF;
+    position: absolute;
+    height: 40px;
+    width: 7px;
+}
+#manager tr.special td.item-label::after {
+    border: solid transparent;
+    content: "";
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    pointer-events: none;
+    border-left-color: #e3e3e3;
+    border-width: 10px;
+    display: block;
+    margin-top: 10px;
+    margin-left: 6px;
+}
+#manager td.item-folder {
+    padding-right: 8px;
+    padding-left: 5px;
+    font-size: 1.6em;
+}
+
+
+#manager td.item-label.blue::before,
+#manager td.item-label.video::before {
+    background-color: #75c8ef;
+}
+#manager td.item-label.red::before,
+#manager td.item-label.audio::before {
+    background-color: #ff5a5a;
+}
+#manager td.item-label.violet::before {
+    background-color: #B175EF;
+}
+#manager td.item-label.orange::before,
+#manager td.item-label.image::before,
+#manager td.item-label.psd::before,
+#manager td.item-label.ai::before {
+    background-color: #ffcb2d;
+}
+#manager td.item-label.gray::before,
+#manager td.item-label.folder::before {
+    background-color: #e3e3e3;
+}
+#manager td.item-label.brown::before,
+#manager td.item-label.archive::before {
+    background-color: #C77B35;
+}
+
+#manager td.item-label.green::before,
+#manager td.item-label.text::before,
+#manager td.item-label.word::before,
+#manager td.item-label.presentation::before,
+#manager td.item-label.calculation::before,
+#manager td.item-label.pdf::before,
+#manager td.item-label.json::before {
+    background-color: #52d11a;
+}
+
+#manager td.limit-text {
+    max-width: 135px;
+}
+
+#manager td.limit-text > article {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 2000px;
+}
+
+#manager td.limit-text .edit {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+}
+
+#manager td.limit-text input {
+    height: 40px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding-right: 57px;
+}
+
+#manager td.limit-text i {
+    font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    color: #8D8D8D;
+    padding-top: 8px;
+}
+
+#manager tr.item:hover td.limit-text i {
+    color: rgb(221, 221, 221);
+}
+
+#manager tr.item.selected td.limit-text i {
+    color: rgb(221, 221, 221);
+}
+
+#manager td.limit-text i:last-of-type {
+    padding-left: 8px;
+    right: 36px;
+}
+
+#manager td.limit-text i:first-of-type {
+    padding-right: 8px;
+}
+
+#manager td.limit-text input:focus {
+    outline: none;
+}
+
+section#manager-container.preview .manager-bloc:last-child {
+    width: 30%;
+}
+section#manager-container.preview .manager-bloc:first-child {
+    width: 70%;
+    height: 100%;
+}
+section#manager-container.preview .information {
+    display: none;
+}
+
+section#manager-container .listing th.information.type {
+    width: 150px;
+}
+
+section#manager-container .listing th.information.owner {
+    width: 260px;
+}
+
+section#manager-container .listing th.information.size {
+    width: 130px;
+}
+
+section#manager-container .listing th.information.update {
+    width: 220px;
+}
+
+.mCSB_container {
+    margin-right: 0;
+}
+
+.item.inupload td.information.size:after {  
+    content: "\f0ee";
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: 7px;
+}
+
+.item.inupload td.information.size {
+    color: rgb(65, 163, 65);
+    text-shadow: 0px 0px 1px rgba(0, 128, 0, 0.53);
+}
