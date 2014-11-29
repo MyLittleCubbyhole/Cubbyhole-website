@@ -1,0 +1,25 @@
+{
+	"server": {
+		"version": "v0",
+		"port": 5150,
+		"parallelizeInitialization": true
+	},
+	"webservice": {
+		"protocol": "http:",
+		"port": 5150,
+		"host": "localhost"
+	},
+	"webservice_local": {
+		"protocol": "http:",
+		"port": 5150,
+		"host": "localhost"
+	},
+	"web": {
+		"protocol": "http:",
+		"port": 5150,
+		"host": "localhost"
+	},
+	"apidoc": {
+		"url": "/api/doc"
+	}
+}
