@@ -33,14 +33,14 @@ angular.module('Grumpy-ui').
 			+					'</section>'
 			+				'</section>'
 			+			'</section>',
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._grumpyAccordion = {};
 
 
 				$scope.toString = function() {
 					return '_grumpyAccordion';
 				}
-			},
+			}],
 			compile: function($node, attributes, transcluder) {
 				return function linking($scope, $node, attributes, self){
 					var $local = $scope._grumpyAccordion
