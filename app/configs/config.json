@@ -5,17 +5,17 @@
 		"parallelizeInitialization": true
 	},
 	"webservice": {
-		"protocol": "http:",
+		"protocol": "http",
 		"port": 5150,
 		"host": "localhost"
 	},
-	"webservice_local": {
-		"protocol": "http:",
+	"webserviceLocal": {
+		"protocol": "http",
 		"port": 5150,
 		"host": "localhost"
 	},
 	"web": {
-		"protocol": "http:",
+		"protocol": "http",
 		"port": 5150,
 		"host": "localhost"
 	},
