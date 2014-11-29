@@ -1,0 +1,23 @@
+extends ../../layouts/core
+
+block vars
+	- var module = 'CubbyHole';
+	- var controller = 'CubbyHoleController';
+
+block page_definition
+	title= "CubbyHole - File Manager"
+	meta(name="description" content="Cubbyhole - File Manager")
+
+block append content
+	section#container
+		section#container(ng-controller="FileManagerController" ng-cloak)
+			include filemanager-content
+			include modal-public-sharing
+			include modal-sharing
+
+block append javascripts
+	//-<!-- build:js /javascripts/filemanager.js -->
+	script(src="/javascripts/modules/cubbyhole/core.js")
+	script(src="/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js")
+	script(src="/javascripts/modules/cubbyhole/controllers/cubbyholeController.js")
+	//-<!-- endbuild -->

@@ -1,0 +1,23 @@
+extends ../../layouts/core
+
+block vars
+	- var module = 'Administration';
+	- var controller = 'AdministrationController';
+
+block page_definition
+	title= "CubbyHole - Administration"
+	meta(name="description" content="Cubbyhole - Administration")
+
+block append content
+	include admin-content
+
+block append javascripts
+	//-<!-- build:js /javascripts/admin.js -->
+	script(src="/javascripts/modules/cubbyhome/core.js")
+	script(src="/javascripts/modules/cubbyhome/factories/planFactory.js")
+	script(src="/javascripts/modules/administration/core.js")
+	script(src="/javascripts/modules/administration/configs/administrationConfig.js")
+	script(src="/javascripts/modules/administration/controllers/administrationController.js")
+	script(src="/javascripts/modules/administration/controllers/planAdministrationController.js")
+	script(src="/javascripts/modules/administration/controllers/userAdministrationController.js")
+	//-<!-- endbuild -->

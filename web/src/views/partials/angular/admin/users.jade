@@ -1,0 +1,30 @@
+section#user-management-container
+	section#box-white
+		section#user-management-filter-box
+			section#user-management-filter-box.form
+				section.input-search.col-xs-12.col-sm-8
+					label.input.col-xs-11
+						input(type="text", placeholder="E-MAIL", ng-change="UserAdministration.apply();", ng-model="UserAdministration.filter.search")
+
+				section.filter-box.col-xs-12.col-sm-4
+					span(ng-click="UserAdministration.filter.admin = !UserAdministration.filter.admin; UserAdministration.apply();", ng-class="{active: UserAdministration.filter.admin}") ADMIN
+					span(ng-click="UserAdministration.filter.user = !UserAdministration.filter.user; UserAdministration.apply();", ng-class="{active: UserAdministration.filter.user}") USER
+
+	section#user-management-listing(scroll-bar)
+		section#user-management-listing-content
+			section.user-management-card.animated.fadeIn(ng-repeat="user in UserAdministration.users track by $index | filter: {email: UserAdministration.filter.search, roleid: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}")
+				article.user-picture
+					article.border-circle-blue
+						article.img-circle.image-target(ng-style="{'background-image': 'url({{user.image}})'}", ng-class="{'form-file-preview': user.photo && user.photo != 'null'}")
+							i.icon-profile-male.form-file-hide
+
+				article.user-info
+					article.user-firstname.google-font {{user.firstname}}
+					article.user-lastname.google-font {{user.lastname}}
+
+				section.role
+					label.form
+						select(ng-if="UserAdministration.user.id != user.id", ng-model="user.roleid", ui-select2="{minimumResultsForSearch: -1}", ng-change="UserAdministration.applyRole(user);")
+							option(value="2") ADMINISTRATOR
+							option(value="1") USER
+						label.label-role(ng-if="UserAdministration.user.id == user.id") {{UserAdministration.user.role}}

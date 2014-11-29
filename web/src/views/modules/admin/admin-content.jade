@@ -1,0 +1,18 @@
+section#container
+	aside#vertical-toolbar(ng-controller="AdministrationController")
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="Administration.goto('users');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-user
+				article.title-option
+					| USERS
+
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="Administration.goto('plans');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-plans
+				article.title-option
+					| PLANS
+
+	section#configuration-container.administration
+		section#configuration-view(ng-view)

@@ -1,0 +1,32 @@
+section#container
+	aside#vertical-toolbar(ng-controller="AccountNavigationController")
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="AccountNavigation.goto('config');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-user
+				article.title-option
+					| Account
+
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="AccountNavigation.goto('infos');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-stats
+				article.title-option
+					| INFOS
+
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="AccountNavigation.goto('timeline');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-timeline
+				article.title-option
+					| TIMELINE
+
+		article.option-toolbar.google-font.big-font
+			article.option-toolbar.container(ng-click="AccountNavigation.goto('plans');")
+				article.icon-option-toolbar
+					span.img-icon.img-icon-plans
+				article.title-option
+					| PLANS
+
+	section#configuration-container(scroll-bar, theme="dark")
+		section#configuration-view(ng-view)

@@ -1,0 +1,34 @@
+section#modal-sharing-folder.md-modal.md-effect-1(ng-controller="SharingController", ng-class="{'md-show': FileManager.folderSharing === true}", modal)
+	section.md-content
+		article
+			section
+				section.users-container(scroll-bar)
+					section.users-share
+						article.user-share(ng-repeat="user in FileManager.selectedItems[0].usersActualSharing")
+							article.user-icon
+								article.img-circle(style="background-image: url({{user.photo}});", ng-class="{'form-file-preview': user.photo}")
+									i.icon-profile-male.form-file-hide
+
+							article.user-email
+								| {{user.email}}
+
+							article.user-right
+								select(name="select", ng-model="user.right")
+									option(value="R") Read-only
+									option(value="W") Read & Write
+
+							article.user-remove
+								i.icon-cross(ng-click="Sharing.remove(user)")
+
+				section.input-share
+					input(type="email", name="email", placeholder="E-mail", ng-model="Sharing.email", ng-keyup="Sharing.addUser($event)")
+					article.button.right.google-font(ng-click="Sharing.addUser()") +
+
+			section.buttons
+				button.button.left.red.share.google-font(ng-click="Sharing.share(); _modal.close()")
+					img(src="/images/design/share.png")
+					| SHARE
+
+				button.button.right.blue.close.google-font(ng-click="_modal.close()")
+					img(src="/images/design/icons/cancel.png")
+					| CANCEL

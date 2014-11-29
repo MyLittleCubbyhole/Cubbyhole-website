@@ -1,0 +1,101 @@
+section#user-management-container
+	section#box-white
+		section#user-management-filter-box
+			section#user-management-filter-box.form
+				section.input-search.col-xs-12.col-sm-8
+					label.input.col-xs-11
+						input(type="text", placeholder="SEARCH", ng-model="search")
+				section.filter-box.col-xs-12.col-sm-4
+					span(ng-click="PlanAdministration.createPlan()") CREATE
+
+	section#user-management-listing(scroll-bar)
+		section#user-management-listing-content
+			section.plan-container-account
+				section.plan-container-body
+					section.plan-container
+						a.animated(ng-repeat="(index, plan) in PlanAdministration.plans | filter: search", ng-show="!PlanAdministration.selectedPlan.id || (PlanAdministration.selectedPlan.id && plan.selected)", ng-class="{fadeIn: !PlanAdministration.selectedPlan.id, bounceOutRight: (PlanAdministration.selectedPlan.id && !plan.selected), bounceInLeft: (PlanAdministration.selectedPlan.id && plan.selected), 'plan-selected': (PlanAdministration.selectedPlan.id && plan.selected)}", ng-click="PlanAdministration.selectPlan(plan)")
+							section.plan-header.google-font.big-font
+								section.plan-price
+									span(ng-if="plan.price != 0") ${{plan.price}}
+									span(ng-if="plan.price == 0") FREE
+								section.plan-border-left
+								section.plan-border-right
+
+							section.plan-body.google-font
+								article.plan-name {{plan.name}}
+								article.plan-storage {{plan.storage | numeraljs:"0.00 b"}} storage
+
+							section.plan-footer.google-font
+								article.soft-button(ng-click="PlanAdministration.delete($event, index)") DELETE
+
+						section.plan-details.animated(ng-show="PlanAdministration.selectedPlan.id", ng-class="{bounceInDown: PlanAdministration.selectedPlan.id}")
+							i.close-icon.icon-cross(ng-click="PlanAdministration.unselect()")
+							article.user-picture(ng-cloak)
+								article.border-circle-blue.form-file-preview(grumpy-ui, grumpy-position="right", grumpy-align="top", ng-style="PlanAdministration.selectedPlan.style")
+									grumpy-virgin.bounceIn.forceMarginSIXPIXELS
+										section#plan-image-choice
+											section.plan-image-choice-title  CHOOSE THE IMAGE 
+											section.plan-image-content(scroll-bar)
+												article.plan-image(ng-style="image.style", ng-click="PlanAdministration.selectedPlan.photo = image.name; PlanAdministration.selectedPlan.style=image.style;_grumpyUi.close();", ng-repeat="image in PlanAdministration.planImages")
+
+							article.edit-account-form
+								form.form(name="form", ng-submit="PlanAdministration.save(form.$valid)", novalidate="novalidate")
+									fieldset
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-name-plans-administration") Name
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-name-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.name", type="text", name="name")
+														i.icon-append.icon-user
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-price-plans-administration") Price
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-price-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.price", type="text", name="price")
+														i.icon-append.icon-credit-card
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-description-plans-administration") Description
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-description-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.description", type="text", name="description")
+														i.icon-append.icon-newspaper
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-storage-plans-administration") Storage
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-storage-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.storage", type="text", name="storage")
+														i.icon-append.icon-archive
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-uploadbandwidth-plans-administration") Upload bandwidth
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-uploadbandwidth-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.uploadBandwidth", type="text", name="uploadBandwidth")
+														i.icon-append.icon-cloud-upload
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-downloadbandwidth-plans-administration") Download bandwidth
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-downloadbandwidth-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.downloadBandwidth", type="text", name="downloadBandwidth")
+														i.icon-append.icon-cloud-download
+
+										section
+											article.row
+												label.label.col.col-xs-3.col-sm-4(for="input-quota-plans-administration") Quota
+												article.col.col-xs-9.col-sm-8
+													label.input.state-disabled
+														input#input-quota-plans-administration.form-control(ng-model="PlanAdministration.selectedPlan.quota", type="text", name="quota")
+														i.icon-append.icon-calendar
+
+									section.buttons
+										button.button.green.register.google-font.pull-right(type="submit") {{PlanAdministration.selectedPlan.new ? "CREATE" : "UPDATE"}}

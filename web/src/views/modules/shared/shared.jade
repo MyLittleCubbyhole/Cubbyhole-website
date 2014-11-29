@@ -1,0 +1,19 @@
+extends ../../layouts/core
+
+block vars
+	- var module = 'Sharing';
+	- var controller = 'SharingController';
+
+block page_definition
+	title= "CubbyHole - Shared file"
+	meta(name="description" content="Cubbyhole - Shared File")
+
+block append content
+	include shared-content
+
+block append javascripts
+	//-<!-- build:js /javascripts/shared.js -->
+	script(src="/javascripts/modules/sharing/core.js")
+	script(src="/javascripts/modules/sharing/configs/sharingConfig.js")
+	script(src="/javascripts/modules/sharing/controllers/sharingController.js")
+	//-<!-- endbuild -->

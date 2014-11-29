@@ -1,0 +1,33 @@
+extends ../../layouts/core
+
+block vars
+	- var module = 'Account';
+	- var controller = 'AccountController';
+
+block page_definition
+	title= "CubbyHole - Account Management"
+	meta(name="description" content="Cubbyhole - Account Management")
+
+block append content
+	include account-content
+
+block append javascripts
+	//-<!-- build:js /javascripts/account.js -->
+	script(src="/javascripts/modules/cubbyhole/core.js")
+	script(src="/javascripts/modules/cubbyhole/configs/cubbyholeConfig.js")
+	script(src="/javascripts/modules/cubbyhole/controllers/cubbyholeController.js")
+	script(src="/javascripts/modules/cubbyhome/core.js")
+	script(src="/javascripts/modules/cubbyhome/controllers/cubbyhomeController.js")
+	script(src="/javascripts/modules/cubbyhome/factories/planFactory.js")
+	script(src="/javascripts/modules/account/core.js")
+	script(src="/javascripts/modules/account/configs/accountConfig.js")
+	script(src="/javascripts/modules/account/controllers/accountController.js")
+	script(src="/javascripts/modules/account/controllers/accountNavigationController.js")
+	script(src="/javascripts/modules/account/controllers/configurationController.js")
+	script(src="/javascripts/modules/account/controllers/informationsController.js")
+	script(src="/javascripts/modules/account/controllers/timelineController.js")
+	script(src="/javascripts/modules/account/controllers/plansController.js")
+	script(src="/javascripts/modules/account/providers/donutChartProvider.js")
+	script(src="/javascripts/modules/account/factories/dataChartFactory.js")
+	script(src="/javascripts/modules/account/directives/donutChartDirective.js")
+	//-<!-- endbuild -->

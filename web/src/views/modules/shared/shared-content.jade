@@ -1,0 +1,17 @@
+section#container.preview-sharing(ng-controller='FileManagerController', ng-cloak)
+	section.preview-sharing-infos.google-font
+		article.preview-sharing-name {{Sharing.file.name}}
+		article.preview-sharing-size {{Sharing.file.size | numeraljs:'0.00 b'}}
+
+	section.manager-bloc.preview-bloc(ng-if='Sharing.showPreview', ng-controller='PreviewController')
+		include ../../partials/jade/preview
+
+	section.preview-sharing-download.google-font(ng-show='Sharing.file.name !== undefined')
+		article
+			button.share-button.preview-button(ng-click='Sharing.preview()')
+				i.icon-search
+				| Preview
+		article
+			button.share-button(ng-click='Sharing.download()')
+				i.icon-cloud-download
+				| Download

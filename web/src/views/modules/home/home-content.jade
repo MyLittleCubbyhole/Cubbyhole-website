@@ -1,0 +1,41 @@
+section#bloc-container
+	article#home.bloc
+		h1.title.google-font Welcome to your Little Cubbyhole!
+		p Don"t get weighed down by USB sticks and external hard drives! 
+		button.button
+			a(href="/exe/CubbyHole_preprod.exe") DOWNLOAD CLIENT
+		button.button.green.register.google-font(ng-click="CubbyHome.showRegisterModal()") SUBSCRIBE NOW!
+
+	article#discover.bloc
+		h2.title.google-font DISCOVER CUBBYHOLE
+		img#schematic(src="/images/design/logo_accueil.png")
+		article.discover
+			p.
+				Back up all your photos, videos, music, documents ... cubbyhole accepts all types of files, and there"s no size limit. Your storage space is scalable - you can increase the capacity in just a few clicks. Create folders, delete files, move them, or even publish them online. Your online storage platform created and managed by you
+			p.
+				Sharing files and folders on cubbyhole is child"s play. Simply create a share link and send it to your friends and family who will access it using a web browser.
+			p.
+				You get a "cubbyhole" folder with synchronised content on all your computers. Anything you drag and drop into this folder is automatically stored on cubbyhole, and thus becomes available on your tablet, smartphone and via the web application. If you modify a file on your computer, it will be updated on your other devices too.
+
+	article#plan.bloc
+		h2.title.google-font CUBBY-OFFERS
+		section.plan-container
+			a(ng-href="{{CubbyHome.planUrl}}{{plan.id}}", data-path-hover="M 0,0 0,38 90,58 180.5,38 180,0 z", shape-over, ng-repeat="plan in CubbyHome.plans", ng-cloak)
+				figure
+					svg.form-file-preview(ng-style="plan.photoUrl", viewbox="0 0 180 320", preserveaspectratio="none")
+						path(d="M 0 0 L 0 182 L 90 126.5 L 180 182 L 180 0 L 0 0 z ")
+					figcaption
+						h2 {{plan.name}}
+						p
+							span(ng-if="plan.price != 0") ${{plan.price}}
+							span(ng-if="plan.price == 0") Free
+						button GET IT
+
+	article#contact.bloc
+		h2.title.google-font OUR TEAM
+		section.team-container(ng-repeat="adminPhotos in CubbyHome.adminPhotos")
+			article.border-circle-blue
+				article.img-circle.image-target.form-file-preview(ng-style="adminPhotos", ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}")
+					i.icon-profile-male.form-file-hide
+
+		section#copyright © CubbyHole 2014 - SUPINFO school project 2013 - 2014

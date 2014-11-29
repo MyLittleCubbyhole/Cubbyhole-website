@@ -1,0 +1,60 @@
+header(ng-class="{ preventClick: Overlay.activated }")
+	section#global-nav(ng-controller="NavigationController", du-scroll-container="bloc-container")
+		section#logo-container.pull-left.first-harlem.mw-harlem_shake_me(ng-click="Navigation.goto('/home')")
+			article#logo
+				img(src="/images/design/logo.png", alt="logo")
+
+			article#logo-title.google-font.hidden-xs Cubbyhole
+
+		section.menu.pull-right(ng-controller="AuthenticationController", ng-cloak)
+			article.option.nav(ng-if="!Authentication.user.firstname && !Navigation.isOnShared()", ng-click="CubbyHome.showLoginModal()")
+				span.label LOG IN
+
+			article.option.authentication(ng-if="Authentication.user.firstname")
+				section.button-profile(ng-click="Authentication.open();")
+					article.img-circle.image-target(ng-style="Authentication.stylePhoto", ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}")
+						i.icon-profile-male.form-file-hide
+					article.label.hidden-xs.mw-harlem_shake_me {{Authentication.user.firstname}}
+
+				section#user-card.bounceIn.animated(ng-class="{ open: Authentication.opened }")
+					article.card-arrow
+
+					section#user-profile
+						article.user-picture
+							article.border-circle-blue
+								article.img-circle.image-target(ng-style="Authentication.stylePhoto", ng-class="{'form-file-preview': Authentication.user.photo && Authentication.user.photo != 'null'}")
+									i.icon-profile-male.form-file-hide
+						article.user-info
+							article.user-firstname.google-font {{Authentication.user.firstname}}
+							article.user-lastname.google-font {{Authentication.user.lastname}}
+
+					section#user-navigation
+						article.user-nav-options(ng-click="Navigation.goto('/account#config')")
+							span.user-icon.icon-user
+						article.user-nav-options(ng-click="Navigation.goto('/account#infos')")
+							span.user-icon.icon-bars
+						article.user-nav-options(ng-click="Navigation.goto('/account#plans')", ng-if="Authentication.user.roleid == 1")
+							span.user-icon.icon-credit-card
+						article.user-nav-options(ng-click="Navigation.goto('/admin#')", ng-if="Authentication.user.roleid == 2")
+							span.user-icon.icon-equalizer
+
+					section#user-disconnect.big-font.google-font(ng-click="Authentication.logout()")
+						span Log out
+
+		section.navigation.pull-right(ng-controller="AnnyangController", ng-if="Navigation.isOnManager()", ng-cloak)
+			article.option.nav.mic.animated(ng-class="{listening: Annyang.start, error: Annyang.error, shake: Annyang.error, success: Annyang.success}", ng-click="Annyang.startStop()", ng-if="Annyang.activated")
+				i.icon-microphone
+
+		nav.navigation.pull-left.hidden-xs.hidden-sm
+			article.option.nav.google-font.big-font.mw-harlem_shake_me(ng-class="{ selected: Navigation.isSelected('/home', '') }", ng-click="Navigation.goto('/home', '#bloc-container')")
+				span.label HOME
+			article.option.nav.google-font.big-font.mw-harlem_shake_me(ng-class="{ selected: Navigation.isSelected('/home', '/discover') }", ng-click="Navigation.goto('/home#discover', '#bloc-container')")
+				span.label DISCOVER
+			article.option.nav.google-font.big-font.mw-harlem_shake_me(ng-class="{ selected: Navigation.isSelected('/home', '/plan') }", ng-click="Navigation.goto('/home#plan', '#bloc-container')")
+				span.label PLANS
+			article.option.nav.google-font.big-font.mw-harlem_shake_me(ng-class="{ selected: Navigation.isSelected('/home', '/contact') }", ng-click="Navigation.goto('/home#contact', '#bloc-container')")
+				span.label TEAM
+
+		section.redirect-zone.pull-left
+			article.option.nav.mw-harlem_shake_me(ng-class="{ selected: Navigation.isSelected('/manager', '') }", ng-click="Navigation.goto('/manager')")
+				span.label FILE MANAGER

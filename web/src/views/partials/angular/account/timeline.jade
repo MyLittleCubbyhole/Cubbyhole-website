@@ -1,0 +1,9 @@
+ul.cbp_tmtimeline
+	li(ng-repeat='event in Timeline.events')
+		time.cbp_tmtime(datetime='2013-04-10 18:30')
+			span {{event.date | date:'yy/MM/dd'}}
+			span {{event.date | date:'HH:mm'}}
+		.cbp_tmicon
+			i(class="{{event.icon}}")
+		.cbp_tmlabel
+			| {{event.message}}

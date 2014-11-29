@@ -1,0 +1,15 @@
+section#modal-sharing-file.md-modal.md-effect-1(ng-class="{'md-show': FileManager.urlSharing != null}", modal)
+	section.md-content
+		article
+			section.url.copy-zone(clip-copy="FileManager.urlSharing", clip-animation="flip", clip-timer="1000", clip-class-target="icon-cloud-download")
+				section
+					i.icon-cloud-download.animated
+					span Click to copy
+
+			section.buttons
+				button.button.left.red.unshare.google-font(ng-click="FileManager.unshareFile(); _modal.close()")
+					i.icon-cross
+					| UNSHARE
+				button.button.right.blue.close.google-font(ng-click="_modal.close()")
+					img(src="/images/design/icons/cancel.png")
+					| CLOSE

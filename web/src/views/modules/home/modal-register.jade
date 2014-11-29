@@ -1,0 +1,110 @@
+section#modal-register.md-modal.md-effect-1.google-font(ng-controller="RegisterController", ng-class="{'md-show': CubbyHome.showModalRegister === true}", ng-cloak, modal)
+	section.md-content
+		article
+			section
+				section.corner-panel(ng-click="CubbyHome.showLoginModal()")
+					article.corner-panel-text.big-font LOGIN
+				i.close-icon.icon-cross(ng-click="_modal.close()")
+
+				section.register-container.scroll-bar-container(scroll-bar="scroll-bar")
+					form#form-register.form(name="form", method="POST", action="#{formRegisterUrl}", enctype="multipart/form-data", novalidate="novalidate")
+						header SIGN IN
+
+						article.user-picture
+							article.border-circle-blue(form-file-upload="#image-target", form-file-model="Register.user.photo", form-file-name="photo")
+								article.camera-icon
+									i.icon-camera
+								article#image-target.img-circle
+									i.icon-profile-male.form-file-hide
+
+						fieldset
+							section
+								article.row
+									label.label.col.col-4(for="input-email-register") E-mail
+									article.col.col-8
+										label.input
+											input#input-email-register.form-control(type="email", name="email", ng-model="Register.user.email", autofocus, required)
+											i.icon-append.icon-envelope(ng-class="{'state-error': ((form.email.$dirty || Register.isFormSubmited) && form.email.$invalid)}")
+
+										section.error-form(ng-show="(form.email.$dirty || Register.isFormSubmited) && form.email.$invalid")
+											article.note.note-error(ng-show="form.email.$error.required") Fill your e-mail.
+											article.note.note-error(ng-show="form.email.$error.email") Invalid e-mail.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-password-register") Password
+									article.col.col-8
+										label.input
+											input#input-password-register.form-control(type="password", name="password", ng-model="Register.user.password", ng-minlength="8", required)
+											i.icon-append.icon-lock(ng-class="{'state-error': ((form.password.$dirty || Register.isFormSubmited) && form.password.$invalid)}")
+											b.tooltip.tooltip-top-right Minimum 8 characters.
+
+										section.error-form(ng-show="(form.password.$dirty || Register.isFormSubmited) && form.password.$invalid")
+											article.note.note-error(ng-show="form.password.$error.required") Fill you password.
+											article.note.note-error(ng-show="form.password.$error.minlength") Your password must contain at least 8 characters.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-confirm-register") Password confirmation
+									article.col.col-8
+										label.input
+											input#input-confirm-register.form-control(type="password", name="password2", ng-model="Register.user.password2", ng-minlength="8", required)
+											i.icon-append.icon-lock(ng-class="{'state-error': (((form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid) || Register.isFormSubmited && Register.errorPasswordMatch)}")
+
+										section.error-form(ng-show="(form.password2.$dirty || Register.isFormSubmited) && form.password2.$invalid")
+											article.note.note-error(ng-show="form.password2.$error.required") Confirm your password.
+											article.note.note-error(ng-show="form.password2.$error.minlength") Your password must contain at least 8 characters.
+
+										section.error-form(ng-show="Register.isFormSubmited && Register.errorPasswordMatch")
+											article.note.note-error Your two passwords must be identical.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-firstname-register") First name
+									article.col.col-8
+										label.input
+											input#input-firstname-register.form-control(type="text", name="firstname", ng-model="Register.user.firstname", required)
+											i.icon-append.icon-user(ng-class="{'state-error': ((form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid)}")
+
+										section.error-form(ng-show="(form.firstname.$dirty || Register.isFormSubmited) && form.firstname.$invalid")
+											article.note.note-error(ng-show="form.firstname.$error.required") Fill your first name.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-lastname-register") Last name
+									article.col.col-8
+										label.input
+											input#input-lastname-register.form-control(type="text", name="lastname", ng-model="Register.user.lastname", required)
+											i.icon-append.icon-user(ng-class="{'state-error': ((form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid)}")
+
+										section.error-form(ng-show="(form.lastname.$dirty || Register.isFormSubmited) && form.lastname.$invalid")
+											article.note.note-error(ng-show="form.lastname.$error.required") Fill your last name.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-birthdate-register") Birthdate
+									article.col.col-8
+										label.input
+											input#input-birthdate-register.form-control(type="text", name="birthdate", ng-model="Register.user.birthdate", date-picker="date-picker", required)
+											i.icon-append.icon-calendar(ng-class="{'state-error': ((form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid)}")
+
+										section.error-form(ng-show="(form.birthdate.$dirty || Register.isFormSubmited) && form.birthdate.$invalid")
+											article.note.note-error(ng-show="form.birthdate.$error.required") Fill your birthdate.
+
+							section
+								article.row
+									label.label.col.col-4(for="input-country-register") Country
+									article.col.col-8
+										label.input(ng-class="{'state-error': ((form.country.$dirty || Register.isFormSubmited) && form.country.$invalid)}")
+											select#input-country-register(ui-select2="ui-select2", name="country", ng-model="Register.user.country", required)
+												option(ng-repeat="country in Register.countries", value="{{country.name}}") {{country.name}}
+											input(type="hidden", name="countryCode")
+
+										section.error-form(ng-show="(form.country.$dirty || Register.isFormSubmited) && form.country.$invalid")
+											article.note.note-error(ng-show="form.country.$error.required") Fill your country.
+
+							section
+								article.note.note-error.message(ng-show="Register.errorRegister") Sign in failed, user already exists.
+
+						section.buttons
+							section.button.green.register.google-font(ng-click="Register.save(form.$valid)") SIGN IN

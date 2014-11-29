@@ -1,0 +1,10 @@
+section#modal-confirmation.md-modal.md-effect-1.google-font(ng-class="{'md-show': CubbyHome.showModalConfirmation === true}", ng-cloak, modal)
+	section.md-content
+		article
+			section
+				i.close-icon.icon-cross(ng-click="_modal.close()")
+				section.confirmation-container
+					section.confirmation
+						| Your account has been validated
+					section.buttons
+						button.button.green.register.google-font(ng-click="CubbyHome.showLoginModal()") LOGIN

@@ -1,0 +1,103 @@
+section.configuration-container
+	article.edit-account EDIT MY ACCOUNT
+		section.edit-account-container.form
+			article.user-picture
+				article.border-circle-blue(form-file-upload=".image-target", form-file-model="Register.user.photo", form-file-name="photo", form-file-active-upload)
+					article.camera-icon
+						i.icon-camera
+					article.img-circle.image-target(ng-style="Configuration.stylePhoto", ng-class="{'form-file-preview': Configuration.user.photo && Configuration.user.photo != 'null'}")
+						i.icon-profile-male.form-file-hide
+
+			article.edit-account-form
+				form(name="form", ng-submit="Configuration.save(form.$valid)", novalidate)
+					fieldset
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-email-register") E-mail
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input.state-disabled
+										input#input-email-register.form-control(type="email", name="email", ng-model="Configuration.user.email", disabled)
+										i.icon-append.icon-envelope
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-firstname-register") First name
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-firstname-register.form-control(type="text", name="firstname", ng-model="Configuration.user.firstname", autofocus, required)
+										i.icon-append.icon-user(ng-class="{'state-error': ((form.firstname.$dirty || Configuration.isFormSubmited) && form.firstname.$invalid)}")
+									section.error-form(ng-show="(form.firstname.$dirty || Configuration.isFormSubmited) && form.firstname.$invalid")
+										article.note.note-error(ng-show="form.firstname.$error.required") Fill your first name.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-lastname-register") Last name
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-lastname-register.form-control(type="text", name="lastname", ng-model="Configuration.user.lastname", required)
+										i.icon-append.icon-user(ng-class="{'state-error': ((form.lastname.$dirty || Configuration.isFormSubmited) && form.lastname.$invalid)}")
+									section.error-form(ng-show="(form.lastname.$dirty || Configuration.isFormSubmited) && form.lastname.$invalid")
+										article.note.note-error(ng-show="form.lastname.$error.required") Fill your last name.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-birthdate-register") Birthdate
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-birthdate-register.form-control(type="text", name="birthdate", ng-model="Configuration.user.birthdate", date-picker, required)
+										i.icon-append.icon-calendar(ng-class="{'state-error': ((form.birthdate.$dirty || Configuration.isFormSubmited) && form.birthdate.$invalid)}")
+									section.error-form(ng-show="(form.birthdate.$dirty || Configuration.isFormSubmited) && form.birthdate.$invalid")
+										article.note.note-error(ng-show="form.birthdate.$error.required") Fill your birthdate.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-country-register") Country
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input(ng-class="{'state-error': ((form.country.$dirty || Configuration.isFormSubmited) && form.country.$invalid)}")
+										select#input-country-register(ui-select2, name="country", ng-model="Configuration.user.country", required)
+											option(ng-repeat="country in Configuration.countries", value="{{country.name}}") {{country.name}}
+									section.error-form(ng-show="(form.country.$dirty || Configuration.isFormSubmited) && form.country.$invalid")
+										article.note.note-error(ng-show="form.country.$error.required") Fill your country.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-password-register") Password
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-password-register.form-control(type="password", name="password", ng-model="Configuration.user.password", required)
+										i.icon-append.icon-lock(ng-class="{'state-error': ((form.password.$dirty || Configuration.isFormSubmited) && form.password.$invalid)}")
+									section.error-form(ng-show="(form.password.$dirty || Configuration.isFormSubmited) && form.password.$invalid")
+										article.note.note-error(ng-show="form.password.$error.required") Fill you password.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-confirm-register") New password
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-confirm-register.form-control(type="password", name="newPassword", ng-model="Configuration.user.newPassword", ng-minlength="8")
+										i.icon-append.icon-lock(ng-class="{'state-error': (((form.newPassword.$dirty || Configuration.isFormSubmited) && form.newPassword.$invalid) || Configuration.isFormSubmited && Configuration.errorPasswordMatch)}")
+										b.tooltip.tooltip-top-right Minimum 8 characters.
+									section.error-form(ng-show="(form.newPassword.$dirty || Configuration.isFormSubmited) && form.newPassword.$invalid")
+										article.note.note-error(ng-show="form.newPassword.$error.required") Confirm your password.
+										article.note.note-error(ng-show="form.newPassword.$error.minlength") Your password must contain at least 8 characters.
+
+						section
+							article.row
+								label.label.col.col-xs-3.col-sm-4.col-md-3.col-lg-2(for="input-confirm-register") Password confirmation
+								article.col.col-xs-9.col-sm-8.col-md-6.col-lg-5
+									label.input
+										input#input-confirm-register.form-control(type="password", name="newPassword2", ng-model="Configuration.user.newPassword2")
+										i.icon-append.icon-lock(ng-class="{'state-error': (((form.newPassword2.$dirty || Configuration.isFormSubmited) && form.newPassword2.$invalid) || Configuration.isFormSubmited && Configuration.errorNewPasswordMatch)}")
+									section.error-form(ng-show="(form.newPassword2.$dirty || Configuration.isFormSubmited) && form.newPassword2.$invalid")
+										article.note.note-error(ng-show="form.newPassword2.$error.required") Confirm your password.
+									section.error-form(ng-show="Configuration.isFormSubmited && Configuration.errorNewPasswordMatch")
+										article.note.note-error Your two passwords must be identical.
+
+						section
+							article.note.note-error.message(ng-show="Configuration.errorUpdate") Update failed, wrong credentials.
+
+						section
+							article.note.note-success.message(ng-show="Configuration.updateSuccess") Update success
+
+					section.buttons
+						button.button.green.register.google-font(type="submit") UPDATE
