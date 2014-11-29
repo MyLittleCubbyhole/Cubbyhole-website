@@ -5,7 +5,7 @@ angular.module('FileManager').
 
         $local.resourceContent = '';
 
-        if($location.$$absUrl.indexOf('/shared/') == -1) {
+        if($location.$$absUrl.indexOf('/shared/') === -1) {
             UserFactory($scope).getUsedSizeStorage(function(error, data) {
                 $local.totalSize = data;
             });
@@ -15,7 +15,7 @@ angular.module('FileManager').
          * LISTENER - get information of the selected item in order to display them in the preview view
          */
         $scope.$watch('FileManager.selectedItems', function() {
-            if($scope.FileManager.selectedItems.length > 0 && $scope.FileManager.selectedItems[0].category == 'text') {
+            if($scope.FileManager.selectedItems.length > 0 && $scope.FileManager.selectedItems[0].category === 'text') {
                 $local.resourceContent = '';
                 $local.getResourceContent();
             }
@@ -27,18 +27,18 @@ angular.module('FileManager').
          */
         $local.getResourceUrl = function() {
 
-            var url = "";
+            var url = '';
 
             if($scope.FileManager.selectedItems && $scope.FileManager.selectedItems[0] && $scope.FileManager.previewActivated) {
                 if($scope.FileManager.selectedItems[0].token) {
                     url = apiUrl + 'download/shared/' + $scope.FileManager.selectedItems[0].token + '?run';
                 }
                 else {
-                    url = $scope.FileManager.selectedItems[0].category != 'text' ? $scope.FileManager.selectedItems[0].download(true) + '&run' : $scope.FileManager.selectedItems[0].download(true, true) + '?run';
+                    url = $scope.FileManager.selectedItems[0].category !== 'text' ? $scope.FileManager.selectedItems[0].download(true) + '&run' : $scope.FileManager.selectedItems[0].download(true, true) + '?run';
                 }
 
-                if($scope.FileManager.selectedItems[0].category == 'pdf')
-                    url += "&nostream";
+                if($scope.FileManager.selectedItems[0].category === 'pdf')
+                    url += '&nostream';
             }
 
             return url;

@@ -37,7 +37,7 @@ angular.module('CubbyHome').
             $local.showModalLogin = false;
             $local.showModalRegister = true;
             $local.showModalConfirmation = false;
-        }
+        };
 
         /**
          * show login modal
@@ -47,7 +47,7 @@ angular.module('CubbyHome').
             $local.showModalRegister = false;
             $local.showModalLogin = true;
             $local.showModalConfirmation = false;
-        }
+        };
 
         /**
          * show confirmation modal
@@ -57,15 +57,15 @@ angular.module('CubbyHome').
             $local.showModalRegister = false;
             $local.showModalLogin = false;
             $local.showModalConfirmation = true;
-        }
+        };
 
-        if($location.path() == '/login')
+        if($location.path() === '/login')
             $local.showLoginModal();
 
-        if($location.path() == '/register')
+        if($location.path() === '/register')
             $local.showRegisterModal();
 
-        if($location.path() == '/confirmation')
+        if($location.path() === '/confirmation')
             $local.showConfirmationModal();
 
         PlanFactory($scope).getAllPlans(function(error, plans) {
@@ -76,5 +76,5 @@ angular.module('CubbyHome').
 
 		$scope.toString = function() {
 			return 'CubbyHome';
-		}
+		};
 	}]);

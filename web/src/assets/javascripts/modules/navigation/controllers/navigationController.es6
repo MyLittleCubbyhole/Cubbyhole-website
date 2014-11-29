@@ -8,21 +8,19 @@ angular.module('Navigation').
 		 * @param  {Object} container node
 		 */
 		$local.goto = function(path, container) {
-			path += (path == '/manager' && UserFactory($scope).get()) ? "?token=" + UserFactory($scope).get().token : "";
-			var pathView = path.slice(0, path.indexOf("#"));
-			var pathAngular = path.slice(path.indexOf("#"));
-			// console.log(path)
-			if(path.indexOf("/account") > -1 || path.indexOf("/admin") > -1)
-				path = pathView + "?token=" + UserFactory($scope).get().token + pathAngular;
-			// console.log(pathAngular)
+			path += (path === '/manager' && UserFactory($scope).get()) ? '?token=' + UserFactory($scope).get().token : '';
+			var pathView = path.slice(0, path.indexOf('#'));
+			var pathAngular = path.slice(path.indexOf('#'));
 
-			if(path.indexOf("/home") > -1 &&  $window.location.pathname == '/home') {
+			if(path.indexOf('/account') > -1 || path.indexOf('/admin') > -1)
+				path = pathView + '?token=' + UserFactory($scope).get().token + pathAngular;
+
+			if(path.indexOf('/home') > -1 &&  $window.location.pathname == '/home') {
 
 				$location.path('/'+pathAngular.substring(1));
 				var target = angular.element(pathAngular)
 				,	container = container ? angular.element(container) : $document;
 				if(target.length>0) {
-					// console.log($location)
 					$local.scrollTo(target, container);
 				}
 				else
@@ -34,8 +32,8 @@ angular.module('Navigation').
 
 		$local.isSelected = function(pathname, anchor) {
 			anchor = anchor || '/';
-			return $location.$$path == anchor && $window.location.pathname == pathname;
-		}
+			return $location.$$path === anchor && $window.location.pathname === pathname;
+		};
 
 		/**
 		 * scroll to the anchor
@@ -43,25 +41,25 @@ angular.module('Navigation').
 		 * @param  {node} $container angular node
 		 */
 		$local.scrollTo = function($node, $container) {
-			$container = $container || $document
+			$container = $container || $document;
 			$container.scrollToElement($node, 0, 1000).then(function() {
 				console && console.log('You just scrolled to the top!');
 			});
-		}
+		};
 
 
 		$local.isOnShared = function() {
-			return ($location.$$absUrl.indexOf("/shared/") > -1);
-		}
+			return ($location.$$absUrl.indexOf('/shared/') > -1);
+		};
 
 		$local.isOnManager = function() {
-			return ($location.$$absUrl.indexOf("/manager") > -1);
-		}
+			return ($location.$$absUrl.indexOf('/manager') > -1);
+		};
 
-		if($window.location.pathname == '/home' && $location.$$path.length>0)
+		if($window.location.pathname === '/home' && $location.$$path.length>0)
 			$local.goto('/home#' + $location.$$path.substring(1), '#bloc-container')
 
 		$scope.toString = function() {
 			return 'Navigation';
-		}
-	}])
+		};
+	}]);

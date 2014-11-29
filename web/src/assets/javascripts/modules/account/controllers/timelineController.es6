@@ -10,7 +10,7 @@ angular.module('Account').
 			for(var i = 0; i<data.length; i++) {
 				data[i].date = new Date(data[i].date);
 				data[i].message = data[i].owner;
-				data[i].message += data[i].owner == 'You' ? ' have ' : ' has ';
+				data[i].message += data[i].owner === 'You' ? ' have ' : ' has ';
 				witness = true;
 				switch(data[i].action) {
 					case 'delete': 
@@ -19,12 +19,12 @@ angular.module('Account').
 					break;
 					case 'create':
 						data[i].icon = 'icon-cloud-upload';
-						data[i].message += (data[i].itemType == 'folder' ? 'created ' : 'uploaded ') + '"'+ data[i].name +'" in ' + data[i].fullPath.substring(1,data[i].fullPath.lastIndexOf('/')) + '/' ;
+						data[i].message += (data[i].itemType === 'folder' ? 'created ' : 'uploaded ') + '"'+ data[i].name +'" in ' + data[i].fullPath.substring(1,data[i].fullPath.lastIndexOf('/')) + '/' ;
 					break;
 					case 'share':
 						data[i].icon = 'icon-link';
 						data[i].message += 'shared "/'+ data[i].fullPath.split('/').pop() + '" with ';
-						if(data[i].targetOwner == 'You' && data[i].name != 'Public')
+						if(data[i].targetOwner === 'You' && data[i].name !== 'Public')
 							data[i].message +=  'you';
 						else
 							data[i].message += '"'+ data[i].name +'"';
@@ -48,5 +48,5 @@ angular.module('Account').
 
 		$scope.toString = function() {
 			return 'Timeline';
-		}
-	}])
+		};
+	}]);

@@ -13,7 +13,7 @@ angular.module('Account').
 
                 $scope.toString = function() {
                     return '_donutChart';
-                }
+                };
             }],
             template:
                 '<section>'

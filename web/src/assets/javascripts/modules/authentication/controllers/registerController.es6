@@ -5,7 +5,7 @@ angular.module('Authentication').
         $local.isFormSubmited = false;
         $local.errorPasswordMatch = false;
 
-        $local.user = {countryCode: "0"};
+        $local.user = {countryCode: '0'};
 
         $local.urlRegister = apiUrl + 'users';
 

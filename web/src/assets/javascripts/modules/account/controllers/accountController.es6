@@ -21,4 +21,4 @@ angular.module('Account').
         $scope.toString = function() {
             return 'Account';
         };
-    }])
+    }]);

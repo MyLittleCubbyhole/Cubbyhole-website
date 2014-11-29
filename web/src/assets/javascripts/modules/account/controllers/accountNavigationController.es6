@@ -8,9 +8,9 @@ angular.module('Account').
 		 */
 		$local.goto = function(target) {
 			$location.path('/' + target);
-		}
+		};
 
 		$scope.toString = function() {
 			return 'AccountNavigation';
-		}
-	}])
+		};
+	}]);

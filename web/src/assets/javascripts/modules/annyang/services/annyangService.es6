@@ -13,7 +13,7 @@ angular.module('Annyang').
         prototype.addCallback = function(type, callback, context) {
             if(annyang)
                 annyang.addCallback(type, callback, context);
-        }
+        };
 
         /**
          * set a specific command and add to it a new callback

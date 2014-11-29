@@ -34,10 +34,8 @@ angular.module('Authentication').
             prototype.createUser = function(user, callback) {
                 $http.post(apiUrl + 'users', user).
                 success(function(data, status, headers, config) {
-                    if(data && data.user && data.user.id) {
+                    if(data && data.user && data.user.id)
                         callback.call(this, null);
-                        //$window.location = $window.location.protocol + "//" + $window.location.host + "/home#/login";
-                    }
                     else
                         callback.call(this, 'registration failed');
                 }).
@@ -94,7 +92,7 @@ angular.module('Authentication').
                     callback.call(this, 'get users failed');
                     console.error(data);
                 });
-            }
+            };
 
             /**
              * authenticate the user and save it in session/local storage
@@ -114,7 +112,7 @@ angular.module('Authentication').
 
                         callback.call(this, null);
 
-                        $window.location = $window.location.protocol + "//" + $window.location.host + "/manager?token=" + data.user.token;
+                        $window.location = $window.location.protocol + '//' + $window.location.host + '/manager?token=' + data.user.token;
                     } else {
                         callback.call(this, 'authentication failed');
                     }
@@ -132,13 +130,12 @@ angular.module('Authentication').
             prototype.promote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/promote').
                 success(function(data) {
-                    console.log(data)
+                    console.log(data);
                 }).
                 error(function(data, status, headers, config) {
-                    callback.call(this, 'authentication failed');
                     console.error(data);
                 });
-            }
+            };
 
             /**
              * demote an administrator as a simple user
@@ -147,13 +144,12 @@ angular.module('Authentication').
             prototype.demote = function(user) {
                 $http.put(apiUrl + 'users/'+ user.id + '/demote').
                 success(function(data) {
-                    console.log(data)
+                    console.log(data);
                 }).
                 error(function(data, status, headers, config) {
-                    callback.call(this, 'authentication failed');
                     console.error(data);
                 });
-            }
+            };
 
             /**
              * disconnect the user and remove it from the local/session storage
@@ -187,7 +183,7 @@ angular.module('Authentication').
                 error(function(data, status, headers, config) {
                     console.error(status, data);
                 });
-            }
+            };
 
             /**
              * get the used storage size
@@ -209,8 +205,7 @@ angular.module('Authentication').
                 } else {
                     callback.call(this, 'no sizes', null);
                 }
-            }
-
+            };
 
             return prototype;
         };

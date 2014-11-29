@@ -28,7 +28,7 @@ angular.module('Sharing').
                 });
             } else
                window.location = window.location.origin;
-        }
+        };
 
         $local.getFile();
 
@@ -39,14 +39,14 @@ angular.module('Sharing').
             if($local.file && $local.token) {
                 $window.location = apiUrl + 'download/shared/' + $local.token;
             }
-        }
+        };
 
         /**
          * unable or disable that's a question
          */
         $local.preview = function() {
             $local.showPreview = !$local.showPreview;
-        }
+        };
 
         $scope.toString = function() {
             return 'Sharing';

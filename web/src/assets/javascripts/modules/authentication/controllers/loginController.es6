@@ -17,8 +17,8 @@ angular.module('Authentication').
          * @param  {Boolean} isValid form validity
          */
         $local.authenticate = function(isValid) {
-            localStorage.removeItem("user");
-            sessionStorage.removeItem("user");
+            localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
             $local.isFormSubmited = true;
             if(isValid) {
                 UserFactory($scope).login($local.user, $local.rememberMe, function(error) {

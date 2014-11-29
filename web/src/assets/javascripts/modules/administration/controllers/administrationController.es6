@@ -8,10 +8,9 @@ angular.module('Administration').
 		 */
 		$local.goto = function(target) {
 			$location.path('/' + target);
-			console.log(target)
-		}
+		};
 
 		$scope.toString = function() {
 			return 'Administration';
-		}
-	}])
+		};
+	}]);

@@ -22,8 +22,8 @@ angular.module('FileManager').
 
 				var ownerId = item && typeof item == 'object' ? item.ownerId : false
 				,	path = item && typeof item == 'object' ? item.getFullPath() : item ? item : '';
-				if(item && typeof item == 'object' && item._id != '.') {
-					if(item._id != '. .')
+				if(item && typeof item == 'object' && item._id !== '.') {
+					if(item._id !== '. .')
 						$scope.FileManager.pathItems.push({
 							name: item.name,
 							item: item
@@ -41,10 +41,10 @@ angular.module('FileManager').
 					var browse = restangular.one('browse').one(ownerId + '/');
 
 					path = path || '';
-					if(path.slice(-1) != '/')
+					if(path.slice(-1) !== '/')
 						path += '/';
 
-					if(path == '/' && (!item || (item._id != '. .' &&  item._id != '.')))
+					if(path === '/' && (!item || (item._id !== '. .' &&  item._id !== '.')))
 						$scope.FileManager.pathItems = new Array({
 							name: 'Files',
 							item: '/'
@@ -72,14 +72,14 @@ angular.module('FileManager').
 								ownerId: items[i].ownerId,
 								creatorId: items[i].creatorId || items[i].ownerId,
 	                			creator: items[i].creator,
-								size: items[i]._id.substring(1) == '/Shared'? '' : items[i].size,
+								size: items[i]._id.substring(1) === '/Shared'? '' : items[i].size,
 								lastUpdate: items[i].lastUpdate,
 								lastUpdateName: items[i].lastUpdateName,
 								shared: items[i].shared,
 								downloads: items[i].downloads
 							};
 
-							if(options._id.substring(1) == '/Shared') {
+							if(options._id.substring(1) === '/Shared') {
 								options.unselectable = true;
 								options.special = true;
 							}
@@ -89,7 +89,7 @@ angular.module('FileManager').
 
 					}, function(error) { console.error(error); });
 				}
-			}
+			};
 
 			/**
 			 * get the id by its id
@@ -97,14 +97,14 @@ angular.module('FileManager').
 			 */
 			prototype.get = function(id) {
 				return _items[id];
-			}
+			};
 
 			/**
 			 * get all loaded items
 			 */
 			prototype.getAll = function() {
 				return _items;
-			}
+			};
 
 			/**
 			 * delete an item and re synchronize
@@ -119,7 +119,7 @@ angular.module('FileManager').
 					}
 
 				prototype.synchronize();
-			}
+			};
 
 			/**
 			 * create a new folder in database
@@ -128,9 +128,9 @@ angular.module('FileManager').
 			prototype.createFolder = function(item) {
 
 				var browse = restangular.one('browse').one($scope.FileManager.folderOwner + '/')
-				,	path = $local.currentPath != '/' ? $local.currentPath.substring(1) : '';
+				,	path = $local.currentPath !== '/' ? $local.currentPath.substring(1) : '';
 
-				path = path.indexOf('Shared') != 0 ? path : path.slice(7);
+				path = path.indexOf('Shared') !== 0 ? path : path.slice(7);
 
 				browse.post(path, { name: item.name }).then(function(data) {
 					item.newItem = false;
@@ -144,7 +144,7 @@ angular.module('FileManager').
 					prototype.clean(item._id);
 					console.error(error);
 				});
-			}
+			};
 
 			/**
 			 * delete the selected item
@@ -161,7 +161,7 @@ angular.module('FileManager').
 
 					console.error(error);
 				});
-			}
+			};
 
 			/**
 			 * copy & paste the selected item
@@ -173,10 +173,10 @@ angular.module('FileManager').
 				var copy = restangular.one('copy').one(source.ownerId.toString());
 
 				copy.post(source.getFullPath().substring(1), { path: target.ownerId + target.path }).then(function(data) {
-					if(data.information && data.information.indexOf('error') == -1) {
+					if(data.information && data.information.indexOf('error') === -1) {
 						var witness = false;
 						for(var i=0; i<_items.length; i++)
-							if(_items[i]._id == data.params.fullPath) {
+							if(_items[i]._id === data.params.fullPath) {
 								witness = true;
 								break;
 							}
@@ -202,7 +202,7 @@ angular.module('FileManager').
 						$local.addError(target.options.type[0].toUpperCase() + target.options.type.slice(1) + ' not copied', data.information);
 
 				}, function(error) { console.error(error); });
-			}
+			};
 
 			/**
 			 * move an item into the selected target
@@ -219,7 +219,7 @@ angular.module('FileManager').
 					else
 						prototype.clean(source._id);
 				}, function(error) { console.error(error); });
-			}
+			};
 
 			/**
 			 * rename an item
@@ -232,7 +232,7 @@ angular.module('FileManager').
 					if(!data.information || data.information.indexOf('error') > -1)
 						$local.addError('Item not renamed', data.information);
 				}, function(error) { console.error(error); });
-			}
+			};
 
 			/**
 			 * check if a name already exist
@@ -250,14 +250,14 @@ angular.module('FileManager').
 						name = AnnyangFormatService.baseFormat(name);
 					}
 
-					if(actualName == name) {
+					if(actualName === name) {
 						exists = true;
 						break;
 					}
 				}
 
 				return exists;
-			}
+			};
 
 			/**
 			 * share publicly an item
@@ -276,7 +276,7 @@ angular.module('FileManager').
 					callback.call(this, 'sharing failed');
 					console.error(error);
 				});
-			}
+			};
 
 			/**
 			 * unshare an item
@@ -295,7 +295,7 @@ angular.module('FileManager').
 					callback.call(this, 'unsharing failed');
 					console.error(error);
 				});
-			}
+			};
 
 			/**
 			 * synchronize the filemanager items array and the local item
@@ -307,7 +307,7 @@ angular.module('FileManager').
 				for(var i =0; i<_items.length; i++) {
 					$local.items.push(_items[i]);
 				}
-			}
+			};
 
 			/**
 			 * add a new item to the items array
@@ -335,7 +335,7 @@ angular.module('FileManager').
 				$local && $local.items.push(item);
 				callback && callback.call(this);
 				return item;
-			}
+			};
 
 			/**
 			 * remove all items to delete
@@ -347,7 +347,7 @@ angular.module('FileManager').
 						$local && $local.items && $local.items.splice(i, 1);
 					}
 				}
-			}
+			};
 
 			/**
 			 * add . and .. files
@@ -371,7 +371,7 @@ angular.module('FileManager').
 					unselectable: true,
 					special: true
 				});
-				if($scope.FileManager.currentPath != '/' /*&& $scope.FileManager.currentPath != '/Shared/'*/) {
+				if($scope.FileManager.currentPath !== '/' /*&& $scope.FileManager.currentPath != '/Shared/'*/) {
 					path = $scope.FileManager.pathItems[index-1] && typeof $scope.FileManager.pathItems[index-1].item != 'string' ?
 						$scope.FileManager.pathItems[index-1].item.getFullPath() :
 						$scope.FileManager.pathItems[index-1].item;
@@ -383,7 +383,7 @@ angular.module('FileManager').
 							path: path,
 							type: 'folder',
 							owner: '',
-							ownerId: path == '/Shared/' ? UserFactory($scope).get().id : ownerId,
+							ownerId: path === '/Shared/' ? UserFactory($scope).get().id : ownerId,
 							size: '',
 							unselectable: true,
 							special: true

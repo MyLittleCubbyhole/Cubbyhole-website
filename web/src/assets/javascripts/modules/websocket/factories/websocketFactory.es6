@@ -16,12 +16,12 @@ angular.module('Websocket').
 
 				socket.on('socket-authentication', function() {
 					authenticate(); 
-				})
+				});
 			}
 			else {
 				console.error('io not defined - problem with webservice');
 			}
-		};
+		}
 
 		/**
 		 * authenticate the user to the websocket rooms

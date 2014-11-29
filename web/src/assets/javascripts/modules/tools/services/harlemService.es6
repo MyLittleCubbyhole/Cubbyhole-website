@@ -13,7 +13,7 @@ angular.module('Tools').
 			var nodes = angular.element('.mw-harlem_shake_me');
 			nodes.each(function() {
 				angular.element(this).addClass(actions[Math.floor(Math.random()*5)]);
-			})
+			});
 		};
 		
 		prototype.stop = function() {
@@ -21,8 +21,8 @@ angular.module('Tools').
 			nodes.each(function() {
 				for(var i in actions)
 					angular.element(this).removeClass(actions[i]);
-			})
+			});
 		};
 
 		return prototype;
-	})
+	});

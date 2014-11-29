@@ -4,7 +4,7 @@ angular.module('FileManager').
 			scope: true,
 			require: 'fileUploader',
 			restrict: 'A',
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._fileUploader = {}
 				,	self = this;
 
@@ -12,7 +12,6 @@ angular.module('FileManager').
 
 				self.fileReaders = {};
 				self.files = {};
-				self.path;
 
 				/**
 				 * no operation function
@@ -22,12 +21,12 @@ angular.module('FileManager').
 				self.noop = function(event) {
 					event.preventDefault();
 					event.stopPropagation();
-				}
+				};
 
 				$scope.toString = function() {
 					return '_fileUploader';
-				}
-			},
+				};
+			}],
 			link: function($scope, $node, attributes, self) {
 				var $local = $scope._fileUploader
 				,	socket = WebsocketFactory();
@@ -44,7 +43,7 @@ angular.module('FileManager').
 				 */
 				$node.on('dragstart', function(event) {
 					$scope.FileManager.draggedItem = null;
-					if($scope._item.item._id != '.' && $scope._item.item._id != '. .')// && $scope._item.item._id.substring(1) != '/Shared')
+					if($scope._item.item._id !== '.' && $scope._item.item._id !== '. .')// && $scope._item.item._id.substring(1) != '/Shared')
 						$scope.FileManager.draggedItem = $scope._item.item;
 				});
 
@@ -57,12 +56,12 @@ angular.module('FileManager').
 
 					var source = $scope.FileManager.draggedItem
 					,	target = $scope._item.item;
-					if($scope._item.item._id.substring($scope._item.item._id.indexOf('/')) == '/Shared') {
+					if($scope._item.item._id.substring($scope._item.item._id.indexOf('/')) === '/Shared') {
 						$scope.FileManager.addError('Item not moved', 'You can\'t move an item into the Shared folder');
 						$scope.$apply();
 						return true;
 					}
-					if($scope.FileManager.currentPath.substring(1) == 'Shared/') {
+					if($scope.FileManager.currentPath.substring(1) === 'Shared/') {
 						$scope.FileManager.addError('File not uploaded', 'You can\'t upload a file into the Shared folder');
 						$scope.$apply();
 						return true;
@@ -70,13 +69,13 @@ angular.module('FileManager').
 
 					if(target
 					&& source
-					&& target.getFullPath() != source.getFullPath()
+					&& target.getFullPath() !== source.getFullPath()
 					&& target.toString('Folder')
-					&& target._id != '.') {
+					&& target._id !== '.') {
 						$scope.FileManager.selectedItems = [];
 						$scope.FileManager.preview(false);
 						ItemFactory($scope, {local: $scope.FileManager}).move(source, target);
-						if(target._id != '. .')
+						if(target._id !== '. .')
 							target.size += parseInt(source.size, 10);
 					}
 
@@ -84,7 +83,7 @@ angular.module('FileManager').
 						return true;
 
 					for(var i = 0; i<event.originalEvent.dataTransfer.files.length; i++) {
-						var file = event.originalEvent.dataTransfer.files[i]
+						var file = event.originalEvent.dataTransfer.files[i];
 						init(file);
 					}
 
@@ -101,8 +100,8 @@ angular.module('FileManager').
 					self.files[id] = file;
 					self.files[id].sizeAdded = 0;
 
-					var ownerId = $scope._item.item.toString() == 'Folder' ? $scope._item.item.ownerId : $scope.FileManager.folderOwner;
-					var newItem = self.path == $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
+					var ownerId = $scope._item.item.toString() === 'Folder' ? $scope._item.item.ownerId : $scope.FileManager.folderOwner;
+					var newItem = self.path === $scope.FileManager.currentPath ? ItemFactory($scope, {local: $scope.FileManager}).add({
 						name: self.files[id].name,
 						owner: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname,
 						ownerId: ownerId,
@@ -122,9 +121,9 @@ angular.module('FileManager').
 					UploaderFactory($scope, {local: $local, controller: self, entity: newItem}).add(id, self.files[id]);
 
 					self.fileReaders[id].onload = function(event){
-						var data = event.target.result
+						var data = event.target.result;
 						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
-					}
+					};
 
 					socket.emit('upload_init', {
 						id: id,

@@ -2,14 +2,14 @@ angular.module('Authentication').
     directive('datePicker', [function() {
         return {
             scope: true,
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 var $local = $scope._datePicker = {}
                 ,   self = this;
 
                 $scope.toString = function() {
                     return '_datePicker';
                 };
-            },
+            }],
             require: 'datePicker',
             restrict: 'A',
             link: function($scope, $node, attributes, self) {
@@ -21,7 +21,7 @@ angular.module('Authentication').
                     maxDate: new Date(),
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: "-70:+0",
+                    yearRange: '-70:+0',
                     prevText: '<i class="icon-chevron-left"></i>',
                     nextText: '<i class="icon-chevron-right"></i>'
                 });

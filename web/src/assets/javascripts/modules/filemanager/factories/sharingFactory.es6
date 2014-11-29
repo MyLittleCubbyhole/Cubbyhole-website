@@ -13,8 +13,6 @@ angular.module('FileManager').
             ,   entity = context.entity || {}
             ,   controller = context.controller || {};
 
-            var prototype = {};
-
             /**
              * get shared users
              * @param  {string}   path     
@@ -31,15 +29,15 @@ angular.module('FileManager').
                                 photo: data[i].photo,
                                 firstname: data[i].firstname,
                                 lastname: data[i].lastname
-                            })
+                            });
                         callback.call(this, null, users);
                     } else
-                        callback.call(this, data.information, null)
+                        callback.call(this, data.information, null);
                 }, function(error) {
-                    callback.call(this, 'no users found', null)
+                    callback.call(this, 'no users found', null);
                     console.error(error);
                 });
-            }
+            };
 
             /**
              * get shared user by mail
@@ -51,12 +49,12 @@ angular.module('FileManager').
                     if(data && data.id)
                         callback.call(this, null, data)
                     else
-                        callback.call(this, data.information, false)
+                        callback.call(this, data.information, false);
                 }, function(error) {
-                    callback.call(this, data.information, false)
+                    callback.call(this, data.information, false);
                     console.error(error);
                 });
-            }
+            };
 
             /**
              * share something
@@ -67,15 +65,12 @@ angular.module('FileManager').
              */
             prototype.share = function(path, target, right, callback) {
                 restangular.one('share').post(path, {'target': target, 'right': right}).then(function(data) {
-                    if(data.information == 'folder shared')
-                        callback.call(this, null, data.params)
-                    else
-                        callback.call(this, data.information, null)
+                    callback.call(this, null, data.params);
                 }, function(error) {
-                    callback.call(this, data.information, null)
+                    callback.call(this, data.information, null);
                     console.error(error);
                 });
-            }
+            };
 
             /**
              * unshare something
@@ -85,16 +80,13 @@ angular.module('FileManager').
              */
             prototype.unshare = function(path, target, callback) {
                 restangular.one('unshare').post(path, {'target': target}).then(function(data) {
-                    if(data.information == 'folder unshared')
-                        callback.call(this, null, data.params)
-                    else
-                        callback.call(this, data.information, null)
+                    callback.call(this, null, data.params);
                 }, function(error) {
-                    callback.call(this, data.information, null)
+                    callback.call(this, data.information, null);
                     console.error(error);
                 });
-            }
+            };
 
             return prototype;
         };
-    }])
+    }]);

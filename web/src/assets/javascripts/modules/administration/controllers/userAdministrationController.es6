@@ -3,14 +3,14 @@ angular.module('Administration').
 		var $local = $scope.UserAdministration = {}
 		,	timer = null;
 		$local.user = UserFactory($scope).get();
-		$local.user.role = $local.user.roleid == 2? 'ADMINISTRATOR': 'USER';
+		$local.user.role = $local.user.roleid == 2 ? 'ADMINISTRATOR': 'USER';
 		$local.users = new Array();
 		UserFactory($scope).all(init, {});
 
 		$local.filter = {
 			user: false,
 			admin: false
-		}
+		};
 
 		/**
 		 * apply filter and searh in the database
@@ -28,7 +28,7 @@ angular.module('Administration').
 				$local.users.splice(0);
 				UserFactory($scope).all(init, options);
 			}, 200);
-		}
+		};
 		
 		/**
 		 * update role of an user
@@ -39,7 +39,7 @@ angular.module('Administration').
 				UserFactory($scope).promote(user);
 			else
 				UserFactory($scope).demote(user);
-		}
+		};
 
 		/**
 		 * initialize the user list
@@ -56,5 +56,5 @@ angular.module('Administration').
 
 		$scope.toString = function() {
 			return 'UserAdministration';
-		}
-	}])
+		};
+	}]);

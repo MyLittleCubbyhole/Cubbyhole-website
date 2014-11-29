@@ -42,26 +42,26 @@ angular.module('FileManager').
 			 */
 			File.prototype.remove = function() {
 				this.node.remove();
-			}
+			};
 
 			/**
 			 * OVERRIDEN
 			 */
 			File.prototype.getPath = function() {
 				return this.path;
-			}
+			};
 
 			/**
 			 * OVERRIDEN
 			 */
 			File.prototype.getFullPath = function() {
 				return this.path + this.name;
-			}
+			};
 
 			File.prototype.toString = function() {
 				return 'File';
 			};
 
-			return File
-		}]
-	})
+			return File;
+		}];
+	});

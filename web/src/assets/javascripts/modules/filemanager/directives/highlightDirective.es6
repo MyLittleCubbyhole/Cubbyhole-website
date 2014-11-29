@@ -4,10 +4,10 @@ angular.module('FileManager').
             scope: true,
             restrict: 'A',
             require: 'highlight',
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 var $local = $scope._highlight = {};
 
-            },
+            }],
             link: function($scope, $node, attributes, self) {
                 var $local = $scope._highlight;
                 $local.node = $node;

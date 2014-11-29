@@ -5,5 +5,5 @@ angular.module('CubbyHole').
 
 		$scope.toString = function() {
 			return 'CubbyHole';
-		}
+		};
 	}]);

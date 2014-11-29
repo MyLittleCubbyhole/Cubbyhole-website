@@ -5,11 +5,11 @@ angular.module('Administration').
         restangular.setBaseUrl(apiUrl);
         $routeProvider
         .when('/users', {
-            templateUrl: '/templates/admin/users',
+            templateUrl: 'admin/users/jade',
             controller: 'UserAdministrationController'
         })
         .when('/plans', {
-            templateUrl: '/templates/admin/plans',
+            templateUrl: 'admin/plans.jade',
             controller: 'PlanAdministrationController'
         })
         .otherwise({ redirectTo: '/users' });

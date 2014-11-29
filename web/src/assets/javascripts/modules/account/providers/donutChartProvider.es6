@@ -8,7 +8,7 @@ angular.module('Account').
                     backgroundColor: 'transparent',
                     events: {
                         load: function() {
-                            setTimeout(function(){$(window).trigger('resize')}, 00);
+                            setTimeout(function(){$(window).trigger('resize');}, 0);
                         }
                     }
                 },
@@ -86,4 +86,4 @@ angular.module('Account').
 
             return DonutChart;
         };
-    })
+    });

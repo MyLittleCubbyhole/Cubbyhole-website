@@ -12,7 +12,7 @@ angular.module('FileManager').
          */
         $scope.$watch(UserFactory($scope).get(), function() {
             $local.user = UserFactory($scope).get();
-        })
+        });
 
         $local.currentPath = '/';
 		$local.folderOwner = -1;
@@ -36,7 +36,7 @@ angular.module('FileManager').
                 title: title,
                 subtitle: subtitle
             });
-        }
+        };
 
         /**
          * call the alert method in order to create an error alert
@@ -49,7 +49,7 @@ angular.module('FileManager').
                 title: title,
                 subtitle: subtitle
             });
-        }
+        };
 
         $local.itemsToCopy = [];
 
@@ -97,9 +97,9 @@ angular.module('FileManager').
                         unselectable: false,
                         todelete: false,
                         inupload: false
-                    }, function() { $scope.$apply(); })
+                    }, function() { $scope.$apply(); });
             }
-        })
+        });
 
         /**
          * LISTENER - create an item when a new file is created by someone in the current directory
@@ -133,9 +133,9 @@ angular.module('FileManager').
                         unselectable: false,
                         todelete: false,
                         inupload: false
-                    }, function() { $scope.$apply(); })
+                    }, function() { $scope.$apply(); });
             }
-        })
+        });
 
         /**
          * LISTENER - delete an item when someone delete it in the current directory
@@ -145,7 +145,7 @@ angular.module('FileManager').
             $local.addInfo('Item deleted', 'The item ' + data.fullPath.substring(data.fullPath.lastIndexOf('/') + 1) + ' has been deleted');
             ItemFactory($scope, {local: $local}).clean(data.fullPath);
             $scope.$apply();
-        })
+        });
 
         /**
          * LISTENER - rename an item when someone rename it
@@ -165,7 +165,7 @@ angular.module('FileManager').
                 }
 
             $scope.$apply();
-        })
+        });
 
         /**
          * LISTENER - create an alert when someont copy/paste an item
@@ -200,13 +200,13 @@ angular.module('FileManager').
                         unselectable: false,
                         todelete: false,
                         inupload: false
-                    }, function() { $scope.$apply(); })
+                    }, function() { $scope.$apply(); });
             }
             if(data.move) {
                 ItemFactory($scope, {local: $local}).clean(data.baseFullPath);
                 $scope.$apply();
             }
-        })
+        });
 
         /**
          * LISTENER - call all items and unselect them
@@ -214,7 +214,7 @@ angular.module('FileManager').
 		$scope.$on('unselect_all', function() {
 			$local.selectedItems = [];
 			$scope.$broadcast('unselect');
-		})
+		});
 
         /**
          * LISTENER - add the selected file to the selected item array
@@ -226,7 +226,7 @@ angular.module('FileManager').
             ExtensionFactory($scope).detection(file);
             $local.selectedItems.push(file);
             $local.previewActivated = true;
-        })
+        });
 
         /**
          * LISTENER - hide the sharing modal when called
@@ -252,14 +252,14 @@ angular.module('FileManager').
                 newItem: true,
                 lastUpdate: new Date(),
                 creator: UserFactory($scope).get().firstname + ' ' + UserFactory($scope).get().lastname
-            }
+            };
 
-            if($local.currentPath == '/Shared/') {
+            if($local.currentPath === '/Shared/') {
                 $local.addError('Folder not created', 'You can\'t create a folder into the Shared folder');
                 return true;
             }
 
-            options.name = name ? name : ''
+            options.name = name ? name : '';
             options.editMode = name ? false : true;
 
             if((name && !ItemFactory($scope, {local: $local}).checkNameExists(name, true)) || !name) {
@@ -277,7 +277,7 @@ angular.module('FileManager').
 		$local.delete = function(name) {
             var items = name ? [] : $local.selectedItems;
 
-            if($local.currentPath == '/Shared/') {
+            if($local.currentPath === '/Shared/') {
                 $local.addError('Folder not deleted', 'You can\'t delete a shared folder');
                 return true;
             }
@@ -292,14 +292,14 @@ angular.module('FileManager').
 
             $local.preview(false);
 
-		}
+		};
 
         /**
          * rename an item
          */
         $local.rename = function() {
 
-            if($local.currentPath == '/Shared/') {
+            if($local.currentPath === '/Shared/') {
                 $local.addError('Item not renamed', 'You can\'t rename an item into the Shared folder');
                 return true;
             }
@@ -313,13 +313,13 @@ angular.module('FileManager').
                 }
 
             !canceled && $scope.$broadcast('rename_item');
-        }
+        };
 
         /**
          * download an item
          */
 		$local.download = function() {
-            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File')
+            if($local.selectedItems.length === 1 && $local.selectedItems[0].toString() === 'File')
                 $local.selectedItems[0].download();
             else if($local.selectedItems.length > 0)
                 $scope.$broadcast('start_post_download');
@@ -341,7 +341,7 @@ angular.module('FileManager').
                 $local.itemsToCopy.slice(0);
                 $local.itemsToCopy = [];
                 $local.itemsToCopy = $local.selectedItems;
-                if($local.selectedItems.length == 1)
+                if($local.selectedItems.length === 1)
                     $local.addInfo($local.itemsToCopy[0].options.type[0].toUpperCase() + $local.itemsToCopy[0].options.type.slice(1) + ' copied', 'The ' + $local.itemsToCopy[0].options.type + ' ' + $local.itemsToCopy[0].name + ' has been copied');
                 else
                     $local.addInfo('Items copied', 'Some items have been copied');
@@ -353,7 +353,7 @@ angular.module('FileManager').
          */
         $local.paste = function() {
 
-            if($local.currentPath == '/Shared/') {
+            if($local.currentPath === '/Shared/') {
                 $local.addError('Items not copied', 'You can\'t paste items into the Shared folder');
                 return true;
             }
@@ -363,12 +363,12 @@ angular.module('FileManager').
             if($local.itemsToCopy.length >= 1) {
                 for(var i = 0; i < $local.itemsToCopy.length; i++) {
                     var newItem = null;
-                    if($local.itemsToCopy[i].toString() == 'Folder')
+                    if($local.itemsToCopy[i].toString() === 'Folder')
                         newItem = new Folder($local.itemsToCopy[i].options);
                     else
                         newItem = new File($local.itemsToCopy[i].options);
 
-                    if(lastItem != "/") {
+                    if(lastItem !== '/') {
                         newItem.path = lastItem._id.substring(lastItem._id.indexOf('/')) + '/';
                         newItem.ownerId = lastItem.ownerId;
                     }
@@ -389,7 +389,7 @@ angular.module('FileManager').
          * @param  {Boolean} force force the preview activation
          */
         $local.preview = function(force) {
-            $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length == 1;
+            $local.previewActivated = typeof force !== 'undefined' ? force : $local.selectedItems.length === 1;
 
             if($local.previewActivated && $local.selectedItems && $local.selectedItems[0] && $local.selectedItems[0].category == 'folder') {
                 SharingFactory($scope, {local: $local}).getSharedUsers($local.selectedItems[0]._id + '/', function(error, data) {
@@ -412,7 +412,7 @@ angular.module('FileManager').
                     $local.selectedItems[0].usersToRemove = [];
                 });
             }
-        }
+        };
 
         /**
          * delete an item from the items array
@@ -420,14 +420,14 @@ angular.module('FileManager').
          */
         $local.deleteItem = function(itemId) {
             $local.items.splice(itemId, 1);
-        }
+        };
 
         /**
          * disable the preview
          */
         $local.cancelPreview = function() {
             $local.previewActivated = false;
-        }
+        };
 
         /**
          * share an item
@@ -435,7 +435,7 @@ angular.module('FileManager').
          * case folder: share to the selected users the selected folder
          */
         $local.shareItem = function() {
-            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
+            if($local.selectedItems.length === 1 && $local.selectedItems[0].toString() === 'File') {
                 ItemFactory($scope, {local: $local}).shareFile($local.selectedItems[0], function(error, token) {
                     if(!error && token) {
                         $local.urlSharing = $window.location.protocol + '//' + $window.location.host + '/shared/' + token;
@@ -444,18 +444,18 @@ angular.module('FileManager').
                     } else
                         console.error(error);
                 });
-            } else if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'Folder') {
+            } else if($local.selectedItems.length === 1 && $local.selectedItems[0].toString() === 'Folder') {
                 $scope.$broadcast('enable_overlay_sharing');
                 $local.folderSharing = true;
                 $scope.$emit('enable_overlay');
             }
-        }
+        };
 
         /**
          * unshare a public file
          */
         $local.unshareFile = function() {
-            if($local.selectedItems.length == 1 && $local.selectedItems[0].toString() == 'File') {
+            if($local.selectedItems.length === 1 && $local.selectedItems[0].toString() === 'File') {
                 ItemFactory($scope, {local: $local}).unshareFile($local.selectedItems[0], function(error, information) {
                     if(!error && information) {
                         $local.selectedItems[0].shared = false;
@@ -466,7 +466,7 @@ angular.module('FileManager').
                     }
                 });
             }
-        }
+        };
 
         /**
          * VOCAL - rename callback
@@ -476,7 +476,7 @@ angular.module('FileManager').
          */
         $local.renameVocal = function(oldName, newName, like) {
             if(!ItemFactory($scope, {local: $local}).checkNameExists(newName, true)) {
-                var item = null
+                var item = null;
                 for(var i = 0; i < $local.items.length; i++)
                     if((!like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)) == AnnyangFormatService.baseFormat(oldName)) || (like && AnnyangFormatService.removeExtension(AnnyangFormatService.baseFormat($local.items[i].name)).indexOf(AnnyangFormatService.baseFormat(oldName)) > -1)) {
                         item = $local.items[i];
@@ -486,12 +486,12 @@ angular.module('FileManager').
                 if(item) {
                     var extension = (/(?:\.([^.]+))?$/).exec(item.name)[1];
                     extension = extension || '';
-                    var name = extension == '' ? newName : newName + '.' + extension;
+                    var name = extension === '' ? newName : newName + '.' + extension;
                     ItemFactory($scope, {local: $local}).rename(item.ownerId.toString() + item.getFullPath(), name);
                     item.name = name;
                 }
             }
-        }
+        };
 
         /**
          * VOCAL - download callback
@@ -513,7 +513,7 @@ angular.module('FileManager').
                 $local.selectedItems = [];
                 $scope.$apply();
             }
-        }
+        };
 
         /**
          * VOCAL - set the open folder like method
@@ -735,4 +735,4 @@ angular.module('FileManager').
 		$scope.toString = function() {
 			return 'FileManager';
 		};
-	}])
+	}]);

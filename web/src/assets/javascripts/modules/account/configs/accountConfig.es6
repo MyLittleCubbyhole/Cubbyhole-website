@@ -4,19 +4,19 @@ angular.module('Account').
         //angular routing
         $routeProvider
         .when('/config', {
-            templateUrl: '/templates/account/configuration',
+            templateUrl: 'account/configuration.jade',
             controller: 'ConfigurationController'
         })
         .when('/infos', {
-            templateUrl: '/templates/account/information',
+            templateUrl: 'account/information.jade',
             controller: 'InformationsController'
         })
         .when('/timeline', {
-            templateUrl: '/templates/account/timeline',
+            templateUrl: 'account/timeline.jade',
             controller: 'TimelineController'
         })
         .when('/plans', {
-            templateUrl: '/templates/account/plans',
+            templateUrl: 'account/plans.jade',
             controller: 'PlansController'
         })
         .otherwise({ redirectTo: '/config' });

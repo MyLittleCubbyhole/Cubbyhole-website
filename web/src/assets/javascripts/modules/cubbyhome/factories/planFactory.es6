@@ -8,7 +8,7 @@ angular.module('CubbyHome').
                 throw 'a scope must be defined ';
 
             var prototype = {}
-            ,   $local = context.local || {}
+            ,   $local = context.local || {};
 
             /**
              * get the current active plan from the database
@@ -26,14 +26,13 @@ angular.module('CubbyHome').
                             description: plan.description,
                             storage: parseInt(plan.storage, 10),
                             duration: parseInt(plan.duration, 10),
-                            uploadBandwidth: parseInt(plan.uploadbandwidth, 10),
-                            downloadBandwidth: parseInt(plan.downloadbandwidth, 10),
+                            uploadBandwidth: parseInt(plan.uploadBandwidth, 10),
+                            downloadBandwidth: parseInt(plan.downloadBandwidth, 10),
                             quota: parseInt(plan.quota, 10),
                             available: plan.available,
-                            dateStart: plan.datestart,
-                            dateEnd: plan.dateend,
-                            photoUrl: apiUrl + 'download/1/admin/' + plan.photo + '?token=' + UserFactory($scope).get().token + '&run',
-                            photo: plan.photo
+                            dateStart: plan.dateStart,
+                            dateEnd: plan.dateEnd,
+                            photoUrl: apiUrl + 'download/1/admin/' + plan.photo + '?token=' + UserFactory($scope).get().token + '&run'
                         };
                     }
                     callback.call(this, (planToReturn ? null : 'no current plan'), (planToReturn ? planToReturn : null));
@@ -57,12 +56,11 @@ angular.module('CubbyHome').
                                 description: plans[i].description,
                                 storage: parseInt(plans[i].storage, 10),
                                 duration: parseInt(plans[i].duration, 10),
-                                uploadBandwidth: parseInt(plans[i].uploadbandwidth, 10),
-                                downloadBandwidth: parseInt(plans[i].downloadbandwidth, 10),
+                                uploadBandwidth: parseInt(plans[i].uploadBandwidth, 10),
+                                downloadBandwidth: parseInt(plans[i].downloadBandwidth, 10),
                                 quota: parseInt(plans[i].quota, 10),
                                 available: plans[i].available,
-                                photoUrl: apiUrl + 'download/1/admin/' + plans[i].photo + '?token=' + UserFactory($scope).get().token + '&run',
-                                photo: plans[i].photo
+                                photoUrl: apiUrl + 'download/1/admin/' + plans[i].photo + '?token=' + UserFactory($scope).get().token + '&run'
                             });
                     callback.call(this, (plansToReturn ? null : 'no plan found'), (plansToReturn ? plansToReturn : null));
                 }, function(error) { callback.call(this, 'no plan found', null); console.error(error); });
@@ -79,14 +77,13 @@ angular.module('CubbyHome').
                 $http.post(apiUrl + 'plans', plan).
                 success(function(data, status, headers, config) {
                     $local.unselect();
-                    data.photoUrl = apiUrl + 'download/1/admin/' + data.photo + '?token=' + UserFactory($scope).get().token + '&run',
-                    data.photo = data.photo
-                    $local.plans.push(data.plan)
+                    data.photoUrl = apiUrl + 'download/1/admin/' + data.photo + '?token=' + UserFactory($scope).get().token + '&run';
+                    $local.plans.push(data.plan);
                 }).
                 error(function(data, status, headers, config) {
                     console.error(data);
                 });
-            }
+            };
 
             /**
              * update the current plan
@@ -105,7 +102,7 @@ angular.module('CubbyHome').
                 error(function(data, status, headers, config) {
                     console.error(data);
                 });
-            }
+            };
 
             /**
              * remove the plan
@@ -118,7 +115,7 @@ angular.module('CubbyHome').
                     callback && callback();
                 }).
                 error(function(data, status, headers, config) {});
-            }
+            };
 
             /**
              * get all plan images
@@ -136,7 +133,7 @@ angular.module('CubbyHome').
                 error(function(data, status, headers, config) {
                     callback && callback(data);
                 });
-            }
+            };
 
             return prototype;
         };

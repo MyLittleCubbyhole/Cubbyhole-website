@@ -36,7 +36,7 @@ angular.module('Account').
                 downloadBandwidth: plan.downloadBandwidth,
                 quota: plan.quota
             };
-        }
+        };
 
         /**
          * change tu plan duration and update the plan price
@@ -50,7 +50,7 @@ angular.module('Account').
                     $local.plans[i].price = $local.plans[i].price * $local.plans[i].duration;
                 }
             }
-        }
+        };
 
         /**
          * unselect a plan
@@ -62,7 +62,7 @@ angular.module('Account').
                 $local.plans[i].price = $local.plans[i].price / $local.plans[i].duration;
                 $local.plans[i].duration = 1;
             }
-        }
+        };
 
 		$scope.toString = function() {
 			return 'Plans';

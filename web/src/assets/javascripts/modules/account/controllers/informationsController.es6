@@ -13,7 +13,6 @@ angular.module('Account').
             DataChartFactory($scope).getSizeUsed(function(error, sizes) {
                 var availableSize = 1
                 ,   usedSpace = 0
-                ,   data = null
                 ,   videos = 0
                 ,   images = 0
                 ,   musiques = 0
@@ -22,15 +21,15 @@ angular.module('Account').
 
                 if(!error && sizes) {
                     for(var i = 0; i < sizes.length; i++) {
-                        if(sizes[i]._id == null)
+                        if(sizes[i]._id === null)
                             others += sizes[i].size;
-                        else if(sizes[i]._id.indexOf("video") > -1)
+                        else if(sizes[i]._id.indexOf('video') > -1)
                             videos += sizes[i].size;
-                        else if(sizes[i]._id.indexOf("image") > -1)
+                        else if(sizes[i]._id.indexOf('image') > -1)
                              images += sizes[i].size;
-                        else if(sizes[i]._id.indexOf("audio") > -1)
+                        else if(sizes[i]._id.indexOf('audio') > -1)
                              musiques += sizes[i].size;
-                        else if(sizes[i]._id.indexOf("document") > -1 || sizes[i]._id.indexOf("pdf") > -1)
+                        else if(sizes[i]._id.indexOf('document') > -1 || sizes[i]._id.indexOf('pdf') > -1)
                              documents += sizes[i].size;
                         else
                              others += sizes[i].size;
@@ -101,7 +100,7 @@ angular.module('Account').
                         }
                    );
 
-            })
+            });
 
             DataChartFactory($scope).getCurrentQuota(function(error, quota) {
                 var availableSize = 1;
@@ -122,15 +121,15 @@ angular.module('Account').
                         y: quota.quotaUsed,
                         size: FormatSizeService.format(quota.quotaUsed),
                         color: '#40a7fd'
-                    })
+                    });
 
                 $local.charts[1].data.push({
                     name: 'Disponible',
                     y: availableSize,
                     size: availableSize > 1 ? FormatSizeService.format(availableSize) : FormatSizeService.format($scope.Account.currentPlan.quota),
                     color: '#ffffff'
-                })
-            })
+                });
+            });
         }
 
         if(!$scope.Account.currentPlan)
@@ -143,4 +142,4 @@ angular.module('Account').
         $scope.toString = function() {
             return 'Informations';
         };
-    }])
+    }]);

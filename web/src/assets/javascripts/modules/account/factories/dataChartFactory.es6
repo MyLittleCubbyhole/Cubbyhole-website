@@ -27,7 +27,7 @@ angular.module('Account').
                     }
                     callback.call(this, (sizesToReturn ? null : 'no sizes'), (sizesToReturn ? sizesToReturn : null));
                 }, function(error) { callback.call(this, 'no sizes', null); console.error(error); });
-            }
+            };
 
             /**
              * return the current quota used
@@ -36,15 +36,15 @@ angular.module('Account').
             prototype.getCurrentQuota = function(callback) {
                 restangular.one('users').one(userFactory($scope).get().id + '/quota').get().then(function(quota) {
                     var quotaToReturn = null;
-                    if(quota && quota.quotaused) {
+                    if(quota && quota.quotaUsed) {
                         quotaToReturn = {
                             day: quota.day,
-                            quotaUsed: parseInt(quota.quotaused, 10)
-                        }
+                            quotaUsed: parseInt(quota.quotaUsed, 10)
+                        };
                     }
                     callback.call(this, (quotaToReturn ? null : 'no current quota'), (quotaToReturn ? quotaToReturn : null));
                 }, function(error) { callback.call(this, 'no current quota', null); console.error(error); });
-            }
+            };
 
             return prototype;
         };

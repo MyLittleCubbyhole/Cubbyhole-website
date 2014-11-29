@@ -45,4 +45,4 @@ angular.module('Authentication').
 		$scope.toString = function() {
 			return 'Authentication';
 		};
-	}])
+	}]);

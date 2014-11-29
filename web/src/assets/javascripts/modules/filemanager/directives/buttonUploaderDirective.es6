@@ -2,7 +2,7 @@ angular.module('FileManager').
 	directive('buttonUploader', ['WebsocketFactory', 'UserFactory', 'UploaderFactory', 'ItemFactory', function(WebsocketFactory, UserFactory, UploaderFactory, ItemFactory) {
 		return {
 			scope: true,
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._buttonUploader = {}
 				,	self = this;
 
@@ -15,12 +15,12 @@ angular.module('FileManager').
 				 */
 				$local.selectFile = function() {
 					self.$template.click();
-				}
+				};
 
 				$scope.toString = function() {
 					return '_buttonUploader';
-				}
-			},
+				};
+			}],
 			require: 'buttonUploader',
 			restrict: 'A',
 			link: function($scope, $node, attributes, self) {
@@ -39,7 +39,7 @@ angular.module('FileManager').
 					self.files[id] = event.target.files[0];
 					self.files[id].sizeAdded = 0;
 					self.fileReaders[id] = new FileReader();
-					if(self.path.substring(1) == 'Shared/') {
+					if(self.path.substring(1) === 'Shared/') {
 						$scope.FileManager.addError('File not uploaded', 'You can\'t upload a file into the Shared folder');
 						$scope.$apply();
 						return true;
@@ -57,7 +57,7 @@ angular.module('FileManager').
 						unselectable: true,
 						todelete: false,
 						inupload: true
-					}, function() { $scope.$apply(); })
+					}, function() { $scope.$apply(); });
 
 					ItemFactory($scope, {local: $scope.FileManager}).cleanToDelete();
 
@@ -65,9 +65,9 @@ angular.module('FileManager').
 
 					self.fileReaders[id].onload = function(event){
 
-						var data = event.target.result
+						var data = event.target.result;
 						socket.emit('upload', { data: data, name: self.files[id].name, id: id });
-					}
+					};
 
 					/**
 					 * LISTENER - init the current upload

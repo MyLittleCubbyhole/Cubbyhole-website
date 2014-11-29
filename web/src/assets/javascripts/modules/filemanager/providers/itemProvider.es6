@@ -89,4 +89,4 @@ angular.module('FileManager').
 
 			return Item;
 		}];
-	})
+	});

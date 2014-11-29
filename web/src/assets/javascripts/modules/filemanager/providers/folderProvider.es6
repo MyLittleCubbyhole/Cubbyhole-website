@@ -46,31 +46,24 @@ angular.module('FileManager').
 			 */
 			Folder.prototype.getPath = function() {
 				var path = this.path;
-				// if(this._id == '. .') {
-				// 	var paths = path.split('/');
-				// 	path = '';
-				// 	for(var i = 0; i < paths.length - 2; i++)
-				// 		path += paths[i] + '/';
-				// }
-				// else
-				if(this._id != '.' && this._id != '. .') {
+				if(this._id !== '.' && this._id !== '. .') {
 					path += this.name + '/';
 				}
 
 				return path;
-			}
+			};
 
 			/**
 			 * OVERRIDEN
 			 */
 			Folder.prototype.getFullPath = function() {
 				return this.getPath();
-			}
+			};
 
 			Folder.prototype.toString = function() {
 				return 'Folder';
-			}
+			};
 
-			return Folder
+			return Folder;
 		}];
-	})
+	});

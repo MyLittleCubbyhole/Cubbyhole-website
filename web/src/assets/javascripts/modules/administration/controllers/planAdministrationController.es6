@@ -17,7 +17,7 @@ angular.module('Administration').
                     style:{'background-image': 'url("' +  images[i].url + '")'},
                     name: images[i].name
                 });
-        })
+        });
 
         /**
          * select a plan
@@ -39,7 +39,8 @@ angular.module('Administration').
                 uploadBandwidth: plan.uploadBandwidth,
                 quota: plan.quota
             };
-        }
+        };
+
 
         /**
          * unselect a plan
@@ -51,7 +52,7 @@ angular.module('Administration').
                 $local.plans[i].price = $local.plans[i].price / $local.plans[i].duration;
                 $local.plans[i].duration = 1;
             }
-        }
+        };
 
         /**
          * create a new plan
@@ -78,7 +79,7 @@ angular.module('Administration').
                 quota: 0,
                 new: true
             };
-        }
+        };
 
         /**
          * delete a plan
@@ -93,7 +94,7 @@ angular.module('Administration').
                     $local.plans = plans;
                 });
             });
-        }
+        };
 
         /**
          * create or update the current plan in database
@@ -102,16 +103,16 @@ angular.module('Administration').
         $local.save = function(isValid) {
             if(isValid)
                 if($local.selectedPlan.new)
-                    PlanFactory($scope, {local: $local}).create($local.selectedPlan)
+                    PlanFactory($scope, {local: $local}).create($local.selectedPlan);
                 else
                     PlanFactory($scope, {local: $local}).edit($local.selectedPlan, function() {
                         PlanFactory($scope).getAllPlans(function(error, plans) {
                             $local.plans = plans;
                         });
-                    })
-        }
+                    });
+        };
 
 		$scope.toString = function() {
 			return 'PlanAdministration';
-		}
-	}])
+		};
+	}]);

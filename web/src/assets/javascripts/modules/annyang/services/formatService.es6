@@ -16,7 +16,7 @@ angular.module('Annyang').
         	if(string.slice(-1) == 's')
         		string = string.slice(0, -1);
         	return string;
-        }
+        };
 
         /**
          * remove all accent in a string
@@ -35,7 +35,7 @@ angular.module('Annyang').
             .replace(/œ/g,'oe')
             .replace(/[ùúûü]/g,'u')
             .replace(/[ýÿ]/g,'y');
-        }
+        };
 
         /**
          * remove all special character from a string
@@ -47,7 +47,7 @@ angular.module('Annyang').
             .replace(/_/g,'')
             .replace(/'/g,'')
             .replace(/"/g,'');
-        }
+        };
 
         /**
          * remove the extension of the string
@@ -60,7 +60,7 @@ angular.module('Annyang').
             if(itemName.length !== 1 && (itemName[0] !== "" || itemName.length !== 2) )
                 extension = itemName.pop();
             return nameOnly = itemName.join('.');
-        }
+        };
 
         /**
          * call all formatting method
@@ -68,7 +68,7 @@ angular.module('Annyang').
          */
         prototype.baseFormat = function(string) {
             return prototype.specialChars(prototype.accents(prototype.plurals(prototype.base(string))));
-        }
+        };
 
         return prototype;
     });

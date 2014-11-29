@@ -15,9 +15,9 @@ angular.module('Overlay').
 		$local.clickout = function() {
 			$local.activated = false;
 			$scope.$broadcast('hide');
-		}
+		};
 
 		$scope.toString = function() {
 			return 'Overlay';
-		}
-	}])
+		};
+	}]);

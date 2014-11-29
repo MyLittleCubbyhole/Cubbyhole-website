@@ -16,11 +16,11 @@ angular.module('FileManager').
 				 */
 				$scope.$on('start_post_download', function() {
 					$local.download();
-				})
+				});
 
 				$scope.toString = function() {
 					return '_formPostDownloader';
-				}
+				};
 			}],
 			template:
 				'<form target={{_formPostDownloader.target}} action="{{_formPostDownloader.url}}" method="POST" form-post-downloader >'
@@ -38,7 +38,7 @@ angular.module('FileManager').
 					angular.element('#downloadIFrame').remove();
 					angular.element('body').append(template);
 					$node.submit();
-				}
+				};
 			}
 		};
 	});

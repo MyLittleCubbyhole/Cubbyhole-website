@@ -10,7 +10,7 @@ angular.module('Tools').
 			+	    '<h5>{{alert.subtitle}}</h5>'
 			+	    '<i class="icon-times" ng-click="_boxalert.close(alert.index);"></i>'
 			+	'</article>',
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._boxalert = {}
 				,	self = this;
 				$local.alerts = {};
@@ -25,12 +25,12 @@ angular.module('Tools').
 
 					$timeout.cancel($local.alerts[index].promise);
 					delete $local.alerts[index];
-				}
+				};
 
 				$scope.toString = function() {
 					return '_boxalert';
-				}
-			},
+				};
+			}],
 			link: function($scope, $node, attributes) {
 				if(!attributes.boxalert)
 					throw 'a model must be defined';
@@ -68,7 +68,7 @@ angular.module('Tools').
 
 					$local.alerts[index] = alert;
 					pop(index);
-				})
+				});
 
 				/**
 				 * start the alert deletion

@@ -34,7 +34,7 @@ angular.module('Account').
         $local.save = function(isValid) {
             $local.isFormSubmited = true;
             if(isValid) {
-                if(($local.user.newPassword === undefined || $local.user.newPassword === '') || ($local.user.newPassword !== undefined && $local.user.newPassword !== '' && $local.user.newPassword == $local.user.newPassword2)) {
+                if(($local.user.newPassword === undefined || $local.user.newPassword === '') || ($local.user.newPassword !== undefined && $local.user.newPassword !== '' && $local.user.newPassword === $local.user.newPassword2)) {
                     $local.errorNewPasswordMatch = false;
 
                     delete($local.user.newPassword2);
@@ -63,5 +63,5 @@ angular.module('Account').
 
 		$scope.toString = function() {
 			return 'Configuration';
-		}
-	}])
+		};
+	}]);

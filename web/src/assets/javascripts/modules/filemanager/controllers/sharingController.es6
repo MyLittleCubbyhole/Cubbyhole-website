@@ -2,7 +2,7 @@ angular.module('FileManager').
     controller('SharingController', ['$scope', 'apiUrl', 'UserFactory', 'SharingFactory', function($scope, apiUrl, UserFactory, SharingFactory) {
         var $local = $scope.Sharing = {};
 
-        $local.email = "";
+        $local.email = '';
         $local.shared = false;
 
         /**
@@ -21,10 +21,10 @@ angular.module('FileManager').
          * @param {Object} event Event
          */
         $local.addUser = function(event) {
-            if((!event || event.keyCode == 13) && ($local.email !== undefined && $local.email !== '')) {
+            if((!event || event.keyCode === 13) && ($local.email !== undefined && $local.email !== '')) {
                 var present = false;
                 for(var i = 0; i < $scope.FileManager.selectedItems[0].usersActualSharing.length; i++)
-                    if($scope.FileManager.selectedItems[0].usersActualSharing[i].email == $local.email)
+                    if($scope.FileManager.selectedItems[0].usersActualSharing[i].email === $local.email)
                         present = true;
 
                 if(!present)
@@ -39,12 +39,12 @@ angular.module('FileManager').
                             $scope.FileManager.selectedItems[0].usersActualSharing.push(userData);
                         }
 
-                        $local.email = "";
+                        $local.email = '';
                     });
                 else
-                    $local.email = "";
+                    $local.email = '';
             }
-        }
+        };
 
         /**
          * update the sharing of the selected item
@@ -58,7 +58,7 @@ angular.module('FileManager').
                     for(var i = 0; i < $scope.FileManager.selectedItems[0].usersActualSharing.length; i++) {
                         var updateOrCreate = true;
                         for(var j = 0; j < $scope.FileManager.selectedItems[0].usersWebserviceSharing.length; j++) {
-                            if($scope.FileManager.selectedItems[0].usersActualSharing[i].email == $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].email && $scope.FileManager.selectedItems[0].usersActualSharing[i].right == $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].right)
+                            if($scope.FileManager.selectedItems[0].usersActualSharing[i].email === $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].email && $scope.FileManager.selectedItems[0].usersActualSharing[i].right == $scope.FileManager.selectedItems[0].usersWebserviceSharing[j].right)
                                 updateOrCreate = false;
                         }
 
@@ -70,13 +70,13 @@ angular.module('FileManager').
                                 }
                                 else
                                     $scope.FileManager.addInfo('Folder shared', 'Folder shared with ' + data.targetEmail);
-                            })
+                            });
                     }
                     $scope.FileManager.selectedItems[0].usersToRemove = [];
                     $scope.FileManager.selectedItems[0].usersWebserviceSharing = [];
                     _.merge($scope.FileManager.selectedItems[0].usersWebserviceSharing, $scope.FileManager.selectedItems[0].usersActualSharing);
                     $local.shared = true;
-                }
+                };
 
                 if(length>0)
                     for(var i = 0 ; i < $scope.FileManager.selectedItems[0].usersToRemove.length; i++) {
@@ -93,13 +93,13 @@ angular.module('FileManager').
                             if(index > -1)
                                 $scope.FileManager.selectedItems[0].usersWebserviceSharing.slice(index, 1);
                             --length <= 0 && callback();
-                        })
+                        });
                     }
                 else
                     callback();
 
             }
-        }
+        };
 
         /**
          * remove a user from the current sharing item
@@ -110,7 +110,7 @@ angular.module('FileManager').
             var index = $scope.FileManager.selectedItems[0].usersActualSharing.indexOf(user);
             if(index > -1)
                 $scope.FileManager.selectedItems[0].usersActualSharing.splice(index, 1);
-        }
+        };
 
         $scope.toString = function() {
             return 'Sharing';

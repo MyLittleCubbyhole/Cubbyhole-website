@@ -2,7 +2,7 @@ angular.module('Tools').
 	directive('formFileUpload', ['$compile', 'WebsocketFactory', 'UserFactory', 'UploaderFactory', function($compile, WebsocketFactory, UserFactory, UploaderFactory){
 		return {
 			scope: true,
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._formFileUpload = {}
 				,	self = this;
 
@@ -11,7 +11,6 @@ angular.module('Tools').
 				self.$target = null;
 				self.fileReaders = {};
 				self.files = {};
-				self.path;
 
 				/**
 				 * read image and add it as a background image
@@ -20,11 +19,11 @@ angular.module('Tools').
 				self.readImage = function(file) {
 					var fileReaders = new FileReader();
 					fileReaders.onload = function(event){
-						self.$target.css({ "background-image":"url("+ event.target.result +")" });
+						self.$target.css({ 'background-image':'url('+ event.target.result +')' });
 						self.$target.addClass('form-file-preview');
-					}
+					};
                     fileReaders.readAsDataURL(file);
-				}
+				};
 
 				/**
 				 * update the user photo
@@ -39,7 +38,7 @@ angular.module('Tools').
 					user = localStorage.getItem('user');
 					if(!user) {
 						user = sessionStorage.getItem('user');
-						local = true
+						local = true;
 					}
 
 					if(user) {
@@ -51,12 +50,12 @@ angular.module('Tools').
                             localStorage.setItem('user', JSON.stringify(user));
 					}
 
-				}
+				};
 
 				$scope.toString = function() {
 					return '_formFileUpload';
-				}
-			},
+				};
+			}],
 			require: 'formFileUpload',
 			restrict: 'A',
 			link: function($scope, $node, attributes, self) {
@@ -101,9 +100,9 @@ angular.module('Tools').
 
 						self.fileReaders[id].onload = function(event){
 
-							var data = event.target.result
+							var data = event.target.result;
 							socket.emit('upload', { data: data, name: self.files[id].name, id: id });
-						}
+						};
 
 						socket.emit('upload_init', formFile);
 					}

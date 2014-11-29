@@ -2,7 +2,7 @@ angular.module('FileManager').
 	directive('item', ['ItemFactory', 'AnnyangFormatService', function(ItemFactory, AnnyangFormatService){
 		return {
 			scope: true,
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				var $local = $scope._item = {}
 				,	self = this;
 
@@ -18,7 +18,7 @@ angular.module('FileManager').
 				$scope.$on('unselect', function(scope, callback) {
 					$local.selected = false;
 					callback && callback.call(this);
-				})
+				});
 
 				/**
 				 * LISTENER - VOCAL - start the preview item 
@@ -32,14 +32,14 @@ angular.module('FileManager').
 						$local.preview({ctrlKey : false});
 
 					callback && callback.call(this);
-				})
+				});
 
 				/**
 				 * LISTENER - rename the current item
 				 */
 				$scope.$on('rename_item', function() {
 					$local.rename();
-				})
+				});
 
 				/**
 				 * LISTENER - select the current item
@@ -49,7 +49,7 @@ angular.module('FileManager').
 				$scope.$on('select', function(scope, callback) {
 					$local.select({ctrlKey : true});
 					callback && callback.call(this);
-				})
+				});
 
 				/**
 				 * LISTENER - VOCAL - select the current item
@@ -63,7 +63,7 @@ angular.module('FileManager').
 						$local.select({ctrlKey : true});
 
 					callback && callback.call(this);
-				})
+				});
 
 				/**
 				 * LISTENER - unselect the current item
@@ -77,14 +77,14 @@ angular.module('FileManager').
 						$local.select({ctrlKey : true});
 
 					callback && callback.call(this);
-				})
+				});
 
 				/**
 				 * LISTENER - cancel the edit mode
 				 */
 				$scope.$on('cancel_edit', function() {
 					$local.cancelEdit();
-				})
+				});
 
 				/**
 				 * LISTENER - open the selected folder
@@ -104,7 +104,7 @@ angular.module('FileManager').
 				 * @param  {boolean} like  
 				 */
 				$scope.$on('open_parent_folder', function() {
-					if($local.item._id == '. .')
+					if($local.item._id === '. .')
 						$local.open();
 				});
 
@@ -112,12 +112,11 @@ angular.module('FileManager').
 				 * open the current item
 				 */
 				$local.open = function() {
-					if($local.item.category != 'folder')
-						$local.download()
+					if($local.item.category !== 'folder')
+						$local.download();
 					else {
 						$scope.FileManager.preview(false);
 						ItemFactory($scope, {local: $scope.FileManager}).load($local.item);
-						// ItemFactory($scope, {local: $scope.FileManager}).load($local.item.getFullPath(), $local.item.ownerId);
 					}
 				};
 
@@ -149,12 +148,12 @@ angular.module('FileManager').
 				 */
 				$local.validEdit = function(event) {
 					var keyCode = event ? event.keyCode : -1;
-					if(keyCode == 13 || keyCode == -1) {
+					if(keyCode === 13 || keyCode === -1) {
 						$local.item.editMode = false;
 						var newName = $local.item.name;
 						$local.item.name = $local.oldName;
 						var fullpath = $local.item.ownerId.toString() + $local.item.getFullPath();
-						if(newName != '' && newName.indexOf('/') == -1 && newName.indexOf('\\') == -1) {
+						if(newName !== '' && newName.indexOf('/') === -1 && newName.indexOf('\\') === -1) {
 
 							if(!ItemFactory($scope, {local: $scope.FileManager}).checkNameExists(newName)) {
 								$local.item.name = newName;
@@ -190,7 +189,7 @@ angular.module('FileManager').
 						$scope.FileManager.selectedItems.push($local.item);
 					else
 						for(var i = 0; i<$scope.FileManager.selectedItems.length; i++)
-							if($scope.FileManager.selectedItems[i].name == $local.item.name) {
+							if($scope.FileManager.selectedItems[i].name === $local.item.name) {
 								$scope.FileManager.selectedItems.splice(i,1);
 								break;
 							}
@@ -217,7 +216,7 @@ angular.module('FileManager').
 				$scope.toString = function() {
 					return '_item';
 				};
-			},
+			}],
 			require: 'item',
 			restrict: 'A',
 			link: function($scope, $node, attributes, self) {

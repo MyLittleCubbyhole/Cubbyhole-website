@@ -46,9 +46,9 @@ angular.module('Tools').
 		 * @param  {Object} data item informations
 		 */
 		socket.on('upload_stopped', function(data){
-			console.error("upload stopped - " + data.error);
-			if(files[data.id].context.entity.toString() == 'File') {
-				files[data.id].context.entity.todelete = true
+			console.error('upload stopped - ' + data.error);
+			if(files[data.id].context.entity.toString() === 'File') {
+				files[data.id].context.entity.todelete = true;
 				files[data.id].context.entity.remove();
 			}
 			else
@@ -72,8 +72,6 @@ angular.module('Tools').
 			,	entity = context.entity || {}
 			,	controller = context.controller || {};
 
-			var prototype = {};
-
 			/**
 			 * add a new upload action
 			 * @param {integer} id   upload id
@@ -81,8 +79,8 @@ angular.module('Tools').
 			 */
 			prototype.add = function(id, file) {
 				files[id] = { data: file, context: { $local: $local, $scope: $scope, controller: controller, entity: entity } };
-			}
+			};
 
 			return prototype;
 		};
-	}])
+	}]);

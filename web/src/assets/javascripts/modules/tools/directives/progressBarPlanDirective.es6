@@ -27,7 +27,7 @@ angular.module('Tools').
 					$local.value += (date.getMonth() + (date.getYear() - 70) * 12) + 'M - ';
 				if(date.getDate() - 1)
 					$local.value += (date.getDate() - 1) + 'D - ';
-				$local.value += new Date(remaining).getHours() + 'h'
+				$local.value += new Date(remaining).getHours() + 'h';
 
 				$node.css('background-color', bgColor);
 				$node.find('.value').css('color', color);
@@ -49,7 +49,7 @@ angular.module('Tools').
 							$local.value += (date.getMonth() + (date.getYear() - 70) * 12) + 'M - ';
 						if(date.getDate() - 1)
 							$local.value += (date.getDate() - 1) + 'D - ';
-						$local.value += new Date(remaining).getHours() + 'h'
+						$local.value += new Date(remaining).getHours() + 'h';
 
 						$node.find('.progress-bar-value').css({
 							'width': percent+'%',
@@ -63,11 +63,11 @@ angular.module('Tools').
 						$local.value = 'unlimited';
 					}
 
-				})
+				});
 
 				$scope.toString = function() {
 					return '_loadingBar';
-				}
+				};
 			}
 		};
 	}]);

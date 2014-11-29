@@ -27,7 +27,7 @@ angular.module('Tools').
 				 */
 				$scope.$watch('Preview.totalSize', function() {
 					total = $scope.Preview.totalSize;
-				})
+				});
 
 				/**
 				 * update the current value of the progress bar
@@ -39,12 +39,12 @@ angular.module('Tools').
 						'width': percent+'%',
 						'background-color': barColor
 					});
-				})
+				});
 
 
 				$scope.toString = function() {
 					return '_loadingBar';
-				}
+				};
 			}
 		};
 	}]);
