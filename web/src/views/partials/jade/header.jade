@@ -33,9 +33,9 @@ header(ng-class="{ preventClick: Overlay.activated }")
 							span.user-icon.icon-user
 						article.user-nav-options(ng-click="Navigation.goto('/account#infos')")
 							span.user-icon.icon-bars
-						article.user-nav-options(ng-click="Navigation.goto('/account#plans')", ng-if="Authentication.user.roleid == 1")
+						article.user-nav-options(ng-click="Navigation.goto('/account#plans')", ng-if="Authentication.user.roleId == 1")
 							span.user-icon.icon-credit-card
-						article.user-nav-options(ng-click="Navigation.goto('/admin#')", ng-if="Authentication.user.roleid == 2")
+						article.user-nav-options(ng-click="Navigation.goto('/admin#')", ng-if="Authentication.user.roleId == 2")
 							span.user-icon.icon-equalizer
 
 					section#user-disconnect.big-font.google-font(ng-click="Authentication.logout()")

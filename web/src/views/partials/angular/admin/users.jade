@@ -12,7 +12,7 @@ section#user-management-container
 
 	section#user-management-listing(scroll-bar)
 		section#user-management-listing-content
-			section.user-management-card.animated.fadeIn(ng-repeat="user in UserAdministration.users track by $index | filter: {email: UserAdministration.filter.search, roleid: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}")
+			section.user-management-card.animated.fadeIn(ng-repeat="user in UserAdministration.users track by $index | filter: {email: UserAdministration.filter.search, roleId: (UserAdministration.filter.admin ? (UserAdministration.filter.user ? '' : 2) : (UserAdministration.filter.user ? 1 : ''))}")
 				article.user-picture
 					article.border-circle-blue
 						article.img-circle.image-target(ng-style="{'background-image': 'url({{user.image}})'}", ng-class="{'form-file-preview': user.photo && user.photo != 'null'}")
@@ -24,7 +24,7 @@ section#user-management-container
 
 				section.role
 					label.form
-						select(ng-if="UserAdministration.user.id != user.id", ng-model="user.roleid", ui-select2="{minimumResultsForSearch: -1}", ng-change="UserAdministration.applyRole(user);")
+						select(ng-if="UserAdministration.user.id != user.id", ng-model="user.roleId", ui-select2="{minimumResultsForSearch: -1}", ng-change="UserAdministration.applyRole(user);")
 							option(value="2") ADMINISTRATOR
 							option(value="1") USER
 						label.label-role(ng-if="UserAdministration.user.id == user.id") {{UserAdministration.user.role}}
