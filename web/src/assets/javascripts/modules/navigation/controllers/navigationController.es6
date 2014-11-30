@@ -43,7 +43,6 @@ angular.module('Navigation').
 		$local.scrollTo = function($node, $container) {
 			$container = $container || $document;
 			$container.scrollToElement($node, 0, 1000).then(function() {
-				console && console.log('You just scrolled to the top!');
 			});
 		};
 

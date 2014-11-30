@@ -17,5 +17,5 @@ module.exports = Routing;
 
 	function declare(router) {
 		router.get('/paypal/config', this.controllers.configuration.get.paypal);
-		router.get('/formRegister/config', this.controllers.configuration.get.paypal);
+		router.get('/formRegister/config', this.controllers.configuration.get.formRegisterUrl);
 	}
