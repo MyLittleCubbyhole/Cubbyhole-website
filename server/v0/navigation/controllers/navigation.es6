@@ -2,12 +2,6 @@
 
 	var Controller = require('kanto-patterns').controller.clone();
 
-/*Service requiring*/
-
-	var webUrl = global.config.web.protocol + '://' + global.config.web.host + ':' + global.config.web.port + '/',
-	    webserviceUrl = global.config.webservice.protocol + '://' + global.config.webservice.host + ':' + global.config.webservice.port + '/',
-	    webserviceUrlLocal = global.config.webserviceLocal.protocol + '://' + global.config.webserviceLocal.host + ':' + global.config.webserviceLocal.port + '/';
-
 /*Attributes definitions*/
 
 	Controller._name = 'Navigation';
@@ -38,13 +32,7 @@ module.exports = Controller;
 	}
 
 	function getIndex(request, response) {
-		response.render('modules/home/home', {
-			formRegisterUrl: webserviceUrl +
-				'api/users?redirectSuccess=' +
-				encodeURIComponent(webUrl + 'home#login') +
-				'&redirectError=' +
-				encodeURIComponent(webUrl + 'home#register?error')
-		});
+		response.render('modules/home/home');
 	}
 
 	function getAccount(request, response) {

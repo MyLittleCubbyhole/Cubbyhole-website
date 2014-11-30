@@ -7,7 +7,7 @@ section#modal-register.md-modal.md-effect-1.google-font(ng-controller="RegisterC
 				i.close-icon.icon-cross(ng-click="_modal.close()")
 
 				section.register-container.scroll-bar-container(scroll-bar="scroll-bar")
-					form#form-register.form(name="form", method="POST", action="#{formRegisterUrl}", enctype="multipart/form-data", novalidate="novalidate")
+					form#form-register.form(name="form", method="POST", action="window.__formRegister.url", enctype="multipart/form-data", novalidate="novalidate")
 						header SIGN IN
 
 						article.user-picture
