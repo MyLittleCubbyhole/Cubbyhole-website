@@ -1,1 +1,0 @@
-angular.module('FileManager', ['Tools', 'Websocket', 'Authentication', 'ngClipboard', 'Annyang']);

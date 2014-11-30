@@ -1,1 +1,0 @@
-angular.module('Tools', ['Websocket', 'ui.select2']);
